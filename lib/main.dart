@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:g_worker_app/jobs/job_list_screen.dart';
 import 'package:g_worker_app/splash_screen.dart';
 
 void main() {
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           appBarTheme:
               const AppBarTheme(iconTheme: IconThemeData(color: Colors.black))),
-      home: const SplashScreen(),
+      home: const JobListScreen(),
     );
   }
 }

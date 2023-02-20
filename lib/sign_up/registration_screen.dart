@@ -33,7 +33,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       child: Scaffold(
           backgroundColor: const Color(0xfff2f2f2),
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.13),
+            preferredSize:
+                Size.fromHeight(MediaQuery.of(context).size.height * 0.13),
             child: AppBar(
               centerTitle: true,
               automaticallyImplyLeading: false,
@@ -140,6 +141,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         max: 5,
                         current: currentPage.toDouble(),
                         color: primaryColor,
+                        bgColor: whiteF2F,
                       )),
                     ],
                   ),
@@ -151,8 +153,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                            const HomeScreen()),
+                            builder: (context) => const HomeScreen()),
                       );
                     } else {
                       controller.nextPage(
@@ -181,10 +182,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         const SizedBox(
                           width: 8,
                         ),
-                        Icon(
-                            currentPage > 5
-                                ? Icons.done
-                                : Icons.arrow_forward,
+                        Icon(currentPage > 5 ? Icons.done : Icons.arrow_forward,
                             color: Colors.white)
                       ],
                     )),
@@ -205,8 +203,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              const Icon(Icons.arrow_back,
-                                  color: Colors.black),
+                              const Icon(Icons.arrow_back, color: Colors.black),
                               const SizedBox(
                                 width: 8,
                               ),
