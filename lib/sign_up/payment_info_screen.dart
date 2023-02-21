@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:g_worker_app/common/common_input_fields.dart';
 
 class PaymentInfoScreen extends StatelessWidget {
   const PaymentInfoScreen({super.key});
@@ -10,30 +11,19 @@ class PaymentInfoScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.only(bottom: 20),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12),
             child: Text(
               'Payment Method',
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.headline1,
             ),
           ),
-          const Text('Add payment method for your account',
-              style: TextStyle(fontSize: 16)),
-          const SizedBox(height: 20),
-          Container(
-            height: 60,
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(16)),
-            child: TextField(
-                style: const TextStyle(fontSize: 18),
-                keyboardType: TextInputType.name,
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    icon: const Icon(Icons.person_outline_outlined),
-                    labelText: 'Card Holder'.toUpperCase())),
-          ),
+          Text('Add payment method for your account',
+              style: Theme.of(context).textTheme.bodyText2),
+          const SizedBox(height: 40),
+          nameTextField(
+              label: 'card holder',
+              asset: 'assets/icons/ic_user_firstname.png'),
           const SizedBox(height: 20),
           Container(
             height: 60,
@@ -45,9 +35,7 @@ class PaymentInfoScreen extends StatelessWidget {
                 keyboardType: TextInputType.number,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 decoration: InputDecoration(
-                    border: InputBorder.none,
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    icon: const Icon(Icons.credit_card),
+                    icon: Image.asset('assets/icons/ic_credit_card_shield.png'),
                     labelText: 'Card Number'.toUpperCase())),
           ),
           const SizedBox(height: 20),
@@ -68,8 +56,7 @@ class PaymentInfoScreen extends StatelessWidget {
                           hintText: 'dd/mm',
                           hintStyle: const TextStyle(
                               fontSize: 18, color: Colors.black12),
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                          icon: const Icon(Icons.calendar_today_outlined),
+                          icon: Image.asset('assets/icons/ic_calendar_minus.png'),
                           labelText: 'Expire Date'.toUpperCase())),
                 ),
               ),
@@ -90,7 +77,7 @@ class PaymentInfoScreen extends StatelessWidget {
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           floatingLabelBehavior: FloatingLabelBehavior.always,
-                          icon: const Icon(Icons.lock_open_outlined),
+                          icon: Image.asset('assets/icons/ic_lock_unlocked.png'),
                           labelText: 'CVV'.toUpperCase())),
                 ),
               ),

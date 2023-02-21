@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:g_worker_app/jobs/job_list_screen.dart';
+import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/splash_screen.dart';
-
-import 'home_page/home_screen.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -21,11 +19,81 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'g.work',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          primarySwatch: Colors.blue,
-          appBarTheme: const AppBarTheme(iconTheme: IconThemeData(color: Colors.black))),
+        scaffoldBackgroundColor: whiteF2F,
+        primaryColor: primaryColor,
+        inputDecorationTheme: const InputDecorationTheme(
+          border: InputBorder.none,
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          helperStyle: TextStyle(
+              fontSize: 14,
+              fontFamily: 'Manrope',
+              fontWeight: FontWeight.w500,
+              color: primaryColor),
+          labelStyle: TextStyle(
+              fontSize: 14,
+              fontFamily: 'Satoshi',
+              fontWeight: FontWeight.w700,
+              color: labelColor),
+        ),
+        appBarTheme: const AppBarTheme(
+            centerTitle: true,
+            iconTheme: IconThemeData(color: primaryColor),
+            color: whiteF2F),
+        textTheme: const TextTheme(
+          // for all headings
+          headline1: TextStyle(
+              fontSize: 32,
+              fontFamily: 'Satoshi',
+              fontWeight: FontWeight.w700,
+              color: primaryColor),
+          // for dialog header
+          headline2: TextStyle(
+              fontSize: 24,
+              fontFamily: 'Manrope',
+              fontWeight: FontWeight.w700,
+              color: primaryColor),
+          // for appbar title
+          headline3: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
+              fontFamily: 'Satoshi',
+              color: primaryColor),
+          // for login page tags
+          subtitle1: TextStyle(
+              fontSize: 16,
+              fontFamily: 'Manrope',
+              fontWeight: FontWeight.w500,
+              color: Color(0xff19201A)),
+          // for notification
+          subtitle2: TextStyle(
+              fontSize: 14.0,
+              fontFamily: 'Manrope',
+              fontWeight: FontWeight.w500,
+              color: Colors.white),
+          bodyText1: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
+          // for description and input field
+          bodyText2: TextStyle(
+              fontSize: 14,
+              fontFamily: 'Manrope',
+              fontWeight: FontWeight.w500,
+              color: primaryColor),
+          // all fields label
+          caption: TextStyle(
+              fontSize: 12,
+              fontFamily: 'Satoshi',
+              fontWeight: FontWeight.w700,
+              color: primaryColor),
+          // button text
+          button: TextStyle(
+              fontSize: 16,
+              fontFamily: 'Satoshi',
+              fontWeight: FontWeight.w700,
+              color: Colors.white),
+        ),
+      ),
       home: const SplashScreen(),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
+import 'package:g_worker_app/common/common_buttons.dart';
 import 'package:g_worker_app/sign_in/sign_in_sign_up_screen.dart';
 
 class OTPExitPopup extends StatelessWidget {
@@ -31,65 +32,35 @@ class OTPExitPopup extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 12),
           child: Text('you will need to ask for another OTP'),
         ),
-        const SizedBox(height: 20,),
-        GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Container(
-            height: 60,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16), color: primaryColor),
-            child: Center(
-                child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Stay Here'.toUpperCase(),
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      fontSize: 18),
-                ),
-                const SizedBox(
-                  width: 8,
-                ),
-                const Icon(Icons.arrow_circle_down_outlined,
-                    color: Colors.white)
-              ],
-            )),
-          ),
+        const SizedBox(
+          height: 20,
         ),
-        const SizedBox(height: 10,),
-        GestureDetector(
-          onTap: () {
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const SignInSignUpScreen()),
-                    (Route<dynamic> route) => false);
-          },
-          child: Container(
-            height: 60,
-            child: Center(
-                child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Go Back'.toUpperCase(),
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red,
-                      fontSize: 18),
-                ),
-                const SizedBox(
-                  width: 8,
-                ),
-                const Icon(Icons.subdirectory_arrow_left_outlined, color: Colors.red)
-              ],
-            )),
-          ),
-        )
+        submitButton(
+            onButtonTap: () {
+              Navigator.pop(context);
+            },
+            context: context,
+            backgroundColor: primaryColor,
+            buttonName: 'Stay Here',
+            icon: const Icon(Icons.arrow_circle_down_outlined,
+                color: Colors.white)),
+        const SizedBox(
+          height: 10,
+        ),
+        submitButton(
+            onButtonTap: () {
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SignInSignUpScreen()),
+                  (Route<dynamic> route) => false);
+            },
+            context: context,
+            backgroundColor: Colors.transparent,
+            buttonName: 'Go Back',
+            textColor: Colors.red,
+            icon: const Icon(Icons.subdirectory_arrow_left_outlined,
+                color: Colors.red)),
       ],
     );
   }

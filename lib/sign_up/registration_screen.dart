@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:g_worker_app/CommonWidgets.dart';
+
 import 'package:g_worker_app/home_page/home_screen.dart';
 import 'package:g_worker_app/sign_up/payment_info_screen.dart';
 import 'package:g_worker_app/sign_up/personal_info_screen.dart';
@@ -9,6 +9,8 @@ import 'package:g_worker_app/sign_up/select_service_screen.dart';
 import 'package:g_worker_app/sign_up/set_password_screen.dart';
 
 import '../colors.dart';
+import '../common/common_buttons.dart';
+import '../common/common_widgets.dart';
 import '../custom_progress_bar.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -146,115 +148,30 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     ],
                   ),
                 ),
-          currentPage == 1 || currentPage > 5
-              ? GestureDetector(
-                  onTap: () {
-                    if (currentPage > 5) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const HomeScreen()),
-                      );
-                    } else {
-                      controller.nextPage(
-                          duration: const Duration(milliseconds: 200),
-                          curve: Curves.easeIn);
-                    }
-                  },
-                  child: Container(
-                    height: 60,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        color: primaryColor),
-                    child: Center(
-                        child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          currentPage > 5
-                              ? 'Accept'.toUpperCase()
-                              : 'Next Step'.toUpperCase(),
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontSize: 18),
-                        ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        Icon(currentPage > 5 ? Icons.done : Icons.arrow_forward,
-                            color: Colors.white)
-                      ],
-                    )),
-                  ),
-                )
-              : Row(
-                  children: [
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          controller.previousPage(
-                              duration: const Duration(milliseconds: 200),
-                              curve: Curves.easeIn);
-                        },
-                        child: SizedBox(
-                          height: 60,
-                          child: Center(
-                              child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const Icon(Icons.arrow_back, color: Colors.black),
-                              const SizedBox(
-                                width: 8,
-                              ),
-                              Text(
-                                'Previous Step'.toUpperCase(),
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                    fontSize: 18),
-                              ),
-                            ],
-                          )),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          controller.nextPage(
-                              duration: const Duration(milliseconds: 100),
-                              curve: Curves.easeIn);
-                        },
-                        child: Container(
-                          height: 60,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16),
-                              color: primaryColor),
-                          child: Center(
-                              child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                'Next Step'.toUpperCase(),
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                    fontSize: 18),
-                              ),
-                              const SizedBox(
-                                width: 8,
-                              ),
-                              const Icon(Icons.arrow_forward,
-                                  color: Colors.white)
-                            ],
-                          )),
-                        ),
-                      ),
-                    ),
-                  ],
-                )
+          previousAndNextButtons(
+              context: context,
+              onPreviousTap: () {
+                controller.previousPage(
+                    duration: const Duration(milliseconds: 200),
+                    curve: Curves.easeIn);
+              },
+              onNextTap: () {
+                if (currentPage > 5) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const HomeScreen()),
+                  );
+                } else {
+                  controller.nextPage(
+                      duration: const Duration(milliseconds: 200),
+                      curve: Curves.easeIn);
+                }
+              },
+              nextButtonName: currentPage > 5 ? 'Accept' : 'Next Step',
+              nextButtonIcon: Icon(
+                  currentPage > 5 ? Icons.done : Icons.arrow_forward,
+                  color: Colors.white),
+              showPrevious: currentPage != 1 && currentPage <= 5),
         ],
       ),
     );

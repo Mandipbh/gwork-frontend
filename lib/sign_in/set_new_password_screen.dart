@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:g_worker_app/CommonWidgets.dart';
 import 'package:g_worker_app/home_page/home_screen.dart';
-import 'package:g_worker_app/sign_in/code_confirmation_screen.dart';
 import 'package:g_worker_app/colors.dart';
+
+import '../common/common_buttons.dart';
+import '../common/common_input_fields.dart';
+import '../common/common_widgets.dart';
 
 class SetNewPasswordScreen extends StatefulWidget {
   const SetNewPasswordScreen({super.key});
@@ -41,95 +43,36 @@ class _SetNewPasswordScreenState extends State<SetNewPasswordScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.only(bottom: 20),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
                       child: Text(
                         'Set Password',
-                        style: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold),
+                        style: Theme.of(context).textTheme.headline1,
                       ),
                     ),
-                    const Text('Choose a secure password for your account.',
-                        style: TextStyle(fontSize: 16)),
+                    Text('Choose a secure password for your account.',
+                        style: Theme.of(context).textTheme.bodyText2),
+                    const SizedBox(height: 40),
+                    passwordTextField(label: 'new password'),
                     const SizedBox(height: 20),
-                    Container(
-                      height: 60,
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(16)),
-                      child: TextField(
-                          obscureText: true,
-                          obscuringCharacter: '*',
-                          style: const TextStyle(fontSize: 18),
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              floatingLabelBehavior:
-                                  FloatingLabelBehavior.always,
-                              suffixIcon:
-                                  const Icon(Icons.remove_red_eye_outlined),
-                              icon: const Icon(Icons.lock_outline),
-                              labelText: 'New Password'.toUpperCase())),
-                    ),
-                    const SizedBox(height: 20),
-                    Container(
-                      height: 60,
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(16)),
-                      child: TextField(
-                          obscureText: true,
-                          obscuringCharacter: '*',
-                          style: const TextStyle(fontSize: 18),
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              floatingLabelBehavior:
-                                  FloatingLabelBehavior.always,
-                              suffixIcon:
-                                  const Icon(Icons.remove_red_eye_outlined),
-                              icon: const Icon(Icons.lock_outline),
-                              labelText: 'Confirm New Password'.toUpperCase())),
-                    ),
+                    passwordTextField(label: 'confirm password'),
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).viewInsets.bottom),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const HomeScreen()),
-                      );
-                    },
-                    child: Container(
-                      height: 60,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          color: primaryColor),
-                      child: Center(
-                          child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            'set new Password'.toUpperCase(),
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                fontSize: 18),
-                          ),
-                          const SizedBox(
-                            width: 8,
-                          ),
-                          const Icon(Icons.lock, color: Colors.white)
-                        ],
-                      )),
-                    ),
-                  ),
-                ),
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                    child: submitButton(
+                        onButtonTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HomeScreen()),
+                          );
+                        },
+                        context: context,
+                        backgroundColor: primaryColor,
+                        buttonName: 'set new Password',
+                        icon: const Icon(Icons.lock, color: Colors.white))),
               ],
             ),
           ),

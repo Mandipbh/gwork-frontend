@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/sign_in/recover_password_screen.dart';
 import 'package:g_worker_app/sign_up/registration_screen.dart';
 
+import '../common/common_buttons.dart';
+import '../common/common_input_fields.dart';
 import '../home_page/home_screen.dart';
 
 class SignInSignUpScreen extends StatefulWidget {
@@ -15,6 +18,7 @@ class SignInSignUpScreen extends StatefulWidget {
 
 class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
   bool isSignUp = false;
+  var phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -103,29 +107,13 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                height: 60,
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(16)),
-                child: TextField(
-                    style: const TextStyle(fontSize: 18),
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        icon: const Icon(Icons.phone_outlined),
-                        labelText: 'Phone Number'.toUpperCase(),
-                        prefixText: '+39')),
-              ),
+              phoneNumberTextField(),
               const SizedBox(height: 20),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.only(right: 40),
                 child: Text(
-                    "Please enter your phone number in order to sign up",
-                    style: TextStyle(fontSize: 16)),
+                    "Please enter your phone number in order\nto sign up",
+                    style: Theme.of(context).textTheme.bodyText2),
               ),
               const SizedBox(height: 20),
             ],
@@ -133,38 +121,18 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
           Padding(
             padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const RegistrationScreen()),
-                );
-              },
-              child: Container(
-                height: 60,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    color: primaryColor),
-                child: Center(
-                    child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Sign Up'.toUpperCase(),
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontSize: 18),
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    const Icon(Icons.logout, color: Colors.white)
-                  ],
-                )),
-              ),
-            ),
+            child: submitButton(
+                onButtonTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const RegistrationScreen()),
+                  );
+                },
+                context: context,
+                backgroundColor: primaryColor,
+                buttonName: 'Sign Up',
+                icon: const Icon(Icons.logout, color: Colors.white)),
           )
         ],
       ),
@@ -178,41 +146,9 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
         children: [
           Column(
             children: [
-              Container(
-                height: 60,
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(16)),
-                child: TextField(
-                    style: const TextStyle(fontSize: 18),
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        icon: const Icon(Icons.phone_outlined),
-                        labelText: 'Phone Number'.toUpperCase(),
-                        prefixText: '+39')),
-              ),
+              phoneNumberTextField(),
               const SizedBox(height: 20),
-              Container(
-                height: 60,
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(16)),
-                child: TextField(
-                    obscureText: true,
-                    obscuringCharacter: '*',
-                    style: const TextStyle(fontSize: 18),
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        suffixIcon: const Icon(Icons.remove_red_eye_outlined),
-                        icon: const Icon(Icons.lock_outline),
-                        labelText: 'Password'.toUpperCase())),
-              ),
+              passwordTextField(label: 'Password'),
               const SizedBox(height: 20),
             ],
           ),
@@ -221,71 +157,35 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                 bottom: MediaQuery.of(context).viewInsets.bottom),
             child: Column(
               children: [
-                GestureDetector(
-                  onTap:(){
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const HomeScreen()),
-                    );
-                  },
-                  child: Container(
-                    height: 60,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        color: primaryColor),
-                    child: Center(
-                        child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          'Sign In'.toUpperCase(),
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontSize: 18),
-                        ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        const Icon(Icons.logout, color: Colors.white)
-                      ],
-                    )),
-                  ),
-                ),
+                submitButton(
+                    onButtonTap: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomeScreen()),
+                      );
+                    },
+                    context: context,
+                    backgroundColor: primaryColor,
+                    buttonName: 'Sign In',
+                    icon: const Icon(Icons.logout, color: Colors.white)),
                 const SizedBox(
                   height: 16,
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const RecoverPasswordScreen()),
-                    );
-                  },
-                  child: Container(
-                    height: 60,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        color: Colors.white),
-                    child: Center(
-                        child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: const [
-                        Text('Recover Password',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                                fontSize: 18)),
-                        SizedBox(
-                          width: 8,
-                        ),
-                        Icon(Icons.key)
-                      ],
-                    )),
-                  ),
-                ),
+                submitButton(
+                    onButtonTap: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const RecoverPasswordScreen()),
+                      );
+                    },
+                    context: context,
+                    textColor: primaryColor,
+                    backgroundColor: Colors.white,
+                    buttonName: 'Recover Password',
+                    icon: const Icon(Icons.key)),
                 const SizedBox(height: 10),
               ],
             ),

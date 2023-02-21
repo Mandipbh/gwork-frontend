@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:g_worker_app/common/common_input_fields.dart';
+
 import 'package:g_worker_app/sign_in/code_confirmation_screen.dart';
 import 'package:g_worker_app/colors.dart';
+
+import '../common/common_buttons.dart';
 
 class RecoverPasswordScreen extends StatefulWidget {
   const RecoverPasswordScreen({super.key});
@@ -34,74 +38,34 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.only(bottom: 20),
-                    child: Text(
-                      'Phone number',
-                      style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                    ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: Text('Phone number',
+                        style: Theme.of(context).textTheme.headline1),
                   ),
-                  const Text(
+                  Text(
                       'Enter your phone number and we will send you an OTP code to reset your account password.',
-                      style: TextStyle(fontSize: 16)),
-                  const SizedBox(height: 20),
-                  Container(
-                    height: 60,
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16)),
-                    child: TextField(
-                        style: const TextStyle(fontSize: 18),
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            floatingLabelBehavior:FloatingLabelBehavior.always,
-                            icon: const Icon(Icons.phone_outlined),
-                            labelText: 'Phone Number'.toUpperCase(),
-                            prefixText: '+39')),
-                  ),
+                      style: Theme.of(context).textTheme.bodyText2),
+                  const SizedBox(height: 40),
+                  phoneNumberTextField(),
                 ],
               ),
               Padding(
                 padding: EdgeInsets.only(
                     bottom: MediaQuery.of(context).viewInsets.bottom),
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const CodeConfirmationScreen()),
-                    );
-                  },
-                  child: Container(
-                    height: 60,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        color: primaryColor),
-                    child: Center(
-                        child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          'Recover Password'.toUpperCase(),
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontSize: 18),
-                        ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        const Icon(Icons.key, color: Colors.white)
-                      ],
-                    )),
-                  ),
-                ),
+                child: submitButton(
+                    onButtonTap: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const CodeConfirmationScreen()),
+                      );
+                    },
+                    context: context,
+                    backgroundColor: primaryColor,
+                    buttonName: 'Recover Password',
+                    icon: const Icon(Icons.key, color: Colors.white)),
               ),
             ],
           ),

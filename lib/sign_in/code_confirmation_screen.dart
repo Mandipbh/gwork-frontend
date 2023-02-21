@@ -2,11 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:g_worker_app/common/common_buttons.dart';
+import 'package:g_worker_app/common/common_widgets.dart';
 import 'package:g_worker_app/sign_in/set_new_password_screen.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
 
-import '../CommonWidgets.dart';
 
 class CodeConfirmationScreen extends StatefulWidget {
   const CodeConfirmationScreen({super.key});
@@ -27,7 +28,7 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
     startTimer();
   }
 
-  startTimer(){
+  startTimer() {
     timer = Timer.periodic(const Duration(seconds: 1), (_) {
       print('secondsRemaining :: $secondsRemaining');
       if (secondsRemaining != 0) {
@@ -77,24 +78,23 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.only(bottom: 20),
+                     Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
                       child: Text(
                         'Code Confirmation',
-                        style: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold),
+                        style: Theme.of(context).textTheme.headline1,
                       ),
                     ),
-                    const Text(
+                     Text(
                         'Enter below the 4-digit code we just sent to +39 348 613 7727.',
-                        style: TextStyle(fontSize: 16)),
+                        style: Theme.of(context).textTheme.bodyText2),
                     const SizedBox(height: 20),
                     OTPTextField(
                         // controller: otpController,
                         length: 4,
                         width: MediaQuery.of(context).size.width,
                         textFieldAlignment: MainAxisAlignment.spaceAround,
-                        fieldWidth: MediaQuery.of(context).size.width/5,
+                        fieldWidth: MediaQuery.of(context).size.width / 5,
                         otpFieldStyle: OtpFieldStyle(
                             backgroundColor: Colors.white,
                             enabledBorderColor: Colors.white,
@@ -105,12 +105,13 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                         onChanged: (pin) {},
                         onCompleted: (pin) {
                           print("Completed: " + pin);
-                          if(pin == otp){
+                          if (pin == otp) {
                             timer.cancel();
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const SetNewPasswordScreen()),
+                                  builder: (context) =>
+                                      const SetNewPasswordScreen()),
                             );
                           }
                         })
@@ -119,38 +120,20 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                 Padding(
                   padding: EdgeInsets.only(
                       bottom: MediaQuery.of(context).viewInsets.bottom),
-                  child: InkWell(
-                    splashColor: Colors.white,
-                    onTap: enableResend ? resendOTP : null,
-                    child: SizedBox(
-                      height: 60,
-                      child: Center(
-                          child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          enableResend ? Text(
-                            'Request a new code'
-                                .toUpperCase(),
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                                fontSize: 18),
-                          ) : Text(
-                            'Request a new code (00:${secondsRemaining.toString().padLeft(2,'0')})'
-                                .toUpperCase(),
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color:  Colors.grey,
-                                fontSize: 18),
-                          ),
-                          const SizedBox(
-                            width: 8,
-                          ),
-                          Icon(Icons.send_outlined, color: enableResend ? Colors.black : Colors.grey)
-                        ],
-                      )),
-                    ),
-                  ),
+                  child: submitButton(
+                      onButtonTap: () {
+                        if (enableResend) {
+                          resendOTP();
+                        }
+                      },
+                      context: context,
+                      backgroundColor: Colors.transparent,
+                      textColor: enableResend ? Colors.black : Colors.grey,
+                      buttonName: enableResend
+                          ? 'Request a new code'
+                          : 'Request a new code (00:${secondsRemaining.toString().padLeft(2, '0')})',
+                      icon: Icon(Icons.send_outlined,
+                          color: enableResend ? Colors.black : Colors.grey)),
                 ),
               ],
             ),

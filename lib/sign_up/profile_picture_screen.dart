@@ -15,18 +15,16 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
-          padding: EdgeInsets.only(bottom: 20),
-          child: Text(
-            'Payment Method',
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-          ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 12),
+          child: Text('Profile Picture',
+              style: Theme.of(context).textTheme.headline1),
         ),
-        const Text('Add payment method for your account',
-            style: TextStyle(fontSize: 16)),
+        Text('Add payment method for your account',
+            style: Theme.of(context).textTheme.bodyText2),
         const SizedBox(height: 20),
         Center(
-          child: Container(
+          child: SizedBox(
             height: 150,
             width: 150,
             child: Stack(

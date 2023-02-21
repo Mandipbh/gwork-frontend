@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/Constants.dart';
 import 'package:g_worker_app/colors.dart';
+import 'package:g_worker_app/my_profile/my_profile_screen.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:intl/intl.dart';
 
@@ -147,6 +148,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
               ),
               GestureDetector(
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const MyProfileScreen()),
+                  );
+                },
                 child: const CircleAvatar(
                   backgroundColor: Colors.white,
                   radius: 25,
