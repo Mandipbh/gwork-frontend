@@ -24,13 +24,9 @@ class _SetNewPasswordScreenState extends State<SetNewPasswordScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          centerTitle: true,
           title: const Text(
             'Recover Password',
-            style: TextStyle(color: Colors.black),
           ),
-          backgroundColor: Colors.white,
-          elevation: 1,
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -62,17 +58,18 @@ class _SetNewPasswordScreenState extends State<SetNewPasswordScreen> {
                     padding: EdgeInsets.only(
                         bottom: MediaQuery.of(context).viewInsets.bottom),
                     child: submitButton(
-                        onButtonTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const HomeScreen()),
-                          );
-                        },
-                        context: context,
-                        backgroundColor: primaryColor,
-                        buttonName: 'set new Password',
-                        icon: const Icon(Icons.lock, color: Colors.white))),
+                      onButtonTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HomeScreen()),
+                        );
+                      },
+                      context: context,
+                      backgroundColor: primaryColor,
+                      buttonName: 'set new Password',
+                      iconAsset: 'ic_lock.png',
+                    )),
               ],
             ),
           ),

@@ -19,13 +19,9 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
         title: const Text(
           'Recover Password',
-          style: TextStyle(color: Colors.black),
         ),
-        backgroundColor: Colors.white,
-        elevation: 1,
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -54,18 +50,18 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                 padding: EdgeInsets.only(
                     bottom: MediaQuery.of(context).viewInsets.bottom),
                 child: submitButton(
-                    onButtonTap: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const CodeConfirmationScreen()),
-                      );
-                    },
-                    context: context,
-                    backgroundColor: primaryColor,
-                    buttonName: 'Recover Password',
-                    icon: const Icon(Icons.key, color: Colors.white)),
+                  onButtonTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const CodeConfirmationScreen()),
+                    );
+                  },
+                  context: context,
+                  backgroundColor: primaryColor,
+                  buttonName: 'Recover Password',
+                  iconAsset: 'ic_key.png',
+                ),
               ),
             ],
           ),

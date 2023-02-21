@@ -39,9 +39,16 @@ class MyApp extends StatelessWidget {
               color: labelColor),
         ),
         appBarTheme: const AppBarTheme(
-            centerTitle: true,
-            iconTheme: IconThemeData(color: primaryColor),
-            color: whiteF2F),
+          titleTextStyle: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
+              fontFamily: 'Satoshi',
+              color: primaryColor),
+          centerTitle: true,
+          elevation: 0.5,
+          backgroundColor: whiteF2F,
+          iconTheme: IconThemeData(color: primaryColor),
+        ),
         textTheme: const TextTheme(
           // for all headings
           headline1: TextStyle(
@@ -54,6 +61,12 @@ class MyApp extends StatelessWidget {
               fontSize: 24,
               fontFamily: 'Manrope',
               fontWeight: FontWeight.w700,
+              color: primaryColor),
+          // for labels
+          headline6: TextStyle(
+              fontSize: 12,
+              fontFamily: 'Satoshi',
+              fontWeight: FontWeight.w500,
               color: primaryColor),
           // for appbar title
           headline3: TextStyle(
@@ -93,6 +106,7 @@ class MyApp extends StatelessWidget {
               fontWeight: FontWeight.w700,
               color: Colors.white),
         ),
+        dividerTheme: const DividerThemeData(color: Color(0xffD3DCD7),thickness: 1)
       ),
       home: const SplashScreen(),
     );

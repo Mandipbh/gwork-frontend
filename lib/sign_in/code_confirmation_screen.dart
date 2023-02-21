@@ -8,7 +8,6 @@ import 'package:g_worker_app/sign_in/set_new_password_screen.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
 
-
 class CodeConfirmationScreen extends StatefulWidget {
   const CodeConfirmationScreen({super.key});
 
@@ -30,8 +29,7 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
 
   startTimer() {
     timer = Timer.periodic(const Duration(seconds: 1), (_) {
-      print('secondsRemaining :: $secondsRemaining');
-      if (secondsRemaining != 0) {
+      if (secondsRemaining > 1) {
         setState(() {
           secondsRemaining--;
         });
@@ -59,13 +57,9 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          centerTitle: true,
           title: const Text(
             'Recover Password',
-            style: TextStyle(color: Colors.black),
           ),
-          backgroundColor: Colors.white,
-          elevation: 1,
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -78,14 +72,14 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                     Padding(
+                    Padding(
                       padding: const EdgeInsets.only(bottom: 10),
                       child: Text(
                         'Code Confirmation',
                         style: Theme.of(context).textTheme.headline1,
                       ),
                     ),
-                     Text(
+                    Text(
                         'Enter below the 4-digit code we just sent to +39 348 613 7727.',
                         style: Theme.of(context).textTheme.bodyText2),
                     const SizedBox(height: 20),
@@ -121,19 +115,20 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                   padding: EdgeInsets.only(
                       bottom: MediaQuery.of(context).viewInsets.bottom),
                   child: submitButton(
-                      onButtonTap: () {
-                        if (enableResend) {
-                          resendOTP();
-                        }
-                      },
-                      context: context,
-                      backgroundColor: Colors.transparent,
-                      textColor: enableResend ? Colors.black : Colors.grey,
-                      buttonName: enableResend
-                          ? 'Request a new code'
-                          : 'Request a new code (00:${secondsRemaining.toString().padLeft(2, '0')})',
-                      icon: Icon(Icons.send_outlined,
-                          color: enableResend ? Colors.black : Colors.grey)),
+                    onButtonTap: () {
+                      if (enableResend) {
+                        resendOTP();
+                      }
+                    },
+                    context: context,
+                    backgroundColor: Colors.transparent,
+                    textColor: enableResend ? Colors.black : Colors.grey,
+                    buttonName: enableResend
+                        ? 'Request a new code'
+                        : 'Request a new code (00:${secondsRemaining.toString().padLeft(2, '0')})',
+                    iconAsset: 'ic_arrow_send.png',
+                    iconColor: enableResend ? Colors.black : Colors.grey,
+                  ),
                 ),
               ],
             ),

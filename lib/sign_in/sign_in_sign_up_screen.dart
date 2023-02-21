@@ -122,17 +122,18 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
             padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewInsets.bottom),
             child: submitButton(
-                onButtonTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const RegistrationScreen()),
-                  );
-                },
-                context: context,
-                backgroundColor: primaryColor,
-                buttonName: 'Sign Up',
-                icon: const Icon(Icons.logout, color: Colors.white)),
+              onButtonTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const RegistrationScreen()),
+                );
+              },
+              context: context,
+              backgroundColor: primaryColor,
+              buttonName: 'Sign Up',
+              iconAsset: 'ic_logout.png',
+            ),
           )
         ],
       ),
@@ -158,34 +159,35 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
             child: Column(
               children: [
                 submitButton(
-                    onButtonTap: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const HomeScreen()),
-                      );
-                    },
-                    context: context,
-                    backgroundColor: primaryColor,
-                    buttonName: 'Sign In',
-                    icon: const Icon(Icons.logout, color: Colors.white)),
+                  onButtonTap: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const HomeScreen()),
+                    );
+                  },
+                  context: context,
+                  backgroundColor: primaryColor,
+                  buttonName: 'Sign In',
+                  iconAsset: 'ic_logout.png',
+                ),
                 const SizedBox(
                   height: 16,
                 ),
                 submitButton(
-                    onButtonTap: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const RecoverPasswordScreen()),
-                      );
-                    },
-                    context: context,
-                    textColor: primaryColor,
-                    backgroundColor: Colors.white,
-                    buttonName: 'Recover Password',
-                    icon: const Icon(Icons.key)),
+                  onButtonTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const RecoverPasswordScreen()),
+                    );
+                  },
+                  context: context,
+                  textColor: primaryColor,
+                  backgroundColor: Colors.white,
+                  buttonName: 'Recover Password',
+                  iconAsset: 'ic_key.png',
+                ),
                 const SizedBox(height: 10),
               ],
             ),

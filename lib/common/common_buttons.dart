@@ -8,8 +8,9 @@ Widget submitButton(
       required Function onButtonTap,
       required Color backgroundColor,
       Color textColor = Colors.white,
+      Color iconColor = Colors.white,
       required String buttonName,
-      required Widget icon}) {
+      required String iconAsset}) {
   return InkWell(
     onTap: () => onButtonTap(),
     child: Container(
@@ -27,7 +28,7 @@ Widget submitButton(
               const SizedBox(
                 width: 8,
               ),
-              icon
+              Image.asset('assets/icons/$iconAsset',color: iconColor)
             ],
           )),
     ),
@@ -105,10 +106,30 @@ Widget previousAndNextButtons(
       ),
     ],
   )
-      : submitButton(
-      context: context,
-      onButtonTap: onNextTap,
-      backgroundColor: primaryColor,
-      buttonName: nextButtonName,
-      icon: nextButtonIcon);
+      : InkWell(
+        onTap: () => onNextTap(),
+        child: Container(
+          height: 60,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              color: primaryColor),
+          child: Center(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    nextButtonName.toUpperCase(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .button!
+                        .apply(color: Colors.white),
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  nextButtonIcon
+                ],
+              )),
+        ),
+      );
 }

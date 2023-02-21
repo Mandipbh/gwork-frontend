@@ -37,13 +37,16 @@ Widget passwordTextField({required String label}) {
 Widget nameTextField(
     {required String label,
     required String asset,
+    TextEditingController? controller,
     keyboardType = TextInputType.name}) {
+  controller ??= TextEditingController();
   return Container(
     height: 60,
     padding: const EdgeInsets.symmetric(horizontal: 8),
     decoration: BoxDecoration(
         color: Colors.white, borderRadius: BorderRadius.circular(16)),
     child: TextField(
+        controller: controller,
         style: const TextStyle(fontSize: 18),
         keyboardType: keyboardType,
         decoration: InputDecoration(

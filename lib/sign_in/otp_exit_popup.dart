@@ -36,14 +36,14 @@ class OTPExitPopup extends StatelessWidget {
           height: 20,
         ),
         submitButton(
-            onButtonTap: () {
-              Navigator.pop(context);
-            },
-            context: context,
-            backgroundColor: primaryColor,
-            buttonName: 'Stay Here',
-            icon: const Icon(Icons.arrow_circle_down_outlined,
-                color: Colors.white)),
+          onButtonTap: () {
+            Navigator.pop(context);
+          },
+          context: context,
+          backgroundColor: primaryColor,
+          buttonName: 'Stay Here',
+          iconAsset: 'ic_arrow_down.png',
+        ),
         const SizedBox(
           height: 10,
         ),
@@ -59,8 +59,8 @@ class OTPExitPopup extends StatelessWidget {
             backgroundColor: Colors.transparent,
             buttonName: 'Go Back',
             textColor: Colors.red,
-            icon: const Icon(Icons.subdirectory_arrow_left_outlined,
-                color: Colors.red)),
+            iconAsset: 'ic_arrow_back.png',
+            iconColor: Colors.red),
       ],
     );
   }
