@@ -4,7 +4,6 @@ import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/sign_in/recover_password_screen.dart';
 import 'package:g_worker_app/sign_up/registration_screen.dart';
 
-
 class SignInSignUpScreen extends StatefulWidget {
   const SignInSignUpScreen({super.key});
 
@@ -18,84 +17,80 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color(0xfff2f2f2),
-        body: SingleChildScrollView(
-          child: Container(
-            height: MediaQuery.of(context).size.height,
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 25),
-                  child: Text(
-                    'Welcome!',
-                    style:
-                        TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                  ),
+      backgroundColor: const Color(0xfff2f2f2),
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 25),
+                child: Text(
+                  'Welcome!',
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      color: Colors.white),
-                  padding: const EdgeInsets.all(4),
-                  child: Row(children: [
-                    Expanded(
-                        child: InkWell(
-                      onTap: () {
-                        setState(() {
-                          isSignUp = !isSignUp;
-                        });
-                      },
-                      child: Container(
-                          height: 50,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(14),
-                              color: isSignUp ? primaryColor : Colors.white),
-                          child: Center(
-                              child: Text(
-                            'SIGN UP',
-                            style: Theme.of(context)
-                                .textTheme
-                                .subtitle1!
-                                .apply(
-                                    color:
-                                        isSignUp ? Colors.white : primaryColor),
-                          ))),
-                    )),
-                    Expanded(
-                        child: InkWell(
-                      onTap: () {
-                        setState(() {
-                          isSignUp = !isSignUp;
-                        });
-                      },
-                      child: Container(
-                          height: 50,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(14),
-                              color: !isSignUp ? primaryColor : Colors.white),
-                          child: Center(
-                            child: Text('SIGN IN',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .subtitle1!
-                                    .apply(
-                                        color: !isSignUp
-                                            ? Colors.white
-                                            : primaryColor)),
-                          )),
-                    ))
-                  ]),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                isSignUp ? signUpView() : loginView()
-              ],
-            ),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    color: Colors.white),
+                padding: const EdgeInsets.all(4),
+                child: Row(children: [
+                  Expanded(
+                      child: InkWell(
+                    onTap: () {
+                      setState(() {
+                        isSignUp = !isSignUp;
+                      });
+                    },
+                    child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(14),
+                            color: isSignUp ? primaryColor : Colors.white),
+                        child: Center(
+                            child: Text(
+                          'SIGN UP',
+                          style: Theme.of(context).textTheme.subtitle1!.apply(
+                              color: isSignUp ? Colors.white : primaryColor),
+                        ))),
+                  )),
+                  Expanded(
+                      child: InkWell(
+                    onTap: () {
+                      setState(() {
+                        isSignUp = !isSignUp;
+                      });
+                    },
+                    child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(14),
+                            color: !isSignUp ? primaryColor : Colors.white),
+                        child: Center(
+                          child: Text('SIGN IN',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .subtitle1!
+                                  .apply(
+                                      color: !isSignUp
+                                          ? Colors.white
+                                          : primaryColor)),
+                        )),
+                  ))
+                ]),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              isSignUp ? signUpView() : loginView()
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 
   Widget signUpView() {
@@ -110,7 +105,8 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                 height: 60,
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 decoration: BoxDecoration(
-                    color: Colors.white, borderRadius: BorderRadius.circular(16)),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16)),
                 child: TextField(
                     style: const TextStyle(fontSize: 18),
                     keyboardType: TextInputType.number,
@@ -125,14 +121,16 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
               const SizedBox(height: 20),
               const Padding(
                 padding: EdgeInsets.only(right: 40),
-                child: Text("Please enter your phone number in order to sign up",style: TextStyle(fontSize: 16)),
+                child: Text(
+                    "Please enter your phone number in order to sign up",
+                    style: TextStyle(fontSize: 16)),
               ),
               const SizedBox(height: 20),
             ],
           ),
           Padding(
-            padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
             child: GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -144,24 +142,25 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
               child: Container(
                 height: 60,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16), color: primaryColor),
+                    borderRadius: BorderRadius.circular(16),
+                    color: primaryColor),
                 child: Center(
                     child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          'Sign Up'.toUpperCase(),
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontSize: 18),
-                        ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        const Icon(Icons.logout, color: Colors.white)
-                      ],
-                    )),
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Sign Up'.toUpperCase(),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 18),
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    const Icon(Icons.logout, color: Colors.white)
+                  ],
+                )),
               ),
             ),
           )
@@ -181,7 +180,8 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                 height: 60,
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 decoration: BoxDecoration(
-                    color: Colors.white, borderRadius: BorderRadius.circular(16)),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16)),
                 child: TextField(
                     style: const TextStyle(fontSize: 18),
                     keyboardType: TextInputType.number,
@@ -198,7 +198,8 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                 height: 60,
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 decoration: BoxDecoration(
-                    color: Colors.white, borderRadius: BorderRadius.circular(16)),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16)),
                 child: TextField(
                     obscureText: true,
                     obscuringCharacter: '*',
@@ -214,15 +215,16 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
             ],
           ),
           Padding(
-            padding:
-                EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
             child: Column(
               children: [
                 GestureDetector(
                   child: Container(
                     height: 60,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16), color: primaryColor),
+                        borderRadius: BorderRadius.circular(16),
+                        color: primaryColor),
                     child: Center(
                         child: Row(
                       mainAxisSize: MainAxisSize.min,

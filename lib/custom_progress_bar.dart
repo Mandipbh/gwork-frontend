@@ -4,12 +4,14 @@ class CustomProgressBar extends StatelessWidget {
   final double max;
   final double current;
   final Color color;
+  final Color bgColor;
 
   const CustomProgressBar(
       {Key? key,
-        required this.max,
-        required this.current,
-        required this.color})
+      required this.max,
+      required this.current,
+      required this.color,
+      required this.bgColor})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class CustomProgressBar extends StatelessWidget {
               width: x,
               height: 7,
               decoration: BoxDecoration(
-                color: const Color(0xfff2f2f2),
+                color: bgColor,
                 borderRadius: BorderRadius.circular(35),
               ),
             ),

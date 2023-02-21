@@ -97,8 +97,9 @@ class _SelectServiceScreenState extends State<SelectServiceScreen> {
                         child: Text(
                           'Provide Services',
                           style: TextStyle(
-                              color:
-                              !provideSelected ? Colors.white : primaryColor),
+                              color: !provideSelected
+                                  ? Colors.white
+                                  : primaryColor),
                         ),
                       ),
                     ),
@@ -473,6 +474,7 @@ Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots 
                         max: 5,
                         current: currentPage.toDouble(),
                         color: primaryColor,
+                        bgColor: whiteF2F,
                       )),
                     ],
                   ),
