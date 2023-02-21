@@ -4,6 +4,8 @@ import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/sign_in/recover_password_screen.dart';
 import 'package:g_worker_app/sign_up/registration_screen.dart';
 
+import '../home_page/home_screen.dart';
+
 class SignInSignUpScreen extends StatefulWidget {
   const SignInSignUpScreen({super.key});
 
@@ -220,6 +222,13 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
             child: Column(
               children: [
                 GestureDetector(
+                  onTap:(){
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const HomeScreen()),
+                    );
+                  },
                   child: Container(
                     height: 60,
                     decoration: BoxDecoration(

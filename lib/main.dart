@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:g_worker_app/jobs/job_list_screen.dart';
 import 'package:g_worker_app/splash_screen.dart';
 
+import 'home_page/home_screen.dart';
+
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.white,
@@ -23,9 +25,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           primarySwatch: Colors.blue,
-          appBarTheme:
-              const AppBarTheme(iconTheme: IconThemeData(color: Colors.black))),
-      home: const JobListScreen(),
+          appBarTheme: const AppBarTheme(iconTheme: IconThemeData(color: Colors.black))),
+      home: const HomeScreen(),
     );
   }
 }
