@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: Colors.blue,
           appBarTheme: const AppBarTheme(iconTheme: IconThemeData(color: Colors.black))),
-      home: const HomeScreen(),
+      home: const SplashScreen(),
     );
   }
 }
