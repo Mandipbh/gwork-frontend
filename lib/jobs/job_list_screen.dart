@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/custom_progress_bar.dart';
 
+import '../Constants.dart';
+
 class JobListScreen extends StatefulWidget {
   const JobListScreen({Key? key}) : super(key: key);
 
@@ -10,310 +12,34 @@ class JobListScreen extends StatefulWidget {
 }
 
 class _JobListScreenState extends State<JobListScreen> {
+  int selectedFilter = 1;
   bool isSelected = false;
-  int currentPage = 1;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
+          appBarView(),
           Padding(
-            padding: const EdgeInsets.only(top: 40, left: 16, right: 16),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text(
-                      'Jobs',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 32,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    CircleAvatar(
-                      backgroundColor: Colors.white,
-                      radius: 25,
-                      child: Icon(Icons.person, color: Colors.grey, size: 40),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 24),
-                Padding(
-                  padding: const EdgeInsets.only(right: 16),
-                  child: Wrap(
-                    alignment: WrapAlignment.start,
-                    runAlignment: WrapAlignment.end,
-                    spacing: 20,
-                    children: [
-                      FilterChip(
-                        label: const Text(
-                          'All jobs',
-                          style: TextStyle(
-                            color: splashColor1,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        selected: false,
-                        backgroundColor: Colors.white,
-                        onSelected: (bool value) {},
-                        padding: EdgeInsets.zero,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      FilterChip(
-                        label: const Text(
-                          'Applied',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        selected: false,
-                        backgroundColor: black343,
-                        onSelected: (bool value) {},
-                        padding: EdgeInsets.zero,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      FilterChip(
-                        label: const Text(
-                          'Accepted',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        selected: false,
-                        backgroundColor: black343,
-                        onSelected: (bool value) {},
-                        padding: EdgeInsets.zero,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      FilterChip(
-                        label: const Text(
-                          'Doing',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        selected: false,
-                        backgroundColor: black343,
-                        onSelected: (bool value) {},
-                        padding: EdgeInsets.zero,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      FilterChip(
-                        label: const Text(
-                          'Rejected',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        selected: false,
-                        backgroundColor: black343,
-                        onSelected: (bool value) {},
-                        padding: EdgeInsets.zero,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      FilterChip(
-                        label: const Text(
-                          'Completed',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        selected: false,
-                        backgroundColor: black343,
-                        onSelected: (bool value) {},
-                        padding: EdgeInsets.zero,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: whiteF2F,
-                  ),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16),
-                              color: Colors.white),
-                          padding: const EdgeInsets.all(8),
-                          child: Row(children: [
-                            Expanded(
-                              child: InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    isSelected = !isSelected;
-                                  });
-                                },
-                                child: Container(
-                                    height: 34,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(12),
-                                        color: isSelected
-                                            ? primaryColor
-                                            : whiteF2F),
-                                    child: Center(
-                                        child: Text(
-                                      'Search Jobs ',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .subtitle1!
-                                          .apply(
-                                              color: isSelected
-                                                  ? whiteF2F
-                                                  : primaryColor),
-                                    ))),
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            Expanded(
-                              child: InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    isSelected = !isSelected;
-                                  });
-                                },
-                                child: Container(
-                                    height: 34,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(12),
-                                        color: !isSelected
-                                            ? primaryColor
-                                            : whiteF2F),
-                                    child: Center(
-                                      child: Text('My Jobs ',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .subtitle1!
-                                              .apply(
-                                                  color: !isSelected
-                                                      ? Colors.white
-                                                      : primaryColor)),
-                                    )),
-                              ),
-                            ),
-                          ]),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
-                        child: !isSelected
-                            ? Row(
-                                children: [
-                                  Text(
-                                    'earning limit '.toUpperCase(),
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 20),
-                                  Expanded(
-                                    child: CustomProgressBar(
-                                      max: 5,
-                                      current: currentPage.toDouble(),
-                                      color: primaryColor,
-                                      bgColor: Colors.white,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 20),
-                                  const Text(
-                                    '2500€/5000€',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ],
-                              )
-                            : Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16),
-                                    color: Colors.white),
-                                child: const ListTile(
-                                  horizontalTitleGap: 1,
-                                  leading: Padding(
-                                    padding: EdgeInsets.only(top: 6),
-                                    child: Icon(Icons.location_on_outlined,
-                                        color: Colors.black, size: 28),
-                                  ),
-                                  title: Text(
-                                    'PROVINCE',
-                                    style: TextStyle(
-                                      color: black343,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  subtitle: Text(
-                                    'Milano',
-                                    style: TextStyle(
-                                      color: splashColor1,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                  trailing: Icon(
-                                    Icons.keyboard_arrow_down,
-                                    color: splashColor1,
-                                  ),
-                                ),
-                              ),
-                      ),
-                      const SizedBox(height: 12),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: !isSelected ? 345 : 400),
+            padding: EdgeInsets.only(top: !isSelected ? 300 : 360),
             child: Container(
               height: double.infinity,
               width: double.infinity,
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(24),
-                  topLeft: Radius.circular(24),
+                  topRight: Radius.circular(20),
+                  topLeft: Radius.circular(20),
                 ),
                 color: whiteF2F,
               ),
-              child: !isSelected ? myJobsView() : searchJobsView(),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(20),
+                  topLeft: Radius.circular(20),
+                ),
+                child: !isSelected ? myJobsView() : searchJobsView(),
+              ),
             ),
           ),
         ],
@@ -321,8 +47,331 @@ class _JobListScreenState extends State<JobListScreen> {
     );
   }
 
+  Widget appBarView() {
+    return Container(
+      color: const Color(0xff1B1F1C),
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                'Jobs',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 32,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              GestureDetector(
+                child: const CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 25,
+                  child: Icon(Icons.person, color: Colors.grey, size: 25),
+                ),
+              )
+            ],
+          ),
+          const SizedBox(height: 8),
+          Wrap(
+            alignment: WrapAlignment.start,
+            runAlignment: WrapAlignment.end,
+            spacing: 20,
+            children: [
+              FilterChip(
+                label: const Text(
+                  'All Jobs',
+                ),
+                labelStyle: TextStyle(
+                  color: selectedFilter != JobsFilters.all
+                      ? Colors.white
+                      : Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                ),
+                selected: selectedFilter == JobsFilters.all,
+                backgroundColor: black343,
+                selectedColor: Colors.white,
+                showCheckmark: false,
+                onSelected: (bool value) {
+                  setState(() {
+                    selectedFilter = JobsFilters.all;
+                  });
+                },
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              FilterChip(
+                label: const Text(
+                  'Applied',
+                ),
+                labelStyle: TextStyle(
+                  color: selectedFilter != JobsFilters.applied
+                      ? Colors.white
+                      : Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                ),
+                selected: selectedFilter == JobsFilters.applied,
+                backgroundColor: black343,
+                selectedColor: Colors.white,
+                showCheckmark: false,
+                onSelected: (bool value) {
+                  setState(() {
+                    selectedFilter = JobsFilters.applied;
+                  });
+                },
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              FilterChip(
+                label: const Text(
+                  'Accepted',
+                ),
+                labelStyle: TextStyle(
+                  color: selectedFilter != JobsFilters.accepted
+                      ? Colors.white
+                      : Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                ),
+                selected: selectedFilter == JobsFilters.accepted,
+                backgroundColor: black343,
+                selectedColor: Colors.white,
+                showCheckmark: false,
+                onSelected: (bool value) {
+                  setState(() {
+                    selectedFilter = JobsFilters.accepted;
+                  });
+                },
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              FilterChip(
+                label: const Text(
+                  'Doing',
+                ),
+                labelStyle: TextStyle(
+                  color: selectedFilter != JobsFilters.doing
+                      ? Colors.white
+                      : Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                ),
+                selected: selectedFilter == JobsFilters.doing,
+                backgroundColor: black343,
+                selectedColor: Colors.white,
+                showCheckmark: false,
+                onSelected: (bool value) {
+                  setState(() {
+                    selectedFilter = JobsFilters.doing;
+                  });
+                },
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              FilterChip(
+                label: const Text(
+                  'Rejected',
+                ),
+                labelStyle: TextStyle(
+                  color: selectedFilter != JobsFilters.rejected
+                      ? Colors.white
+                      : Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                ),
+                selected: selectedFilter == JobsFilters.rejected,
+                backgroundColor: black343,
+                selectedColor: Colors.white,
+                showCheckmark: false,
+                onSelected: (bool value) {
+                  setState(() {
+                    selectedFilter = JobsFilters.rejected;
+                  });
+                },
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              FilterChip(
+                label: const Text(
+                  'Completed',
+                ),
+                labelStyle: TextStyle(
+                  color: selectedFilter != JobsFilters.completed
+                      ? Colors.white
+                      : Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                ),
+                selected: selectedFilter == JobsFilters.completed,
+                backgroundColor: black343,
+                selectedColor: Colors.white,
+                showCheckmark: false,
+                onSelected: (bool value) {
+                  setState(() {
+                    selectedFilter = JobsFilters.completed;
+                  });
+                },
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: whiteF2F,
+            ),
+            child: Column(
+              children: [
+                const SizedBox(height: 12),
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 12),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: Colors.white),
+                  padding: const EdgeInsets.all(8),
+                  child: Row(children: [
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          setState(() {
+                            isSelected = !isSelected;
+                          });
+                        },
+                        child: Container(
+                            height: 34,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                color: isSelected ? primaryColor : whiteF2F),
+                            child: Center(
+                                child: Text(
+                              'Search Jobs ',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .subtitle1!
+                                  .apply(
+                                      color:
+                                          isSelected ? whiteF2F : primaryColor),
+                            ))),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          setState(() {
+                            isSelected = !isSelected;
+                          });
+                        },
+                        child: Container(
+                            height: 34,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                color: !isSelected ? primaryColor : whiteF2F),
+                            child: Center(
+                              child: Text('My Jobs ',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .subtitle1!
+                                      .apply(
+                                          color: !isSelected
+                                              ? Colors.white
+                                              : primaryColor)),
+                            )),
+                      ),
+                    ),
+                  ]),
+                ),
+                const SizedBox(height: 12),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: !isSelected
+                      ? Row(
+                          children: [
+                            Text(
+                              'earning limit '.toUpperCase(),
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            const SizedBox(width: 20),
+                            const Expanded(
+                              child: CustomProgressBar(
+                                max: 5,
+                                current: 2,
+                                color: primaryColor,
+                                bgColor: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(width: 20),
+                            const Text(
+                              '2500€/5000€',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
+                        )
+                      : Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              color: Colors.white),
+                          child: const ListTile(
+                            horizontalTitleGap: 1,
+                            leading: Padding(
+                              padding: EdgeInsets.only(top: 6),
+                              child: Icon(Icons.location_on_outlined,
+                                  color: Colors.black, size: 28),
+                            ),
+                            title: Text(
+                              'PROVINCE',
+                              style: TextStyle(
+                                color: black343,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            subtitle: Text(
+                              'Milano',
+                              style: TextStyle(
+                                color: splashColor1,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            trailing: Icon(
+                              Icons.keyboard_arrow_down,
+                              color: splashColor1,
+                            ),
+                          ),
+                        ),
+                ),
+                const SizedBox(height: 12),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
   Widget myJobsView() {
-    return ListView.builder(
+    return selectedFilter == JobsFilters.doing ? noMyJobsView() : ListView.builder(
       padding: const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 4),
       itemCount: 6,
       shrinkWrap: true,
@@ -499,7 +548,7 @@ class _JobListScreenState extends State<JobListScreen> {
       child: Column(
         children: [
           const SizedBox(height: 25),
-          Image.asset('assets/images/Group 6786.png', height: 200),
+          Image.asset('assets/images/empty_job.png', height: 200),
           const SizedBox(height: 16),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -542,41 +591,31 @@ class _JobListScreenState extends State<JobListScreen> {
 
   Widget noMyJobsView() {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const SizedBox(height: 25),
-        Image.asset(
-          'assets/images/Group 6786.png',
-          height: 200,
+        Image.asset('assets/images/empty_job.png',scale: 1.5,),
+        const SizedBox(
+          height: 20,
         ),
-        const SizedBox(height: 16),
         Container(
-          width: double.infinity,
+          width: MediaQuery.of(context).size.width,
+          margin: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12), color: Colors.white),
-          child: Center(
-            child: Column(
-              children: const [
-                Text(
-                  'You didn’t took any job',
-                  style: TextStyle(
-                    color: splashColor1,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                SizedBox(height: 8),
-                Text(
-                  'Search for a job',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: black343,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ],
-            ),
+              color: Colors.white, borderRadius: BorderRadius.circular(16)),
+          child: Column(
+            children: const [
+              Text("You didn't took any job",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
+              SizedBox(height: 4),
+              Text("Search for a job",
+                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
+            ],
           ),
+        ),
+        const SizedBox(
+          height: 100,
         ),
       ],
     );
