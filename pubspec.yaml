@@ -36,6 +36,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  otp_text_field: ^1.1.3
 
 dev_dependencies:
   flutter_test:
@@ -84,7 +85,7 @@ flutter:
         - asset: fonts/SF-Pro-Text-Regular.ttf
      - family: SF-Pro-Display
        fonts:
-        - asset: fonts/SF-Pro-Display.ttf
+        - asset: fonts/SF-Pro-Display.otf
 
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

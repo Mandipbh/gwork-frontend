@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/CommonWidgets.dart';
-import 'package:g_worker_app/home_screen.dart';
+import 'package:g_worker_app/home_page/home_screen.dart';
 import 'package:g_worker_app/sign_up/payment_info_screen.dart';
 import 'package:g_worker_app/sign_up/personal_info_screen.dart';
 import 'package:g_worker_app/sign_up/privacy_policy_screen.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:g_worker_app/CommonWidgets.dart';
-import 'package:g_worker_app/home_screen.dart';
+import 'package:g_worker_app/home_page/home_screen.dart';
 import 'package:g_worker_app/sign_in/code_confirmation_screen.dart';
 import 'package:g_worker_app/colors.dart';
 
