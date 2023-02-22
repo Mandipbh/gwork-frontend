@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 import 'package:g_worker_app/home_page/home_screen.dart';
-import 'package:g_worker_app/sign_up/payment_info_screen.dart';
-import 'package:g_worker_app/sign_up/personal_info_screen.dart';
-import 'package:g_worker_app/sign_up/privacy_policy_screen.dart';
-import 'package:g_worker_app/sign_up/profile_picture_screen.dart';
-import 'package:g_worker_app/sign_up/select_service_screen.dart';
-import 'package:g_worker_app/sign_up/set_password_screen.dart';
+import 'package:g_worker_app/sign_up/sign_up_widgets/payment_info_view.dart';
+import 'package:g_worker_app/sign_up/sign_up_widgets/personal_info_view.dart';
+import 'package:g_worker_app/sign_up/sign_up_widgets/privacy_policy_view.dart';
+import 'package:g_worker_app/sign_up/sign_up_widgets/profile_picture_view.dart';
+import 'package:g_worker_app/sign_up/sign_up_widgets/select_service_view.dart';
+import 'package:g_worker_app/sign_up/sign_up_widgets/set_password_view.dart';
 
 import '../colors.dart';
 import '../common/common_buttons.dart';
@@ -80,12 +80,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   Widget mainView() {
     final List<Widget> pages = <Widget>[
-      const SelectServiceScreen(),
-      const SetPasswordScreen(),
-      const PersonalInfoScreen(),
-      const PaymentInfoScreen(),
-      const ProfilePictureScreen(),
-      const PrivacyPolicyScreen()
+      const SelectServiceView(),
+      const SetPasswordView(),
+      const PersonalInfoView(),
+      const PaymentInfoView(),
+      const ProfilePictureView(),
+      const PrivacyPolicyView()
     ];
     return Column(
       children: [
@@ -111,6 +111,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   }
 
   Widget progressView() {
+    String label = currentPage == 1
+        ? 'Reason'
+        : currentPage == 2
+            ? 'Password'
+            : currentPage == 3
+                ? 'Personal Info'
+                : currentPage == 4
+                    ? 'Payment Method'
+                    : currentPage == 5
+                        ? 'Profile Picture'
+                        : '';
     return Container(
       height: currentPage > 5 ? 78 : 128,
       // margin: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -136,7 +147,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         ),
                       ),
                       const SizedBox(width: 12),
-                      Text('Reason'.toUpperCase()),
+                      Text(label.toUpperCase()),
                       const SizedBox(width: 30),
                       Expanded(
                           child: CustomProgressBar(

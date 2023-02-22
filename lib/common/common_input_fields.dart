@@ -53,3 +53,24 @@ Widget nameTextField(
             icon: Image.asset(asset), labelText: label.toUpperCase())),
   );
 }
+
+Widget dropdownField({required String label, required String asset,required List<String> items}) {
+  return Container(
+    height: 60,
+    padding: const EdgeInsets.symmetric(horizontal: 8),
+    decoration: BoxDecoration(
+        color: Colors.white, borderRadius: BorderRadius.circular(16)),
+    child: DropdownButton(
+      // Down Arrow Icon
+      icon: const Icon(Icons.keyboard_arrow_down),
+      items: items.map((String items) {
+        return DropdownMenuItem(
+          value: items,
+          child: Text(items),
+        );
+      }).toList(),
+      onChanged: (String? newValue) {
+      },
+    ),
+  );
+}

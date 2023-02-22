@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:g_worker_app/Constants.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/splash_screen.dart';
 
@@ -15,6 +16,7 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  static int userType = UserType.client;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
