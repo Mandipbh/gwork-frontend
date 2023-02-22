@@ -12,7 +12,7 @@ class MoreInfoView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(bottom: 12),
+            padding: const EdgeInsets.symmetric(vertical: 8),
             child: Text(
               'Personal info',
               style: Theme.of(context).textTheme.headline1,
@@ -20,7 +20,7 @@ class MoreInfoView extends StatelessWidget {
           ),
           Text('Please fill all the fields',
               style: Theme.of(context).textTheme.bodyText2),
-          const SizedBox(height: 40),
+          const SizedBox(height: 24),
           nameTextField(
               label: 'name', asset: 'user_first_name.png'),
           const SizedBox(height: 20),

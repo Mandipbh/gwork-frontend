@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:g_worker_app/jobs/add_job_widgets/job_info_view.dart';
 import 'package:g_worker_app/jobs/add_job_widgets/job_reason_view.dart';
@@ -27,6 +28,9 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
+        if(currentPage == 1){
+          return true;
+        }
         askForStopRegistration(context);
         return false;
       },
@@ -34,9 +38,14 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
           backgroundColor: const Color(0xfff2f2f2),
           appBar: PreferredSize(
             preferredSize:
-                Size.fromHeight(MediaQuery.of(context).size.height * 0.13),
+                Size.fromHeight(MediaQuery.of(context).size.height * 0.10),
             child: AppBar(
               centerTitle: true,
+              systemOverlayStyle: const SystemUiOverlayStyle(
+                statusBarColor: whiteF2F,
+                statusBarIconBrightness: Brightness.dark,
+                statusBarBrightness: Brightness.light,
+              ),
               automaticallyImplyLeading: false,
               flexibleSpace: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -45,9 +54,16 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const SizedBox(
-                        width: 30,
-                      ),
+                      currentPage == 1
+                          ? IconButton(
+                              icon: const Icon(Icons.arrow_back),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            )
+                          : const SizedBox(
+                              width: 16,
+                            ),
                       const Text(
                         'New Job',
                         style: TextStyle(
@@ -55,12 +71,16 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                             fontSize: 20,
                             fontWeight: FontWeight.bold),
                       ),
-                      IconButton(
-                        icon: const Icon(Icons.close),
-                        onPressed: () {
-                          askForStopRegistration(context);
-                        },
-                      )
+                      currentPage != 1
+                          ? IconButton(
+                              icon: const Icon(Icons.close),
+                              onPressed: () {
+                                askForStopRegistration(context);
+                              },
+                            )
+                          : const SizedBox(
+                              width: 16,
+                            ),
                     ],
                   ),
                 ],

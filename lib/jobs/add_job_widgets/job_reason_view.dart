@@ -23,7 +23,7 @@ class _JobReasonViewState extends State<JobReasonView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 15, bottom: 8),
+            padding: const EdgeInsets.symmetric(vertical: 8),
             child: Text(
               'What do you Need?',
               style: Theme.of(context).textTheme.headline1,
@@ -31,7 +31,7 @@ class _JobReasonViewState extends State<JobReasonView> {
           ),
           Text('Please select one of four options',
               style: Theme.of(context).textTheme.bodyText2),
-          const SizedBox(height: 16),
+          const SizedBox(height: 24),
           SizedBox(
             height: MediaQuery.of(context).size.width * 0.44,
             child: Row(

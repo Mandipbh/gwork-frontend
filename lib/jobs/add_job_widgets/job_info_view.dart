@@ -12,7 +12,7 @@ class JobInfoView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(bottom: 12),
+            padding: const EdgeInsets.symmetric(vertical: 8),
             child: Text(
               'Job info',
               style: Theme
@@ -26,7 +26,7 @@ class JobInfoView extends StatelessWidget {
                   .of(context)
                   .textTheme
                   .bodyText2),
-          const SizedBox(height: 40),
+          const SizedBox(height: 24),
           nameTextField(
               label: 'title', asset: 'text_input.png'),
           const SizedBox(height: 20),

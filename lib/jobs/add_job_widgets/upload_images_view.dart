@@ -12,7 +12,7 @@ class UploadImageView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(bottom: 12),
+            padding: const EdgeInsets.symmetric(vertical: 8),
             child: Text(
               'Personal info',
               style: Theme.of(context).textTheme.headline1,
