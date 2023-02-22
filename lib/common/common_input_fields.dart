@@ -19,24 +19,35 @@ Widget phoneNumberTextField() {
 }
 
 Widget passwordTextField({required String label}) {
-  return Container(
-    height: 60,
-    padding: const EdgeInsets.symmetric(horizontal: 8),
-    decoration: BoxDecoration(
-        color: Colors.white, borderRadius: BorderRadius.circular(16)),
-    child: TextField(
-        obscureText: true,
-        obscuringCharacter: '*',
-        style: const TextStyle(fontSize: 18),
-        decoration: InputDecoration(
-            suffixIcon: const Icon(
-              Icons.remove_red_eye_outlined,
-              size: 30,
-              color: primaryColor,
-            ),
-            icon:
-                Image.asset('assets/icons/password.png', height: 30, width: 30),
-            labelText: label.toUpperCase())),
+  bool isPasswordVisible = false;
+  return StatefulBuilder(
+    builder: (context, newState) {
+      return Container(
+        height: 60,
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        decoration: BoxDecoration(
+            color: Colors.white, borderRadius: BorderRadius.circular(16)),
+        child: TextField(
+            obscureText: !isPasswordVisible,
+            obscuringCharacter: '*',
+            style: const TextStyle(fontSize: 18),
+            decoration: InputDecoration(
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    newState((){
+                      isPasswordVisible = !isPasswordVisible;
+                    });
+                  },
+                  icon: Icon(
+                    isPasswordVisible ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                    size: 30,
+                    color: primaryColor,
+                  ),
+                ),
+                icon: Image.asset('assets/icons/password.png', height: 30, width: 30),
+                labelText: label.toUpperCase())),
+      );
+    }
   );
 }
 
