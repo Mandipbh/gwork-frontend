@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:g_worker_app/common/common_buttons.dart';
 import 'package:g_worker_app/common/common_widgets.dart';
 import 'package:g_worker_app/sign_in/set_new_password_screen.dart';
@@ -98,7 +97,6 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                         style: const TextStyle(fontSize: 40),
                         onChanged: (pin) {},
                         onCompleted: (pin) {
-                          print("Completed: " + pin);
                           if (pin == otp) {
                             timer.cancel();
                             Navigator.push(
@@ -108,7 +106,8 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                                       const SetNewPasswordScreen()),
                             );
                           }
-                        })
+                        }),
+                    const SizedBox(height: 20),
                   ],
                 ),
                 Padding(
@@ -139,7 +138,6 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
   }
 
   void resendOTP() {
-    print('resendOTP');
     setState(() {
       enableResend = false;
       secondsRemaining = 30;

@@ -5,8 +5,8 @@ import 'package:g_worker_app/sign_up/registration_exit_popup.dart';
 void askForExit(BuildContext context) {
   showDialog(
       context: context,
-      builder: (ctx) => AlertDialog(
-          shape: const RoundedRectangleBorder(
+      builder: (ctx) => const AlertDialog(
+          shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(8.0))),
           content: OTPExitPopup()));
 }
@@ -14,8 +14,8 @@ void askForExit(BuildContext context) {
 void askForStopRegistration(BuildContext context) {
   showDialog(
       context: context,
-      builder: (ctx) => AlertDialog(
-          shape: const RoundedRectangleBorder(
+      builder: (ctx) => const AlertDialog(
+          shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(8.0))),
           content: RegistrationExitPopup()));
 }

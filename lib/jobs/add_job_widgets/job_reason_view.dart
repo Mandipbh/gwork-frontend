@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:g_worker_app/Constants.dart';
 
 import 'package:g_worker_app/colors.dart';
-import 'package:g_worker_app/custom_progress_bar.dart';
 
 class JobReasonView extends StatefulWidget {
   const JobReasonView({super.key});

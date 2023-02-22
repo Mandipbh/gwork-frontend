@@ -168,7 +168,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               },
               onNextTap: () {
                 if (currentPage > 5) {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => const HomeScreen()),
                   );

@@ -1,9 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/sign_in/sign_in_sign_up_screen.dart';
 
 class RegistrationExitPopup extends StatelessWidget {
+  const RegistrationExitPopup({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -73,7 +74,7 @@ class RegistrationExitPopup extends StatelessWidget {
                     builder: (context) => const SignInSignUpScreen()),
                 (Route<dynamic> route) => false);
           },
-          child: Container(
+          child: SizedBox(
             height: 60,
             child: Center(
                 child: Row(

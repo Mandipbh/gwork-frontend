@@ -23,6 +23,7 @@ class SetPasswordView extends StatelessWidget {
         passwordTextField(label: 'new password'),
         const SizedBox(height: 20),
         passwordTextField(label: 'confirm password'),
+        const SizedBox(height: 20),
       ],
     );
   }

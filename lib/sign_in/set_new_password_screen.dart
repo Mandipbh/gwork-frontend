@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:g_worker_app/home_page/home_screen.dart';
 import 'package:g_worker_app/colors.dart';
 
@@ -52,6 +51,7 @@ class _SetNewPasswordScreenState extends State<SetNewPasswordScreen> {
                     passwordTextField(label: 'new password'),
                     const SizedBox(height: 20),
                     passwordTextField(label: 'confirm password'),
+                    const SizedBox(height: 20),
                   ],
                 ),
                 Padding(
@@ -59,10 +59,12 @@ class _SetNewPasswordScreenState extends State<SetNewPasswordScreen> {
                         bottom: MediaQuery.of(context).viewInsets.bottom),
                     child: submitButton(
                       onButtonTap: () {
-                        Navigator.push(
+                        Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const HomeScreen()),
+                            builder: (BuildContext context) => const HomeScreen(),
+                          ),
+                              (route) => false,//if you want to disable back feature set to false
                         );
                       },
                       context: context,

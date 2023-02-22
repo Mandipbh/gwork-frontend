@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:g_worker_app/home_page/home_screen.dart';
 import 'package:g_worker_app/jobs/add_job_widgets/job_info_view.dart';
 import 'package:g_worker_app/jobs/add_job_widgets/job_reason_view.dart';
 import 'package:g_worker_app/jobs/add_job_widgets/more_info_view.dart';
@@ -167,10 +166,7 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
               },
               onNextTap: () {
                 if (currentPage > 5) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const HomeScreen()),
-                  );
+                  Navigator.of(context).pop();
                 } else {
                   controller.nextPage(
                       duration: const Duration(milliseconds: 200),

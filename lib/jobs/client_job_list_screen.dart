@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
-import 'package:g_worker_app/custom_progress_bar.dart';
 import 'package:g_worker_app/jobs/add_new_job_screen.dart';
 
 import '../Constants.dart';

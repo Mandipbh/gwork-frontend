@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:g_worker_app/common/common_input_fields.dart';
 
 import 'package:g_worker_app/sign_in/code_confirmation_screen.dart';
@@ -44,6 +43,7 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                       style: Theme.of(context).textTheme.bodyText2),
                   const SizedBox(height: 40),
                   phoneNumberTextField(),
+                  const SizedBox(height: 20),
                 ],
               ),
               Padding(

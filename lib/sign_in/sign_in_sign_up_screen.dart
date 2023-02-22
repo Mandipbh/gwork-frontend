@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/sign_in/recover_password_screen.dart';
@@ -110,7 +109,7 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
               phoneNumberTextField(),
               const SizedBox(height: 20),
               Padding(
-                padding: EdgeInsets.only(right: 40),
+                padding: const EdgeInsets.only(right: 40),
                 child: Text(
                     "Please enter your phone number in order\nto sign up",
                     style: Theme.of(context).textTheme.bodyText2),

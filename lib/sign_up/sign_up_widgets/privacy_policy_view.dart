@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PrivacyPolicyView extends StatelessWidget {
@@ -11,7 +10,7 @@ class PrivacyPolicyView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children:  [
           Padding(
-            padding: EdgeInsets.only(bottom: 20),
+            padding: const EdgeInsets.only(bottom: 20),
             child: Text(
               'Privacy Policy',
               style: Theme.of(context).textTheme.headline1,
@@ -27,7 +26,7 @@ It is a long established fact that a reader will be distracted by the readable c
 Where does it come from?\n
 Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
           """, style: Theme.of(context).textTheme.bodyText2),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
         ],
       ),
     );

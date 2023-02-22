@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:g_worker_app/colors.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   Function onItemTapped;
