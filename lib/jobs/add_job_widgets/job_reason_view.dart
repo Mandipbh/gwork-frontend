@@ -72,7 +72,8 @@ class _JobReasonViewState extends State<JobReasonView> {
                                   ? const Color(0xff343734)
                                   : const Color(0xfff2f2f2),
                               child: Image.asset(
-                                  'assets/icons/ic_cleaning.png',
+                                  'assets/icons/cleaning.png',
+                                  height: 30,width: 30,
                                   color: jobType == JobsType.cleaning
                                       ? Colors.white
                                       : primaryColor),
@@ -117,7 +118,8 @@ class _JobReasonViewState extends State<JobReasonView> {
                                   ? const Color(0xff343734)
                                   : const Color(0xfff2f2f2),
                               child: Image.asset(
-                                  'assets/icons/ic_babysitting.png',
+                                  'assets/icons/babysitting.png',
+                                  height: 30,width: 30,
                                   color: jobType == JobsType.babySitting
                                       ? Colors.white
                                       : primaryColor),
@@ -172,7 +174,8 @@ class _JobReasonViewState extends State<JobReasonView> {
                                   ? const Color(0xff343734)
                                   : const Color(0xfff2f2f2),
                               child: Image.asset(
-                                  'assets/icons/ic_tutoring.png',
+                                  'assets/icons/tutor.png',
+                                  height: 30,width: 30,
                                   color: jobType == JobsType.tutoring
                                       ? Colors.white
                                       : primaryColor),
@@ -217,7 +220,8 @@ class _JobReasonViewState extends State<JobReasonView> {
                                   ? const Color(0xff343734)
                                   : const Color(0xfff2f2f2),
                               child: Image.asset(
-                                  'assets/icons/ic_handyman.png',
+                                  'assets/icons/handyman.png',
+                                  height: 30,width: 30,
                                   color: jobType == JobsType.handyman
                                       ? Colors.white
                                       : primaryColor),

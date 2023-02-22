@@ -40,7 +40,8 @@ class MyProfileScreen extends StatelessWidget {
                           child: CircleAvatar(
                             radius: 25,
                             backgroundColor: primaryColor,
-                            child: Image.asset('assets/icons/ic_edit.png',
+                            child: Image.asset('assets/icons/edit.png',
+                                height: 30,width: 30,
                                 color: Colors.white),
                           ))
                     ],
@@ -54,7 +55,7 @@ class MyProfileScreen extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Image.asset('assets/icons/ic_user_firstname.png'),
+                  Image.asset('assets/icons/user_first_name.png',height: 30,width: 30),
                   const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,7 +70,7 @@ class MyProfileScreen extends StatelessWidget {
                   InkWell(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Image.asset('assets/icons/ic_edit.png'),
+                        child: Image.asset('assets/icons/edit.png',height: 30,width: 30),
                       ),
                       onTap: () {
                         Navigator.push(
@@ -86,7 +87,7 @@ class MyProfileScreen extends StatelessWidget {
               const Divider(height: 25),
               Row(
                 children: [
-                  Image.asset('assets/icons/ic_user.png'),
+                  Image.asset('assets/icons/user.png',height: 30,width: 30),
                   const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,7 +102,7 @@ class MyProfileScreen extends StatelessWidget {
                   InkWell(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Image.asset('assets/icons/ic_edit.png'),
+                        child: Image.asset('assets/icons/edit.png',height: 30,width: 30),
                       ),
                       onTap: () {
                         Navigator.push(
@@ -118,7 +119,7 @@ class MyProfileScreen extends StatelessWidget {
               const Divider(height: 25),
               Row(
                 children: [
-                  Image.asset('assets/icons/ic_email.png'),
+                  Image.asset('assets/icons/mail.png',height: 30,width: 30),
                   const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -134,7 +135,7 @@ class MyProfileScreen extends StatelessWidget {
                   InkWell(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Image.asset('assets/icons/ic_edit.png'),
+                        child: Image.asset('assets/icons/edit.png',height: 30,width: 30),
                       ),
                       onTap: () {
                         Navigator.push(
@@ -151,7 +152,7 @@ class MyProfileScreen extends StatelessWidget {
               const Divider(height: 25),
               Row(
                 children: [
-                  Image.asset('assets/icons/ic_phone.png'),
+                  Image.asset('assets/icons/phone.png',height: 30,width: 30),
                   const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -167,7 +168,7 @@ class MyProfileScreen extends StatelessWidget {
                   InkWell(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Image.asset('assets/icons/ic_edit.png'),
+                        child: Image.asset('assets/icons/edit.png',height: 30,width: 30),
                       ),
                       onTap: () {
                         // Navigator.push(
@@ -184,7 +185,7 @@ class MyProfileScreen extends StatelessWidget {
               const Divider(height: 25),
               Row(
                 children: [
-                  Image.asset('assets/icons/ic_hash.png'),
+                  Image.asset('assets/icons/hash.png',height: 30,width: 30),
                   const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -200,7 +201,7 @@ class MyProfileScreen extends StatelessWidget {
                   InkWell(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Image.asset('assets/icons/ic_edit.png'),
+                        child: Image.asset('assets/icons/edit.png',height: 30,width: 30),
                       ),
                       onTap: () {
                         Navigator.push(
@@ -217,7 +218,7 @@ class MyProfileScreen extends StatelessWidget {
               const Divider(height: 25),
               Row(
                 children: [
-                  Image.asset('assets/icons/ic_calender_heart.png'),
+                  Image.asset('assets/icons/calendar_birthday.png',height: 30,width: 30),
                   const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -233,7 +234,7 @@ class MyProfileScreen extends StatelessWidget {
                   InkWell(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Image.asset('assets/icons/ic_edit.png'),
+                        child: Image.asset('assets/icons/edit.png',height: 30,width: 30),
                       ),
                       onTap: () {
                         Navigator.push(
@@ -250,7 +251,7 @@ class MyProfileScreen extends StatelessWidget {
               const Divider(height: 25),
               Row(
                 children: [
-                  Image.asset('assets/icons/ic_hash.png'),
+                  Image.asset('assets/icons/hash.png',height: 30,width: 30),
                   const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -266,7 +267,7 @@ class MyProfileScreen extends StatelessWidget {
                   InkWell(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Image.asset('assets/icons/ic_edit.png'),
+                        child: Image.asset('assets/icons/edit.png',height: 30,width: 30),
                       ),
                       onTap: () {
                         // Navigator.push(
@@ -283,7 +284,7 @@ class MyProfileScreen extends StatelessWidget {
               const Divider(height: 25),
               Row(
                 children: [
-                  Image.asset('assets/icons/ic_password_lock.png'),
+                  Image.asset('assets/icons/password.png',height: 30,width: 30),
                   const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -299,7 +300,7 @@ class MyProfileScreen extends StatelessWidget {
                   InkWell(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Image.asset('assets/icons/ic_edit.png'),
+                        child: Image.asset('assets/icons/edit.png',height: 30,width: 30),
                       ),
                       onTap: () {
                         Navigator.push(
@@ -321,7 +322,7 @@ class MyProfileScreen extends StatelessWidget {
                   iconColor: const Color(0xffE45E5E),
                   textColor: const Color(0xffE45E5E),
                   buttonName: 'logout',
-                  iconAsset: 'ic_logout.png')
+                  iconAsset: 'logout.png')
             ],
           ),
         ),

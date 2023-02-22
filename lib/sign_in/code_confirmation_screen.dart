@@ -126,7 +126,7 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                     buttonName: enableResend
                         ? 'Request a new code'
                         : 'Request a new code (00:${secondsRemaining.toString().padLeft(2, '0')})',
-                    iconAsset: 'ic_arrow_send.png',
+                    iconAsset: 'otp_send.png',
                     iconColor: enableResend ? Colors.black : Colors.grey,
                   ),
                 ),

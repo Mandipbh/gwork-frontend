@@ -132,7 +132,7 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
               context: context,
               backgroundColor: primaryColor,
               buttonName: 'Sign Up',
-              iconAsset: 'ic_logout.png',
+              iconAsset: 'logout.png',
             ),
           )
         ],
@@ -169,7 +169,7 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                   context: context,
                   backgroundColor: primaryColor,
                   buttonName: 'Sign In',
-                  iconAsset: 'ic_logout.png',
+                  iconAsset: 'logout.png',
                 ),
                 const SizedBox(
                   height: 16,
@@ -186,7 +186,7 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                   textColor: primaryColor,
                   backgroundColor: Colors.white,
                   buttonName: 'Recover Password',
-                  iconAsset: 'ic_key.png',
+                  iconAsset: 'key.png',
                 ),
                 const SizedBox(height: 10),
               ],

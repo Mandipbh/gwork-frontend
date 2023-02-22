@@ -68,7 +68,7 @@ class _SetNewPasswordScreenState extends State<SetNewPasswordScreen> {
                       context: context,
                       backgroundColor: primaryColor,
                       buttonName: 'set new Password',
-                      iconAsset: 'ic_lock.png',
+                      iconAsset: 'lock.png',
                     )),
               ],
             ),

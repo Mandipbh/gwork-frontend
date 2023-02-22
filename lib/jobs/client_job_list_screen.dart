@@ -77,7 +77,7 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                             },
                             backgroundColor: primaryColor,
                             buttonName: 'New Job',
-                            iconAsset: 'ic_add.png'),
+                            iconAsset: 'add.png'),
                       ),
                     ],
                   ),

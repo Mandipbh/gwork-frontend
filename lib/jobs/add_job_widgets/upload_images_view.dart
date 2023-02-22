@@ -22,13 +22,13 @@ class UploadImageView extends StatelessWidget {
               style: Theme.of(context).textTheme.bodyText2),
           const SizedBox(height: 40),
           nameTextField(
-              label: 'name', asset: 'assets/icons/ic_user_firstname.png'),
+              label: 'name', asset: 'user_first_name.png'),
           const SizedBox(height: 20),
-          nameTextField(label: 'last name', asset: 'assets/icons/ic_user.png'),
+          nameTextField(label: 'last name', asset: 'user.png'),
           const SizedBox(height: 20),
           nameTextField(
               label: 'email',
-              asset: 'assets/icons/ic_email.png',
+              asset: 'mail.png',
               keyboardType: TextInputType.emailAddress),
           const SizedBox(height: 20),
           Container(
@@ -39,7 +39,7 @@ class UploadImageView extends StatelessWidget {
             child: TextField(
                 style: const TextStyle(fontSize: 18),
                 decoration: InputDecoration(
-                    icon: Image.asset('assets/icons/ic_hash.png'),
+                    icon: Image.asset('assets/icons/hash.png',height: 30,width: 30),
                     labelText: 'VAT Number'.toUpperCase())),
           ),
           const SizedBox(height: 20),
@@ -54,7 +54,7 @@ class UploadImageView extends StatelessWidget {
                     hintText: 'dd/mm/yyyy',
                     hintStyle:
                         const TextStyle(fontSize: 18, color: Colors.black12),
-                    icon: Image.asset('assets/icons/ic_calender_heart.png'),
+                    icon: Image.asset('assets/icons/calendar_birthday.png',height: 30,width: 30),
                     labelText: 'Birth date'.toUpperCase())),
           ),
           const SizedBox(height: 20),

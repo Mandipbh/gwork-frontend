@@ -86,28 +86,27 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ? nameTextField(
                           controller: controller,
                           label: label,
-                          asset: 'assets/icons/ic_user_firstname.png')
+                          asset: 'user_first_name.png')
                       : widget.type == ProfileFieldType.lastName
                           ? nameTextField(
                               controller: controller,
                               label: label,
-                              asset: 'assets/icons/ic_user.png')
+                              asset: 'user.png')
                           : widget.type == ProfileFieldType.email
                               ? nameTextField(
                                   label: label,
                                   controller: controller,
-                                  asset: 'assets/icons/ic_email.png')
+                                  asset: 'mail.png')
                               : widget.type == ProfileFieldType.birthdate
                                   ? nameTextField(
                                       label: label,
                                       controller: controller,
-                                      asset:
-                                          'assets/icons/ic_calender_heart.png')
+                                      asset: 'calendar_birthday.png')
                                   : widget.type == ProfileFieldType.vatNumber
                                       ? nameTextField(
                                           label: label,
                                           controller: controller,
-                                          asset: 'assets/icons/ic_hash.png')
+                                          asset: 'hash.png')
                                       : widget.type == ProfileFieldType.password
                                           ? Column(
                                               children: [
@@ -138,7 +137,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   context: context,
                   backgroundColor: primaryColor,
                   buttonName: 'Confirm',
-                  iconAsset: 'ic_key.png',
+                  iconAsset: 'key.png',
                 ),
               ),
             ],

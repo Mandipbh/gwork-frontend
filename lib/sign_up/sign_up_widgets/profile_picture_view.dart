@@ -28,8 +28,8 @@ class _ProfilePictureViewState extends State<ProfilePictureView> {
             height: 150,
             width: 150,
             child: Stack(
-              children: const [
-                CircleAvatar(
+              children:  [
+                const CircleAvatar(
                     radius: 75,
                     backgroundColor: Color(0xff6DCF82),
                     child: Text(
@@ -40,10 +40,13 @@ class _ProfilePictureViewState extends State<ProfilePictureView> {
                     bottom: 1,
                     right: 2,
                     child: CircleAvatar(
+                      backgroundColor: whiteF2F,
                       radius: 25,
-                      backgroundColor: primaryColor,
-                      child: Icon(Icons.cloud_upload_outlined,
-                          color: Colors.white),
+                      child: CircleAvatar(
+                        radius: 22,
+                        backgroundColor: primaryColor,
+                        child: Image.asset('assets/icons/profile_upload.png',height: 30,width: 30,),
+                      ),
                     ))
               ],
             ),

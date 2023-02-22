@@ -69,7 +69,8 @@ class _SelectServiceViewState extends State<SelectServiceView> {
                                   ? const Color(0xff343734)
                                   : const Color(0xfff2f2f2),
                               child: Image.asset(
-                                  'assets/icons/ic_provide_service.png',
+                                  'assets/icons/briefcase.png',
+                                  height: 30,width: 30,
                                   color: provideSelected
                                       ? Colors.white
                                       : primaryColor),
@@ -112,7 +113,8 @@ class _SelectServiceViewState extends State<SelectServiceView> {
                                     ? const Color(0xff343734)
                                     : const Color(0xfff2f2f2),
                               child: Image.asset(
-                                  'assets/icons/ic_require_service.png',
+                                  'assets/icons/announcement.png',
+                                  height: 30,width: 30,
                                   color: !provideSelected
                                       ? Colors.white
                                       : primaryColor),),

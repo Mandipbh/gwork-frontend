@@ -28,7 +28,7 @@ Widget submitButton(
               const SizedBox(
                 width: 8,
               ),
-              Image.asset('assets/icons/$iconAsset',color: iconColor)
+              Image.asset('assets/icons/$iconAsset',height: 30,width: 30,color: iconColor)
             ],
           )),
     ),

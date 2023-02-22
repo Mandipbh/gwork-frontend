@@ -60,7 +60,7 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                   context: context,
                   backgroundColor: primaryColor,
                   buttonName: 'Recover Password',
-                  iconAsset: 'ic_key.png',
+                  iconAsset: 'key.png',
                 ),
               ),
             ],

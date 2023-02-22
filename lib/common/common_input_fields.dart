@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:g_worker_app/colors.dart';
 
 Widget phoneNumberTextField() {
   return Container(
@@ -11,7 +12,7 @@ Widget phoneNumberTextField() {
         keyboardType: TextInputType.number,
         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         decoration: InputDecoration(
-            icon: Image.asset('assets/icons/ic_phone.png'),
+            icon: Image.asset('assets/icons/phone.png', height: 30, width: 30),
             labelText: 'Phone Number'.toUpperCase(),
             prefixText: '+39')),
   );
@@ -28,8 +29,13 @@ Widget passwordTextField({required String label}) {
         obscuringCharacter: '*',
         style: const TextStyle(fontSize: 18),
         decoration: InputDecoration(
-            suffixIcon: const Icon(Icons.remove_red_eye_outlined),
-            icon: Image.asset('assets/icons/ic_password_lock.png'),
+            suffixIcon: const Icon(
+              Icons.remove_red_eye_outlined,
+              size: 30,
+              color: primaryColor,
+            ),
+            icon:
+                Image.asset('assets/icons/password.png', height: 30, width: 30),
             labelText: label.toUpperCase())),
   );
 }
@@ -50,11 +56,15 @@ Widget nameTextField(
         style: const TextStyle(fontSize: 18),
         keyboardType: keyboardType,
         decoration: InputDecoration(
-            icon: Image.asset(asset), labelText: label.toUpperCase())),
+            icon: Image.asset('assets/icons/$asset', height: 30, width: 30),
+            labelText: label.toUpperCase())),
   );
 }
 
-Widget dropdownField({required String label, required String asset,required List<String> items}) {
+Widget dropdownField(
+    {required String label,
+    required String asset,
+    required List<String> items}) {
   return Container(
     height: 60,
     padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -69,8 +79,7 @@ Widget dropdownField({required String label, required String asset,required List
           child: Text(items),
         );
       }).toList(),
-      onChanged: (String? newValue) {
-      },
+      onChanged: (String? newValue) {},
     ),
   );
 }

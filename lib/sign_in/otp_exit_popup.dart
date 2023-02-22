@@ -42,7 +42,7 @@ class OTPExitPopup extends StatelessWidget {
           context: context,
           backgroundColor: primaryColor,
           buttonName: 'Stay Here',
-          iconAsset: 'ic_arrow_down.png',
+          iconAsset: 'arrow_circle_down.png',
         ),
         const SizedBox(
           height: 10,
@@ -59,7 +59,7 @@ class OTPExitPopup extends StatelessWidget {
             backgroundColor: Colors.transparent,
             buttonName: 'Go Back',
             textColor: Colors.red,
-            iconAsset: 'ic_arrow_back.png',
+            iconAsset: 'go_backward.png',
             iconColor: Colors.red),
       ],
     );
