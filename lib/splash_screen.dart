@@ -18,61 +18,68 @@ class SplashScreen extends StatelessWidget {
         body: SafeArea(
       child: Column(
         children: [
-          Container(
-            height: MediaQuery.of(context).size.height * 0.8,
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(24),
-                gradient:
-                    const LinearGradient(colors: [splashColor1, splashColor2])),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Image.asset('assets/images/logo.png'),
-                ),
-                RichText(
-                    text: const TextSpan(
-                        text: 'g',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 36,
-                            fontWeight: FontWeight.w500),
-                        children: [
-                      TextSpan(
-                        text: '.',
-                        style: TextStyle(
-                            color: Color(0xff4eab54),
-                            fontSize: 36,
-                            fontWeight: FontWeight.w500),
-                      ),
-                      TextSpan(
-                        text: 'work',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 36,
-                            fontWeight: FontWeight.w500),
-                      )
-                    ]))
-              ],
+          Expanded(
+            flex: 6,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              margin: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(24),
+                  gradient:
+                      const LinearGradient(colors: [splashColor1, splashColor2])),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset('assets/images/logo.png'),
+                  ),
+                  RichText(
+                      text: const TextSpan(
+                          text: 'g',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 36,
+                              fontWeight: FontWeight.w500),
+                          children: [
+                        TextSpan(
+                          text: '.',
+                          style: TextStyle(
+                              color: Color(0xff4eab54),
+                              fontSize: 36,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        TextSpan(
+                          text: 'work',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 36,
+                              fontWeight: FontWeight.w500),
+                        )
+                      ]))
+                ],
+              ),
             ),
           ),
-          const SizedBox(height: 16),
-          const Text('Powered by',
-              style: TextStyle(
-                  color: Colors.black26,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500)),
-          const Text(
-            'Mokka Studios',
-            style: TextStyle(
-                color: Color(0xff4eab54),
-                fontSize: 14,
-                fontWeight: FontWeight.w500),
+          Expanded(
+            flex: 1,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Powered by',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1!
+                        .apply(color: const Color(0xff7B8794))),
+                Text('Mokka Studios',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1!
+                        .apply(color: const Color(0xff26AB53))),
+              ],
+            ),
           )
         ],
       ),

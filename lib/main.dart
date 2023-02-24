@@ -14,7 +14,7 @@ void main() async {
     statusBarBrightness: Brightness.light,
   ));
   runApp(EasyLocalization(
-      supportedLocales: const [Locale('en'),Locale('it')],
+      supportedLocales: const [Locale('en'), Locale('it')],
       fallbackLocale: const Locale('it'),
       path: 'assets/translate',
       child: const MyApp()));
@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   static int userType = UserType.client;
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
           primaryColor: primaryColor,
           inputDecorationTheme: const InputDecorationTheme(
             border: InputBorder.none,
-            floatingLabelBehavior: FloatingLabelBehavior.always,
+            floatingLabelBehavior: FloatingLabelBehavior.auto,
             helperStyle: TextStyle(
                 fontSize: 14,
                 fontFamily: 'Manrope',
@@ -98,7 +99,10 @@ class MyApp extends StatelessWidget {
                 fontFamily: 'Manrope',
                 fontWeight: FontWeight.w500,
                 color: Colors.white),
-            bodyText1: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
+            bodyText1: TextStyle(
+                fontSize: 14,
+                fontFamily: 'Satoshi',
+                fontWeight: FontWeight.w700),
             // for description and input field
             bodyText2: TextStyle(
                 fontSize: 14,
@@ -124,4 +128,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
