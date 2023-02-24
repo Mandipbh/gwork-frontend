@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/home_page/home_screen.dart';
 import 'package:g_worker_app/colors.dart';
+import 'package:g_worker_app/sign_in/sign_in_sign_up_screen.dart';
 
 import '../common/common_buttons.dart';
 import '../common/common_input_fields.dart';
@@ -18,7 +19,13 @@ class _SetNewPasswordScreenState extends State<SetNewPasswordScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        askForExit(context);
+        askForExit(context: context,onBackPressed: (){
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const SignInSignUpScreen()),
+                  (Route<dynamic> route) => false);
+        }, title: '', description: '');
         return false;
       },
       child: Scaffold(

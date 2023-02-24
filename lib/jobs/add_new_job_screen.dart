@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:g_worker_app/home_page/home_screen.dart';
 
 import 'package:g_worker_app/jobs/add_job_widgets/job_info_view.dart';
 import 'package:g_worker_app/jobs/add_job_widgets/job_reason_view.dart';
@@ -28,10 +29,19 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if(currentPage == 1){
+        if (currentPage == 1) {
           return true;
         }
-        askForStopRegistration(context);
+        askForExit(
+            context: context,
+            onBackPressed: () {
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomeScreen()),
+                  (Route<dynamic> route) => false);
+            },
+            title: '',
+            description: '');
         return false;
       },
       child: Scaffold(
@@ -75,7 +85,18 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                           ? IconButton(
                               icon: const Icon(Icons.close),
                               onPressed: () {
-                                askForStopRegistration(context);
+                                askForExit(
+                                    context: context,
+                                    onBackPressed: () {
+                                      Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const HomeScreen()),
+                                          (Route<dynamic> route) => false);
+                                    },
+                                    title: '',
+                                    description: '');
                               },
                             )
                           : const SizedBox(
@@ -135,48 +156,43 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
             ? 'Job Info'
             : currentPage == 3
                 ? 'Schedule'
-                : currentPage == 4
+                : currentPage == 4 || currentPage == 5
                     ? 'More Info'
-                    : currentPage == 5
+                    : currentPage == 6
                         ? 'Summary'
                         : '';
     return Container(
-      height: currentPage > 5 ? 78 : 128,
-      // margin: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      height: 128,
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12), color: Colors.white),
       child: Column(
         children: [
-          currentPage > 5
-              ? Container()
-              : Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
-                  child: Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 15,
-                        backgroundColor: const Color(0xfff2f2f2),
-                        child: Text(
-                          currentPage.toString().padLeft(2, '0'),
-                          style: const TextStyle(
-                              color: Colors.black, fontSize: 12),
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Text(label.toUpperCase()),
-                      const SizedBox(width: 30),
-                      Expanded(
-                          child: CustomProgressBar(
-                        max: 5,
-                        current: currentPage.toDouble(),
-                        color: primaryColor,
-                        bgColor: whiteF2F,
-                      )),
-                    ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+            child: Row(
+              children: [
+                CircleAvatar(
+                  radius: 15,
+                  backgroundColor: const Color(0xfff2f2f2),
+                  child: Text(
+                    currentPage.toString().padLeft(2, '0'),
+                    style: const TextStyle(color: Colors.black, fontSize: 12),
                   ),
                 ),
+                const SizedBox(width: 12),
+                Text(label.toUpperCase()),
+                const SizedBox(width: 30),
+                Expanded(
+                    child: CustomProgressBar(
+                  max: 6,
+                  current: currentPage.toDouble(),
+                  color: primaryColor,
+                  bgColor: whiteF2F,
+                )),
+              ],
+            ),
+          ),
           previousAndNextButtons(
               context: context,
               onPreviousTap: () {
@@ -193,11 +209,11 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                       curve: Curves.easeIn);
                 }
               },
-              nextButtonName: currentPage > 5 ? 'Accept' : 'Next Step',
+              nextButtonName: currentPage > 5 ? 'Publish' : 'Next Step',
               nextButtonIcon: Icon(
                   currentPage > 5 ? Icons.done : Icons.arrow_forward,
                   color: Colors.white),
-              showPrevious: currentPage != 1 && currentPage <= 5),
+              showPrevious: currentPage != 1),
         ],
       ),
     );

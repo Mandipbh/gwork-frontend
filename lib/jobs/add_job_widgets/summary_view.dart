@@ -1,65 +1,136 @@
 import 'package:flutter/material.dart';
 
+import '../../colors.dart';
 import '../../common/common_input_fields.dart';
 
-class SummaryView extends StatelessWidget {
-  const SummaryView({super.key});
+class SummaryView extends StatefulWidget {
+  const SummaryView({Key? key}) : super(key: key);
+
+  @override
+  State<SummaryView> createState() => _SummaryViewState();
+}
+
+class _SummaryViewState extends State<SummaryView> {
+  bool isDescriptionSelected = true;
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Text(
-              'Personal info',
-              style: Theme.of(context).textTheme.headline1,
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Text(
+                'Summary',
+                style: Theme.of(context).textTheme.headline1,
+              ),
             ),
-          ),
-          Text('Please fill all the fields',
-              style: Theme.of(context).textTheme.bodyText2),
-          const SizedBox(height: 24),
-          nameTextField(
-              label: 'name', asset: 'user_first_name.png'),
-          const SizedBox(height: 20),
-          nameTextField(label: 'last name', asset: 'user.png'),
-          const SizedBox(height: 20),
-          nameTextField(
-              label: 'email',
-              asset: 'mail.png',
-              keyboardType: TextInputType.emailAddress),
-          const SizedBox(height: 20),
-          Container(
-            height: 60,
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(16)),
-            child: TextField(
-                style: const TextStyle(fontSize: 18),
-                decoration: InputDecoration(
-                    icon: Image.asset('assets/icons/hash.png',height: 30,width: 30),
-                    labelText: 'VAT Number'.toUpperCase())),
-          ),
-          const SizedBox(height: 20),
-          Container(
-            height: 60,
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(16)),
-            child: TextField(
-                style: const TextStyle(fontSize: 18),
-                decoration: InputDecoration(
-                    hintText: 'dd/mm/yyyy',
-                    hintStyle:
-                        const TextStyle(fontSize: 18, color: Colors.black12),
-                    icon: Image.asset('assets/icons/calendar_birthday.png',height: 30,width: 30),
-                    labelText: 'Birth date'.toUpperCase())),
-          ),
-          const SizedBox(height: 20),
-        ],
+            Text('Building restructuring, or even bigger title about what to do',
+                style: Theme.of(context).textTheme.headline3),
+            const SizedBox(height: 24),
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  color: Colors.white),
+              padding: const EdgeInsets.all(8),
+              child: Row(children: [
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      setState(() {
+                        isDescriptionSelected = !isDescriptionSelected;
+                      });
+                    },
+                    child: Container(
+                        height: 34,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: isDescriptionSelected ? primaryColor : whiteF2F),
+                        child: Center(
+                            child: Text(
+                              'Description',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .subtitle1!
+                                  .apply(
+                                  color:
+                                  isDescriptionSelected ? whiteF2F : primaryColor),
+                            ))),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      setState(() {
+                        isDescriptionSelected = !isDescriptionSelected;
+                      });
+                    },
+                    child: Container(
+                        height: 34,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: !isDescriptionSelected ? primaryColor : whiteF2F),
+                        child: Center(
+                          child: Text('Gallery',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .subtitle1!
+                                  .apply(
+                                  color: !isDescriptionSelected
+                                      ? Colors.white
+                                      : primaryColor)),
+                        )),
+                  ),
+                ),
+              ]),
+            ),
+            const SizedBox(height: 24),
+            isDescriptionSelected ? descriptionView() : galleryView(),
+            const SizedBox(height: 20),
+          ],
+        ),
       ),
+    );
+  }
+
+  Widget descriptionView() {
+    return Column(children: [
+
+    ]);
+  }
+
+  galleryView() {
+    return Expanded(
+      child: GridView.count(
+          physics: const NeverScrollableScrollPhysics(),
+          crossAxisCount: 2,
+          crossAxisSpacing: 12,
+          mainAxisSpacing: 12,
+          children: List.generate(8, (index) {
+            return SizedBox(
+              height: MediaQuery.of(context).size.width * 0.44,
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12)),
+                padding: const EdgeInsets.symmetric(vertical: 15),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Text(
+                    'Upload Photo'.toUpperCase(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .caption!
+                        .apply(color: primaryColor),
+                  ),
+                ),
+              ),
+            );
+          })),
     );
   }
 }

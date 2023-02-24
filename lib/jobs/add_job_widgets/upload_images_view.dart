@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:g_worker_app/colors.dart';
 
 import '../../common/common_input_fields.dart';
 
@@ -8,57 +9,63 @@ class UploadImageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Text(
-              'Personal info',
-              style: Theme.of(context).textTheme.headline1,
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Text(
+                'Add some images for your work',
+                style: Theme.of(context).textTheme.headline1,
+              ),
             ),
-          ),
-          Text('Please fill all the fields',
-              style: Theme.of(context).textTheme.bodyText2),
-          const SizedBox(height: 40),
-          nameTextField(
-              label: 'name', asset: 'user_first_name.png'),
-          const SizedBox(height: 20),
-          nameTextField(label: 'last name', asset: 'user.png'),
-          const SizedBox(height: 20),
-          nameTextField(
-              label: 'email',
-              asset: 'mail.png',
-              keyboardType: TextInputType.emailAddress),
-          const SizedBox(height: 20),
-          Container(
-            height: 60,
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(16)),
-            child: TextField(
-                style: const TextStyle(fontSize: 18),
-                decoration: InputDecoration(
-                    icon: Image.asset('assets/icons/hash.png',height: 30,width: 30),
-                    labelText: 'VAT Number'.toUpperCase())),
-          ),
-          const SizedBox(height: 20),
-          Container(
-            height: 60,
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(16)),
-            child: TextField(
-                style: const TextStyle(fontSize: 18),
-                decoration: InputDecoration(
-                    hintText: 'dd/mm/yyyy',
-                    hintStyle:
-                        const TextStyle(fontSize: 18, color: Colors.black12),
-                    icon: Image.asset('assets/icons/calendar_birthday.png',height: 30,width: 30),
-                    labelText: 'Birth date'.toUpperCase())),
-          ),
-          const SizedBox(height: 20),
-        ],
+            Text('The following fields are optional',
+                style: Theme.of(context).textTheme.bodyText2),
+            const SizedBox(height: 24),
+            Expanded(
+                child: GridView.count(
+                    physics: const NeverScrollableScrollPhysics(),
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 12,
+                    mainAxisSpacing: 12,
+                    children: List.generate(6, (index) {
+                      return SizedBox(
+                        height: MediaQuery.of(context).size.width * 0.44,
+                        child: Stack(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(12)),
+                              padding: const EdgeInsets.symmetric(vertical: 15),
+                              child: Align(
+                                alignment: Alignment.bottomCenter,
+                                child: Text(
+                                  'Upload Photo'.toUpperCase(),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .caption!
+                                      .apply(color: primaryColor),
+                                ),
+                              ),
+                            ),
+                            Positioned.fill(
+                              child: Center(
+                                child: Image.asset(
+                                    'assets/images/upload_image.png',
+                                    height: 100,
+                                    width: 100),
+                              ),
+                            )
+                          ],
+                        ),
+                      );
+                    }))),
+            const SizedBox(height: 16),
+          ],
+        ),
       ),
     );
   }

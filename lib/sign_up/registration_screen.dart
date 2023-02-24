@@ -12,6 +12,7 @@ import '../colors.dart';
 import '../common/common_buttons.dart';
 import '../common/common_widgets.dart';
 import '../custom_progress_bar.dart';
+import '../sign_in/sign_in_sign_up_screen.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
@@ -29,7 +30,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        askForStopRegistration(context);
+        askForExit(context: context,onBackPressed: (){
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const SignInSignUpScreen()),
+                  (Route<dynamic> route) => false);
+        }, title: '', description: '');
         return false;
       },
       child: Scaffold(
@@ -60,7 +67,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       IconButton(
                         icon: const Icon(Icons.close),
                         onPressed: () {
-                          askForStopRegistration(context);
+                          askForExit(context: context,onBackPressed: (){
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const SignInSignUpScreen()),
+                                    (Route<dynamic> route) => false);
+                          }, title: '', description: '');
                         },
                       )
                     ],

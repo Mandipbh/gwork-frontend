@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import 'package:g_worker_app/colors.dart';
@@ -30,11 +31,11 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 25),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 25),
                 child: Text(
-                  'Welcome!',
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  tr('welcome'),
+                  style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
               ),
               Container(

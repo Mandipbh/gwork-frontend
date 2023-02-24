@@ -20,35 +20,36 @@ Widget phoneNumberTextField() {
 
 Widget passwordTextField({required String label}) {
   bool isPasswordVisible = false;
-  return StatefulBuilder(
-    builder: (context, newState) {
-      return Container(
-        height: 60,
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(16)),
-        child: TextField(
-            obscureText: !isPasswordVisible,
-            obscuringCharacter: '*',
-            style: const TextStyle(fontSize: 18),
-            decoration: InputDecoration(
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    newState((){
-                      isPasswordVisible = !isPasswordVisible;
-                    });
-                  },
-                  icon: Icon(
-                    isPasswordVisible ? Icons.visibility_outlined : Icons.visibility_off_outlined,
-                    size: 30,
-                    color: primaryColor,
-                  ),
+  return StatefulBuilder(builder: (context, newState) {
+    return Container(
+      height: 60,
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      decoration: BoxDecoration(
+          color: Colors.white, borderRadius: BorderRadius.circular(16)),
+      child: TextField(
+          obscureText: !isPasswordVisible,
+          obscuringCharacter: '*',
+          style: const TextStyle(fontSize: 18),
+          decoration: InputDecoration(
+              suffixIcon: IconButton(
+                onPressed: () {
+                  newState(() {
+                    isPasswordVisible = !isPasswordVisible;
+                  });
+                },
+                icon: Icon(
+                  isPasswordVisible
+                      ? Icons.visibility_outlined
+                      : Icons.visibility_off_outlined,
+                  size: 30,
+                  color: primaryColor,
                 ),
-                icon: Image.asset('assets/icons/password.png', height: 30, width: 30),
-                labelText: label.toUpperCase())),
-      );
-    }
-  );
+              ),
+              icon: Image.asset('assets/icons/password.png',
+                  height: 30, width: 30),
+              labelText: label.toUpperCase())),
+    );
+  });
 }
 
 Widget nameTextField(
@@ -68,6 +69,30 @@ Widget nameTextField(
         keyboardType: keyboardType,
         decoration: InputDecoration(
             icon: Image.asset('assets/icons/$asset', height: 30, width: 30),
+            labelText: label.toUpperCase())),
+  );
+}
+
+Widget multilineTextField(
+    {required String label,
+    required String asset,
+    TextEditingController? controller}) {
+  controller ??= TextEditingController();
+  return Container(
+    height: 120,
+    padding: const EdgeInsets.symmetric(horizontal: 8),
+    decoration: BoxDecoration(
+        color: Colors.white, borderRadius: BorderRadius.circular(16)),
+    child: TextField(
+        controller: controller,
+        style: const TextStyle(fontSize: 18),
+        keyboardType: TextInputType.multiline,
+        maxLines: 3,
+        decoration: InputDecoration(
+            icon: Padding(
+              padding: const EdgeInsets.only(bottom: 70),
+              child: Image.asset('assets/icons/$asset', height: 30, width: 30),
+            ),
             labelText: label.toUpperCase())),
   );
 }
