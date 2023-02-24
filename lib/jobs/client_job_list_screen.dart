@@ -4,6 +4,7 @@ import 'package:g_worker_app/jobs/add_new_job_screen.dart';
 
 import '../Constants.dart';
 import '../common/common_buttons.dart';
+import 'job_detail_screen.dart';
 
 class ClientJobListScreen extends StatefulWidget {
   const ClientJobListScreen({Key? key}) : super(key: key);
@@ -409,95 +410,105 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                 const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 4),
             itemCount: 6,
             shrinkWrap: true,
-            itemBuilder: (context, index) => Padding(
-              padding: const EdgeInsets.only(bottom: 12),
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: Colors.white),
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      left: 12, top: 12, bottom: 12, right: 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                'Cleaning'.toUpperCase(),
-                                style: const TextStyle(
-                                  color: black343,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                              const SizedBox(width: 8),
-                              const Icon(Icons.location_on_outlined,
-                                  color: Colors.black, size: 22),
-                              const SizedBox(width: 3),
-                              const Text(
-                                'Via Zolo, 11, Milan',
-                                style: TextStyle(
-                                  color: splashColor1,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const Text(
-                            '2 rooms, max 60\$',
-                            style: TextStyle(
-                              color: black343,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          const SizedBox(height: 4),
-                          Row(
-                            children: [
-                              MaterialButton(
-                                onPressed: () {},
-                                height: 30,
-                                color: redE45,
-                                elevation: 0,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(13)),
-                                child: const Text(
-                                  'Rejected',
-                                  style: TextStyle(
-                                    color: Colors.white,
+            itemBuilder: (context, index) => InkWell(
+              onTap: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                      const JobDetailsScreen()),
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 12),
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: Colors.white),
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 12, top: 12, bottom: 12, right: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  'Cleaning'.toUpperCase(),
+                                  style: const TextStyle(
+                                    color: black343,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
-                              ),
-                              const SizedBox(width: 4),
-                              const Text(
-                                '06/07/2022 — 12:30',
-                                style: TextStyle(
-                                  color: black343,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700,
+                                const SizedBox(width: 8),
+                                const Icon(Icons.location_on_outlined,
+                                    color: Colors.black, size: 22),
+                                const SizedBox(width: 3),
+                                const Text(
+                                  'Via Zolo, 11, Milan',
+                                  style: TextStyle(
+                                    color: splashColor1,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
+                              ],
+                            ),
+                            const Text(
+                              '2 rooms, max 60\$',
+                              style: TextStyle(
+                                color: black343,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
                               ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: const [
-                          Icon(Icons.circle, size: 20, color: yellowF4D),
-                          SizedBox(width: 8),
-                          Icon(Icons.arrow_forward_ios,
-                              color: Colors.black, size: 20),
-                        ],
-                      ),
-                    ],
+                            ),
+                            const SizedBox(height: 4),
+                            Row(
+                              children: [
+                                MaterialButton(
+                                  onPressed: () {},
+                                  height: 30,
+                                  color: redE45,
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(13)),
+                                  child: const Text(
+                                    'Rejected',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 4),
+                                const Text(
+                                  '06/07/2022 — 12:30',
+                                  style: TextStyle(
+                                    color: black343,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: const [
+                            Icon(Icons.circle, size: 20, color: yellowF4D),
+                            SizedBox(width: 8),
+                            Icon(Icons.arrow_forward_ios,
+                                color: Colors.black, size: 20),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
