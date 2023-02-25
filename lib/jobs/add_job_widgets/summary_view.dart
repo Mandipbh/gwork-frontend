@@ -38,7 +38,8 @@ class _SummaryViewState extends State<SummaryView> {
               padding: const EdgeInsets.all(8),
               child: Row(children: [
                 Expanded(
-                  child: InkWell(
+                  child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
                     onTap: () {
                       setState(() {
                         isDescriptionSelected = !isDescriptionSelected;
@@ -63,7 +64,8 @@ class _SummaryViewState extends State<SummaryView> {
                 ),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: InkWell(
+                  child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
                     onTap: () {
                       setState(() {
                         isDescriptionSelected = !isDescriptionSelected;

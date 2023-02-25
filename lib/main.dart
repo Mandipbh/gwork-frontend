@@ -23,7 +23,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  static int userType = UserType.client;
+  static int userType = UserType.admin;
 
   // This widget is the root of your application.
   @override
@@ -37,9 +37,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           scaffoldBackgroundColor: whiteF2F,
           primaryColor: primaryColor,
+          bottomSheetTheme: const BottomSheetThemeData(backgroundColor: Colors.transparent),
           inputDecorationTheme: const InputDecorationTheme(
             border: InputBorder.none,
-            floatingLabelBehavior: FloatingLabelBehavior.auto,
+            floatingLabelBehavior: FloatingLabelBehavior.always,
             helperStyle: TextStyle(
                 fontSize: 14,
                 fontFamily: 'Manrope',
@@ -122,8 +123,7 @@ class MyApp extends StatelessWidget {
                 fontWeight: FontWeight.w700,
                 color: Colors.white),
           ),
-          dividerTheme:
-              const DividerThemeData(color: Color(0xffD3DCD7), thickness: 1)),
+          dividerTheme: const DividerThemeData(color: Color(0xffD3DCD7), thickness: 1)),
       home: const SplashScreen(),
     );
   }

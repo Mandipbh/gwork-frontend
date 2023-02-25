@@ -30,7 +30,8 @@ class _EditOfferScreenState extends State<EditOfferScreen> {
       automaticallyImplyLeading: false,
       centerTitle: true,
       elevation: 0,
-      leading: InkWell(
+      leading: GestureDetector(
+          behavior: HitTestBehavior.opaque,
         onTap: () {
           Navigator.pop(context);
         },

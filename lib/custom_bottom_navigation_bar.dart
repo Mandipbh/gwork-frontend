@@ -25,7 +25,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
           child: Row(
             children: [
               Expanded(
-                  child: InkWell(
+                  child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
                 onTap: () {
                   onItemTapped(0);
                 },
@@ -53,7 +54,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
                 ),
               )),
               Expanded(
-                  child: InkWell(
+                  child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
                 onTap: () {
                   onItemTapped(1);
                 },
@@ -81,7 +83,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
                 ),
               )),
               Expanded(
-                  child: InkWell(
+                  child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
                 onTap: () {
                   onItemTapped(2);
                 },

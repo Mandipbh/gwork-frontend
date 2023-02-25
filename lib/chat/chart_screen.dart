@@ -46,7 +46,8 @@ class _ChatScreenState extends State<ChatScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                InkWell(
+                GestureDetector(
+          behavior: HitTestBehavior.opaque,
                   onTap: () {
                     Navigator.pop(context);
                   },
@@ -109,7 +110,8 @@ class _ChatScreenState extends State<ChatScreen> {
                     ),
                   ],
                 ),
-                InkWell(
+                GestureDetector(
+          behavior: HitTestBehavior.opaque,
                   onTap: () {
                     Navigator.pushAndRemoveUntil(
                         context,

@@ -67,7 +67,8 @@ class MyProfileScreen extends StatelessWidget {
                     ],
                   ),
                   const Spacer(),
-                  InkWell(
+                  GestureDetector(
+          behavior: HitTestBehavior.opaque,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Image.asset('assets/icons/edit.png',height: 30,width: 30),
@@ -99,7 +100,8 @@ class MyProfileScreen extends StatelessWidget {
                     ],
                   ),
                   const Spacer(),
-                  InkWell(
+                  GestureDetector(
+          behavior: HitTestBehavior.opaque,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Image.asset('assets/icons/edit.png',height: 30,width: 30),
@@ -132,7 +134,8 @@ class MyProfileScreen extends StatelessWidget {
                     ],
                   ),
                   const Spacer(),
-                  InkWell(
+                  GestureDetector(
+          behavior: HitTestBehavior.opaque,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Image.asset('assets/icons/edit.png',height: 30,width: 30),
@@ -165,7 +168,8 @@ class MyProfileScreen extends StatelessWidget {
                     ],
                   ),
                   const Spacer(),
-                  InkWell(
+                  GestureDetector(
+          behavior: HitTestBehavior.opaque,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Image.asset('assets/icons/edit.png',height: 30,width: 30),
@@ -198,7 +202,8 @@ class MyProfileScreen extends StatelessWidget {
                     ],
                   ),
                   const Spacer(),
-                  InkWell(
+                  GestureDetector(
+          behavior: HitTestBehavior.opaque,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Image.asset('assets/icons/edit.png',height: 30,width: 30),
@@ -231,7 +236,8 @@ class MyProfileScreen extends StatelessWidget {
                     ],
                   ),
                   const Spacer(),
-                  InkWell(
+                  GestureDetector(
+          behavior: HitTestBehavior.opaque,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Image.asset('assets/icons/edit.png',height: 30,width: 30),
@@ -264,7 +270,8 @@ class MyProfileScreen extends StatelessWidget {
                     ],
                   ),
                   const Spacer(),
-                  InkWell(
+                  GestureDetector(
+          behavior: HitTestBehavior.opaque,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Image.asset('assets/icons/edit.png',height: 30,width: 30),
@@ -297,7 +304,8 @@ class MyProfileScreen extends StatelessWidget {
                     ],
                   ),
                   const Spacer(),
-                  InkWell(
+                  GestureDetector(
+          behavior: HitTestBehavior.opaque,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Image.asset('assets/icons/edit.png',height: 30,width: 30),

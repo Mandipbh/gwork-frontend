@@ -5,15 +5,19 @@ import 'package:g_worker_app/colors.dart';
 Widget phoneNumberTextField() {
   return Container(
     height: 60,
-    padding: const EdgeInsets.symmetric(horizontal: 8),
     decoration: BoxDecoration(
-        color: Colors.white, borderRadius: BorderRadius.circular(16)),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.white)),
     child: TextField(
         keyboardType: TextInputType.number,
+        controller: TextEditingController(text: ' '),
+        maxLength: 10,
         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         decoration: InputDecoration(
-            icon: Image.asset('assets/icons/phone.png', height: 30, width: 30),
+            prefixIcon: Image.asset('assets/icons/phone.png', scale: 2),
             labelText: 'Phone Number'.toUpperCase(),
+            counterText: "",
             prefixText: '+39')),
   );
 }
@@ -23,31 +27,40 @@ Widget passwordTextField({required String label}) {
   return StatefulBuilder(builder: (context, newState) {
     return Container(
       height: 60,
-      padding: const EdgeInsets.symmetric(horizontal: 8),
       decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(16)),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: Colors.white)),
       child: TextField(
-          obscureText: !isPasswordVisible,
-          obscuringCharacter: '*',
-          style: const TextStyle(fontSize: 18),
-          decoration: InputDecoration(
-              suffixIcon: IconButton(
-                onPressed: () {
-                  newState(() {
-                    isPasswordVisible = !isPasswordVisible;
-                  });
-                },
-                icon: Icon(
-                  isPasswordVisible
-                      ? Icons.visibility_outlined
-                      : Icons.visibility_off_outlined,
-                  size: 30,
-                  color: primaryColor,
-                ),
+        obscureText: !isPasswordVisible,
+        obscuringCharacter: '*',
+        keyboardType: TextInputType.visiblePassword,
+        style: const TextStyle(fontSize: 18),
+        decoration: InputDecoration(
+            suffixIcon: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
+                newState(() {
+                  isPasswordVisible = !isPasswordVisible;
+                });
+              },
+              child: Icon(
+                isPasswordVisible
+                    ? Icons.visibility_outlined
+                    : Icons.visibility_off_outlined,
+                size: 30,
+                color: primaryColor,
               ),
-              icon: Image.asset('assets/icons/password.png',
-                  height: 30, width: 30),
-              labelText: label.toUpperCase())),
+            ),
+            prefixIcon: Image.asset('assets/icons/password.png', scale: 2),
+            labelText: label.toUpperCase()),
+        onChanged: (value) {
+          bool isValid = RegExp(
+                  r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+              .hasMatch(value);
+          print('password => $value :: isValid => $isValid');
+        },
+      ),
     );
   });
 }

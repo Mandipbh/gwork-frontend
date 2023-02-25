@@ -20,6 +20,7 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: primaryColor,
       body: SafeArea(
         child: Stack(
           children: [
@@ -405,114 +406,120 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
   Widget myJobsView() {
     return selectedFilter == JobsFilters.doing
         ? noMyJobsView()
-        : ListView.builder(
+        : ListView.separated(
             padding:
                 const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 4),
             itemCount: 6,
             shrinkWrap: true,
-            itemBuilder: (context, index) => InkWell(
-              onTap: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                      const JobDetailsScreen()),
-                );
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 12),
-                child: Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: Colors.white),
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 12, top: 12, bottom: 12, right: 16),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const JobDetailsScreen()),
+                      );
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: Colors.white),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            left: 12, top: 12, bottom: 12, right: 16),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  'Cleaning'.toUpperCase(),
-                                  style: const TextStyle(
-                                    color: black343,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                const Icon(Icons.location_on_outlined,
-                                    color: Colors.black, size: 22),
-                                const SizedBox(width: 3),
-                                const Text(
-                                  'Via Zolo, 11, Milan',
-                                  style: TextStyle(
-                                    color: splashColor1,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const Text(
-                              '2 rooms, max 60\$',
-                              style: TextStyle(
-                                color: black343,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                            Row(
-                              children: [
-                                MaterialButton(
-                                  onPressed: () {},
-                                  height: 30,
-                                  color: redE45,
-                                  elevation: 0,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(13)),
-                                  child: const Text(
-                                    'Rejected',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w700,
+                                Row(
+                                  children: [
+                                    Text(
+                                      'Cleaning'.toUpperCase(),
+                                      style: const TextStyle(
+                                        color: black343,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
-                                  ),
+                                    const SizedBox(width: 8),
+                                    const Icon(Icons.location_on_outlined,
+                                        color: Colors.black, size: 22),
+                                    const SizedBox(width: 3),
+                                    const Text(
+                                      'Via Zolo, 11, Milan',
+                                      style: TextStyle(
+                                        color: splashColor1,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                const SizedBox(width: 4),
                                 const Text(
-                                  '06/07/2022 — 12:30',
+                                  '2 rooms, max 60\$',
                                   style: TextStyle(
                                     color: black343,
-                                    fontSize: 12,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
+                                const SizedBox(height: 4),
+                                Row(
+                                  children: [
+                                    MaterialButton(
+                                      onPressed: () {},
+                                      height: 30,
+                                      color: redE45,
+                                      elevation: 0,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(13)),
+                                      child: const Text(
+                                        'Rejected',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 4),
+                                    const Text(
+                                      '06/07/2022 — 12:30',
+                                      style: TextStyle(
+                                        color: black343,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: const [
+                                Icon(Icons.circle, size: 20, color: yellowF4D),
+                                SizedBox(width: 8),
+                                Icon(Icons.arrow_forward_ios,
+                                    color: Colors.black, size: 20),
                               ],
                             ),
                           ],
                         ),
-                        Row(
-                          children: const [
-                            Icon(Icons.circle, size: 20, color: yellowF4D),
-                            SizedBox(width: 8),
-                            Icon(Icons.arrow_forward_ios,
-                                color: Colors.black, size: 20),
-                          ],
-                        ),
-                      ],
+                      ),
                     ),
                   ),
-                ),
-              ),
-            ),
+                  SizedBox(height: index == 5 ? 90 : 0)
+                ],
+              );
+            },
+            separatorBuilder: (context, index) => const SizedBox(height: 12),
           );
   }
 
@@ -523,10 +530,10 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
       children: [
         Image.asset(
           'assets/images/empty_job.png',
-          scale: 1.5,
+          height: 180,
         ),
         const SizedBox(
-          height: 20,
+          height: 8,
         ),
         Container(
           width: MediaQuery.of(context).size.width,
@@ -536,10 +543,10 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
               color: Colors.white, borderRadius: BorderRadius.circular(16)),
           child: Column(
             children: const [
-              Text("You didn't took any job",
+              Text("There is no jobs for you",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
               SizedBox(height: 4),
-              Text("Search for a job",
+              Text("Please create one",
                   style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
             ],
           ),

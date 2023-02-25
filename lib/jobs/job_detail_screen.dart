@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:g_worker_app/chat/chart_screen.dart';
 import 'package:g_worker_app/colors.dart';
 
+import '../common/common_buttons.dart';
+
 class JobDetailsScreen extends StatefulWidget {
   const JobDetailsScreen({Key? key}) : super(key: key);
 
@@ -13,6 +15,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   bool isSelected = false;
   bool isApply = false;
   bool isReject = false;
+  int selectedType = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +75,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                               ),
                             ),
                             trailing: isApply == true
-                                ? InkWell(
+                                ? GestureDetector(
+          behavior: HitTestBehavior.opaque,
                               onTap: () {
                                 Navigator.pushAndRemoveUntil(
                                     context,
@@ -181,7 +185,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
       automaticallyImplyLeading: false,
       centerTitle: true,
       elevation: 0,
-      leading: InkWell(
+      leading: GestureDetector(
+          behavior: HitTestBehavior.opaque,
         onTap: () {
           Navigator.pop(context);
         },
@@ -243,55 +248,16 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   }
 
   Widget tabView() {
-    return Container(
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16), color: Colors.white),
-      padding: const EdgeInsets.all(8),
-      child: Row(children: [
-        Expanded(
-          child: InkWell(
-            onTap: () {
-              setState(() {
-                isSelected = !isSelected;
-              });
-            },
-            child: Container(
-                height: 34,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: isSelected ? whiteF2F : primaryColor),
-                child: Center(
-                    child: Text(
-                      'Description',
-                      style: Theme.of(context)
-                          .textTheme
-                          .subtitle1!
-                          .apply(color: isSelected ? primaryColor : Colors.white),
-                    ))),
-          ),
-        ),
-        const SizedBox(width: 8),
-        Expanded(
-          child: InkWell(
-            onTap: () {
-              setState(() {
-                isSelected = !isSelected;
-              });
-            },
-            child: Container(
-                height: 34,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: !isSelected ? whiteF2F : primaryColor),
-                child: Center(
-                  child: Text('Gallery',
-                      style: Theme.of(context).textTheme.subtitle1!.apply(
-                          color: !isSelected ? primaryColor : Colors.white)),
-                )),
-          ),
-        ),
-      ]),
-    );
+    return singleSelectionButtons(
+        context: context,
+        buttons: ['Description', 'Gallery','Applicants (5)'],
+        padding: 8,
+        selected: selectedType,
+        onSelectionChange: (value) {
+          setState(() {
+            selectedType = value;
+          });
+        });
   }
 
   Widget jobDetailView(icon, text) {
@@ -338,7 +304,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           child: Row(
             children: [
               Expanded(
-                child: InkWell(
+                child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
                   onTap: () {},
                   child: Container(
                     height: 56,
@@ -384,7 +351,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
               ),
               const SizedBox(width: 8),
               Expanded(
-                child: InkWell(
+                child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
                   onTap: () {
                     askForApply(context);
                   },
@@ -490,7 +458,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           ),
         ),
         const SizedBox(height: 24),
-        InkWell(
+        GestureDetector(
+          behavior: HitTestBehavior.opaque,
           onTap: () {
             Navigator.pop(context);
           },
@@ -519,7 +488,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   Widget rejectView() {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15),
-      child: InkWell(
+      child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
         onTap: () {
           askForReject(context);
         },
@@ -611,7 +581,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           ),
         ),
         const SizedBox(height: 24),
-        InkWell(
+        GestureDetector(
+          behavior: HitTestBehavior.opaque,
           onTap: () {
             setState(() {
               isReject = true;

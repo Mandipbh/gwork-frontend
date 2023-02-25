@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:g_worker_app/Constants.dart';
 import 'package:g_worker_app/colors.dart';
 
+import '../common/common_buttons.dart';
+
 class UserListScreen extends StatefulWidget {
   const UserListScreen({super.key});
 
@@ -69,63 +71,15 @@ class _UserListScreenState extends State<UserListScreen> {
             ],
           ),
           const SizedBox(height: 20),
-          Container(
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(20)),
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                    child: InkWell(
-                  onTap: () {
-                    setState(() {
-                      selected = UserFilters.registered;
-                    });
-                  },
-                  child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      decoration: BoxDecoration(
-                          color: selected == UserFilters.registered
-                              ? primaryColor
-                              : Colors.white,
-                          borderRadius: BorderRadius.circular(16)),
-                      child: Center(
-                          child: Text(
-                        'Registered (0)',
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: selected == UserFilters.registered
-                                ? Colors.white
-                                : primaryColor),
-                      ))),
-                )),
-                Expanded(
-                    child: InkWell(
-                  onTap: () {
-                    setState(() {
-                      selected = UserFilters.applications;
-                    });
-                  },
-                  child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      decoration: BoxDecoration(
-                          color: selected == UserFilters.applications
-                              ? primaryColor
-                              : Colors.white,
-                          borderRadius: BorderRadius.circular(16)),
-                      child: Center(
-                          child: Text('Applications (48)',
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w700,
-                                  color: selected == UserFilters.applications
-                                      ? Colors.white
-                                      : primaryColor)))),
-                )),
-              ],
-            ),
-          ),
+          singleSelectionButtons(
+              context: context,
+              buttons: ['Registered (48)','Applications (0)'],
+              padding: 8,
+              selected: selected, onSelectionChange: (value){
+            setState(() {
+              selected = value;
+            });
+          }),
           const SizedBox(height: 20),
         ],
       ),

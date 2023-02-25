@@ -24,8 +24,8 @@ class JobsType {
 }
 
 class UserFilters {
-  static const int registered = 0;
-  static const int applications = 1;
+  static const int registered = 1;
+  static const int applications = 2;
 }
 
 class ProfileFieldType {
@@ -41,4 +41,11 @@ class UserType {
   static const int client = 0;
   static const int admin = 1;
   static const int professional = 2;
+}
+
+class SelectionType {
+  static const int signUp = 1;
+  static const int signIn = 2;
+  static const int searchJobs = 1;
+  static const int myJobs = 2;
 }
