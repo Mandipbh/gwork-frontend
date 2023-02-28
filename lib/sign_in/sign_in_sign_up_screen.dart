@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:g_worker_app/Constants.dart';
 
 import 'package:g_worker_app/colors.dart';
+import 'package:g_worker_app/main.dart';
 import 'package:g_worker_app/sign_in/recover_password_screen.dart';
 import 'package:g_worker_app/sign_up/registration_screen.dart';
 
@@ -38,7 +39,7 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                     const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
             ),
-            singleSelectionButtons(
+            MyApp.userType != UserType.admin ? singleSelectionButtons(
                 context: context,
                 buttons: ['Sign Up'.toUpperCase(), 'Sign In'.toUpperCase()],
                 selected: selected,
@@ -46,7 +47,7 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                   setState(() {
                     selected = value;
                   });
-                }),
+                }):Container(),
             const SizedBox(
               height: 30,
             ),

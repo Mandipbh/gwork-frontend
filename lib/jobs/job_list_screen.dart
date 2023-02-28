@@ -4,6 +4,7 @@ import 'package:g_worker_app/common/common_buttons.dart';
 import 'package:g_worker_app/custom_progress_bar.dart';
 
 import '../Constants.dart';
+import '../my_profile/my_profile_screen.dart';
 import 'job_detail_screen.dart';
 
 class JobListScreen extends StatefulWidget {
@@ -75,6 +76,13 @@ class _JobListScreenState extends State<JobListScreen> {
                   radius: 25,
                   child: Icon(Icons.person, color: Colors.grey, size: 25),
                 ),
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const MyProfileScreen()),
+                  );
+                },
               )
             ],
           ),

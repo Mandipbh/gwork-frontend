@@ -3,6 +3,7 @@ import 'package:g_worker_app/Constants.dart';
 import 'package:g_worker_app/colors.dart';
 
 import '../common/common_buttons.dart';
+import '../my_profile/my_profile_screen.dart';
 
 class UserListScreen extends StatefulWidget {
   const UserListScreen({super.key});
@@ -67,6 +68,13 @@ class _UserListScreenState extends State<UserListScreen> {
                   radius: 25,
                   child: Icon(Icons.person, color: Colors.grey, size: 25),
                 ),
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const MyProfileScreen()),
+                  );
+                },
               )
             ],
           ),
