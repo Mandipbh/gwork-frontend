@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/common/common_buttons.dart';
 
-void askForExit(
-    {required BuildContext context,
-    required Function onBackPressed,
-    required String title,
-    required String description}) {
+void askForExit({
+  required BuildContext context,
+  required Function onBackPressed,
+  required String title,
+  required String description,
+  String backButtonName = 'Go Back',
+}) {
   showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -58,7 +60,7 @@ void askForExit(
                   },
                   context: context,
                   backgroundColor: Colors.transparent,
-                  buttonName: 'Go Back',
+                  buttonName: backButtonName,
                   textColor: Colors.red,
                   iconAsset: 'go_backward.png',
                   iconColor: Colors.red),

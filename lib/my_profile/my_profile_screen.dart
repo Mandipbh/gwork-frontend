@@ -3,6 +3,9 @@ import 'package:g_worker_app/Constants.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/common/common_buttons.dart';
 import 'package:g_worker_app/my_profile/edit_profile_screen.dart';
+import 'package:g_worker_app/sign_in/sign_in_sign_up_screen.dart';
+
+import '../common/common_widgets.dart';
 
 class MyProfileScreen extends StatelessWidget {
   const MyProfileScreen({super.key});
@@ -41,8 +44,7 @@ class MyProfileScreen extends StatelessWidget {
                             radius: 25,
                             backgroundColor: primaryColor,
                             child: Image.asset('assets/icons/edit.png',
-                                height: 30,width: 30,
-                                color: Colors.white),
+                                height: 30, width: 30, color: Colors.white),
                           ))
                     ],
                   ),
@@ -55,7 +57,8 @@ class MyProfileScreen extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Image.asset('assets/icons/user_first_name.png',height: 30,width: 30),
+                  Image.asset('assets/icons/user_first_name.png',
+                      height: 30, width: 30),
                   const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,10 +71,11 @@ class MyProfileScreen extends StatelessWidget {
                   ),
                   const Spacer(),
                   GestureDetector(
-          behavior: HitTestBehavior.opaque,
+                      behavior: HitTestBehavior.opaque,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Image.asset('assets/icons/edit.png',height: 30,width: 30),
+                        child: Image.asset('assets/icons/edit.png',
+                            height: 30, width: 30),
                       ),
                       onTap: () {
                         Navigator.push(
@@ -88,7 +92,7 @@ class MyProfileScreen extends StatelessWidget {
               const Divider(height: 25),
               Row(
                 children: [
-                  Image.asset('assets/icons/user.png',height: 30,width: 30),
+                  Image.asset('assets/icons/user.png', height: 30, width: 30),
                   const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,10 +105,11 @@ class MyProfileScreen extends StatelessWidget {
                   ),
                   const Spacer(),
                   GestureDetector(
-          behavior: HitTestBehavior.opaque,
+                      behavior: HitTestBehavior.opaque,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Image.asset('assets/icons/edit.png',height: 30,width: 30),
+                        child: Image.asset('assets/icons/edit.png',
+                            height: 30, width: 30),
                       ),
                       onTap: () {
                         Navigator.push(
@@ -121,7 +126,7 @@ class MyProfileScreen extends StatelessWidget {
               const Divider(height: 25),
               Row(
                 children: [
-                  Image.asset('assets/icons/mail.png',height: 30,width: 30),
+                  Image.asset('assets/icons/mail.png', height: 30, width: 30),
                   const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -135,10 +140,11 @@ class MyProfileScreen extends StatelessWidget {
                   ),
                   const Spacer(),
                   GestureDetector(
-          behavior: HitTestBehavior.opaque,
+                      behavior: HitTestBehavior.opaque,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Image.asset('assets/icons/edit.png',height: 30,width: 30),
+                        child: Image.asset('assets/icons/edit.png',
+                            height: 30, width: 30),
                       ),
                       onTap: () {
                         Navigator.push(
@@ -155,7 +161,7 @@ class MyProfileScreen extends StatelessWidget {
               const Divider(height: 25),
               Row(
                 children: [
-                  Image.asset('assets/icons/phone.png',height: 30,width: 30),
+                  Image.asset('assets/icons/phone.png', height: 30, width: 30),
                   const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -169,10 +175,11 @@ class MyProfileScreen extends StatelessWidget {
                   ),
                   const Spacer(),
                   GestureDetector(
-          behavior: HitTestBehavior.opaque,
+                      behavior: HitTestBehavior.opaque,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Image.asset('assets/icons/edit.png',height: 30,width: 30),
+                        child: Image.asset('assets/icons/edit.png',
+                            height: 30, width: 30),
                       ),
                       onTap: () {
                         // Navigator.push(
@@ -189,7 +196,7 @@ class MyProfileScreen extends StatelessWidget {
               const Divider(height: 25),
               Row(
                 children: [
-                  Image.asset('assets/icons/hash.png',height: 30,width: 30),
+                  Image.asset('assets/icons/hash.png', height: 30, width: 30),
                   const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -203,10 +210,11 @@ class MyProfileScreen extends StatelessWidget {
                   ),
                   const Spacer(),
                   GestureDetector(
-          behavior: HitTestBehavior.opaque,
+                      behavior: HitTestBehavior.opaque,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Image.asset('assets/icons/edit.png',height: 30,width: 30),
+                        child: Image.asset('assets/icons/edit.png',
+                            height: 30, width: 30),
                       ),
                       onTap: () {
                         Navigator.push(
@@ -223,7 +231,8 @@ class MyProfileScreen extends StatelessWidget {
               const Divider(height: 25),
               Row(
                 children: [
-                  Image.asset('assets/icons/calendar_birthday.png',height: 30,width: 30),
+                  Image.asset('assets/icons/calendar_birthday.png',
+                      height: 30, width: 30),
                   const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -237,10 +246,11 @@ class MyProfileScreen extends StatelessWidget {
                   ),
                   const Spacer(),
                   GestureDetector(
-          behavior: HitTestBehavior.opaque,
+                      behavior: HitTestBehavior.opaque,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Image.asset('assets/icons/edit.png',height: 30,width: 30),
+                        child: Image.asset('assets/icons/edit.png',
+                            height: 30, width: 30),
                       ),
                       onTap: () {
                         Navigator.push(
@@ -257,7 +267,7 @@ class MyProfileScreen extends StatelessWidget {
               const Divider(height: 25),
               Row(
                 children: [
-                  Image.asset('assets/icons/hash.png',height: 30,width: 30),
+                  Image.asset('assets/icons/hash.png', height: 30, width: 30),
                   const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -271,10 +281,11 @@ class MyProfileScreen extends StatelessWidget {
                   ),
                   const Spacer(),
                   GestureDetector(
-          behavior: HitTestBehavior.opaque,
+                      behavior: HitTestBehavior.opaque,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Image.asset('assets/icons/edit.png',height: 30,width: 30),
+                        child: Image.asset('assets/icons/edit.png',
+                            height: 30, width: 30),
                       ),
                       onTap: () {
                         // Navigator.push(
@@ -291,7 +302,8 @@ class MyProfileScreen extends StatelessWidget {
               const Divider(height: 25),
               Row(
                 children: [
-                  Image.asset('assets/icons/password.png',height: 30,width: 30),
+                  Image.asset('assets/icons/password.png',
+                      height: 30, width: 30),
                   const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -305,10 +317,11 @@ class MyProfileScreen extends StatelessWidget {
                   ),
                   const Spacer(),
                   GestureDetector(
-          behavior: HitTestBehavior.opaque,
+                      behavior: HitTestBehavior.opaque,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Image.asset('assets/icons/edit.png',height: 30,width: 30),
+                        child: Image.asset('assets/icons/edit.png',
+                            height: 30, width: 30),
                       ),
                       onTap: () {
                         Navigator.push(
@@ -325,7 +338,22 @@ class MyProfileScreen extends StatelessWidget {
               const Divider(height: 25),
               submitButton(
                   context: context,
-                  onButtonTap: () {},
+                  onButtonTap: () {
+                    askForExit(
+                        context: context,
+                        onBackPressed: () {
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const SignInSignUpScreen()),
+                              (Route<dynamic> route) => false);
+                        },
+                        backButtonName: 'Logout',
+                        title: 'Are you sure you want to log out?',
+                        description:
+                            'You will need to log in again to proceed using the application.');
+                  },
                   backgroundColor: Colors.transparent,
                   iconColor: const Color(0xffE45E5E),
                   textColor: const Color(0xffE45E5E),

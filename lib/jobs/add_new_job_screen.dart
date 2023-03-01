@@ -40,8 +40,8 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                   MaterialPageRoute(builder: (context) => const HomeScreen()),
                   (Route<dynamic> route) => false);
             },
-            title: '',
-            description: '');
+            title: 'Are you sure you want to stop creating the job?',
+            description: 'All inserted data will be deleted');
         return false;
       },
       child: Scaffold(
@@ -95,8 +95,8 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                                                   const HomeScreen()),
                                           (Route<dynamic> route) => false);
                                     },
-                                    title: '',
-                                    description: '');
+                                    title: 'Are you sure you want to stop creating the job?',
+                                    description: 'All inserted data will be deleted');
                               },
                             )
                           : const SizedBox(

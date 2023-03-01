@@ -36,7 +36,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               MaterialPageRoute(
                   builder: (context) => const SignInSignUpScreen()),
                   (Route<dynamic> route) => false);
-        }, title: '', description: '');
+        }, title: 'Are you sure you want to stop registration?', description: 'All the saved data will be deleted');
         return false;
       },
       child: Scaffold(
@@ -73,7 +73,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 MaterialPageRoute(
                                     builder: (context) => const SignInSignUpScreen()),
                                     (Route<dynamic> route) => false);
-                          }, title: '', description: '');
+                          },  title: 'Are you sure you want to stop registration?', description: 'All the saved data will be deleted');
                         },
                       )
                     ],

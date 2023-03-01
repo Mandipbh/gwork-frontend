@@ -25,7 +25,7 @@ class _SetNewPasswordScreenState extends State<SetNewPasswordScreen> {
               MaterialPageRoute(
                   builder: (context) => const SignInSignUpScreen()),
                   (Route<dynamic> route) => false);
-        }, title: '', description: '');
+        }, title: 'Are you sure you want to go back', description: 'You will need to ask for another OTP code');
         return false;
       },
       child: Scaffold(
