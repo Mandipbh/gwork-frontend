@@ -37,7 +37,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           scaffoldBackgroundColor: whiteF2F,
           primaryColor: primaryColor,
-          bottomSheetTheme: const BottomSheetThemeData(backgroundColor: Colors.transparent),
+          bottomSheetTheme:
+              const BottomSheetThemeData(backgroundColor: Colors.transparent),
           inputDecorationTheme: const InputDecorationTheme(
             border: InputBorder.none,
             floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -123,7 +124,8 @@ class MyApp extends StatelessWidget {
                 fontWeight: FontWeight.w700,
                 color: Colors.white),
           ),
-          dividerTheme: const DividerThemeData(color: Color(0xffD3DCD7), thickness: 1)),
+          dividerTheme:
+              const DividerThemeData(color: Color(0xffD3DCD7), thickness: 1)),
       home: const SplashScreen(),
     );
   }

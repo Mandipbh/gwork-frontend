@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/common/common_buttons.dart';
 import 'package:g_worker_app/custom_progress_bar.dart';
+import 'package:g_worker_app/main.dart';
 
 import '../Constants.dart';
 import '../my_profile/my_profile_screen.dart';
@@ -58,6 +59,7 @@ class _JobListScreenState extends State<JobListScreen> {
       color: const Color(0xff1B1F1C),
       padding: const EdgeInsets.all(16),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -76,7 +78,7 @@ class _JobListScreenState extends State<JobListScreen> {
                   radius: 25,
                   child: Icon(Icons.person, color: Colors.grey, size: 25),
                 ),
-                onTap: (){
+                onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -87,157 +89,333 @@ class _JobListScreenState extends State<JobListScreen> {
             ],
           ),
           const SizedBox(height: 8),
-          Wrap(
-            alignment: WrapAlignment.start,
-            runAlignment: WrapAlignment.end,
-            spacing: 20,
-            children: [
-              FilterChip(
-                label: const Text(
-                  'All Jobs',
+          MyApp.userType == UserType.admin
+              ? Wrap(
+                  alignment: WrapAlignment.start,
+                  runAlignment: WrapAlignment.end,
+                  spacing: 8,
+                  children: [
+                    FilterChip(
+                      label: const Text(
+                        'All Jobs',
+                      ),
+                      labelStyle: TextStyle(
+                        color: selectedFilter != JobsFilters.all
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      selected: selectedFilter == JobsFilters.all,
+                      backgroundColor: black343,
+                      selectedColor: Colors.white,
+                      showCheckmark: false,
+                      onSelected: (bool value) {
+                        setState(() {
+                          selectedFilter = JobsFilters.all;
+                        });
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    FilterChip(
+                      label: const Text(
+                        'Published',
+                      ),
+                      labelStyle: TextStyle(
+                        color: selectedFilter != JobsFilters.all
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      selected: selectedFilter == JobsFilters.all,
+                      backgroundColor: black343,
+                      selectedColor: Colors.white,
+                      showCheckmark: false,
+                      onSelected: (bool value) {
+                        setState(() {
+                          selectedFilter = JobsFilters.all;
+                        });
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    FilterChip(
+                      label: const Text(
+                        'Doing',
+                      ),
+                      labelStyle: TextStyle(
+                        color: selectedFilter != JobsFilters.all
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      selected: selectedFilter == JobsFilters.all,
+                      backgroundColor: black343,
+                      selectedColor: Colors.white,
+                      showCheckmark: false,
+                      onSelected: (bool value) {
+                        setState(() {
+                          selectedFilter = JobsFilters.all;
+                        });
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    FilterChip(
+                      label: const Text(
+                        'Pending',
+                      ),
+                      labelStyle: TextStyle(
+                        color: selectedFilter != JobsFilters.applied
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      selected: selectedFilter == JobsFilters.applied,
+                      backgroundColor: black343,
+                      selectedColor: Colors.white,
+                      showCheckmark: false,
+                      onSelected: (bool value) {
+                        setState(() {
+                          selectedFilter = JobsFilters.applied;
+                        });
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    FilterChip(
+                      label: const Text(
+                        'Rejected',
+                      ),
+                      labelStyle: TextStyle(
+                        color: selectedFilter != JobsFilters.rejected
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      selected: selectedFilter == JobsFilters.rejected,
+                      backgroundColor: black343,
+                      selectedColor: Colors.white,
+                      showCheckmark: false,
+                      onSelected: (bool value) {
+                        setState(() {
+                          selectedFilter = JobsFilters.rejected;
+                        });
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    FilterChip(
+                      label: const Text(
+                        'Accepted',
+                      ),
+                      labelStyle: TextStyle(
+                        color: selectedFilter != JobsFilters.accepted
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      selected: selectedFilter == JobsFilters.accepted,
+                      backgroundColor: black343,
+                      selectedColor: Colors.white,
+                      showCheckmark: false,
+                      onSelected: (bool value) {
+                        setState(() {
+                          selectedFilter = JobsFilters.accepted;
+                        });
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    FilterChip(
+                      label: const Text(
+                        'Completed',
+                      ),
+                      labelStyle: TextStyle(
+                        color: selectedFilter != JobsFilters.completed
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      selected: selectedFilter == JobsFilters.completed,
+                      backgroundColor: black343,
+                      selectedColor: Colors.white,
+                      showCheckmark: false,
+                      onSelected: (bool value) {
+                        setState(() {
+                          selectedFilter = JobsFilters.completed;
+                        });
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ],
+                )
+              : Wrap(
+                  alignment: WrapAlignment.start,
+                  runAlignment: WrapAlignment.end,
+                  spacing: 8,
+                  children: [
+                    FilterChip(
+                      label: const Text(
+                        'All Jobs',
+                      ),
+                      labelStyle: TextStyle(
+                        color: selectedFilter != JobsFilters.all
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      selected: selectedFilter == JobsFilters.all,
+                      backgroundColor: black343,
+                      selectedColor: Colors.white,
+                      showCheckmark: false,
+                      onSelected: (bool value) {
+                        setState(() {
+                          selectedFilter = JobsFilters.all;
+                        });
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    FilterChip(
+                      label: const Text(
+                        'Applied',
+                      ),
+                      labelStyle: TextStyle(
+                        color: selectedFilter != JobsFilters.applied
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      selected: selectedFilter == JobsFilters.applied,
+                      backgroundColor: black343,
+                      selectedColor: Colors.white,
+                      showCheckmark: false,
+                      onSelected: (bool value) {
+                        setState(() {
+                          selectedFilter = JobsFilters.applied;
+                        });
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    FilterChip(
+                      label: const Text(
+                        'Accepted',
+                      ),
+                      labelStyle: TextStyle(
+                        color: selectedFilter != JobsFilters.accepted
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      selected: selectedFilter == JobsFilters.accepted,
+                      backgroundColor: black343,
+                      selectedColor: Colors.white,
+                      showCheckmark: false,
+                      onSelected: (bool value) {
+                        setState(() {
+                          selectedFilter = JobsFilters.accepted;
+                        });
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    FilterChip(
+                      label: const Text(
+                        'Doing',
+                      ),
+                      labelStyle: TextStyle(
+                        color: selectedFilter != JobsFilters.doing
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      selected: selectedFilter == JobsFilters.doing,
+                      backgroundColor: black343,
+                      selectedColor: Colors.white,
+                      showCheckmark: false,
+                      onSelected: (bool value) {
+                        setState(() {
+                          selectedFilter = JobsFilters.doing;
+                        });
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    FilterChip(
+                      label: const Text(
+                        'Rejected',
+                      ),
+                      labelStyle: TextStyle(
+                        color: selectedFilter != JobsFilters.rejected
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      selected: selectedFilter == JobsFilters.rejected,
+                      backgroundColor: black343,
+                      selectedColor: Colors.white,
+                      showCheckmark: false,
+                      onSelected: (bool value) {
+                        setState(() {
+                          selectedFilter = JobsFilters.rejected;
+                        });
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    FilterChip(
+                      label: const Text(
+                        'Completed',
+                      ),
+                      labelStyle: TextStyle(
+                        color: selectedFilter != JobsFilters.completed
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      selected: selectedFilter == JobsFilters.completed,
+                      backgroundColor: black343,
+                      selectedColor: Colors.white,
+                      showCheckmark: false,
+                      onSelected: (bool value) {
+                        setState(() {
+                          selectedFilter = JobsFilters.completed;
+                        });
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ],
                 ),
-                labelStyle: TextStyle(
-                  color: selectedFilter != JobsFilters.all
-                      ? Colors.white
-                      : Colors.black,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                ),
-                selected: selectedFilter == JobsFilters.all,
-                backgroundColor: black343,
-                selectedColor: Colors.white,
-                showCheckmark: false,
-                onSelected: (bool value) {
-                  setState(() {
-                    selectedFilter = JobsFilters.all;
-                  });
-                },
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              FilterChip(
-                label: const Text(
-                  'Applied',
-                ),
-                labelStyle: TextStyle(
-                  color: selectedFilter != JobsFilters.applied
-                      ? Colors.white
-                      : Colors.black,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                ),
-                selected: selectedFilter == JobsFilters.applied,
-                backgroundColor: black343,
-                selectedColor: Colors.white,
-                showCheckmark: false,
-                onSelected: (bool value) {
-                  setState(() {
-                    selectedFilter = JobsFilters.applied;
-                  });
-                },
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              FilterChip(
-                label: const Text(
-                  'Accepted',
-                ),
-                labelStyle: TextStyle(
-                  color: selectedFilter != JobsFilters.accepted
-                      ? Colors.white
-                      : Colors.black,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                ),
-                selected: selectedFilter == JobsFilters.accepted,
-                backgroundColor: black343,
-                selectedColor: Colors.white,
-                showCheckmark: false,
-                onSelected: (bool value) {
-                  setState(() {
-                    selectedFilter = JobsFilters.accepted;
-                  });
-                },
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              FilterChip(
-                label: const Text(
-                  'Doing',
-                ),
-                labelStyle: TextStyle(
-                  color: selectedFilter != JobsFilters.doing
-                      ? Colors.white
-                      : Colors.black,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                ),
-                selected: selectedFilter == JobsFilters.doing,
-                backgroundColor: black343,
-                selectedColor: Colors.white,
-                showCheckmark: false,
-                onSelected: (bool value) {
-                  setState(() {
-                    selectedFilter = JobsFilters.doing;
-                  });
-                },
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              FilterChip(
-                label: const Text(
-                  'Rejected',
-                ),
-                labelStyle: TextStyle(
-                  color: selectedFilter != JobsFilters.rejected
-                      ? Colors.white
-                      : Colors.black,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                ),
-                selected: selectedFilter == JobsFilters.rejected,
-                backgroundColor: black343,
-                selectedColor: Colors.white,
-                showCheckmark: false,
-                onSelected: (bool value) {
-                  setState(() {
-                    selectedFilter = JobsFilters.rejected;
-                  });
-                },
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              FilterChip(
-                label: const Text(
-                  'Completed',
-                ),
-                labelStyle: TextStyle(
-                  color: selectedFilter != JobsFilters.completed
-                      ? Colors.white
-                      : Colors.black,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                ),
-                selected: selectedFilter == JobsFilters.completed,
-                backgroundColor: black343,
-                selectedColor: Colors.white,
-                showCheckmark: false,
-                onSelected: (bool value) {
-                  setState(() {
-                    selectedFilter = JobsFilters.completed;
-                  });
-                },
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-            ],
-          ),
           const SizedBox(height: 8),
           Container(
             width: double.infinity,
@@ -393,6 +571,7 @@ class _JobListScreenState extends State<JobListScreen> {
                               ),
                             ],
                           ),
+                          const SizedBox(height: 4),
                           const Text(
                             '2 rooms, max 60\$',
                             style: TextStyle(

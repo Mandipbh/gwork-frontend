@@ -1,3 +1,463 @@
 {
-  "welcome": "Welcome333!"
+  "app_name.title": "GWork",
+  "debug.device_info": "Device Info",
+  "admin": {
+    "sign_in": {
+      "Welcome": "Welcome!",
+      "enter_your_phone_no": "Please enter your phone number and password to sign in.",
+      "phone_number": "phone number",
+      "password": "password",
+      "Sign_In": "Sign In",
+      "Recover password": "Recover password",
+      "recover_password_enter_phone_no": "Enter your phone number and we will send you an OTP code to reset your account password.",
+      "Code_confirmation": "Code confirmation",
+      "enter_digit": "Enter below the 4-digit code we just sent to",
+      "Request_new_code": "Request a new code (00:12)"
+    },
+    "exit_dialogue": {
+      "are_you_share": "Are you sure you want to go back",
+      "need_to_ask": "You will need to ask for another OTP code",
+      "stay_here": "stay here",
+      "go_back": "Go back"
+    },
+    "set_password": "Set Password",
+    "choose_password": "Choose a secure password for your account.",
+    "new_password": "New Password",
+    "confirm_new_password": "Confirm new Password",
+    "set_new_password": "Set new password",
+    "set_password_dialogue": {
+      "set_password": "Set password",
+      "set_new_password": "Set a new password to use it for logging in.",
+      "main_button": "main button",
+      "Secondary button": "Secondary button"
+    },
+    "language": {
+      "language": "Language",
+      "english": "English",
+      "italian": "Italian"
+    },
+    "Profile": {
+      "Profile": "Profile",
+      "First_name": "First name",
+      "Last_name": "Last name",
+      "Email": "Email",
+      "Phone_number": "Phone number",
+      "Password": "Password",
+      "Language": "Language",
+      "Log_Out": "Log Out"
+    },
+    "edit_upload_profile_dialogue": {
+      "Edit_profile_picture": "Edit profile picture",
+      "upload_from_camera": "Upload from camera",
+      "upload_from_gallery": "Upload from gallery",
+      "delete_photo": "delete photo",
+      "Close": "Close"
+    },
+    "log_out_dialogue": {
+      "are_you_sure_logout": "Are you sure you want to log out?",
+      "need_to_login_again": "You will need to log in again to proceed using the application.",
+      "stay_here": "stay here",
+      "Log_out": "Log out"
+    },
+    "Edit_name": "Edit name",
+    "enter_first_name": "Please enter your first name.",
+    "First_Name": "First Name",
+    "Edit_last_name": "Edit last name",
+    "enter_last_name": "Please enter your last name.",
+    "Last_name": "Last name",
+    "Edit_email": "Edit email",
+    "enter_valid_email": "Please enter a valid email address.",
+    "Email": "Email",
+    "Edit_phone_number": "Edit phone number",
+    "enter_new_phone_no": "Please enter your new phone number and we will send you an OTP code to confirm it.",
+    "change_password": "Change password",
+    "change_current_password": "Change your current password with a new one.",
+    "Current_Password": "Current Password",
+    "Confirm": "Confirm",
+    "dashboard": {
+      "Dashboard": "Dashboard",
+      "All_time": "All time",
+      "Today": "Today",
+      "This_week": "This week",
+      "This_month": "This month",
+      "Earnings": "Earnings",
+      "Jobs": "Jobs",
+      "Users": "Users",
+      "Cleaning": "Cleaning",
+      "baby_sitting": "Baby Sitting",
+      "handy_man": "Handy Man",
+      "tutoring": "Tutoring",
+      "Pending": "Pending",
+      "Published": "Published",
+      "Completed": "Completed",
+      "rejected": "Rejected",
+      "client": "Client",
+      "Professional": "Professional",
+      "Accepted": "Accepted",
+      "Home": "Home",
+      "works": "Works",
+      "created": "Created",
+      "Doing": "Doing",
+      "No_data": "No data",
+      "no_data_available": "There is no data available",
+      "check_later": "Check it later or set another filters",
+      "no_jobs": "There are no jobs for now"
+    },
+    "job_detail": {
+      "Babysitting": "Babysitting",
+      "Building_restructuring": "Building restructuring, or even bigger title about what to do",
+      "Description": "Description",
+      "Gallery": "Gallery",
+      "Applications": "Applications",
+      "Ristrutturazione": "Ristrutturazione edilizia, o titolo ancora più grande su cosa fare",
+      "View_invoice": "View invoice",
+      "reject": "reject",
+      "Accept": "Accept",
+      "no_applicant": "There are no applicants for now",
+      "check_later": "Check it bit later please"
+    },
+    "accept_job_dialogue": {
+      "are_you_sure_accept": "Are you sure you want to accept the job?",
+      "once_accept": "Once accepted, the money will be transfered to the professional.",
+      "Accept_job": "Accept job",
+      "Go_back": "Go back"
+    },
+    "reject_job_dialogue": {
+      "are_you_sure_reject": "Are you sure you want to reject the job?",
+      "once_accept": "Once rejected, the money will be transfered back to the client.",
+      "Reject_job": "Reject job",
+      "Go_back": "Go back"
+    },
+    "delete_job_dialogue": {
+      "Are_you_sure_delete": "Are you sure you want delete this job?",
+      "once_delete": "Once deleted, the job’s data will no longer be recoverable.",
+      "Keep_the_job": "Keep the job",
+      "Delete_job": "Delete job"
+    },
+    "users": {
+      "Registered": "Registered",
+      "no_application": "There are no applications for now",
+      "check_letter": "Check it bit later please"
+    },
+    "delete_user": {
+      "First_name": "First name",
+      "Last_name": "Last name",
+      "Email": "Email",
+      "phone_number": "phone number",
+      "vat_number": "vat number",
+      "birth_date": "birth date",
+      "Password": "Password",
+      "payment_method": "payment method",
+      "Delete_user": "Delete user",
+      "PDF_document": "PDF document",
+      "Decline": "Decline",
+      "Accept": "Accept"
+    },
+    "delete_user_dialogue": {
+      "delete_user": "Are you sure you want delete this user?",
+      "once_delete": "Once deleted, the user’s data will no longer be recoverable.",
+      "keep_user": "Keep User",
+      "Delete_User": "Delete User"
+    },
+    "accept_application": {
+      "are_you_sure_accept_application": "Are you sure you want to accept the application?",
+      "user_will_be_added": "User will be added to the platform.",
+      "Accept_application": "Accept application",
+      "go_back": "Go Back"
+    },
+    "go_back_dialogue": {
+      "are_you_sure": "Are you sure you want to go back",
+      "all_unsaved_data": "All the unsaved data will be lost.",
+      "stay_here": "stay here",
+      "Go_back": "Go back"
+    },
+    "decline_application_dialogue": {
+      "are_you_sure_decline": "Are you sure you want to decline the application?",
+      "user_not_able": "User will not be able to sign in.",
+      "Decline_application": "Decline application",
+      "Go_back": "Go back"
+    }
+  },
+
+  "client": {
+    "log_in": {
+      "Welcome!": "Welcome!",
+
+
+      "sign_in": {
+        "phone_number": "phone number",
+        "password": "password",
+        "Recover_password": "Recover password"
+      },
+      "sign_up": {
+        "phone_number": "phone number",
+        "enter_phone_number": "Please enter your phone number in order to sign up.",
+        "Onboarding":"Onboarding",
+        "searching_for": "What are you searching for?",
+        "select_options": "Please select one of the two options.",
+        "Provide_services": "Provide services",
+        "Require_services": "Require services",
+        "01": "01",
+        "Reason": "Reason",
+        "Next_Step": "Next Step",
+        "Set_Password": "Set Password",
+        "Choose_secure_password": "Choose a secure password for your account.",
+        "New_Password": "New Password",
+        "Confirm_new_Password": "Confirm new Password",
+        "02": "02",
+        "Password": "Password",
+        "Previous_step": "Previous step",
+        "Personal_info": "Personal info",
+        "Please_fill_all_the_fields": "Please fill all the fields.",
+        "Name": "Name",
+        "Last_name": "Last name",
+        "Email_id": "Email",
+        "VAT_Number": "VAT Number",
+        "Birth_date": "Birth date",
+        "03": "03",
+        "Paymen_method":"Payment method",
+        "add_payment_method": "Add a payment method for your account.",
+        "card_holder": "card holder",
+        "Card_number": "Card number",
+        "Expire_date": "Expire date",
+        "CVV": "CVV",
+        "04": "04",
+        "Profile_picture": "Profile picture",
+        "Upload_profile_picture": "Upload a picture for your profile",
+        "05": "05",
+        "Finish": "Finish"
+
+      }
+
+    },
+    "privacy_policy": {
+      "Accept": "Accept"
+    },
+    "confirmation_panel":{
+      "want_to_stop registration": "Are you sure you want to stop registration?",
+      "saved_data_will_be_deleted": "All the saved data will be deleted",
+      "sta_here": "stay here",
+      "Go_back": "Go back"
+    },
+    "Payment_method": {
+      "Edit_payment_method": "Edit payment method",
+      "Update_payment_info": "Update payment info"
+    },
+    "VAT_number": {
+      "Edit_VAT_number": "Edit VAT number",
+      "enter_VAR_number": "Please enter your VAR number",
+      "VAT_Number": "VAT Number"
+    },
+    "Birth_date":{
+      "Edit_birth_date": "Edit birth date",
+      "enter_your_birth_date": "Please enter your birth date.",
+      "Birth_date": "Birth date"
+    },
+    "Accept_job": {
+      "status_can’t_be_changed":"Once complete it, the status can’t be changed",
+      "Cancel": "Cancel"
+    },
+    "reject_job":{
+      "rejected_action_can_not_be_undone": "Once rejected the action can not be undone",
+      "Reject_job": "Reject job"
+    },
+    "chat":{
+      "Babysitting": "Babysitting",
+      "Offered_price": "Offered price",
+      "Accept": "Accept",
+      "no_messages": "There are no messages for now",
+      "start_conversattion": "Go ahead and start conversattion",
+      "Start_typing": "Start typing..."
+    },
+    "candidate": {
+      "accept_candidate": "Are you sure you want to accept candidate? ",
+      "able_to_proceed": "All the other candidates will be rejected and you’ll be able to proceed only with this one",
+      "Accept_worker": "Accept worker"
+    },
+    "type_picker": {
+      "New_job": "New job",
+      "need": "What do you need?",
+      "select_options": "Please select one of the four options.",
+      "Cleaning": "Cleaning",
+      "Tutoring": "Tutoring",
+      "Handyman": "Handyman",
+      "Next_Step": "Next Step"
+    },
+    "Job_info": {
+      "Job_info": "Job info",
+      "fill_the_fields": "Please fill all the fields.",
+      "Title": "Title",
+      "Enter_title": "Enter job title",
+      "Enter_street": "Enter street",
+      "Province": "Province",
+      "Comune": "Comune"
+    },
+    "date_time": {
+      "Schedule": "Schedule",
+      "Choose_job":"Choose when do you want your job to be done.",
+      "Date": "Date",
+      "Time": "Time"
+    },
+    "case_descrive": {
+      "More_info": "More info",
+      "following_fields": "The following fields are optional.",
+      "Describe_job": "Describe the job",
+      "Budget": "Budget",
+      "Enter_budget": "Enter maximum budget"
+    },
+    "gallery": {
+      "Add_some_images": "Add some images for your work",
+      "Loading": "Loading",
+      "Upload_Photo": "Upload Photo",
+      "Upload_image": "Upload image",
+      "Edit_image": "Edit image",
+      "delete_Image": "delete Image"
+    },
+    "Photo-preview": {
+      "Photo_1": "Photo 1"
+    },
+    "summary": {
+      "Summary": "Summary",
+      "Building_restructuring": "Building restructuring, or even bigger title about what to do",
+      "Description": "Description",
+      "Gallery": "Gallery",
+      "Accepted_budget": "Accepted budget",
+      "Publish": "Publish"
+
+    }
+  },
+
+  "Professional": {
+    "Splash": {
+      "powerBy": "Powered by",
+      "mokkaStudios": "Mokka Studios"
+    },
+    "logIn": {
+      "welcome": "Welcome!",
+      "onBoardingUserType": {
+        "onBoarding": "Onboarding",
+        "WhatAreYouSearchingFor?": "What are you searching for?",
+        "PleaseSelectOneOfTheTwoOtions": "Please select one of the two options.",
+        "provideServices": "Provide services",
+        "requireServices": "Require services",
+        "reason": "Reason",
+        "nextStep": "Next Step"
+      },
+      "onBoardingSetPassword": {
+        "onBoarding": "Onboarding",
+        "Set_Password?": "Set Password",
+        "Choose_a_secure_password_for_your_account.": "Choose a secure password for your account.",
+        "New_Password": "New Password",
+        "Confirm_new_Password": "Confirm New Password",
+        "Password": "Password",
+        "Previous_step": "Previous step",
+        "Next_Step": "Next Step"
+      },
+      "onBoardingPersonalInfo": {
+        "onBoarding": "Onboarding",
+        "Personal_info": "Personal info",
+        "Please_fill_all_the_fields.": "Please fill all the fields.",
+        "Name": "Name",
+        "Last_name": "Last name",
+        "Email": "Email",
+        "VAT_Number": "VAT Number",
+        "Birth_date": "Birth date",
+        "Previous_step": "Previous step",
+        "Next_Step": "Next Step"
+      },
+      "onBoardingPayment": {
+        "Payment_method": "Payment method",
+        "Add_a_payment_method_for_your_account.": "Add a payment method for your account.",
+        "Cardholder": "Cardholder",
+        "Card_number": "Card number",
+        "Expire_date": "Expire date",
+        "CVV": "CVV",
+        "Previous_step": "Previous step",
+        "Next_Step": "Next Step"
+      },
+      "onBoardingDocuments": {
+        "onBoarding": "Onboarding",
+        "Upload_documents": "Upload documents",
+        "Upload_documents_that_can_prove_your_competences.": "Upload documents that can prove your competences.",
+        "Loading": "Loading",
+        "Upload_Document": "Upload Document",
+        "Previous_step": "Previous step",
+        "Next_Step": "Next Step"
+      },
+      "onBoardingDocuments1": {
+        "onBoarding": "Onboarding",
+        "Profile_picture": "Profile picture",
+        "Upload_a_picture_for_your_profile.": "Upload a picture for your profile.",
+        "Previous_step": "Previous step",
+        "Finish": "Finish"
+      },
+      "PrivacyPolicy":
+      {
+        "Privacy_Policy": "Privacy Policy",
+        "Accept": "Accept"
+      },
+      "PendingApplication": {
+        "Pending_application": "Pending application",
+        "Your_application_has been submitted": "Your application has been submitted",
+        "We_all_send_you_notification_when_it’s_approved": "We’ll send you notification when it’s approved"
+      },
+      "Application_rejected": {
+        "Application_rejected": "Application rejected",
+        "Your_application_has_been_declined": "Your application has been declined",
+        "We_can_not_allow_you_to_enter_the_platform_based_on_your_data": "We can not allow you to enter the platform based on your data",
+        "reapply": "Reapply"
+      },
+      "RegistrationDialog": {
+        "Are_you_sure_you_want_to_stop_registration?": "Are you sure you want to stop registration?",
+        "All_the_saved_data_wil_be_deleted": "All the saved data will be deleted",
+        "stay_here": "stay here",
+        "Go_back": "Go back"
+      },
+      "UploadDocumentsDialog": {
+        "Upload_document": "Upload document",
+        "Browse": "Browse",
+        "Upload_from_camera": "Upload from camera",
+        "Upload_from_gallery": "Upload from gallery",
+        "CLose": "CLOSE"
+      },
+      "UploadPhotoDialog":
+      {
+        "Upload_profile_picture": "Upload profile picture",
+        "Upload_from_camera": "Upload from camera",
+        "Upload_from_gallery": "Upload from gallery",
+        "CLose": "CLOSE"
+      },
+      "EditProfileDialog": {
+        "Edit_profile_picture": "Edit profile picture",
+        "Upload_from_camera": "Upload from camera",
+        "Upload_from_gallery": "Upload from gallery",
+        "delete_photo": "delete photo",
+        "CLose": "CLOSE"
+      },
+      "EditDocumentsDialog": {
+        "Edit_document": "Edit document",
+        "Browse": "Browse",
+        "Upload_profile_picture": "Upload profile picture",
+        "Upload_from_camera": "Upload from camera",
+        "Upload_from_gallery": "Upload from gallery",
+        "delete_Document": "delete Document",
+        "CLose": "CLOSE"
+      },
+      "Jobs": {
+        "Jobs": "Jobs",
+        "All types": "All types",
+        "Applied": "Applied",
+        "Accepted": "Accepted",
+        "Doing": "Doing",
+        "Rejected": "Rejected",
+        "Completed": "Completed",
+        "Search Jobs": "Search Jobs",
+        "My Jobs": "My Jobs",
+        "earning limit": "earning limit",
+        "PRovince": "PRovince",
+        "There are no jobs for now": "There are no jobs for now",
+        "Check it bit later or set another filters": "Check it bit later or set another filters"
+      }
+    }
+  }
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:g_worker_app/colors.dart';
+import 'package:badges/badges.dart' as badges;
 
 class CustomBottomNavigationBar extends StatelessWidget {
   Function onItemTapped;
@@ -26,7 +28,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
             children: [
               Expanded(
                   child: GestureDetector(
-          behavior: HitTestBehavior.opaque,
+                behavior: HitTestBehavior.opaque,
                 onTap: () {
                   onItemTapped(0);
                 },
@@ -38,10 +40,10 @@ class CustomBottomNavigationBar extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
-                        Icons.home_outlined,
-                        color: selected == 0 ? Colors.white : Colors.black,
-                      ),
+                      Image.asset("assets/images/home-smile.png",
+                          height: 24,
+                          width: 24,
+                          color: selected == 0 ? Colors.white : Colors.black),
                       const SizedBox(height: 4),
                       Text(
                         'Home',
@@ -55,7 +57,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
               )),
               Expanded(
                   child: GestureDetector(
-          behavior: HitTestBehavior.opaque,
+                behavior: HitTestBehavior.opaque,
                 onTap: () {
                   onItemTapped(1);
                 },
@@ -67,8 +69,10 @@ class CustomBottomNavigationBar extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
-                        Icons.shopping_bag_outlined,
+                      Image.asset(
+                        "assets/images/briefcase.png",
+                        height: 24,
+                        width: 24,
                         color: selected == 1 ? Colors.white : Colors.black,
                       ),
                       const SizedBox(height: 4),
@@ -84,7 +88,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
               )),
               Expanded(
                   child: GestureDetector(
-          behavior: HitTestBehavior.opaque,
+                behavior: HitTestBehavior.opaque,
                 onTap: () {
                   onItemTapped(2);
                 },
@@ -96,9 +100,23 @@ class CustomBottomNavigationBar extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
-                        Icons.person_outline,
-                        color: selected == 2 ? Colors.white : Colors.black,
+                      badges.Badge(
+                        badgeContent: const Text('12'),
+                        position:
+                            badges.BadgePosition.topEnd(top: -13, end: -15),
+                        badgeStyle: badges.BadgeStyle(
+                          shape: badges.BadgeShape.square,
+                          borderRadius: BorderRadius.circular(8),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 6, vertical: 3),
+                          badgeColor: yellowF4D,
+                        ),
+                        child: Image.asset(
+                          "assets/images/users.png",
+                          height: 24,
+                          width: 24,
+                          color: selected == 2 ? Colors.white : Colors.black,
+                        ),
                       ),
                       const SizedBox(height: 4),
                       Text(
