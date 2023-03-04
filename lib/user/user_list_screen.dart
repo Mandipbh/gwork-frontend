@@ -57,18 +57,20 @@ class _UserListScreenState extends State<UserListScreen> {
               const Text(
                 'Users',
                 style: TextStyle(
+                  fontFamily: 'Satoshi',
                   color: Colors.white,
                   fontSize: 32,
                   fontWeight: FontWeight.w700,
                 ),
               ),
               GestureDetector(
-                child: const CircleAvatar(
+                child: CircleAvatar(
                   backgroundColor: Colors.white,
                   radius: 25,
-                  child: Icon(Icons.person, color: Colors.grey, size: 25),
+                  child:
+                      Text("ST", style: Theme.of(context).textTheme.headline1),
                 ),
-                onTap: (){
+                onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -81,13 +83,14 @@ class _UserListScreenState extends State<UserListScreen> {
           const SizedBox(height: 20),
           singleSelectionButtons(
               context: context,
-              buttons: ['Registered (48)','Applications (0)'],
+              buttons: ['Registered (48)', 'Applications (0)'],
               padding: 8,
-              selected: selected, onSelectionChange: (value){
-            setState(() {
-              selected = value;
-            });
-          }),
+              selected: selected,
+              onSelectionChange: (value) {
+                setState(() {
+                  selected = value;
+                });
+              }),
           const SizedBox(height: 20),
         ],
       ),
@@ -117,27 +120,49 @@ class _UserListScreenState extends State<UserListScreen> {
         children: [
           Row(
             children: [
-              const CircleAvatar(
+              CircleAvatar(
                 backgroundColor: whiteF2F,
                 radius: 25,
-                child: Icon(Icons.person, color: Colors.grey, size: 25),
+                child: Image.asset("assets/images/Ellipse.png"),
               ),
               const SizedBox(width: 12),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [
-                  Text('Brooklyn Simmons',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w700),),
+                  Text(
+                    'Brooklyn Simmons',
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'Manrope',
+                        color: blue221),
+                  ),
                   SizedBox(height: 4),
-                  Text('Worker',style: TextStyle(fontSize: 14,fontWeight: FontWeight.w500,color: Color(0xff807E93))),
+                  Text('Worker',
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontFamily: 'Manrope',
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xff807E93))),
                 ],
               ),
             ],
           ),
           Row(
             children: const [
-              Text('03/23/2322',style: TextStyle(fontSize: 12,fontWeight: FontWeight.w700,color: Color(0xff9EA6A0)),),
+              Text(
+                '03/23/2322',
+                style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    fontFamily: 'Satoshi',
+                    color: Color(0xff9EA6A0)),
+              ),
               SizedBox(width: 8),
-              Icon(Icons.arrow_forward_ios_rounded,size: 24,)
+              Icon(
+                Icons.arrow_forward_ios_rounded,
+                size: 24,
+              )
             ],
           )
         ],
@@ -162,11 +187,26 @@ class _UserListScreenState extends State<UserListScreen> {
               color: Colors.white, borderRadius: BorderRadius.circular(16)),
           child: Column(
             children: const [
-              Text("There is no applications for now",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
+              Text(
+                "There is no applications for now",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                    fontFamily: 'Satoshi',
+                    color: primaryColor),
+              ),
               SizedBox(height: 4),
-              Text("Check it bit later please",
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
+              Text(
+                "Check it bit later please",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  height: 2,
+                  fontFamily: 'Satoshi',
+                ),
+              ),
             ],
           ),
         ),

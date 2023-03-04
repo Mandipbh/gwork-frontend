@@ -39,15 +39,17 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                     const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
             ),
-            MyApp.userType != UserType.admin ? singleSelectionButtons(
-                context: context,
-                buttons: ['Sign Up'.toUpperCase(), 'Sign In'.toUpperCase()],
-                selected: selected,
-                onSelectionChange: (value) {
-                  setState(() {
-                    selected = value;
-                  });
-                }):Container(),
+            MyApp.userType != UserType.admin
+                ? singleSelectionButtons(
+                    context: context,
+                    buttons: ['Sign Up'.toUpperCase(), 'Sign In'.toUpperCase()],
+                    selected: selected,
+                    onSelectionChange: (value) {
+                      setState(() {
+                        selected = value;
+                      });
+                    })
+                : Container(),
             const SizedBox(
               height: 30,
             ),
@@ -57,7 +59,13 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
       ),
       bottomNavigationBar: selected == SelectionType.signUp
           ? Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.only(
+                  left: 16,
+                  right: 16,
+                  top: 8,
+                  bottom: MediaQuery.of(context).viewInsets.bottom > 0
+                      ? MediaQuery.of(context).viewInsets.bottom
+                      : 16),
               child: submitButton(
                 onButtonTap: () {
                   Navigator.push(
@@ -73,7 +81,11 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
               ),
             )
           : Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: EdgeInsets.only(
+                  left: 16,
+                  right: 16,
+                  top: 8,
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -120,6 +132,7 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const SizedBox(height: 25),
         phoneNumberTextField(),
         const SizedBox(height: 20),
         Padding(

@@ -45,7 +45,8 @@ class _SelectServiceViewState extends State<SelectServiceView> {
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                              color: provideSelected ? primaryColor : Colors.white,
+                              color:
+                                  provideSelected ? primaryColor : Colors.white,
                               borderRadius: BorderRadius.circular(8)),
                           padding: const EdgeInsets.symmetric(vertical: 15),
                           child: Align(
@@ -66,9 +67,9 @@ class _SelectServiceViewState extends State<SelectServiceView> {
                               backgroundColor: provideSelected
                                   ? const Color(0xff343734)
                                   : const Color(0xfff2f2f2),
-                              child: Image.asset(
-                                  'assets/icons/briefcase.png',
-                                  height: 30,width: 30,
+                              child: Image.asset('assets/icons/briefcase.png',
+                                  height: 30,
+                                  width: 30,
                                   color: provideSelected
                                       ? Colors.white
                                       : primaryColor),
@@ -91,31 +92,38 @@ class _SelectServiceViewState extends State<SelectServiceView> {
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                              color: !provideSelected ? primaryColor : Colors.white,
+                              color: !provideSelected
+                                  ? primaryColor
+                                  : Colors.white,
                               borderRadius: BorderRadius.circular(8)),
                           padding: const EdgeInsets.symmetric(vertical: 15),
                           child: Align(
                             alignment: Alignment.bottomCenter,
-                            child: Text('Provide Services',
-                                style: Theme.of(context).textTheme.caption!.apply(
-                                    color: !provideSelected
-                                        ? Colors.white
-                                        : primaryColor)),
+                            child: Text('Require Services',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .caption!
+                                    .apply(
+                                        color: !provideSelected
+                                            ? Colors.white
+                                            : primaryColor)),
                           ),
                         ),
                         Positioned.fill(
                           child: Center(
                             child: CircleAvatar(
-                                radius: 40,
-                                backgroundColor: !provideSelected
-                                    ? const Color(0xff343734)
-                                    : const Color(0xfff2f2f2),
+                              radius: 40,
+                              backgroundColor: !provideSelected
+                                  ? const Color(0xff343734)
+                                  : const Color(0xfff2f2f2),
                               child: Image.asset(
                                   'assets/icons/announcement.png',
-                                  height: 30,width: 30,
+                                  height: 30,
+                                  width: 30,
                                   color: !provideSelected
                                       ? Colors.white
-                                      : primaryColor),),
+                                      : primaryColor),
+                            ),
                           ),
                         )
                       ],

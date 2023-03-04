@@ -77,17 +77,29 @@ class MyApp extends StatelessWidget {
                 fontFamily: 'Manrope',
                 fontWeight: FontWeight.w700,
                 color: primaryColor),
+            // for appbar title
+
+            headline3: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+                fontFamily: 'Satoshi',
+                color: primaryColor),
+
+            headline4: TextStyle(
+                fontSize: 14,
+                fontFamily: 'Satoshi',
+                fontWeight: FontWeight.w700,
+                color: primaryColor),
+            headline5: TextStyle(
+                fontSize: 14,
+                fontFamily: 'Satoshi',
+                fontWeight: FontWeight.w500,
+                color: primaryColor),
             // for labels
             headline6: TextStyle(
                 fontSize: 12,
                 fontFamily: 'Satoshi',
                 fontWeight: FontWeight.w500,
-                color: primaryColor),
-            // for appbar title
-            headline3: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-                fontFamily: 'Satoshi',
                 color: primaryColor),
             // for login page tags
             subtitle1: TextStyle(

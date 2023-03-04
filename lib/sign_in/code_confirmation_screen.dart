@@ -52,13 +52,17 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        askForExit(context: context,onBackPressed: (){
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const SignInSignUpScreen()),
+        askForExit(
+            context: context,
+            onBackPressed: () {
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SignInSignUpScreen()),
                   (Route<dynamic> route) => false);
-        }, title: 'Are you sure you want to go back', description: 'You will need to ask for another OTP code');
+            },
+            title: 'Are you sure you want to go back',
+            description: 'You will need to ask for another OTP code');
         return false;
       },
       child: Scaffold(
@@ -94,14 +98,15 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                         length: 4,
                         width: MediaQuery.of(context).size.width,
                         textFieldAlignment: MainAxisAlignment.spaceAround,
+                        contentPadding: const EdgeInsets.symmetric(vertical: 6),
                         fieldWidth: MediaQuery.of(context).size.width / 5,
                         otpFieldStyle: OtpFieldStyle(
                             backgroundColor: Colors.white,
                             enabledBorderColor: Colors.white,
-                            focusBorderColor: Colors.white),
+                            focusBorderColor: const Color(0xffD3DCD7)),
                         fieldStyle: FieldStyle.box,
                         outlineBorderRadius: 12,
-                        style: const TextStyle(fontSize: 40),
+                        style: Theme.of(context).textTheme.headline2!,
                         onChanged: (pin) {},
                         onCompleted: (pin) {
                           if (pin == otp) {

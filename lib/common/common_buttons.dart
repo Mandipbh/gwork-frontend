@@ -55,8 +55,7 @@ Widget previousAndNextButtons(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
                       color: Colors.transparent),
-                  child: Center(
-                      child: Row(
+                  child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       const Icon(Icons.arrow_back, color: primaryColor),
@@ -64,14 +63,14 @@ Widget previousAndNextButtons(
                         width: 8,
                       ),
                       Text(
-                        'Previous Step'.toUpperCase(),
+                        'Previous'.toUpperCase(),
                         style: Theme.of(context)
                             .textTheme
                             .button!
                             .apply(color: primaryColor),
                       ),
                     ],
-                  )),
+                  ),
                 ),
               ),
             ),
@@ -145,29 +144,29 @@ Widget singleSelectionButtons(
     required Function onSelectionChange}) {
   return Container(
     height: AppBar().preferredSize.height,
-    decoration: BoxDecoration(borderRadius: BorderRadius.circular(16), color: Colors.white),
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16), color: Colors.white),
     padding: EdgeInsets.all(padding),
-    child: Row(children: buttons.map((buttonName){
+    child: Row(
+        children: buttons.map((buttonName) {
       int index = buttons.indexOf(buttonName);
       return Expanded(
           child: GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTap: () {
-              onSelectionChange(index + 1);
-            },
-            child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(14),
-                    color: selected == index + 1 ? primaryColor : Colors.white),
-                child: Center(
-                    child: Text(
-                      buttonName,
-                      style: Theme.of(context)
-                          .textTheme
-                          .subtitle1!
-                          .apply(color: selected == index + 1 ? Colors.white : primaryColor),
-                    ))),
-          ));
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          onSelectionChange(index + 1);
+        },
+        child: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(14),
+                color: selected == index + 1 ? primaryColor : Colors.white),
+            child: Center(
+                child: Text(
+              buttonName,
+              style: Theme.of(context).textTheme.subtitle1!.apply(
+                  color: selected == index + 1 ? Colors.white : primaryColor),
+            ))),
+      ));
     }).toList()),
   );
 }

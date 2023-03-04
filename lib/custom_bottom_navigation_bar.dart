@@ -46,10 +46,12 @@ class CustomBottomNavigationBar extends StatelessWidget {
                           color: selected == 0 ? Colors.white : Colors.black),
                       const SizedBox(height: 4),
                       Text(
-                        'Home',
+                        'Home'.toUpperCase(),
                         style: TextStyle(
-                          color: selected == 0 ? Colors.white : Colors.black,
-                        ),
+                            color: selected == 0 ? Colors.white : black343,
+                            fontFamily: 'Satoshi',
+                            fontWeight: FontWeight.w700,
+                            fontSize: 12),
                       )
                     ],
                   ),
@@ -77,10 +79,12 @@ class CustomBottomNavigationBar extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        'Jobs',
+                        'Jobs'.toUpperCase(),
                         style: TextStyle(
-                          color: selected == 1 ? Colors.white : Colors.black,
-                        ),
+                            color: selected == 1 ? Colors.white : black343,
+                            fontFamily: 'Satoshi',
+                            fontWeight: FontWeight.w700,
+                            fontSize: 12),
                       )
                     ],
                   ),
@@ -120,10 +124,12 @@ class CustomBottomNavigationBar extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        'Users',
+                        'Users'.toUpperCase(),
                         style: TextStyle(
-                          color: selected == 2 ? Colors.white : Colors.black,
-                        ),
+                            color: selected == 2 ? Colors.white : black343,
+                            fontFamily: 'Satoshi',
+                            fontWeight: FontWeight.w700,
+                            fontSize: 12),
                       )
                     ],
                   ),

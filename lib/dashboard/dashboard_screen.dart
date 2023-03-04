@@ -148,17 +148,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
               ),
               GestureDetector(
-                onTap: (){
+                onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => const MyProfileScreen()),
                   );
                 },
-                child: const CircleAvatar(
+                child: CircleAvatar(
                   backgroundColor: Colors.white,
                   radius: 25,
-                  child: Icon(Icons.person, color: Colors.grey, size: 25),
+                  child:
+                      Text("ST", style: Theme.of(context).textTheme.headline1),
                 ),
               )
             ],
@@ -313,7 +314,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            Image.asset('assets/images/empty_chart.png',scale: 0.7),
+            Image.asset('assets/images/empty_chart.png', scale: 0.7),
             const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

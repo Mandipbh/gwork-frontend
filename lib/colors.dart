@@ -20,3 +20,4 @@ const Color blue4C7 = Color(0xff4C7ECA);
 const Color redF8D = Color(0xffF8D0D0);
 const Color greyD3D = Color(0xffD3DCD7);
 const Color grey9EA = Color(0xff9EA6A0);
+const Color blue221 = Color(0xff221F41);

@@ -30,13 +30,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        askForExit(context: context,onBackPressed: (){
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const SignInSignUpScreen()),
+        askForExit(
+            context: context,
+            onBackPressed: () {
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SignInSignUpScreen()),
                   (Route<dynamic> route) => false);
-        }, title: 'Are you sure you want to stop registration?', description: 'All the saved data will be deleted');
+            },
+            title: 'Are you sure you want to stop registration?',
+            description: 'All the saved data will be deleted');
         return false;
       },
       child: Scaffold(
@@ -67,13 +71,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       IconButton(
                         icon: const Icon(Icons.close),
                         onPressed: () {
-                          askForExit(context: context,onBackPressed: (){
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const SignInSignUpScreen()),
+                          askForExit(
+                              context: context,
+                              onBackPressed: () {
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const SignInSignUpScreen()),
                                     (Route<dynamic> route) => false);
-                          },  title: 'Are you sure you want to stop registration?', description: 'All the saved data will be deleted');
+                              },
+                              title:
+                                  'Are you sure you want to stop registration?',
+                              description:
+                                  'All the saved data will be deleted');
                         },
                       )
                     ],
@@ -191,7 +202,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       curve: Curves.easeIn);
                 }
               },
-              nextButtonName: currentPage > 5 ? 'Accept' : 'Next Step',
+              nextButtonName: currentPage > 5 ? 'Accept' : 'Next',
               nextButtonIcon: Icon(
                   currentPage > 5 ? Icons.done : Icons.arrow_forward,
                   color: Colors.white),
