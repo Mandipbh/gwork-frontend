@@ -145,8 +145,8 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text(
+                children: [
+                  const Text(
                     'Jobs',
                     style: TextStyle(
                       color: Colors.white,
@@ -157,7 +157,8 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                   CircleAvatar(
                     backgroundColor: Colors.white,
                     radius: 24,
-                    child: Icon(Icons.person, color: Colors.grey, size: 25),
+                    child: Text("ST",
+                        style: Theme.of(context).textTheme.headline1),
                   )
                 ],
               ),

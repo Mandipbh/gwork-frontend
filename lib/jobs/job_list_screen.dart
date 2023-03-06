@@ -107,8 +107,8 @@ class _JobListScreenState extends State<JobListScreen> {
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text(
+              children: [
+                const Text(
                   'Jobs',
                   style: TextStyle(
                     color: Colors.white,
@@ -116,11 +116,21 @@ class _JobListScreenState extends State<JobListScreen> {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: 24,
-                  child: Icon(Icons.person, color: Colors.grey, size: 25),
-                )
+                GestureDetector(
+                  child: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    radius: 24,
+                    child: Text("ST",
+                        style: Theme.of(context).textTheme.headline1),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const MyProfileScreen()),
+                    );
+                  },
+                ),
               ],
             ),
             const SizedBox(height: 8),
@@ -798,10 +808,10 @@ class _JobListScreenState extends State<JobListScreen> {
               color: Colors.white, borderRadius: BorderRadius.circular(16)),
           child: Column(
             children: const [
-              Text("There is no jobs for you",
+              Text("You didn’t took any job",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
               SizedBox(height: 4),
-              Text("Please create one",
+              Text("Search for a job",
                   style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
             ],
           ),

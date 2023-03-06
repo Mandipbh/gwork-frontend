@@ -31,7 +31,7 @@ class _EditOfferScreenState extends State<EditOfferScreen> {
       centerTitle: true,
       elevation: 0,
       leading: GestureDetector(
-          behavior: HitTestBehavior.opaque,
+        behavior: HitTestBehavior.opaque,
         onTap: () {
           Navigator.pop(context);
         },
@@ -75,9 +75,9 @@ class _EditOfferScreenState extends State<EditOfferScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // SvgPicture.asset(
-                    //   "assets/images/message.svg",
-                    // ),
+                    Image.asset(
+                      "assets/icons/chat.png",
+                    ),
                     const SizedBox(width: 12),
                     const Expanded(
                       child: Text(
@@ -100,10 +100,10 @@ class _EditOfferScreenState extends State<EditOfferScreen> {
                 borderRadius: BorderRadius.circular(12),
                 color: Colors.white,
               ),
-              child: ListTile(
+              child: const ListTile(
                 horizontalTitleGap: 1,
                 // leading: SvgPicture.asset("assets/images/coins.svg"),
-                title: const Text(
+                title: Text(
                   "€60,00",
                   style: TextStyle(
                     color: black343,
@@ -120,9 +120,9 @@ class _EditOfferScreenState extends State<EditOfferScreen> {
                 borderRadius: BorderRadius.circular(12),
                 color: Colors.white,
               ),
-              child: ListTile(
+              child: const ListTile(
                 horizontalTitleGap: 1,
-                title: const Text(
+                title: Text(
                   "Offer price",
                   style: TextStyle(
                     color: black343,
@@ -130,7 +130,7 @@ class _EditOfferScreenState extends State<EditOfferScreen> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                subtitle: const Text(
+                subtitle: Text(
                   "60",
                   style: TextStyle(
                     color: grey9EA,

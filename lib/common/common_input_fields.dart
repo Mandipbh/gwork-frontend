@@ -48,7 +48,7 @@ Widget passwordTextField({required String label}) {
                 isPasswordVisible
                     ? Icons.visibility_outlined
                     : Icons.visibility_off_outlined,
-                size: 30,
+                size: 24,
                 color: primaryColor,
               ),
             ),
@@ -81,7 +81,7 @@ Widget nameTextField(
         style: const TextStyle(fontSize: 18),
         keyboardType: keyboardType,
         decoration: InputDecoration(
-            icon: Image.asset('assets/icons/$asset', height: 30, width: 30),
+            icon: Image.asset('assets/icons/$asset', height: 24, width: 24),
             labelText: label.toUpperCase())),
   );
 }
