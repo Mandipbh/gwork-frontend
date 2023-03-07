@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
-import 'package:g_worker_app/sign_up/sign_up_widgets/profile_picture_view/provider/image_provider.dart';
+import 'package:g_worker_app/sign_up/sign_up_widgets/profile_picture_view/image_provider/image_provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
@@ -33,6 +33,7 @@ class UploadProfilePictureDialogue extends StatelessWidget {
             return GestureDetector(
               onTap: () {
                 value.getimage(ImageSource.camera);
+                Navigator.of(context).pop();
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -62,9 +63,11 @@ class UploadProfilePictureDialogue extends StatelessWidget {
             return GestureDetector(
               onTap: () {
                 value.getimage(ImageSource.gallery);
+                Navigator.of(context).pop();
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
                     'Upload from gallery'.toUpperCase(),

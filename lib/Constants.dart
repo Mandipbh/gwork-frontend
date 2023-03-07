@@ -35,6 +35,8 @@ class ProfileFieldType {
   static const int password = 3;
   static const int vatNumber = 4;
   static const int birthdate = 5;
+  static const int phoneNumber = 6;
+  static const int paymentMethod = 7;
 }
 
 class UserType {

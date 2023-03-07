@@ -1,9 +1,13 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:g_worker_app/Constants.dart';
 import 'package:g_worker_app/colors.dart';
-import 'package:g_worker_app/sign_up/sign_up_widgets/profile_picture_view/provider/image_provider.dart';
+import 'package:g_worker_app/language_screen/language_provider/language_provider.dart';
+import 'package:g_worker_app/sign_up/sign_up_widgets/profile_picture_view/image_provider/image_provider.dart';
+import 'package:g_worker_app/sign_up/sign_up_widgets/upload_document_view/document_provider/document_provider.dart';
 import 'package:g_worker_app/splash_screen.dart';
 
 import 'package:provider/provider.dart';
@@ -16,11 +20,22 @@ void main() async {
     statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
     statusBarBrightness: Brightness.light,
   ));
-  runApp(EasyLocalization(
-      supportedLocales: const [Locale('en'), Locale('it')],
-      fallbackLocale: const Locale('en'),
-      path: 'assets/translate',
-      child: const MyApp()));
+  runApp(
+    EasyLocalization(
+        supportedLocales: const [Locale('en'), Locale('it')],
+        fallbackLocale: const Locale('en'),
+        path: 'assets/translate',
+        child: const MyApp()),
+    // DevicePreview(
+    // enabled: !kReleaseMode,
+    // builder: (context) {
+    //   return EasyLocalization(
+    //       supportedLocales: const [Locale('en'), Locale('it')],
+    //       fallbackLocale: const Locale('en'),
+    //       path: 'assets/translate',
+    //       child: const MyApp());
+    // })
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -35,9 +50,17 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => ProfilePicProvider(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (context) => LanguageProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => DocumentPicProvider(),
+        ),
       ],
       child: MaterialApp(
+        // useInheritedMediaQuery: true,
+        // builder: DevicePreview.appBuilder,
         title: 'g.work',
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,

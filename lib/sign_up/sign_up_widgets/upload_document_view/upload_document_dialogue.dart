@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
+import 'package:g_worker_app/sign_up/sign_up_widgets/upload_document_view/document_provider/document_provider.dart';
+import 'package:provider/provider.dart';
 
 class UploadDocumentDialogue extends StatelessWidget {
   const UploadDocumentDialogue({Key? key}) : super(key: key);
@@ -25,22 +27,32 @@ class UploadDocumentDialogue extends StatelessWidget {
               fontFamily: 'Manrope'),
         ),
         const SizedBox(height: 35),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Browse'.toUpperCase(),
-              style: const TextStyle(
-                  color: primaryColor,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 16,
-                  fontFamily: 'Satoshi'),
+        Consumer<DocumentPicProvider>(
+            builder: (BuildContext context, value, Widget? child) {
+          return GestureDetector(
+            onTap: () {
+              value.getDocument();
+              Navigator.of(context).pop();
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Browse'.toUpperCase(),
+                  style: const TextStyle(
+                      color: primaryColor,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16,
+                      fontFamily: 'Satoshi'),
+                ),
+                const SizedBox(width: 8),
+                Image.asset('assets/icons/file-attachment.png',
+                    height: 24, width: 24),
+              ],
             ),
-            const SizedBox(width: 8),
-            Image.asset('assets/icons/file-attachment.png',
-                height: 24, width: 24),
-          ],
-        ),
+          );
+        }),
         const SizedBox(height: 12),
         const Divider(thickness: 1, color: greyD3D),
         const SizedBox(height: 12),

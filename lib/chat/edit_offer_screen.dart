@@ -76,7 +76,9 @@ class _EditOfferScreenState extends State<EditOfferScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Image.asset(
-                      "assets/icons/chat.png",
+                      "assets/icons/message-text-square.png",
+                      height: 24,
+                      width: 24,
                     ),
                     const SizedBox(width: 12),
                     const Expanded(
@@ -100,10 +102,11 @@ class _EditOfferScreenState extends State<EditOfferScreen> {
                 borderRadius: BorderRadius.circular(12),
                 color: Colors.white,
               ),
-              child: const ListTile(
+              child: ListTile(
                 horizontalTitleGap: 1,
-                // leading: SvgPicture.asset("assets/images/coins.svg"),
-                title: Text(
+                leading: Image.asset("assets/icons/coins_stacked.png",
+                    height: 24, width: 24),
+                title: const Text(
                   "€60,00",
                   style: TextStyle(
                     color: black343,
@@ -120,9 +123,9 @@ class _EditOfferScreenState extends State<EditOfferScreen> {
                 borderRadius: BorderRadius.circular(12),
                 color: Colors.white,
               ),
-              child: const ListTile(
+              child: ListTile(
                 horizontalTitleGap: 1,
-                title: Text(
+                title: const Text(
                   "Offer price",
                   style: TextStyle(
                     color: black343,
@@ -130,7 +133,7 @@ class _EditOfferScreenState extends State<EditOfferScreen> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                subtitle: Text(
+                subtitle: const Text(
                   "60",
                   style: TextStyle(
                     color: grey9EA,
@@ -138,7 +141,8 @@ class _EditOfferScreenState extends State<EditOfferScreen> {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                // trailing: SvgPicture.asset("assets/images/currency-euro.svg"),
+                trailing: Image.asset("assets/icons/currency-euro.png",
+                    height: 24, width: 24),
               ),
             ),
             const SizedBox(height: 16),
@@ -172,7 +176,8 @@ class _EditOfferScreenState extends State<EditOfferScreen> {
                     ),
                   ),
                   const SizedBox(width: 10),
-                  const Icon(Icons.edit, color: Colors.white, size: 22)
+                  Image.asset('assets/icons/edit_profile.png',
+                      height: 24, width: 24, color: white),
                 ],
               ),
             ),

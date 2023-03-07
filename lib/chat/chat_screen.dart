@@ -47,7 +47,7 @@ class _ChatScreenState extends State<ChatScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
-          behavior: HitTestBehavior.opaque,
+                  behavior: HitTestBehavior.opaque,
                   onTap: () {
                     Navigator.pop(context);
                   },
@@ -111,13 +111,13 @@ class _ChatScreenState extends State<ChatScreen> {
                   ],
                 ),
                 GestureDetector(
-          behavior: HitTestBehavior.opaque,
+                  behavior: HitTestBehavior.opaque,
                   onTap: () {
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const EditOfferScreen()),
-                            (Route<dynamic> route) => true);
+                        (Route<dynamic> route) => true);
                   },
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -131,7 +131,8 @@ class _ChatScreenState extends State<ChatScreen> {
                         ),
                       ),
                       const SizedBox(width: 8),
-                      const Icon(Icons.edit, color: splashColor1, size: 22),
+                      Image.asset('assets/icons/edit_profile.png',
+                          height: 24, width: 24),
                     ],
                   ),
                 ),
@@ -162,7 +163,7 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
               child: Padding(
                 padding:
-                const EdgeInsets.symmetric(vertical: 20, horizontal: 22),
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 22),
                 child: Column(
                   children: const [
                     Text(

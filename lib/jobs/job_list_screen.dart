@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/common/common_buttons.dart';
 import 'package:g_worker_app/custom_progress_bar.dart';
+import 'package:g_worker_app/invoice_view_screen/invoice_view_screen.dart';
 import 'package:g_worker_app/main.dart';
 
 import '../Constants.dart';
@@ -633,7 +634,14 @@ class _JobListScreenState extends State<JobListScreen> {
                                     Row(
                                       children: [
                                         MaterialButton(
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            Navigator.pushAndRemoveUntil(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const InvoiceViewScreen()),
+                                                (Route<dynamic> route) => true);
+                                          },
                                           height: 30,
                                           color: redE45,
                                           elevation: 0,

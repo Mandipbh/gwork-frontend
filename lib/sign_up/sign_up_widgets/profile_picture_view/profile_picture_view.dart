@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/common/common_widgets.dart';
-import 'package:g_worker_app/sign_up/sign_up_widgets/profile_picture_view/provider/image_provider.dart';
+import 'package:g_worker_app/sign_up/sign_up_widgets/profile_picture_view/image_provider/image_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../../colors.dart';
@@ -36,16 +36,29 @@ class _ProfilePictureViewState extends State<ProfilePictureView> {
               children: [
                 Consumer<ProfilePicProvider>(
                   builder: (BuildContext context, value, Widget? child) {
-                    return CircleAvatar(
-                        radius: 75,
-                        backgroundColor: Color(0xff6DCF82),
-                        child: value.imagePath != ""
-                            ? Image.file(File(value.imagePath))
-                            : const Text(
+                    return Container(
+                      height: 150,
+                      width: 150,
+                      decoration: const BoxDecoration(
+                        color: Color(0xff6DCF82),
+                        shape: BoxShape.circle,
+                      ),
+                      child: value.imagePath != ""
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.circular(150),
+                              child: Image.file(
+                                File(value.imagePath),
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          : const Center(
+                              child: Text(
                                 'ST',
                                 style: TextStyle(
                                     fontSize: 65, color: Colors.white),
-                              ));
+                              ),
+                            ),
+                    );
                   },
                 ),
                 Positioned(

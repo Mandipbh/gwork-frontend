@@ -627,4 +627,220 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
       ],
     );
   }
+
+  void askForStartJob(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8.0))),
+            content: jobStartPopPupView()));
+  }
+
+  Widget jobStartPopPupView() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        CircleAvatar(
+          radius: 30,
+          backgroundColor: whiteEFE,
+          child: Image.asset(
+            "assets/icons/flag.png",
+            height: 24,
+            width: 24,
+          ),
+        ),
+        const SizedBox(height: 14),
+        const Text(
+          "Are you sure you want to start the job? ",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: splashColor1,
+            fontSize: 24,
+            fontFamily: 'Manrope',
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        const SizedBox(height: 8),
+        const Text(
+          "Press start if you are at the place and ready to start working",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: black343,
+            fontSize: 14,
+            fontFamily: 'Manrope',
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        const SizedBox(height: 24),
+        MaterialButton(
+          onPressed: () {
+            setState(() {
+              isApply = true;
+              Navigator.pop(context);
+            });
+          },
+          height: 48,
+          minWidth: double.infinity,
+          color: splashColor1,
+          elevation: 0,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                "Start job".toUpperCase(),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const SizedBox(width: 10),
+              Image.asset(
+                "assets/icons/flag.png",
+                height: 24,
+                width: 24,
+                color: white,
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 24),
+        GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                "Cancel".toUpperCase(),
+                style: const TextStyle(
+                  color: splashColor1,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const SizedBox(width: 10),
+              const Icon(Icons.close, color: splashColor1, size: 22)
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  void askForCompleteJob(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8.0))),
+            content: jobCompletePopPupView()));
+  }
+
+  Widget jobCompletePopPupView() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        CircleAvatar(
+          radius: 30,
+          backgroundColor: whiteEFE,
+          child: Image.asset(
+            "assets/icons/check-circle-broken.png",
+            height: 24,
+            width: 24,
+          ),
+        ),
+        const SizedBox(height: 14),
+        const Text(
+          "Are you sure you want to complete the job? ",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: splashColor1,
+            fontSize: 24,
+            fontFamily: 'Manrope',
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        const SizedBox(height: 8),
+        const Text(
+          "Once complete it, the status can’t be changed",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: black343,
+            fontSize: 14,
+            fontFamily: 'Manrope',
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        const SizedBox(height: 24),
+        MaterialButton(
+          onPressed: () {
+            setState(() {
+              isApply = true;
+              Navigator.pop(context);
+            });
+          },
+          height: 48,
+          minWidth: double.infinity,
+          color: splashColor1,
+          elevation: 0,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                "Complete job".toUpperCase(),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const SizedBox(width: 10),
+              Image.asset(
+                "assets/icons/check-circle-broken.png",
+                height: 24,
+                width: 24,
+                color: white,
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 24),
+        GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                "Cancel".toUpperCase(),
+                style: const TextStyle(
+                  color: splashColor1,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const SizedBox(width: 10),
+              const Icon(Icons.close, color: splashColor1, size: 22)
+            ],
+          ),
+        ),
+      ],
+    );
+  }
 }

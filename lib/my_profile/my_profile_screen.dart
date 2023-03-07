@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:g_worker_app/Constants.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/common/common_buttons.dart';
+import 'package:g_worker_app/language_screen/language.dart';
 import 'package:g_worker_app/my_profile/edit_profile_screen.dart';
 import 'package:g_worker_app/sign_in/sign_in_sign_up_screen.dart';
 
@@ -183,14 +184,14 @@ class MyProfileScreen extends StatelessWidget {
                             height: 24, width: 24),
                       ),
                       onTap: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //       builder: (context) => EditProfileScreen(
-                        //             type: ProfileFieldType.password,
-                        //             value: 'testt',
-                        //           )),
-                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => EditProfileScreen(
+                                    type: ProfileFieldType.phoneNumber,
+                                    value: '+39 348 613 7727',
+                                  )),
+                        );
                       }),
                 ],
               ),
@@ -268,7 +269,8 @@ class MyProfileScreen extends StatelessWidget {
               const Divider(height: 25),
               Row(
                 children: [
-                  Image.asset('assets/icons/hash.png', height: 24, width: 24),
+                  Image.asset('assets/icons/credit_card_upload.png',
+                      height: 24, width: 24),
                   const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -289,14 +291,14 @@ class MyProfileScreen extends StatelessWidget {
                             height: 24, width: 24),
                       ),
                       onTap: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //       builder: (context) => EditProfileScreen(
-                        //             type: ProfileFieldType.password,
-                        //             value: 'testt',
-                        //           )),
-                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => EditProfileScreen(
+                                    type: ProfileFieldType.paymentMethod,
+                                    value: 'testt',
+                                  )),
+                        );
                       }),
                 ],
               ),
@@ -330,8 +332,42 @@ class MyProfileScreen extends StatelessWidget {
                           MaterialPageRoute(
                               builder: (context) => EditProfileScreen(
                                     type: ProfileFieldType.password,
-                                    value: 'testt',
+                                    value: '*****************',
                                   )),
+                        );
+                      }),
+                ],
+              ),
+              const Divider(height: 25),
+              Row(
+                children: [
+                  Image.asset('assets/icons/globe.png', height: 24, width: 24),
+                  const SizedBox(width: 16),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Language',
+                          style: Theme.of(context).textTheme.headline6),
+                      const SizedBox(height: 6),
+                      Text('English',
+                          style: Theme.of(context).textTheme.bodyText2),
+                    ],
+                  ),
+                  const Spacer(),
+                  GestureDetector(
+                      behavior: HitTestBehavior.opaque,
+                      child: const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Icon(
+                          Icons.arrow_forward_ios,
+                          size: 24,
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LanguageScreen()),
                         );
                       }),
                 ],
