@@ -28,18 +28,18 @@ class _SummaryViewState extends State<SummaryView> {
                 style: Theme.of(context).textTheme.headline1,
               ),
             ),
-            Text('Building restructuring, or even bigger title about what to do',
+            Text(
+                'Building restructuring, or even bigger title about what to do',
                 style: Theme.of(context).textTheme.headline3),
             const SizedBox(height: 24),
             Container(
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  color: Colors.white),
+                  borderRadius: BorderRadius.circular(16), color: Colors.white),
               padding: const EdgeInsets.all(8),
               child: Row(children: [
                 Expanded(
                   child: GestureDetector(
-          behavior: HitTestBehavior.opaque,
+                    behavior: HitTestBehavior.opaque,
                     onTap: () {
                       setState(() {
                         isDescriptionSelected = !isDescriptionSelected;
@@ -49,23 +49,23 @@ class _SummaryViewState extends State<SummaryView> {
                         height: 34,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
-                            color: isDescriptionSelected ? primaryColor : whiteF2F),
+                            color: isDescriptionSelected
+                                ? primaryColor
+                                : whiteF2F),
                         child: Center(
                             child: Text(
-                              'Description',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .subtitle1!
-                                  .apply(
-                                  color:
-                                  isDescriptionSelected ? whiteF2F : primaryColor),
-                            ))),
+                          'Description',
+                          style: Theme.of(context).textTheme.subtitle1!.apply(
+                              color: isDescriptionSelected
+                                  ? whiteF2F
+                                  : primaryColor),
+                        ))),
                   ),
                 ),
                 const SizedBox(width: 8),
                 Expanded(
                   child: GestureDetector(
-          behavior: HitTestBehavior.opaque,
+                    behavior: HitTestBehavior.opaque,
                     onTap: () {
                       setState(() {
                         isDescriptionSelected = !isDescriptionSelected;
@@ -75,16 +75,18 @@ class _SummaryViewState extends State<SummaryView> {
                         height: 34,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
-                            color: !isDescriptionSelected ? primaryColor : whiteF2F),
+                            color: !isDescriptionSelected
+                                ? primaryColor
+                                : whiteF2F),
                         child: Center(
                           child: Text('Gallery',
                               style: Theme.of(context)
                                   .textTheme
                                   .subtitle1!
                                   .apply(
-                                  color: !isDescriptionSelected
-                                      ? Colors.white
-                                      : primaryColor)),
+                                      color: !isDescriptionSelected
+                                          ? Colors.white
+                                          : primaryColor)),
                         )),
                   ),
                 ),
@@ -101,7 +103,149 @@ class _SummaryViewState extends State<SummaryView> {
 
   Widget descriptionView() {
     return Column(children: [
-
+      Container(
+        height: 50,
+        width: double.infinity,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12), color: Color(0x0ffffffff)),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Image.asset(
+                "assets/icons/marker_location.png",
+                scale: 2,
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                "Via Bronzolo, 11, Milano, 25124",
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
+              )
+            ],
+          ),
+        ),
+      ),
+      SizedBox(
+        height: 10,
+      ),
+      Container(
+        height: 50,
+        width: double.infinity,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12), color: Color(0x0ffffffff)),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Image.asset(
+                "assets/icons/calendar.png",
+                scale: 2,
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                "03/02/2021 — 09:31",
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
+              )
+            ],
+          ),
+        ),
+      ),
+      SizedBox(
+        height: 10,
+      ),
+      Container(
+        height: 50,
+        width: double.infinity,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12), color: Color(0x0ffffffff)),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Image.asset(
+                "assets/icons/job.png",
+                scale: 2,
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                "Babysitting",
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
+              )
+            ],
+          ),
+        ),
+      ),
+      SizedBox(
+        height: 10,
+      ),
+      Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12), color: Color(0x0ffffffff)),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Image.asset(
+                "assets/icons/budget.png",
+                scale: 2,
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Accepted budget",
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+                  ),
+                  Text(
+                    "€60,00",
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
+      SizedBox(
+        height: 10,
+      ),
+      Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12), color: Color(0x0ffffffff)),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Image.asset(
+                "assets/icons/message_text.png",
+                scale: 2,
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Flexible(
+                child: Text(
+                  "Babysitters perform general caregiving duties that ensure children’s needs are met while their parents or guardians are away. Their duties include providing transportati",
+                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
     ]);
   }
 

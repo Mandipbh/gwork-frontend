@@ -119,16 +119,35 @@ Widget dropdownField(
     padding: const EdgeInsets.symmetric(horizontal: 8),
     decoration: BoxDecoration(
         color: Colors.white, borderRadius: BorderRadius.circular(16)),
-    child: DropdownButton(
-      // Down Arrow Icon
-      icon: const Icon(Icons.keyboard_arrow_down),
-      items: items.map((String items) {
-        return DropdownMenuItem(
-          value: items,
-          child: Text(items),
-        );
-      }).toList(),
-      onChanged: (String? newValue) {},
+    child: Center(
+      child: DropdownButtonFormField(
+        isExpanded: true,
+        decoration: InputDecoration(
+          isDense: true,
+          suffixIcon: Icon(
+            Icons.expand_more,
+            color: Colors.black,
+            size: 26,
+          ),
+          prefixIcon: Row(
+            children: [
+              Image.asset(
+                "assets/icons/marker_location.png",
+                scale: 2,
+              ),
+            ],
+          ),
+        ),
+        hint: Text('Please choose account type'), // Down Arrow Icon
+        icon: const Icon(Icons.keyboard_arrow_down),
+        items: items.map((String items) {
+          return DropdownMenuItem(
+            value: items,
+            child: Text(items),
+          );
+        }).toList(),
+        onChanged: (String? newValue) {},
+      ),
     ),
   );
 }
