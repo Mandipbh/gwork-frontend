@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:g_worker_app/chat/chart_screen.dart';
+import 'package:g_worker_app/chat/chat_screen.dart';
 import 'package:g_worker_app/colors.dart';
 
 import '../common/common_buttons.dart';
@@ -76,49 +76,50 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                             ),
                             trailing: isApply == true
                                 ? GestureDetector(
-          behavior: HitTestBehavior.opaque,
-                              onTap: () {
-                                Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                        const ChatScreen()),
-                                        (Route<dynamic> route) => true);
-                              },
-                              child: Stack(
-                                alignment: Alignment.topRight,
-                                children: [
-                                  Image.asset(
-                                    "assets/icons/message_chat.png",
-                                    height: 60,
-                                    width: 60,
-                                  ),
-                                  Positioned(
-                                    top: 15,
-                                    right: 5,
-                                    child: Container(
-                                      height: 18,
-                                      width: 25,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                        BorderRadius.circular(24),
-                                        color: yellowF4D,
-                                      ),
-                                      child: const Center(
-                                        child: Text(
-                                          '12',
-                                          style: TextStyle(
-                                            color: splashColor1,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w700,
+                                    behavior: HitTestBehavior.opaque,
+                                    onTap: () {
+                                      Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const ChatScreen()),
+                                          (Route<dynamic> route) => true);
+                                    },
+                                    child: Stack(
+                                      alignment: Alignment.topRight,
+                                      clipBehavior: Clip.none,
+                                      children: [
+                                        Image.asset(
+                                          "assets/icons/message_chat.png",
+                                          height: 30,
+                                          width: 45,
+                                        ),
+                                        Positioned(
+                                          top: 3,
+                                          right: -2,
+                                          child: Container(
+                                            height: 18,
+                                            width: 25,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(24),
+                                              color: yellowF4D,
+                                            ),
+                                            child: const Center(
+                                              child: Text(
+                                                '12',
+                                                style: TextStyle(
+                                                  color: splashColor1,
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                      ),
+                                      ],
                                     ),
-                                  ),
-                                ],
-                              ),
-                            )
+                                  )
                                 : const SizedBox.shrink(),
                           ),
                         ),
@@ -129,7 +130,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                         jobDetailView(
                             "assets/icons/briefcase.png", "Babysitting"),
                         const SizedBox(height: 12),
-                        jobDetailView("assets/icons/coins_stacked.png", "€60,00"),
+                        jobDetailView(
+                            "assets/icons/coins_stacked.png", "€60,00"),
                         const SizedBox(height: 12),
                         Container(
                           width: double.infinity,
@@ -144,7 +146,9 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Image.asset(
-                                  "assets/icons/message_chat.png",
+                                  "assets/icons/message-text-square.png",
+                                  height: 24,
+                                  width: 24,
                                 ),
                                 const SizedBox(width: 12),
                                 const Expanded(
@@ -172,8 +176,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           isReject == true
               ? const SizedBox.shrink()
               : isApply == true
-              ? rejectView()
-              : bottomView(),
+                  ? rejectView()
+                  : bottomView(),
         ],
       ),
     );
@@ -186,7 +190,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
       centerTitle: true,
       elevation: 0,
       leading: GestureDetector(
-          behavior: HitTestBehavior.opaque,
+        behavior: HitTestBehavior.opaque,
         onTap: () {
           Navigator.pop(context);
         },
@@ -212,22 +216,22 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         color: isReject == true
             ? redE45
             : isApply == true
-            ? blue4C7.withOpacity(0.3)
-            : greenE1F,
+                ? blue4C7.withOpacity(0.3)
+                : greenE1F,
         elevation: 0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
         child: Text(
           isReject == true
               ? 'Rejected'
               : isApply == true
-              ? 'Applied'
-              : 'Published',
+                  ? 'Applied'
+                  : 'Published',
           style: TextStyle(
             color: isReject == true
                 ? Colors.white
                 : isApply == true
-                ? blue4C7
-                : green26A,
+                    ? blue4C7
+                    : green26A,
             fontSize: 12,
             fontWeight: FontWeight.w700,
           ),
@@ -250,7 +254,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   Widget tabView() {
     return singleSelectionButtons(
         context: context,
-        buttons: ['Description', 'Gallery','Applicants (5)'],
+        buttons: ['Description', 'Gallery', 'Applicants (5)'],
         padding: 8,
         selected: selectedType,
         onSelectionChange: (value) {
@@ -269,7 +273,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
       ),
       child: ListTile(
         horizontalTitleGap: 1,
-        leading: Image.asset(icon),
+        leading: Image.asset(icon, height: 24, width: 24),
         title: Text(
           text,
           style: const TextStyle(
@@ -305,7 +309,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
             children: [
               Expanded(
                 child: GestureDetector(
-          behavior: HitTestBehavior.opaque,
+                  behavior: HitTestBehavior.opaque,
                   onTap: () {},
                   child: Container(
                     height: 56,
@@ -319,7 +323,9 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Image.asset(
-                            "assets/icons/coins_stacked.png",
+                            "assets/icons/coins-stacked-01.png",
+                            height: 24,
+                            width: 24,
                           ),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -342,7 +348,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                               ),
                             ],
                           ),
-                          // Image.asset("assets/images/currency-euro.svg"),
+                          Image.asset("assets/icons/currency-euro.png",
+                              height: 24, width: 24),
                         ],
                       ),
                     ),
@@ -352,7 +359,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
               const SizedBox(width: 8),
               Expanded(
                 child: GestureDetector(
-          behavior: HitTestBehavior.opaque,
+                  behavior: HitTestBehavior.opaque,
                   onTap: () {
                     askForApply(context);
                   },
@@ -404,7 +411,11 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         CircleAvatar(
           radius: 30,
           backgroundColor: whiteEFE,
-          child: Image.asset("assets/icons/coins_stacked.png"),
+          child: Image.asset(
+            "assets/icons/coins-stacked-01.png",
+            height: 24,
+            width: 24,
+          ),
         ),
         const SizedBox(height: 14),
         const Text(
@@ -413,6 +424,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           style: TextStyle(
             color: splashColor1,
             fontSize: 24,
+            fontFamily: 'Manrope',
             fontWeight: FontWeight.w700,
           ),
         ),
@@ -423,6 +435,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           style: TextStyle(
             color: black343,
             fontSize: 14,
+            fontFamily: 'Manrope',
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -439,7 +452,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           color: splashColor1,
           elevation: 0,
           shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -489,7 +502,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15),
       child: GestureDetector(
-          behavior: HitTestBehavior.opaque,
+        behavior: HitTestBehavior.opaque,
         onTap: () {
           askForReject(context);
         },
@@ -507,7 +520,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
               ),
             ),
             const SizedBox(width: 5),
-            Image.asset("assets/icons/close_square.png"),
+            Image.asset("assets/icons/close_square.png",
+                height: 30, width: 30, color: redE45),
           ],
         ),
       ),
@@ -530,7 +544,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         CircleAvatar(
           radius: 30,
           backgroundColor: redF8D,
-          child: Image.asset("assets/icons/close_square.png"),
+          child: Image.asset("assets/icons/close_square.png",
+              height: 24, width: 24, color: redE45),
         ),
         const SizedBox(height: 14),
         const Text(
@@ -562,7 +577,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           color: splashColor1,
           elevation: 0,
           shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -604,7 +619,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                 ),
               ),
               const SizedBox(width: 5),
-              Image.asset("assets/icons/close_square.png"),
+              Image.asset("assets/icons/close_square.png",
+                  height: 24, width: 24, color: redE45),
             ],
           ),
         ),

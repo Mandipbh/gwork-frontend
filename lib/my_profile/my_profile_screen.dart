@@ -26,9 +26,10 @@ class MyProfileScreen extends StatelessWidget {
             children: [
               Center(
                 child: SizedBox(
-                  height: 150,
-                  width: 150,
+                  height: 108,
+                  width: 108,
                   child: Stack(
+                    clipBehavior: Clip.none,
                     children: [
                       const CircleAvatar(
                           radius: 75,
@@ -38,13 +39,13 @@ class MyProfileScreen extends StatelessWidget {
                             style: TextStyle(fontSize: 65, color: Colors.white),
                           )),
                       Positioned(
-                          bottom: 1,
-                          right: 2,
+                          bottom: -2,
+                          right: -8,
                           child: CircleAvatar(
-                            radius: 25,
+                            radius: 22,
                             backgroundColor: primaryColor,
                             child: Image.asset('assets/icons/edit.png',
-                                height: 30, width: 30, color: Colors.white),
+                                height: 22, width: 22, color: Colors.white),
                           ))
                     ],
                   ),
@@ -58,7 +59,7 @@ class MyProfileScreen extends StatelessWidget {
               Row(
                 children: [
                   Image.asset('assets/icons/user_first_name.png',
-                      height: 30, width: 30),
+                      height: 24, width: 24),
                   const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,7 +76,7 @@ class MyProfileScreen extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Image.asset('assets/icons/edit.png',
-                            height: 30, width: 30),
+                            height: 24, width: 24),
                       ),
                       onTap: () {
                         Navigator.push(
@@ -92,7 +93,7 @@ class MyProfileScreen extends StatelessWidget {
               const Divider(height: 25),
               Row(
                 children: [
-                  Image.asset('assets/icons/user.png', height: 30, width: 30),
+                  Image.asset('assets/icons/user.png', height: 24, width: 24),
                   const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -109,7 +110,7 @@ class MyProfileScreen extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Image.asset('assets/icons/edit.png',
-                            height: 30, width: 30),
+                            height: 24, width: 24),
                       ),
                       onTap: () {
                         Navigator.push(
@@ -126,7 +127,7 @@ class MyProfileScreen extends StatelessWidget {
               const Divider(height: 25),
               Row(
                 children: [
-                  Image.asset('assets/icons/mail.png', height: 30, width: 30),
+                  Image.asset('assets/icons/mail.png', height: 24, width: 24),
                   const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -144,7 +145,7 @@ class MyProfileScreen extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Image.asset('assets/icons/edit.png',
-                            height: 30, width: 30),
+                            height: 24, width: 24),
                       ),
                       onTap: () {
                         Navigator.push(
@@ -161,7 +162,7 @@ class MyProfileScreen extends StatelessWidget {
               const Divider(height: 25),
               Row(
                 children: [
-                  Image.asset('assets/icons/phone.png', height: 30, width: 30),
+                  Image.asset('assets/icons/phone.png', height: 24, width: 24),
                   const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -179,7 +180,7 @@ class MyProfileScreen extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Image.asset('assets/icons/edit.png',
-                            height: 30, width: 30),
+                            height: 24, width: 24),
                       ),
                       onTap: () {
                         // Navigator.push(
@@ -196,7 +197,7 @@ class MyProfileScreen extends StatelessWidget {
               const Divider(height: 25),
               Row(
                 children: [
-                  Image.asset('assets/icons/hash.png', height: 30, width: 30),
+                  Image.asset('assets/icons/hash.png', height: 24, width: 24),
                   const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -214,7 +215,7 @@ class MyProfileScreen extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Image.asset('assets/icons/edit.png',
-                            height: 30, width: 30),
+                            height: 24, width: 24),
                       ),
                       onTap: () {
                         Navigator.push(
@@ -232,7 +233,7 @@ class MyProfileScreen extends StatelessWidget {
               Row(
                 children: [
                   Image.asset('assets/icons/calendar_birthday.png',
-                      height: 30, width: 30),
+                      height: 24, width: 24),
                   const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -250,7 +251,7 @@ class MyProfileScreen extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Image.asset('assets/icons/edit.png',
-                            height: 30, width: 30),
+                            height: 24, width: 24),
                       ),
                       onTap: () {
                         Navigator.push(
@@ -267,7 +268,7 @@ class MyProfileScreen extends StatelessWidget {
               const Divider(height: 25),
               Row(
                 children: [
-                  Image.asset('assets/icons/hash.png', height: 30, width: 30),
+                  Image.asset('assets/icons/hash.png', height: 24, width: 24),
                   const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -285,7 +286,7 @@ class MyProfileScreen extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Image.asset('assets/icons/edit.png',
-                            height: 30, width: 30),
+                            height: 24, width: 24),
                       ),
                       onTap: () {
                         // Navigator.push(
@@ -303,7 +304,7 @@ class MyProfileScreen extends StatelessWidget {
               Row(
                 children: [
                   Image.asset('assets/icons/password.png',
-                      height: 30, width: 30),
+                      height: 24, width: 24),
                   const SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -321,7 +322,7 @@ class MyProfileScreen extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Image.asset('assets/icons/edit.png',
-                            height: 30, width: 30),
+                            height: 24, width: 24),
                       ),
                       onTap: () {
                         Navigator.push(

@@ -38,7 +38,7 @@ class PersonalInfoView extends StatelessWidget {
                 style: const TextStyle(fontSize: 18),
                 decoration: InputDecoration(
                     icon: Image.asset('assets/icons/hash.png',
-                        height: 30, width: 30),
+                        height: 24, width: 24),
                     labelText: 'Tax Code'.toUpperCase())),
           ),
           const SizedBox(height: 20),
@@ -55,7 +55,7 @@ class PersonalInfoView extends StatelessWidget {
                     hintStyle:
                         const TextStyle(fontSize: 18, color: Colors.black12),
                     icon: Image.asset('assets/icons/calendar_birthday.png',
-                        height: 30, width: 30),
+                        height: 24, width: 24),
                     labelText: 'Birth date'.toUpperCase())),
           ),
           const SizedBox(height: 20),

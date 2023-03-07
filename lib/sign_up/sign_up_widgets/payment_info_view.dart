@@ -34,7 +34,7 @@ class PaymentInfoView extends StatelessWidget {
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 decoration: InputDecoration(
                     icon: Image.asset('assets/icons/credit_card_shield.png',
-                        height: 30, width: 30),
+                        height: 24, width: 24),
                     labelText: 'Card Number'.toUpperCase())),
           ),
           const SizedBox(height: 20),
@@ -57,8 +57,8 @@ class PaymentInfoView extends StatelessWidget {
                               fontSize: 18, color: Colors.black12),
                           icon: Image.asset(
                               'assets/icons/calendar_expiry_date.png',
-                              height: 30,
-                              width: 30),
+                              height: 24,
+                              width: 24),
                           labelText: 'Expire Date'.toUpperCase())),
                 ),
               ),
@@ -80,7 +80,7 @@ class PaymentInfoView extends StatelessWidget {
                           border: InputBorder.none,
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           icon: Image.asset('assets/icons/lock_unlocked.png',
-                              height: 30, width: 30),
+                              height: 24, width: 24),
                           labelText: 'CVV'.toUpperCase())),
                 ),
               ),

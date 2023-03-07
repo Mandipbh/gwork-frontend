@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'package:g_worker_app/home_page/home_screen.dart';
+import 'package:g_worker_app/pending_reject_application_screen/pending_application_screen.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/payment_info_view.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/personal_info_view.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/privacy_policy_view.dart';
-import 'package:g_worker_app/sign_up/sign_up_widgets/profile_picture_view.dart';
+import 'package:g_worker_app/sign_up/sign_up_widgets/profile_picture_view/profile_picture_view.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/select_service_view.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/set_password_view.dart';
+import 'package:g_worker_app/sign_up/sign_up_widgets/upload_document_view/upload_document_view.dart';
 
 import '../colors.dart';
 import '../common/common_buttons.dart';
@@ -108,6 +110,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       const SetPasswordView(),
       const PersonalInfoView(),
       const PaymentInfoView(),
+      const UploadDocumentView(),
       const ProfilePictureView(),
       const PrivacyPolicyView()
     ];
@@ -140,21 +143,23 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         : currentPage == 2
             ? 'Password'
             : currentPage == 3
-                ? 'Personal Info'
+                ? 'Personal \nInfo'
                 : currentPage == 4
-                    ? 'Payment Method'
+                    ? 'Payment \nMethod'
                     : currentPage == 5
-                        ? 'Profile Picture'
-                        : '';
+                        ? 'Upload \nDocs'
+                        : currentPage == 6
+                            ? 'Profile Picture'
+                            : '';
     return Container(
-      height: currentPage > 5 ? 78 : 128,
+      height: currentPage > 6 ? 78 : 135,
       // margin: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12), color: Colors.white),
       child: Column(
         children: [
-          currentPage > 5
+          currentPage > 6
               ? Container()
               : Padding(
                   padding:
@@ -175,7 +180,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       const SizedBox(width: 30),
                       Expanded(
                           child: CustomProgressBar(
-                        max: 5,
+                        max: 6,
                         current: currentPage.toDouble(),
                         color: primaryColor,
                         bgColor: whiteF2F,
@@ -191,10 +196,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     curve: Curves.easeIn);
               },
               onNextTap: () {
-                if (currentPage > 5) {
+                if (currentPage > 6) {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => const HomeScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => const PendingApplicationScreen()),
                   );
                 } else {
                   controller.nextPage(
@@ -202,11 +208,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       curve: Curves.easeIn);
                 }
               },
-              nextButtonName: currentPage > 5 ? 'Accept' : 'Next',
+              nextButtonName: currentPage > 6
+                  ? 'Accept'
+                  : currentPage <= 5
+                      ? 'Next'
+                      : 'Finish',
               nextButtonIcon: Icon(
-                  currentPage > 5 ? Icons.done : Icons.arrow_forward,
+                  currentPage > 6 ? Icons.done : Icons.arrow_forward,
                   color: Colors.white),
-              showPrevious: currentPage != 1 && currentPage <= 5),
+              showPrevious: currentPage != 1 && currentPage <= 6),
         ],
       ),
     );

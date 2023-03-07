@@ -136,8 +136,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   onButtonTap: () {},
                   context: context,
                   backgroundColor: primaryColor,
-                  buttonName: 'Confirm',
-                  iconAsset: 'key.png',
+                  buttonName: widget.type == ProfileFieldType.password
+                      ? 'Set new password'
+                      : 'Confirm',
+                  iconAsset: widget.type == ProfileFieldType.password
+                      ? 'lock.png'
+                      : 'check.png',
                 ),
               ),
             ],
