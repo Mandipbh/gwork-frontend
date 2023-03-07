@@ -26,7 +26,7 @@ class _SelectServiceViewState extends State<SelectServiceView> {
             style: Theme.of(context).textTheme.headline1,
           ),
         ),
-        Text('Please select one of two options',
+        Text('Please select one of two options.',
             style: Theme.of(context).textTheme.bodyText2),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 16),

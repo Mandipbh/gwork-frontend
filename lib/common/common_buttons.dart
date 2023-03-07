@@ -156,16 +156,20 @@ Widget singleSelectionButtons(
         onTap: () {
           onSelectionChange(index + 1);
         },
-        child: Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(14),
-                color: selected == index + 1 ? primaryColor : Colors.white),
-            child: Center(
-                child: Text(
-              buttonName,
-              style: Theme.of(context).textTheme.subtitle1!.apply(
-                  color: selected == index + 1 ? Colors.white : primaryColor),
-            ))),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 3.0),
+          child: Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(14),
+                  color: selected == index + 1 ? primaryColor : whiteF2F),
+              child: Center(
+                  child: Text(
+                buttonName,
+                style: TextStyle(
+                    fontSize: 14,
+                    color: selected == index + 1 ? Colors.white : primaryColor),
+              ))),
+        ),
       ));
     }).toList()),
   );

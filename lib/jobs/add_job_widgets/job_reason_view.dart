@@ -29,7 +29,7 @@ class _JobReasonViewState extends State<JobReasonView> {
               style: Theme.of(context).textTheme.headline1,
             ),
           ),
-          Text('Please select one of four options',
+          Text('Please select one of four options.',
               style: Theme.of(context).textTheme.bodyText2),
           const SizedBox(height: 24),
           SizedBox(
@@ -70,9 +70,9 @@ class _JobReasonViewState extends State<JobReasonView> {
                               backgroundColor: jobType == JobsType.cleaning
                                   ? const Color(0xff343734)
                                   : const Color(0xfff2f2f2),
-                              child: Image.asset(
-                                  'assets/icons/cleaning.png',
-                                  height: 30,width: 30,
+                              child: Image.asset('assets/icons/cleaning.png',
+                                  height: 30,
+                                  width: 30,
                                   color: jobType == JobsType.cleaning
                                       ? Colors.white
                                       : primaryColor),
@@ -103,10 +103,13 @@ class _JobReasonViewState extends State<JobReasonView> {
                           child: Align(
                             alignment: Alignment.bottomCenter,
                             child: Text('Babysitting',
-                                style: Theme.of(context).textTheme.caption!.apply(
-                                    color: jobType == JobsType.babySitting
-                                        ? Colors.white
-                                        : primaryColor)),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .caption!
+                                    .apply(
+                                        color: jobType == JobsType.babySitting
+                                            ? Colors.white
+                                            : primaryColor)),
                           ),
                         ),
                         Positioned.fill(
@@ -116,9 +119,9 @@ class _JobReasonViewState extends State<JobReasonView> {
                               backgroundColor: jobType == JobsType.babySitting
                                   ? const Color(0xff343734)
                                   : const Color(0xfff2f2f2),
-                              child: Image.asset(
-                                  'assets/icons/babysitting.png',
-                                  height: 30,width: 30,
+                              child: Image.asset('assets/icons/babysitting.png',
+                                  height: 30,
+                                  width: 30,
                                   color: jobType == JobsType.babySitting
                                       ? Colors.white
                                       : primaryColor),
@@ -172,9 +175,9 @@ class _JobReasonViewState extends State<JobReasonView> {
                               backgroundColor: jobType == JobsType.tutoring
                                   ? const Color(0xff343734)
                                   : const Color(0xfff2f2f2),
-                              child: Image.asset(
-                                  'assets/icons/tutor.png',
-                                  height: 30,width: 30,
+                              child: Image.asset('assets/icons/tutor.png',
+                                  height: 30,
+                                  width: 30,
                                   color: jobType == JobsType.tutoring
                                       ? Colors.white
                                       : primaryColor),
@@ -205,10 +208,13 @@ class _JobReasonViewState extends State<JobReasonView> {
                           child: Align(
                             alignment: Alignment.bottomCenter,
                             child: Text('Handyman',
-                                style: Theme.of(context).textTheme.caption!.apply(
-                                    color: jobType == JobsType.handyman
-                                        ? Colors.white
-                                        : primaryColor)),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .caption!
+                                    .apply(
+                                        color: jobType == JobsType.handyman
+                                            ? Colors.white
+                                            : primaryColor)),
                           ),
                         ),
                         Positioned.fill(
@@ -218,9 +224,9 @@ class _JobReasonViewState extends State<JobReasonView> {
                               backgroundColor: jobType == JobsType.handyman
                                   ? const Color(0xff343734)
                                   : const Color(0xfff2f2f2),
-                              child: Image.asset(
-                                  'assets/icons/handyman.png',
-                                  height: 30,width: 30,
+                              child: Image.asset('assets/icons/handyman.png',
+                                  height: 30,
+                                  width: 30,
                                   color: jobType == JobsType.handyman
                                       ? Colors.white
                                       : primaryColor),

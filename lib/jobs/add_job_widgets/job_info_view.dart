@@ -15,30 +15,26 @@ class JobInfoView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: Text(
               'Job info',
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .headline1,
+              style: Theme.of(context).textTheme.headline1,
             ),
           ),
           Text('Please fill all the fields',
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .bodyText2),
+              style: Theme.of(context).textTheme.bodyText2),
           const SizedBox(height: 24),
-          nameTextField(
-              label: 'title', asset: 'text_input.png'),
+          nameTextField(label: 'title', asset: 'text_input.png'),
           const SizedBox(height: 20),
           nameTextField(label: 'street', asset: 'marker_location.png'),
           const SizedBox(height: 20),
           dropdownField(
               label: 'Province',
-              asset: 'marker_location.png',items: ['Province']),
+              asset: 'marker_location.png',
+              items: ['Province']),
           const SizedBox(height: 20),
-          dropdownField(label: 'Comune',
+          dropdownField(
+            label: 'Comune',
             items: ['Comune'],
-            asset: 'marker_location.png',),
+            asset: 'marker_location.png',
+          ),
           const SizedBox(height: 20),
         ],
       ),
