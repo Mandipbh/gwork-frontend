@@ -47,7 +47,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => DocumentPicProvider(),
         ),
-        ),
         ChangeNotifierProvider(
           create: (context) => UploadImageProvider(),
         )
