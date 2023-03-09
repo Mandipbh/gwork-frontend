@@ -3,7 +3,7 @@ class API{
 }
 
 class ApiEndPoints{
-  static const String adminLogin = "/admin/auth/login";
+  static const String login = "/worker/auth/login";
 }
 
 class DashboardFilters {
@@ -49,8 +49,8 @@ class ProfileFieldType {
 
 class UserType {
   static const int client = 0;
-  static const int admin = 1;
-  static const int professional = 2;
+  static const int admin = 2;
+  static const int professional = 1;
 }
 
 class SelectionType {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:g_worker_app/home_page/home_screen.dart';
+import 'package:g_worker_app/home_page/view/home_screen.dart';
 import 'package:g_worker_app/pending_reject_application_screen/pending_application_screen.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/payment_info_view.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/personal_info_view.dart';

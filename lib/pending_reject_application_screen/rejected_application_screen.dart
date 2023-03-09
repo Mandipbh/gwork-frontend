@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
-import 'package:g_worker_app/home_page/home_screen.dart';
+import 'package:g_worker_app/home_page/view/home_screen.dart';
 
 class RejectedApplicationScreen extends StatelessWidget {
   const RejectedApplicationScreen({Key? key}) : super(key: key);

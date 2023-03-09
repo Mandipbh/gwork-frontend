@@ -6,13 +6,12 @@ import 'package:g_worker_app/sign_in/model/sign_in_response.dart';
 class ApiClient {
   Dio dio = Dio();
 
-  Future<SignInResponse> adminLogin(SignInRequest request) async {
+  Future<SignInResponse> login(SignInRequest request) async {
     try {
-      var response = await dio.post('${API.baseUrl}${ApiEndPoints.adminLogin}',
+      var response = await dio.post('${API.baseUrl}${ApiEndPoints.login}',
           data: request,
           options: Options(headers: {'Content-Type': 'application/json'}));
-      SignInResponse signInResponse = response.data;
-      return signInResponse;
+      return SignInResponse.fromJson(response.data);
     } on DioError {
       rethrow;
     } catch (e) {

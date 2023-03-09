@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:g_worker_app/home_page/home_screen.dart';
+import 'package:g_worker_app/home_page/view/home_screen.dart';
 
 import 'package:g_worker_app/jobs/add_job_widgets/job_info_view.dart';
 import 'package:g_worker_app/jobs/add_job_widgets/job_reason_view.dart';

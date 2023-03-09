@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+
 part 'sign_in_response.g.dart';
 
 @JsonSerializable()
@@ -7,6 +8,7 @@ class SignInResponse {
   final int? status;
   @JsonKey(name: 'is_verified')
   final int? isVerified;
+  final int? role;
   final String? token;
   final String? error;
 
@@ -15,10 +17,11 @@ class SignInResponse {
       this.status,
       this.isVerified,
       this.token,
+      this.role,
       this.error});
 
-  factory SignInResponse.fromJson(Map<String,dynamic> data) => _$SignInResponseFromJson(data);
+  factory SignInResponse.fromJson(Map<String, dynamic> data) =>
+      _$SignInResponseFromJson(data);
 
-  Map<String,dynamic> toJson() => _$SignInResponseToJson(this);
-
+  Map<String, dynamic> toJson() => _$SignInResponseToJson(this);
 }

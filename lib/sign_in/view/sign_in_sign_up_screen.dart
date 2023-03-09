@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 
 import '../../common/common_buttons.dart';
 import '../../common/common_input_fields.dart';
-import '../../home_page/home_screen.dart';
+import '../../home_page/view/home_screen.dart';
 
 class SignInSignUpScreen extends StatefulWidget {
   const SignInSignUpScreen({super.key});
@@ -29,38 +29,40 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
         children: [
           Scaffold(
             backgroundColor: const Color(0xfff2f2f2),
-            body: Container(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 25),
-                    child: Text(
-                      tr('welcome'),
-                      style: const TextStyle(
-                          fontSize: 30, fontWeight: FontWeight.bold),
+            body: SingleChildScrollView(
+              child: Container(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 25),
+                      child: Text(
+                        tr('welcome'),
+                        style: const TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.bold),
+                      ),
                     ),
-                  ),
-                  MyApp.userType != UserType.admin
-                      ? singleSelectionButtons(
-                          context: context,
-                          buttons: [
-                            'Sign Up'.toUpperCase(),
-                            'Sign In'.toUpperCase()
-                          ],
-                          selected: provider.getSelected(),
-                          onSelectionChange: (value) {
-                            provider.setSelected(value);
-                          })
-                      : Container(),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  provider.getSelected() == SelectionType.signUp
-                      ? signUpView()
-                      : loginView(provider)
-                ],
+                    MyApp.userType != UserType.admin
+                        ? singleSelectionButtons(
+                            context: context,
+                            buttons: [
+                              'Sign Up'.toUpperCase(),
+                              'Sign In'.toUpperCase()
+                            ],
+                            selected: provider.getSelected(),
+                            onSelectionChange: (value) {
+                              provider.setSelected(value);
+                            })
+                        : Container(),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    provider.getSelected() == SelectionType.signUp
+                        ? signUpView()
+                        : loginView(provider)
+                  ],
+                ),
               ),
             ),
             bottomNavigationBar: provider.getSelected() == SelectionType.signUp

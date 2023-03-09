@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:g_worker_app/Constants.dart';
 import 'package:g_worker_app/colors.dart';
+import 'package:g_worker_app/home_page/provider/home_page_provider.dart';
 import 'package:g_worker_app/language_screen/language_provider/language_provider.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/profile_picture_view/image_provider/image_provider.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/upload_document_view/document_provider/document_provider.dart';
@@ -53,6 +54,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => SignInProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => HomePageProvider(),
         )
       ],
       child: MaterialApp(

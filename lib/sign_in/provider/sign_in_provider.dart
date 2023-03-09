@@ -1,15 +1,16 @@
 import 'dart:async';
 
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:g_worker_app/Constants.dart';
 import 'package:g_worker_app/server_connection/api_client.dart';
+import 'package:g_worker_app/shared_preference_data.dart';
 import 'package:g_worker_app/sign_in/model/sign_in_request.dart';
 import 'package:g_worker_app/sign_in/model/sign_in_response.dart';
 import 'package:g_worker_app/validations.dart';
 
 class SignInProvider extends ChangeNotifier {
-  StreamController<SignInResponse> _loginResponse = StreamController.broadcast();
+  final StreamController<SignInResponse> _loginResponse = StreamController.broadcast();
+  SharedPreferenceData preferenceData = SharedPreferenceData();
   var phoneController = TextEditingController();
   var passwordController = TextEditingController();
   bool _isLogging = false;
@@ -34,8 +35,7 @@ class SignInProvider extends ChangeNotifier {
   bool isValidData() {
     return phoneController.text.isNotEmpty &&
         Validations.isMobileNumberValid(phoneController.text.trim()) &&
-        passwordController.text.isNotEmpty &&
-        Validations.isPasswordValid(passwordController.text.trim());
+        passwordController.text.isNotEmpty;
   }
 
   login() {
@@ -43,7 +43,11 @@ class SignInProvider extends ChangeNotifier {
     SignInRequest request = SignInRequest(
         phoneNumber: phoneController.text.trim(),
         password: passwordController.text.trim());
-    ApiClient().adminLogin(request).then((loginResponse) {
+    ApiClient().login(request).then((loginResponse) {
+      if(loginResponse.success){
+        preferenceData.setToken(loginResponse.token!);
+        preferenceData.setUserRole(loginResponse.role!);
+      }
       _loginResponse.sink.add(loginResponse);
     });
   }
