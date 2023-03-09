@@ -55,12 +55,6 @@ Widget passwordTextField({required String label,required TextEditingController c
             ),
             prefixIcon: Image.asset('assets/icons/password.png', scale: 2),
             labelText: label.toUpperCase()),
-        onChanged: (value) {
-          bool isValid = RegExp(
-                  r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
-              .hasMatch(value);
-          print('password => $value :: isValid => $isValid');
-        },
       ),
     );
   });

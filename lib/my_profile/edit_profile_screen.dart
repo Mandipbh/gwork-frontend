@@ -129,20 +129,24 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                                   children: [
                                                     passwordTextField(
                                                         label:
-                                                            'current password'),
+                                                            'current password',
+                                                        controller:
+                                                            TextEditingController()),
                                                     const SizedBox(
                                                       height: 20,
                                                     ),
                                                     passwordTextField(
-                                                      label: 'new password',
-                                                    ),
+                                                        label: 'new password',
+                                                        controller:
+                                                            TextEditingController()),
                                                     const SizedBox(
                                                       height: 20,
                                                     ),
                                                     passwordTextField(
-                                                      label:
-                                                          'confirm new password',
-                                                    ),
+                                                        label:
+                                                            'confirm new password',
+                                                        controller:
+                                                            TextEditingController()),
                                                   ],
                                                 )
                                               : widget.type ==

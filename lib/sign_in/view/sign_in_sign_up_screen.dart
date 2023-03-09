@@ -21,115 +21,135 @@ class SignInSignUpScreen extends StatefulWidget {
 }
 
 class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Consumer<SignInProvider>(
         builder: (BuildContext context, provider, Widget? child) {
-      return Scaffold(
-        backgroundColor: const Color(0xfff2f2f2),
-        body: Container(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 25),
-                child: Text(
-                  tr('welcome'),
-                  style: const TextStyle(
-                      fontSize: 30, fontWeight: FontWeight.bold),
-                ),
-              ),
-              MyApp.userType != UserType.admin
-                  ? singleSelectionButtons(
-                      context: context,
-                      buttons: [
-                        'Sign Up'.toUpperCase(),
-                        'Sign In'.toUpperCase()
-                      ],
-                      selected: provider.getSelected(),
-                      onSelectionChange: (value) {
-                        provider.setSelected(value);
-                      })
-                  : Container(),
-              const SizedBox(
-                height: 30,
-              ),
-              provider.getSelected() == SelectionType.signUp ? signUpView() : loginView(provider)
-            ],
-          ),
-        ),
-        bottomNavigationBar: provider.getSelected() == SelectionType.signUp
-            ? Padding(
-                padding: EdgeInsets.only(
-                    left: 16,
-                    right: 16,
-                    top: 8,
-                    bottom: MediaQuery.of(context).viewInsets.bottom > 0
-                        ? MediaQuery.of(context).viewInsets.bottom
-                        : 16),
-                child: submitButton(
-                  onButtonTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const RegistrationScreen()),
-                    );
-                  },
-                  context: context,
-                  backgroundColor: primaryColor,
-                  buttonName: 'Sign Up',
-                  iconAsset: 'logout.png',
-                ),
-              )
-            : Padding(
-                padding: EdgeInsets.only(
-                    left: 16,
-                    right: 16,
-                    top: 8,
-                    bottom: MediaQuery.of(context).viewInsets.bottom),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    submitButton(
-                      onButtonTap: () {
-                       if(provider.isValidData()){
-                         Navigator.pushReplacement(
-                           context,
-                           MaterialPageRoute(
-                               builder: (context) => const HomeScreen()),
-                         );
-                       }
-                      },
-                      context: context,
-                      backgroundColor: primaryColor,
-                      buttonName: 'Sign In',
-                      iconAsset: 'logout.png',
+      return Stack(
+        children: [
+          Scaffold(
+            backgroundColor: const Color(0xfff2f2f2),
+            body: Container(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 25),
+                    child: Text(
+                      tr('welcome'),
+                      style: const TextStyle(
+                          fontSize: 30, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    submitButton(
+                  ),
+                  MyApp.userType != UserType.admin
+                      ? singleSelectionButtons(
+                          context: context,
+                          buttons: [
+                            'Sign Up'.toUpperCase(),
+                            'Sign In'.toUpperCase()
+                          ],
+                          selected: provider.getSelected(),
+                          onSelectionChange: (value) {
+                            provider.setSelected(value);
+                          })
+                      : Container(),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  provider.getSelected() == SelectionType.signUp
+                      ? signUpView()
+                      : loginView(provider)
+                ],
+              ),
+            ),
+            bottomNavigationBar: provider.getSelected() == SelectionType.signUp
+                ? Padding(
+                    padding: EdgeInsets.only(
+                        left: 16,
+                        right: 16,
+                        top: 8,
+                        bottom: MediaQuery.of(context).viewInsets.bottom > 0
+                            ? MediaQuery.of(context).viewInsets.bottom
+                            : 16),
+                    child: submitButton(
                       onButtonTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  const RecoverPasswordScreen()),
+                              builder: (context) => const RegistrationScreen()),
                         );
                       },
                       context: context,
-                      textColor: primaryColor,
-                      iconColor: primaryColor,
-                      backgroundColor: Colors.transparent,
-                      buttonName: 'Recover Password',
-                      iconAsset: 'key.png',
+                      backgroundColor: primaryColor,
+                      buttonName: 'Sign Up',
+                      iconAsset: 'logout.png',
                     ),
-                    const SizedBox(height: 10),
-                  ],
-                ),
-              ),
+                  )
+                : Padding(
+                    padding: EdgeInsets.only(
+                        left: 16,
+                        right: 16,
+                        top: 8,
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        submitButton(
+                          onButtonTap: () {
+                            if (provider.isValidData()) {
+                              provider.getLoginResponseStream().listen((event) {
+                                if (event.success) {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const HomeScreen()),
+                                  );
+                                } else {
+                                  //show error
+                                }
+                              });
+                              provider.login();
+                            }
+                          },
+                          context: context,
+                          backgroundColor: primaryColor,
+                          buttonName: 'Sign In',
+                          iconAsset: 'logout.png',
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        submitButton(
+                          onButtonTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const RecoverPasswordScreen()),
+                            );
+                          },
+                          context: context,
+                          textColor: primaryColor,
+                          iconColor: primaryColor,
+                          backgroundColor: Colors.transparent,
+                          buttonName: 'Recover Password',
+                          iconAsset: 'key.png',
+                        ),
+                        const SizedBox(height: 10),
+                      ],
+                    ),
+                  ),
+          ),
+          Positioned.fill(
+              child: Center(
+                  child: provider.getIsLogging()
+                      ? const CircularProgressIndicator()
+                      : const SizedBox(
+                          height: 0,
+                        )))
+        ],
       );
     });
   }
@@ -156,7 +176,8 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
       children: [
         phoneNumberTextField(controller: provider.phoneController),
         const SizedBox(height: 20),
-        passwordTextField(label: 'Password',controller: provider.passwordController),
+        passwordTextField(
+            label: 'Password', controller: provider.passwordController),
         const SizedBox(height: 20),
       ],
     );
