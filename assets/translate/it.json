@@ -214,21 +214,23 @@
         "Name": "NOME",
         "Last_name": "COGNOME",
         "Email_id": "EMAIL",
-        "VAT_Number": "CODICE FISCALE",
+        "Text_Code": "Codice testo",
         "Birth_date": "DATA DI NASCITA",
         "03": "03",
-        "Paymen_method":"METODO DI PAGAMENTO",
+        "Paymen_method":"METODO DI \nPAGAMENTO",
         "add_payment_method": "Aggiungi un metodo di pagamento per il tuo account.",
         "card_holder": "INTESTATARIO",
         "Card_number": "NUMERO CARTA",
         "Expire_date": "SCADENZA",
         "CVV": "CVV",
         "04": "04",
-        "Profile_picture": "Foto profilo",
+        "Profile_picture": "Foto \nProfilo",
         "Upload_profile_picture": "Carica una foto",
         "05": "05",
-        "Finish": "Finito"
-
+        "Finish": "Finito",
+        "personal_info": "informazioni \npersonali",
+        "Upload_Docs": "Carica \ndocumenti",
+        "Upload_documents": "Carica documenti"
       }
 
     },
@@ -283,7 +285,7 @@
       "Cleaning": "Pulizia",
       "Tutoring": "Ripetizioni",
       "Handyman": "Tuttofare",
-      "Next_Step": "AVANTI"
+      "Next": "Prossima"
     },
     "Job_info": {
       "Job_info": "Lavori",
@@ -342,7 +344,7 @@
       "provideServices": "Fornire servizi",
       "requireServices": "Richiedere servizi",
       "reason": "Motivo",
-      "nextStep": "AVANTI"
+      "Next": "AVANTI"
     },
     "onBoardingSetPassword": {
       "Set_Password?": "Impostare la Password",
@@ -350,8 +352,8 @@
       "New_Password": "Nuova Password",
       "Confirm_new_Password": "Conferma Password",
       "Password": "Password",
-      "Previous_step": "INDIETRO",
-      "Next_Step": "AVANTI"
+      "Previous": "INDIETRO",
+      "Next": "AVANTI"
     },
     "onBoardingPersonalInfo": {
       "onBoarding": "Onboarding",
@@ -378,7 +380,7 @@
     "onBoardingDocuments": {
       "onBoarding": "Onboarding",
       "Upload_documents": "Carica documenti",
-      "Upload_documents_that_can_prove_your_competences.": "Carica i documenti che possono dimostrare le tue competenze.",
+      "Upload_documents_that_can_prove_your_competences": "Carica i documenti che possono dimostrare le tue competenze.",
       "Loading": "Caricamento",
       "Upload_Document": "Carica Documento",
       "Previous_step": "INDIETRO",
@@ -387,7 +389,7 @@
     "onBoardingDocuments1": {
       "onBoarding": "Onboarding",
       "Profile_picture": "Foto profilo",
-      "Upload_a_picture_for_your_profile.": "Carica una foto",
+      "Upload_a_picture_for_your_profile": "Carica una foto",
       "Previous_step": "INDIETRO",
       "Finish": "AVANTI"
     },
@@ -398,7 +400,7 @@
     },
     "PendingApplication": {
       "Pending_application": "Richiesta in attesa",
-      "Your_application_has been submitted": "La tua domanda è stata inoltrata",
+      "Your_application_has_been_submitted": "La tua domanda è stata inoltrata",
       "We_all_send_you_notification_when_it’s_approved": "Ti invieremo una notifica quando la tua richiesta sarà approvata"
     },
     "Application_rejected": {

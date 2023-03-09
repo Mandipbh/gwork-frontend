@@ -54,16 +54,18 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
     return WillPopScope(
       onWillPop: () async {
         askForExit(
-            context: context,
-            onBackPressed: () {
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const SignInSignUpScreen()),
-                  (Route<dynamic> route) => false);
-            },
-            title: tr('admin.exit_dialogue.are_you_sure'),
-            description: tr('admin.exit_dialogue.need_to_ask'));
+          context: context,
+          onBackPressed: () {
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const SignInSignUpScreen()),
+                (Route<dynamic> route) => false);
+          },
+          title: tr('admin.exit_dialogue.are_you_sure'),
+          description: tr('admin.exit_dialogue.need_to_ask'),
+          backButtonName: tr('admin.exit_dialogue.go_back'),
+        );
         return false;
       },
       child: Scaffold(
@@ -90,8 +92,7 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                         style: Theme.of(context).textTheme.headline1,
                       ),
                     ),
-                    Text(
-                        'Enter below the 4-digit code we just sent to +39 348 613 7727.',
+                    Text(tr('admin.sign_in.enter_digit'),
                         style: Theme.of(context).textTheme.bodyText2),
                     const SizedBox(height: 20),
                     OTPTextField(
@@ -136,7 +137,7 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                     backgroundColor: Colors.transparent,
                     textColor: enableResend ? Colors.black : Colors.grey,
                     buttonName: enableResend
-                        ? 'Request a new code'
+                        ? tr('admin.sign_in.Request_new_code')
                         : 'Request a new code (00:${secondsRemaining.toString().padLeft(2, '0')})',
                     iconAsset: 'otp_send.png',
                     iconColor: enableResend ? Colors.black : Colors.grey,

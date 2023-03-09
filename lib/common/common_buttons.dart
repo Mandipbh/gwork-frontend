@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../colors.dart';
@@ -63,7 +64,8 @@ Widget previousAndNextButtons(
                         width: 8,
                       ),
                       Text(
-                        'Previous'.toUpperCase(),
+                        tr('Professional.logIn.onBoardingSetPassword.Previous')
+                            .toUpperCase(),
                         style: Theme.of(context)
                             .textTheme
                             .button!

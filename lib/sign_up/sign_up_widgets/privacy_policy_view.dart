@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class PrivacyPolicyView extends StatelessWidget {
@@ -12,7 +13,7 @@ class PrivacyPolicyView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: 16),
             child: Text(
-              'Privacy Policy',
+              tr('Professional.logIn.PrivacyPolicy.Privacy_Policy'),
               style: Theme.of(context).textTheme.headline1,
             ),
           ),
