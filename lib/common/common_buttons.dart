@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../colors.dart';
@@ -63,7 +64,8 @@ Widget previousAndNextButtons(
                         width: 8,
                       ),
                       Text(
-                        'Previous'.toUpperCase(),
+                        tr('Professional.logIn.onBoardingSetPassword.Previous')
+                            .toUpperCase(),
                         style: Theme.of(context)
                             .textTheme
                             .button!
@@ -144,8 +146,8 @@ Widget singleSelectionButtons(
     required Function onSelectionChange}) {
   return Container(
     height: AppBar().preferredSize.height,
-    decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16), color: Colors.white),
+    decoration:
+        BoxDecoration(borderRadius: BorderRadius.circular(16), color: white),
     padding: EdgeInsets.all(padding),
     child: Row(
         children: buttons.map((buttonName) {
@@ -161,13 +163,13 @@ Widget singleSelectionButtons(
           child: Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(14),
-                  color: selected == index + 1 ? primaryColor : whiteF2F),
+                  color: selected == index + 1 ? primaryColor : white),
               child: Center(
                   child: Text(
                 buttonName,
                 style: TextStyle(
                     fontSize: 14,
-                    color: selected == index + 1 ? Colors.white : primaryColor),
+                    color: selected == index + 1 ? white : primaryColor),
               ))),
         ),
       ));

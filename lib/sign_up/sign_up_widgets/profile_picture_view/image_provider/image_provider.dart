@@ -5,7 +5,7 @@ class ProfilePicProvider extends ChangeNotifier {
   String _imagePath = "";
   String get imagePath => _imagePath;
 
-  getimage(source) async {
+  getImage(source) async {
     final ImagePicker _picker = ImagePicker();
     final XFile? image = await _picker.pickImage(source: source);
     _imagePath = image!.path;

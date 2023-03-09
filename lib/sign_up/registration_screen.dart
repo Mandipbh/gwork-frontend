@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import 'package:g_worker_app/home_page/view/home_screen.dart';
@@ -33,16 +34,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     return WillPopScope(
       onWillPop: () async {
         askForExit(
-            context: context,
-            onBackPressed: () {
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const SignInSignUpScreen()),
-                  (Route<dynamic> route) => false);
-            },
-            title: 'Are you sure you want to stop registration?',
-            description: 'All the saved data will be deleted');
+          context: context,
+          onBackPressed: () {
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const SignInSignUpScreen()),
+                (Route<dynamic> route) => false);
+          },
+          title:
+              tr('client.log_in.confirmation_panel.want_to_stop_registration'),
+          description:
+              tr('client.log_in.confirmation_panel.saved_data_will_be_deleted'),
+          backButtonName: tr('admin.exit_dialogue.go_back'),
+        );
         return false;
       },
       child: Scaffold(
@@ -63,9 +68,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       const SizedBox(
                         width: 30,
                       ),
-                      const Text(
-                        'Onboarding',
-                        style: TextStyle(
+                      Text(
+                        tr('client.log_in.sign_up.Onboarding'),
+                        style: const TextStyle(
                             color: Colors.black,
                             fontSize: 20,
                             fontWeight: FontWeight.bold),
@@ -74,19 +79,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         icon: const Icon(Icons.close),
                         onPressed: () {
                           askForExit(
-                              context: context,
-                              onBackPressed: () {
-                                Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const SignInSignUpScreen()),
-                                    (Route<dynamic> route) => false);
-                              },
-                              title:
-                                  'Are you sure you want to stop registration?',
-                              description:
-                                  'All the saved data will be deleted');
+                            context: context,
+                            onBackPressed: () {
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const SignInSignUpScreen()),
+                                  (Route<dynamic> route) => false);
+                            },
+                            title: tr(
+                                'client.log_in.confirmation_panel.want_to_stop_registration'),
+                            description: tr(
+                                'client.log_in.confirmation_panel.saved_data_will_be_deleted'),
+                            backButtonName: tr('admin.exit_dialogue.go_back'),
+                          );
                         },
                       )
                     ],
@@ -139,17 +146,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   Widget progressView() {
     String label = currentPage == 1
-        ? 'Reason'
+        ? tr('client.log_in.sign_up.Reason')
         : currentPage == 2
-            ? 'Password'
+            ? tr('client.log_in.sign_up.Password')
             : currentPage == 3
-                ? 'Personal \nInfo'
+                ? tr('client.log_in.sign_up.personal_info')
                 : currentPage == 4
-                    ? 'Payment \nMethod'
+                    ? tr('client.log_in.sign_up.Paymen_method')
                     : currentPage == 5
-                        ? 'Upload \nDocs'
+                        ? tr('client.log_in.sign_up.Upload_Docs')
                         : currentPage == 6
-                            ? 'Profile Picture'
+                            ? tr('client.log_in.sign_up.Profile_picture')
                             : '';
     return Container(
       height: currentPage > 6 ? 78 : 135,
@@ -209,10 +216,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 }
               },
               nextButtonName: currentPage > 6
-                  ? 'Accept'
+                  ? tr('client.privacy_policy.Accept')
                   : currentPage <= 5
-                      ? 'Next'
-                      : 'Finish',
+                      ? tr('Professional.logIn.onBoardingSetPassword.Next')
+                      : tr('Professional.logIn.onBoardingSetPassword.Finish'),
               nextButtonIcon: Icon(
                   currentPage > 6 ? Icons.done : Icons.arrow_forward,
                   color: Colors.white),

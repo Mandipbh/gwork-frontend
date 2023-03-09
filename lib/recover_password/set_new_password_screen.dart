@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/home_page/view/home_screen.dart';
 import 'package:g_worker_app/colors.dart';
@@ -19,19 +20,25 @@ class _SetNewPasswordScreenState extends State<SetNewPasswordScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        askForExit(context: context,onBackPressed: (){
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const SignInSignUpScreen()),
-                  (Route<dynamic> route) => false);
-        }, title: 'Are you sure you want to go back', description: 'You will need to ask for another OTP code');
+        askForExit(
+          context: context,
+          onBackPressed: () {
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const SignInSignUpScreen()),
+                (Route<dynamic> route) => false);
+          },
+          title: tr('admin.exit_dialogue.are_you_sure'),
+          description: tr('admin.exit_dialogue.need_to_ask'),
+          backButtonName: tr('admin.exit_dialogue.go_back'),
+        );
         return false;
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'Recover Password',
+          title: Text(
+            tr('admin.sign_in.Recover_password'),
           ),
         ),
         body: SingleChildScrollView(
@@ -48,16 +55,20 @@ class _SetNewPasswordScreenState extends State<SetNewPasswordScreen> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 12),
                       child: Text(
-                        'Set Password',
+                        tr('admin.set_password'),
                         style: Theme.of(context).textTheme.headline1,
                       ),
                     ),
-                    Text('Choose a secure password for your account.',
+                    Text(tr("admin.choose_password"),
                         style: Theme.of(context).textTheme.bodyText2),
                     const SizedBox(height: 40),
-                    passwordTextField(label: 'new password',controller: TextEditingController()),
+                    passwordTextField(
+                        label: tr('admin.new_password'),
+                        controller: TextEditingController()),
                     const SizedBox(height: 20),
-                    passwordTextField(label: 'confirm password',controller: TextEditingController()),
+                    passwordTextField(
+                        label: tr('admin.confirm_new_password'),
+                        controller: TextEditingController()),
                     const SizedBox(height: 20),
                   ],
                 ),
@@ -69,14 +80,16 @@ class _SetNewPasswordScreenState extends State<SetNewPasswordScreen> {
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                            builder: (BuildContext context) => const HomeScreen(),
+                            builder: (BuildContext context) =>
+                                const HomeScreen(),
                           ),
-                              (route) => false,//if you want to disable back feature set to false
+                          (route) =>
+                              false, //if you want to disable back feature set to false
                         );
                       },
                       context: context,
                       backgroundColor: primaryColor,
-                      buttonName: 'set new Password',
+                      buttonName: tr('admin.set_new_password'),
                       iconAsset: 'lock.png',
                     )),
               ],

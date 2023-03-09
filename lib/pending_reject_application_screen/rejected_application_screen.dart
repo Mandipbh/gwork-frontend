@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/home_page/view/home_screen.dart';
@@ -14,9 +15,9 @@ class RejectedApplicationScreen extends StatelessWidget {
         centerTitle: true,
         elevation: 1,
         automaticallyImplyLeading: false,
-        title: const Text(
-          'Application rejected',
-          style: TextStyle(
+        title: Text(
+          tr('Professional.logIn.Application_rejected.Application_rejected'),
+          style: const TextStyle(
               color: primaryColor,
               fontSize: 18,
               fontWeight: FontWeight.w700,
@@ -35,7 +36,7 @@ class RejectedApplicationScreen extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 16, top: 16),
           child: Text(
-            'Application rejected',
+            tr('Professional.logIn.Application_rejected.Application_rejected'),
             style: Theme.of(context).textTheme.headline1,
           ),
         ),
@@ -60,13 +61,13 @@ class RejectedApplicationScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        'Your application has been declined',
+                        tr('Professional.logIn.Application_rejected.Your_application_has_been_declined'),
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.headline3,
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'We can not allow you to enter the platform based on your data',
+                        tr('Professional.logIn.Application_rejected.We_can_not_allow_you_to_enter_the_platform_based_on_your_data'),
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.headline5,
                       ),
@@ -111,7 +112,8 @@ class RejectedApplicationScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'reapply'.toUpperCase(),
+                        tr('Professional.logIn.Application_rejected.reapply')
+                            .toUpperCase(),
                         style: const TextStyle(
                             color: white,
                             fontSize: 16,

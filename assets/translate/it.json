@@ -1,3 +1,464 @@
 {
-  "welcome": "benvenuta"
+  "app_name.title": "G.WORK",
+  "debug.device_info": "Info sul dispositivo",
+  "admin": {
+    "sign_in": {
+      "Welcome": "Benvenuto!",
+      "enter_your_phone_no_sign_in": "Inserisci il numero di telefono e la password per accedere.",
+      "enter_your_phone_no_sign_up": "Inserisci il tuo numero di telefono per registrarti.",
+      "phone_number": "Numero di telefono",
+      "password": "Password",
+      "Sign_In": "Accedi",
+      "Sign_Up": "Iscrizione",
+      "Recover_password": "Recupera password",
+      "recover_password_enter_phone_no": "Inserisci il numero di telefono e ti invieremo un codice OTP per reimpostare la password del tuo account.",
+      "Code_confirmation": "Conferma codice",
+      "enter_digit": "Inserisci qui sotto il codice a 4 cifre che ti abbiamo appena inviato",
+      "Request_new_code": "RICHIEDI UN NUOVO CODICE (00:12)"
+    },
+    "exit_dialogue": {
+      "are_you_sure": "Sei sicuro di voler tornare indietro?",
+      "need_to_ask": "Sarà necessario richiedere un altro codice OTP",
+      "stay_here": "RIMANI QUI",
+      "go_back": "TORNA INDIETRO"
+    },
+    "set_password": "Imposta password",
+    "choose_password": "Scegli una password sicura per il tuo account.",
+    "new_password": "Nuova Password",
+    "confirm_new_password": "Conferma Password",
+    "set_new_password": "IMPOSTA PASSWORD",
+    "set_password_dialogue": {
+      "set_password": "Imposta password",
+      "set_new_password": "Scegli una password sicura per il tuo account.",
+      "main_button": "Tasto principale",
+      "Secondary button": "Tasto secondario"
+    },
+    "language": {
+      "language": "Lingua",
+      "english": "Inglese",
+      "italian": "Italiano"
+    },
+    "Profile": {
+      "Profile": "Profilo",
+      "First_name": "Nome",
+      "Last_name": "Cognome",
+      "Email": "Email",
+      "Phone_number": "Numero di telefono",
+      "Password": "Password",
+      "Language": "Lingua",
+      "Log_Out": "ESCI"
+    },
+    "edit_upload_profile_dialogue": {
+      "Edit_profile_picture": "Modifica foto profilo",
+      "upload_from_camera": "CARICA DA FOTOCAMERA",
+      "upload_from_gallery": "CARICA DA GALLERIA",
+      "delete_photo": "ELIMINA",
+      "Close": "CHIUDI"
+    },
+    "log_out_dialogue": {
+      "are_you_sure_logout": "Sei sicuro di volerti disconnettere?",
+      "need_to_login_again": "Per procedere all'utilizzo dell'applicazione è necessario effettuare nuovamente il login.",
+      "stay_here": "RIMANI QUI",
+      "Log_out": "ESCI"
+    },
+    "Edit_name": "Modifica nome",
+    "enter_first_name": "Inserire il proprio nome.",
+    "First_Name": "NOME",
+    "Edit_last_name": "Modifica cognome",
+    "enter_last_name": "Inserire il proprio cognome.",
+    "Last_name": "COGNOME",
+    "Edit_email": "Modifica email",
+    "enter_valid_email": "Inserire un indirizzo e-mail valido.",
+    "Email": "EMAIL",
+    "Edit_phone_number": "Modifica telefono",
+    "enter_new_phone_no": "Inserisci il tuo nuovo numero di telefono e ti invieremo un codice OTP per confermarlo.",
+    "change_password": "Modifica password",
+    "change_current_password": "Cambia la password attuale con una nuova.",
+    "Current_Password": "Password attuale",
+    "Confirm": "IMPOSTA PASSWORD",
+    "dashboard": {
+      "Dashboard": "Dashboard",
+      "All_time": "Tutto",
+      "Today": "Oggi",
+      "This_week": "Questa settimana",
+      "This_month": "Questo mese",
+      "Earnings": "Guadagni",
+      "Jobs": "Lavori",
+      "Users": "Utenti",
+      "Cleaning": "Pulizia",
+      "baby_sitting": "Baby Sitting",
+      "handy_man": "Tuttofare",
+      "tutoring": "Ripetizioni",
+      "Pending": "In attesa",
+      "Published": "Pubblicato",
+      "Completed": "Completato",
+      "rejected": "Rifiutato",
+      "client": "Cliente",
+      "Professional": "Professionista",
+      "Accepted": "Accettato",
+      "Home": "Home",
+      "works": "Lavori",
+      "created": "Creato",
+      "Doing": "In corso",
+      "No_data": "Nessun dato",
+      "no_data_available": "Non ci sono dati disponibili",
+      "check_later": "Controlla più tardi o imposta altri filtri",
+      "no_jobs": "Non ci sono lavori per il momento"
+    },
+    "job_detail": {
+      "Babysitting": "Babysitting",
+      "Building_restructuring": "Ristrutturazione edilizia",
+      "Description": "Descrizione",
+      "Gallery": "Galleria",
+      "Applications": "Candidature",
+      "Ristrutturazione": "Ristrutturazione edilizia",
+      "View_invoice": "Visualizza fattura",
+      "reject": "Riutato",
+      "Accept": "Accettato",
+      "no_applicant": "Non ci sono candidati per il momento",
+      "check_later": "Controlla un po' più tardi o imposta altri filtri"
+    },
+    "accept_job_dialogue": {
+      "are_you_sure_accept": "Sei sicuro di voler accettare il lavoro?",
+      "once_accept": "Una volta accettato, il denaro sarà trasferito al professionista.",
+      "Accept_job": "ACCETTA LAVORO",
+      "Go_back": "TORNA INDIETRO"
+    },
+    "reject_job_dialogue": {
+      "are_you_sure_reject": "Sei sicuro di voler rifiutare il lavoro?",
+      "once_accept": "Una volta rifiutato, il denaro verrà trasferito nuovamente al cliente.",
+      "Reject_job": "RIFIUTA LAVORO",
+      "Go_back": "TORNA INDIETRO"
+    },
+    "delete_job_dialogue": {
+      "Are_you_sure_delete": "Sei sicuro di voler cancellare questo lavoro?",
+      "once_delete": "Una volta eliminati, i dati del lavoro non saranno più recuperabili.",
+      "Keep_the_job": "MANTIENI LAVORO",
+      "Delete_job": "CANCELLA"
+    },
+    "users": {
+      "Registered": "Registrato",
+      "no_application": "Non ci sono applicazioni per il momento",
+      "check_letter": "Controlla un po' più tardi per favore"
+    },
+    "delete_user": {
+      "First_name": "NOME",
+      "Last_name": "COGNOME",
+      "Email": "EMAIL",
+      "phone_number": "NUMERO DI TELEFONO",
+      "vat_number": "CODICE FISCALE",
+      "birth_date": "DATA DI NASCITA",
+      "Password": "PASSWORD",
+      "payment_method": "METODO DI PAGAMENTO",
+      "Delete_user": "ELIMINA UTENTE",
+      "PDF_document": "Documento PDF",
+      "Decline": "RIFIUTA",
+      "Accept": "ACCETTA"
+    },
+    "delete_user_dialogue": {
+      "delete_user": "Sei sicuro di voler eliminare l'utente?",
+      "once_delete": "Una volta eliminati, i dati dell'utente non saranno più recuperabili.",
+      "keep_user": "ANNULLA",
+      "Delete_User": "ELIMINA UTENTE"
+    },
+    "accept_application": {
+      "are_you_sure_accept_application": "Sei sicuro di voler accettare la domanda?",
+      "user_will_be_added": "L'utente verrà aggiunto alla piattaforma.",
+      "Accept_application": "ACCETTA LA DOMANDA",
+      "go_back": "TORNA INDIETRO"
+    },
+    "go_back_dialogue": {
+      "are_you_sure": "Sei sicuro di voler tornare indietro?",
+      "all_unsaved_data": "Tutti i dati non salvati andranno persi.",
+      "stay_here": "RIMANI QUI",
+      "Go_back": "TORNA INDIETRO"
+    },
+    "decline_application_dialogue": {
+      "are_you_sure_decline": "Sei sicuro di voler rifiutare la domanda?",
+      "user_not_able": "L'utente non potrà accedere.",
+      "Decline_application": "RIFIUTA LA DOMANDA",
+      "Go_back": "TORNA INDIETRO"
+    }
+  },
+
+  "client": {
+    "log_in": {
+      "Welcome!": "Benvenuto!",
+
+
+      "sign_in": {
+        "phone_number": "Numero di telefono",
+        "password": "Password",
+        "Recover_password": "Recupera password"
+      },
+      "sign_up": {
+        "phone_number": "Numero di telefono",
+        "enter_phone_number": "Inserisci il tuo numero di telefono per registrarti.",
+        "Onboarding":"Onboarding",
+        "searching_for": "Che cosa stai cercando?",
+        "select_options": "Seleziona una delle due opzioni.",
+        "Provide_services": "Fornire servizi",
+        "Require_services": "Richiedere servizi",
+        "01": "01",
+        "Reason": "Motivo",
+        "Next_Step": "Avanti",
+        "Set_Password": "Imposta Password",
+        "Choose_secure_password": "Scegli una password sicura per il tuo account.",
+        "New_Password": "Nuova Password",
+        "Confirm_new_Password": "Conferma Password",
+        "02": "02",
+        "Password": "Password",
+        "Previous_step": "Indietro",
+        "Personal_info": "Informazioni personali",
+        "Please_fill_all_the_fields": "Compila tutti i campi.",
+        "Name": "NOME",
+        "Last_name": "COGNOME",
+        "Email_id": "EMAIL",
+        "Text_Code": "Codice testo",
+        "Birth_date": "DATA DI NASCITA",
+        "03": "03",
+        "Paymen_method":"METODO DI \nPAGAMENTO",
+        "add_payment_method": "Aggiungi un metodo di pagamento per il tuo account.",
+        "card_holder": "INTESTATARIO",
+        "Card_number": "NUMERO CARTA",
+        "Expire_date": "SCADENZA",
+        "CVV": "CVV",
+        "04": "04",
+        "Profile_picture": "Foto \nProfilo",
+        "Upload_profile_picture": "Carica una foto",
+        "05": "05",
+        "Finish": "Finito",
+        "personal_info": "informazioni \npersonali",
+        "Upload_Docs": "Carica \ndocumenti",
+        "Upload_documents": "Carica documenti"
+      }
+
+    },
+    "privacy_policy": {
+      "Accept": "Accetta"
+    },
+    "confirmation_panel":{
+      "want_to_stop registration": "Sei sicuro di voler interrompere la registrazione?",
+      "saved_data_will_be_deleted": "Tutti i dati salvati verranno cancellati",
+      "sta_here": "RIMANI QUI",
+      "Go_back": "TORNA INDIETRO"
+    },
+    "Payment_method": {
+      "Edit_payment_method": "Modifica Pagamento",
+      "Update_payment_info": "Modifica il metodo di pagamento."
+    },
+    "VAT_number": {
+      "Edit_VAT_number": "Modifica codice fiscale",
+      "enter_VAR_number": "Inserisci il codice fiscale",
+      "VAT_Number": "Codice fiscale"
+    },
+    "Birth_date":{
+      "Edit_birth_date": "Modifica data di nascita",
+      "enter_your_birth_date": "Inserisci la tua data di nascita.",
+      "Birth_date": "Data di nascita"
+    },
+    "Accept_job": {
+      "status_can’t_be_changed":"Una volta completato, lo stato non può essere modificato.",
+      "Cancel": "CANCELLA"
+    },
+    "reject_job":{
+      "rejected_action_can_not_be_undone": "Una volta rifiutata, l'azione non può essere annullata",
+      "Reject_job": "RIFIUTA LAVORO"
+    },
+    "chat":{
+      "Babysitting": "Babysitting",
+      "Offered_price": "Prezzo offerto",
+      "Accept": "Accetta",
+      "no_messages": "Per ora non ci sono messaggi",
+      "start_conversattion": "Avanti, inizia la conversazione",
+      "Start_typing": "Inizia a digitare..."
+    },
+    "candidate": {
+      "accept_candidate": "Sei sicuro di voler accettare il candidato? ",
+      "able_to_proceed": "Tutti gli altri candidati verranno scartati.",
+      "Accept_worker": "ACCETTA CANDIDATO"
+    },
+    "type_picker": {
+      "New_job": "Nuovo lavoro",
+      "need": "Di cosa hai bisogno?",
+      "select_options": "Seleziona una delle quattro opzioni.",
+      "Cleaning": "Pulizia",
+      "Tutoring": "Ripetizioni",
+      "Handyman": "Tuttofare",
+      "Next": "Prossima"
+    },
+    "Job_info": {
+      "Job_info": "Lavori",
+      "fill_the_fields": "Compilare tutti i campi.",
+      "Title": "Titolo",
+      "Enter_title": "Inserisci il titolo del lavoro",
+      "Enter_street": "Indirizzo",
+      "Province": "Provincia",
+      "Comune": "Comune"
+    },
+    "date_time": {
+      "Schedule": "Calendario",
+      "Choose_job":"Scegli quando vuoi che il tuo lavoro sia finito.",
+      "Date": "Data",
+      "Time": "Tempo"
+    },
+    "case_descrive": {
+      "More_info": "Info aggiuntive",
+      "following_fields": "I seguenti campi sono facoltativi.",
+      "Describe_job": "Descrivi il lavoro",
+      "Budget": "Budget",
+      "Enter_budget": "Inserisci il budget massimo"
+    },
+    "gallery": {
+      "Add_some_images": "Aggiungi immagini per il tuo lavoro",
+      "Loading": "Caricamento",
+      "Upload_Photo": "da fotocamera",
+      "Upload_image": "da galleria",
+      "Edit_image": "Modifica immagine",
+      "delete_Image": "Elimina immagine"
+    },
+    "Photo-preview": {
+      "Photo_1": "Foto 1"
+    },
+    "summary": {
+      "Summary": "Sintesi",
+      "Building_restructuring": "Ristrutturazione edilizia, o titolo ancora più grande su cosa fare",
+      "Description": "Descrizione",
+      "Gallery": "Galleria",
+      "Accepted_budget": "Accetta budget",
+      "Publish": "Pubblica"
+
+    }
+  },
+
+  "Professional": {
+    "Splash": {
+      "powerBy": "Realizzata da",
+      "mokkaStudios": "Mokka Studios"
+    },
+    "logIn": {
+      "welcome": "Benvenuto!",
+
+      "WhatAreYouSearchingFor?": "Che cosa stai cercando?",
+      "PleaseSelectOneOfTheTwoOtions": "Seleziona una delle due opzioni",
+      "provideServices": "Fornire servizi",
+      "requireServices": "Richiedere servizi",
+      "reason": "Motivo",
+      "Next": "AVANTI"
+    },
+    "onBoardingSetPassword": {
+      "Set_Password?": "Impostare la Password",
+      "Choose_a_secure_password_for_your_account.": "Scegli una password sicura per il tuo account.",
+      "New_Password": "Nuova Password",
+      "Confirm_new_Password": "Conferma Password",
+      "Password": "Password",
+      "Previous": "INDIETRO",
+      "Next": "AVANTI"
+    },
+    "onBoardingPersonalInfo": {
+      "onBoarding": "Onboarding",
+      "Personal_info": "Informazioni personali",
+      "Please_fill_all_the_fields.": "Compila tutti i campi.",
+      "Name": "NOME",
+      "Last_name": "COGNOME",
+      "Email": "EMAIL",
+      "VAT_Number": "CODICE FISCALE",
+      "Birth_date": "DATA DI NASCITA",
+      "Previous_step": "INDIETRO",
+      "Next_Step": "AVANTI"
+    },
+    "onBoardingPayment": {
+      "Payment_method": "Metodo di pagamento",
+      "Add_a_payment_method_for_your_account.": "Aggiungi un metodo di pagamento per il tuo profilo.",
+      "Cardholder": "INTESTATARIO",
+      "Card_number": "NUMERO CARTA",
+      "Expire_date": "SCADENZA",
+      "CVV": "CVV",
+      "Previous_step": "INDIETRO",
+      "Next_Step": "AVANTI"
+    },
+    "onBoardingDocuments": {
+      "onBoarding": "Onboarding",
+      "Upload_documents": "Carica documenti",
+      "Upload_documents_that_can_prove_your_competences": "Carica i documenti che possono dimostrare le tue competenze.",
+      "Loading": "Caricamento",
+      "Upload_Document": "Carica Documento",
+      "Previous_step": "INDIETRO",
+      "Next_Step": "AVANTI"
+    },
+    "onBoardingDocuments1": {
+      "onBoarding": "Onboarding",
+      "Profile_picture": "Foto profilo",
+      "Upload_a_picture_for_your_profile": "Carica una foto",
+      "Previous_step": "INDIETRO",
+      "Finish": "AVANTI"
+    },
+    "PrivacyPolicy":
+    {
+      "Privacy_Policy": "Informativa privacy",
+      "Accept": "Accetta"
+    },
+    "PendingApplication": {
+      "Pending_application": "Richiesta in attesa",
+      "Your_application_has_been_submitted": "La tua domanda è stata inoltrata",
+      "We_all_send_you_notification_when_it’s_approved": "Ti invieremo una notifica quando la tua richiesta sarà approvata"
+    },
+    "Application_rejected": {
+      "Application_rejected": "Richiesta rifiutata",
+      "Your_application_has_been_declined": "La tua richiesta è stata rifiutata",
+      "We_can_not_allow_you_to_enter_the_platform_based_on_your_data": "Non possiamo permetterti di entrare nella piattaforma in base ai tuoi dati.",
+      "reapply": "RIAPPLICA"
+    },
+    "RegistrationDialog": {
+      "Are_you_sure_you_want_to_stop_registration?": "Sei sicuro di voler interrompere la registrazione?",
+      "All_the_saved_data_wil_be_deleted": "Tutti i dati salvati verranno cancellati",
+      "stay_here": "RIMANI QUI",
+      "Go_back": "TORNA INDIETRO"
+    },
+    "UploadDocumentsDialog": {
+      "Upload_document": "Carica documenti",
+      "Browse": "Sfoglia",
+      "Upload_from_camera": "CARICA DA FOTOCAMERA",
+      "Upload_from_gallery": "CARICA DA GALLERIA",
+      "CLose": "CHIUDI"
+    },
+    "UploadPhotoDialog":
+    {
+      "Upload_profile_picture": "Carica foto profilo",
+      "Upload_from_camera": "CARICA DA FOTOCAMERA",
+      "Upload_from_gallery": "CARICA DA GALLERIA",
+      "CLose": "CLOSE"
+    },
+    "EditProfileDialog": {
+      "Edit_profile_picture": "Edit profile picture",
+      "Upload_from_camera": "CARICA DA FOTOCAMERA",
+      "Upload_from_gallery": "CARICA DA GALLERIA",
+      "delete_photo": "ELIMINA",
+      "CLose": "CHIUDI"
+    },
+    "EditDocumentsDialog": {
+      "Edit_document": "Modifica documenti",
+      "Browse": "Sfoglia",
+      "Upload_profile_picture": "Carica foto profilo",
+      "Upload_from_camera": "CARICA DA FOTOCAMERA",
+      "Upload_from_gallery": "CARICA DA GALLERIA",
+      "delete_Document": "ELIMINA DOCUMENTO",
+      "CLose": "CHIUDI"
+    },
+    "Jobs": {
+      "Jobs": "Jobs",
+      "All types": "Tutti",
+      "Applied": "Pubblicato",
+      "Accepted": "Accettato",
+      "Doing": "In corso",
+      "Rejected": "Rifiutato",
+      "Completed": "Completato",
+      "Search Jobs": "Ricerca lavoro",
+      "My Jobs": "I miei lavori",
+      "earning limit": "limite di guadagno",
+      "PRovince": "Provincia",
+      "There are no jobs for now": "Non ci sono lavori per il momento",
+      "Check it bit later or set another filters": "Controlla un po' più tardi o imposta altri filtri"
+    }
+  }
 }

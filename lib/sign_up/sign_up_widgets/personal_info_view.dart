@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/common/common_input_fields.dart';
 
@@ -13,19 +14,22 @@ class PersonalInfoView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: 12),
             child: Text(
-              'Personal info',
+              tr('client.log_in.sign_up.Personal_info'),
               style: Theme.of(context).textTheme.headline1,
             ),
           ),
-          Text('Please fill all the fields',
+          Text(tr('client.log_in.sign_up.Please_fill_all_the_fields'),
               style: Theme.of(context).textTheme.bodyText2),
           const SizedBox(height: 24),
-          nameTextField(label: 'name', asset: 'user_first_name.png'),
-          const SizedBox(height: 20),
-          nameTextField(label: 'last name', asset: 'user.png'),
+          nameTextField(
+              label: tr('client.log_in.sign_up.Name'),
+              asset: 'user_first_name.png'),
           const SizedBox(height: 20),
           nameTextField(
-              label: 'email',
+              label: tr('client.log_in.sign_up.Last_name'), asset: 'user.png'),
+          const SizedBox(height: 20),
+          nameTextField(
+              label: tr('client.log_in.sign_up.Email_id'),
               asset: 'mail.png',
               keyboardType: TextInputType.emailAddress),
           const SizedBox(height: 20),
@@ -39,7 +43,8 @@ class PersonalInfoView extends StatelessWidget {
                 decoration: InputDecoration(
                     icon: Image.asset('assets/icons/hash.png',
                         height: 24, width: 24),
-                    labelText: 'Tax Code'.toUpperCase())),
+                    labelText:
+                        tr('client.log_in.sign_up.Text_Code').toUpperCase())),
           ),
           const SizedBox(height: 20),
           Container(
@@ -56,7 +61,8 @@ class PersonalInfoView extends StatelessWidget {
                         const TextStyle(fontSize: 18, color: Colors.black12),
                     icon: Image.asset('assets/icons/calendar_birthday.png',
                         height: 24, width: 24),
-                    labelText: 'Birth date'.toUpperCase())),
+                    labelText:
+                        tr('client.log_in.sign_up.Birth_date').toUpperCase())),
           ),
           const SizedBox(height: 20),
         ],

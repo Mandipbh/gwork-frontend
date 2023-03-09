@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/pending_reject_application_screen/rejected_application_screen.dart';
@@ -14,9 +15,9 @@ class PendingApplicationScreen extends StatelessWidget {
         centerTitle: true,
         elevation: 1,
         automaticallyImplyLeading: false,
-        title: const Text(
-          'Pending application',
-          style: TextStyle(
+        title: Text(
+          tr('Professional.logIn.PendingApplication.Pending_application'),
+          style: const TextStyle(
               color: primaryColor,
               fontSize: 18,
               fontWeight: FontWeight.w700,
@@ -34,7 +35,7 @@ class PendingApplicationScreen extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 16, top: 16, bottom: 60),
           child: Text(
-            'Pending application',
+            tr('Professional.logIn.PendingApplication.Pending_application'),
             style: Theme.of(context).textTheme.headline1,
           ),
         ),
@@ -66,13 +67,13 @@ class PendingApplicationScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      'Your application has been submitted',
+                      tr('Professional.logIn.PendingApplication.Your_application_has_been_submitted'),
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.headline3,
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'We’ll send you notification when it’s approved',
+                      tr('Professional.logIn.PendingApplication.We_all_send_you_notification_when_it’s_approved'),
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.headline5,
                     ),

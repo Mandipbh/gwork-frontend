@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/common/common_widgets.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/profile_picture_view/image_provider/image_provider.dart';
@@ -22,10 +23,12 @@ class _ProfilePictureViewState extends State<ProfilePictureView> {
       children: [
         Padding(
           padding: const EdgeInsets.only(bottom: 12),
-          child: Text('Profile Picture',
+          child: Text(
+              tr('Professional.logIn.onBoardingDocuments1.Profile_picture'),
               style: Theme.of(context).textTheme.headline1),
         ),
-        Text('Add payment method for your account',
+        Text(
+            tr('Professional.logIn.onBoardingDocuments1.Upload_a_picture_for_your_profile'),
             style: Theme.of(context).textTheme.bodyText2),
         const SizedBox(height: 20),
         Center(

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:g_worker_app/home_page/view/home_screen.dart';
@@ -33,15 +34,18 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
           return true;
         }
         askForExit(
-            context: context,
-            onBackPressed: () {
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => const HomeScreen()),
-                  (Route<dynamic> route) => false);
-            },
-            title: 'Are you sure you want to stop creating the job?',
-            description: 'All inserted data will be deleted');
+          context: context,
+          onBackPressed: () {
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const HomeScreen()),
+                (Route<dynamic> route) => false);
+          },
+          title:
+              tr('client.log_in.confirmation_panel.want_to_stop_registration'),
+          description: 'All inserted data will be deleted',
+          backButtonName: tr('admin.exit_dialogue.go_back'),
+        );
         return false;
       },
       child: Scaffold(
@@ -86,17 +90,22 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                               icon: const Icon(Icons.close),
                               onPressed: () {
                                 askForExit(
-                                    context: context,
-                                    onBackPressed: () {
-                                      Navigator.pushAndRemoveUntil(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const HomeScreen()),
-                                          (Route<dynamic> route) => false);
-                                    },
-                                    title: 'Are you sure you want to stop creating the job?',
-                                    description: 'All inserted data will be deleted');
+                                  context: context,
+                                  onBackPressed: () {
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const HomeScreen()),
+                                        (Route<dynamic> route) => false);
+                                  },
+                                  title:
+                                      'Are you sure you want to stop creating the job?',
+                                  description:
+                                      'All inserted data will be deleted',
+                                  backButtonName:
+                                      tr('admin.exit_dialogue.go_back'),
+                                );
                               },
                             )
                           : const SizedBox(

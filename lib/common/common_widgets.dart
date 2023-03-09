@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/common/common_buttons.dart';
@@ -5,14 +6,13 @@ import 'package:g_worker_app/sign_up/sign_up_widgets/profile_picture_view/edit_p
 import 'package:g_worker_app/sign_up/sign_up_widgets/profile_picture_view/upload_profile_picture_dialogue.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/upload_document_view/edit_document_dialogue.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/upload_document_view/upload_document_dialogue.dart';
-import 'package:g_worker_app/sign_up/sign_up_widgets/upload_document_view/upload_document_view.dart';
 
 void askForExit({
   required BuildContext context,
   required Function onBackPressed,
   required String title,
   required String description,
-  String backButtonName = 'Go Back',
+  required String backButtonName,
 }) {
   showDialog(
       context: context,
@@ -56,7 +56,7 @@ void askForExit({
                 },
                 context: context,
                 backgroundColor: primaryColor,
-                buttonName: 'Stay Here',
+                buttonName: tr('admin.exit_dialogue.stay_here'),
                 iconAsset: 'arrow_circle_down.png',
               ),
               const SizedBox(

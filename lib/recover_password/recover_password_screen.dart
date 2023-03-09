@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/common/common_input_fields.dart';
 
@@ -18,8 +19,8 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Recover Password',
+        title: Text(
+          tr('admin.sign_in.Recover_password'),
         ),
       ),
       body: SingleChildScrollView(
@@ -35,14 +36,14 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
-                    child: Text('Phone number',
+                    child: Text(tr('admin.sign_in.phone_number'),
                         style: Theme.of(context).textTheme.headline1),
                   ),
-                  Text(
-                      'Enter your phone number and we will send you an OTP code to reset your account password.',
+                  Text(tr('admin.sign_in.recover_password_enter_phone_no'),
                       style: Theme.of(context).textTheme.bodyText2),
                   const SizedBox(height: 40),
-                  phoneNumberTextField(controller: TextEditingController(text: ' ')),
+                  phoneNumberTextField(
+                      controller: TextEditingController(text: ' ')),
                   const SizedBox(height: 20),
                 ],
               ),
@@ -59,7 +60,7 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                   },
                   context: context,
                   backgroundColor: primaryColor,
-                  buttonName: 'Recover Password',
+                  buttonName: tr('admin.sign_in.Recover_password'),
                   iconAsset: 'key.png',
                 ),
               ),

@@ -1,9 +1,10 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+
 import 'package:image_picker/image_picker.dart';
 
 class DocumentPicProvider extends ChangeNotifier {
-  List<String> _docList = ["add"];
+  final List<String> _docList = ["add"];
   List<String> get docList => _docList;
 
   getDocument() async {
@@ -18,6 +19,7 @@ class DocumentPicProvider extends ChangeNotifier {
       print(file.size);
       print(file.extension);
       print(file.path);
+
       notifyListeners();
     } else {
       //TODO Error
@@ -27,7 +29,18 @@ class DocumentPicProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  clearImage() {
+  String _imagePath = "";
+  String get imagePath => _imagePath;
+
+  getImage(source) async {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? image = await _picker.pickImage(source: source);
+    _imagePath = image!.path;
+    _docList.add(_imagePath);
+    notifyListeners();
+  }
+
+  clearDocument() {
     _docList.clear();
     notifyListeners();
   }
