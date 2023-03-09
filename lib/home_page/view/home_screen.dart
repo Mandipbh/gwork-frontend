@@ -53,10 +53,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget adminView() {
-    const List<Widget> pages = <Widget>[
-      DashboardScreen(),
-      JobListScreen(),
-      UserListScreen(),
+    List<Widget> pages = <Widget>[
+      const DashboardScreen(),
+      JobListScreen(role: role),
+      const UserListScreen(),
     ];
     return Scaffold(
       body: SafeArea(
@@ -79,8 +79,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget professionalView() {
-    return const Scaffold(
-      body: SafeArea(child: JobListScreen()),
+    return Scaffold(
+      body: SafeArea(child: JobListScreen(role: role)),
     );
   }
 }

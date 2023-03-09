@@ -10,7 +10,9 @@ import '../my_profile/my_profile_screen.dart';
 import 'job_detail_screen.dart';
 
 class JobListScreen extends StatefulWidget {
-  const JobListScreen({Key? key}) : super(key: key);
+  int role;
+
+  JobListScreen({Key? key, required this.role}) : super(key: key);
 
   @override
   State<JobListScreen> createState() => _JobListScreenState();
@@ -135,7 +137,7 @@ class _JobListScreenState extends State<JobListScreen> {
               ],
             ),
             const SizedBox(height: 8),
-            MyApp.userType == UserType.admin
+            widget.role == UserType.admin
                 ? Wrap(
                     alignment: WrapAlignment.start,
                     runAlignment: WrapAlignment.end,
