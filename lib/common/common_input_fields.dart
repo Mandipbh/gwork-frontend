@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:g_worker_app/colors.dart';
 
-Widget phoneNumberTextField() {
+Widget phoneNumberTextField({required TextEditingController controller}) {
   return Container(
     height: 60,
     decoration: BoxDecoration(
@@ -11,7 +11,7 @@ Widget phoneNumberTextField() {
         border: Border.all(color: Colors.white)),
     child: TextField(
         keyboardType: TextInputType.number,
-        controller: TextEditingController(text: ' '),
+        controller: controller,
         maxLength: 10,
         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         decoration: InputDecoration(
@@ -22,7 +22,7 @@ Widget phoneNumberTextField() {
   );
 }
 
-Widget passwordTextField({required String label}) {
+Widget passwordTextField({required String label,required TextEditingController controller}) {
   bool isPasswordVisible = false;
   return StatefulBuilder(builder: (context, newState) {
     return Container(
@@ -32,6 +32,7 @@ Widget passwordTextField({required String label}) {
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: Colors.white)),
       child: TextField(
+        controller:controller,
         obscureText: !isPasswordVisible,
         obscuringCharacter: '*',
         keyboardType: TextInputType.visiblePassword,

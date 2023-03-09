@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
-import 'package:g_worker_app/sign_in/sign_in_sign_up_screen.dart';
+import 'package:g_worker_app/sign_in/view/sign_in_sign_up_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});

@@ -12,6 +12,7 @@ import 'package:g_worker_app/splash_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'jobs/add_job_widgets/upload_images_view.dart';
+import 'sign_in/provider/sign_in_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -49,6 +50,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => UploadImageProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => SignInProvider(),
         )
       ],
       child: MaterialApp(

@@ -4,7 +4,7 @@ import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/common/common_buttons.dart';
 import 'package:g_worker_app/language_screen/language.dart';
 import 'package:g_worker_app/my_profile/edit_profile_screen.dart';
-import 'package:g_worker_app/sign_in/sign_in_sign_up_screen.dart';
+import 'package:g_worker_app/sign_in/view/sign_in_sign_up_screen.dart';
 
 import '../common/common_widgets.dart';
 

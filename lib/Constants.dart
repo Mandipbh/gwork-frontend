@@ -1,3 +1,11 @@
+class API{
+  static const String baseUrl = "https://gwork.macca.cloud";
+}
+
+class ApiEndPoints{
+  static const String adminLogin = "/admin/auth/login";
+}
+
 class DashboardFilters {
   static const int all = 0;
   static const int today = 1;

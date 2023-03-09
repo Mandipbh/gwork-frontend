@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/common/common_buttons.dart';
 import 'package:g_worker_app/common/common_widgets.dart';
-import 'package:g_worker_app/sign_in/set_new_password_screen.dart';
-import 'package:g_worker_app/sign_in/sign_in_sign_up_screen.dart';
+import 'package:g_worker_app/recover_password/set_new_password_screen.dart';
+import 'package:g_worker_app/sign_in/view/sign_in_sign_up_screen.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
 

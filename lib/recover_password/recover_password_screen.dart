@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/common/common_input_fields.dart';
 
-import 'package:g_worker_app/sign_in/code_confirmation_screen.dart';
+import 'package:g_worker_app/recover_password/code_confirmation_screen.dart';
 import 'package:g_worker_app/colors.dart';
 
 import '../common/common_buttons.dart';
@@ -42,7 +42,7 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                       'Enter your phone number and we will send you an OTP code to reset your account password.',
                       style: Theme.of(context).textTheme.bodyText2),
                   const SizedBox(height: 40),
-                  phoneNumberTextField(),
+                  phoneNumberTextField(controller: TextEditingController(text: ' ')),
                   const SizedBox(height: 20),
                 ],
               ),

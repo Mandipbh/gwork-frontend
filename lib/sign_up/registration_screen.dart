@@ -14,7 +14,7 @@ import '../colors.dart';
 import '../common/common_buttons.dart';
 import '../common/common_widgets.dart';
 import '../custom_progress_bar.dart';
-import '../sign_in/sign_in_sign_up_screen.dart';
+import '../sign_in/view/sign_in_sign_up_screen.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
