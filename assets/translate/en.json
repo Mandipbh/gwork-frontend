@@ -4,18 +4,20 @@
   "admin": {
     "sign_in": {
       "Welcome": "Welcome!",
-      "enter_your_phone_no": "Please enter your phone number and password to sign in.",
-      "phone_number": "phone number",
+      "enter_your_phone_no_sign_in": "Please enter your phone number and password to sign in.",
+      "enter_your_phone_no_sign_up": "Please enter your phone number and password to sign up.",
+      "phone_number": "Phone number",
       "password": "password",
       "Sign_In": "Sign In",
-      "Recover password": "Recover password",
+      "Sign_Up": "Sign Up",
+      "Recover_password": "Recover Password",
       "recover_password_enter_phone_no": "Enter your phone number and we will send you an OTP code to reset your account password.",
-      "Code_confirmation": "Code confirmation",
+      "Code_confirmation": "Code Confirmation",
       "enter_digit": "Enter below the 4-digit code we just sent to",
       "Request_new_code": "Request a new code (00:12)"
     },
     "exit_dialogue": {
-      "are_you_share": "Are you sure you want to go back",
+      "are_you_sure": "Are you sure you want to go back",
       "need_to_ask": "You will need to ask for another OTP code",
       "stay_here": "stay here",
       "go_back": "Go back"
@@ -182,7 +184,6 @@
   "client": {
     "log_in": {
       "Welcome!": "Welcome!",
-
 
       "sign_in": {
         "phone_number": "phone number",

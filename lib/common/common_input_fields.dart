@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:g_worker_app/colors.dart';
@@ -16,13 +17,14 @@ Widget phoneNumberTextField({required TextEditingController controller}) {
         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         decoration: InputDecoration(
             prefixIcon: Image.asset('assets/icons/phone.png', scale: 2),
-            labelText: 'Phone Number'.toUpperCase(),
+            labelText: tr('admin.sign_in.phone_number').toUpperCase(),
             counterText: "",
             prefixText: '+39')),
   );
 }
 
-Widget passwordTextField({required String label,required TextEditingController controller}) {
+Widget passwordTextField(
+    {required String label, required TextEditingController controller}) {
   bool isPasswordVisible = false;
   return StatefulBuilder(builder: (context, newState) {
     return Container(
@@ -32,7 +34,7 @@ Widget passwordTextField({required String label,required TextEditingController c
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: Colors.white)),
       child: TextField(
-        controller:controller,
+        controller: controller,
         obscureText: !isPasswordVisible,
         obscuringCharacter: '*',
         keyboardType: TextInputType.visiblePassword,

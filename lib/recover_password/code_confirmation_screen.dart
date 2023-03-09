@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/common/common_buttons.dart';
 import 'package:g_worker_app/common/common_widgets.dart';
@@ -61,14 +62,14 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                       builder: (context) => const SignInSignUpScreen()),
                   (Route<dynamic> route) => false);
             },
-            title: 'Are you sure you want to go back',
-            description: 'You will need to ask for another OTP code');
+            title: tr('admin.exit_dialogue.are_you_sure'),
+            description: tr('admin.exit_dialogue.need_to_ask'));
         return false;
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'Recover Password',
+          title: Text(
+            tr('admin.sign_in.Recover_password'),
           ),
         ),
         body: SingleChildScrollView(
@@ -85,7 +86,7 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10),
                       child: Text(
-                        'Code Confirmation',
+                        tr('admin.sign_in.Code_confirmation'),
                         style: Theme.of(context).textTheme.headline1,
                       ),
                     ),

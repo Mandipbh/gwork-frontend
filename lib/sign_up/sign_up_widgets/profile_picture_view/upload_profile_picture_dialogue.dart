@@ -32,7 +32,7 @@ class UploadProfilePictureDialogue extends StatelessWidget {
           builder: (BuildContext context, value, Widget? child) {
             return GestureDetector(
               onTap: () {
-                value.getimage(ImageSource.camera);
+                value.getImage(ImageSource.camera);
                 Navigator.of(context).pop();
               },
               child: Row(
@@ -62,7 +62,7 @@ class UploadProfilePictureDialogue extends StatelessWidget {
           builder: (BuildContext context, value, Widget? child) {
             return GestureDetector(
               onTap: () {
-                value.getimage(ImageSource.gallery);
+                value.getImage(ImageSource.gallery);
                 Navigator.of(context).pop();
               },
               child: Row(

@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
       statusBarIconBrightness: Brightness.light, // For Android (dark icons)
       statusBarBrightness: Brightness.dark,
     ));
-    context.read<HomePageProvider>().getUserRole().then((value){
+    context.read<HomePageProvider>().getUserRole().then((value) {
       setState(() {
         role = value;
       });
@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ? clientView()
             : role == UserType.professional
                 ? professionalView()
-                : Container();
+                : professionalView();
   }
 
   Widget clientView() {

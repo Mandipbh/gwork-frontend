@@ -28,27 +28,36 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
       return Stack(
         children: [
           Scaffold(
-            backgroundColor: const Color(0xfff2f2f2),
+            backgroundColor: whiteF2F,
             body: SingleChildScrollView(
               child: Container(
                 padding: const EdgeInsets.all(20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 25),
-                      child: Text(
-                        tr('welcome'),
-                        style: const TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold),
-                      ),
+                    const SizedBox(height: 60),
+                    Text(
+                      tr('admin.sign_in.Welcome'),
+                      style: const TextStyle(
+                          fontSize: 30, fontWeight: FontWeight.bold),
                     ),
+                    const SizedBox(height: 8),
+                    MyApp.userType == UserType.admin
+                        ? Text(
+                            tr('admin.sign_in.enter_your_phone_no_sign_in'),
+                            style: const TextStyle(
+                                color: black343,
+                                fontFamily: 'Manrope',
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500),
+                          )
+                        : Container(),
                     MyApp.userType != UserType.admin
                         ? singleSelectionButtons(
                             context: context,
                             buttons: [
-                              'Sign Up'.toUpperCase(),
-                              'Sign In'.toUpperCase()
+                              tr('admin.sign_in.Sign_Up').toUpperCase(),
+                              tr('admin.sign_in.Sign_In').toUpperCase()
                             ],
                             selected: provider.getSelected(),
                             onSelectionChange: (value) {
@@ -84,7 +93,7 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                       },
                       context: context,
                       backgroundColor: primaryColor,
-                      buttonName: 'Sign Up',
+                      buttonName: tr('admin.sign_in.Sign_Up'),
                       iconAsset: 'logout.png',
                     ),
                   )
@@ -99,25 +108,30 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                       children: [
                         submitButton(
                           onButtonTap: () {
-                            if (provider.isValidData()) {
-                              provider.getLoginResponseStream().listen((event) {
-                                if (event.success) {
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const HomeScreen()),
-                                  );
-                                } else {
-                                  //show error
-                                }
-                              });
-                              provider.login();
-                            }
+                            // if (provider.isValidData()) {
+                            //   provider.getLoginResponseStream().listen((event) {
+                            //     if (event.success) {
+                            //       Navigator.pushReplacement(
+                            //         context,
+                            //         MaterialPageRoute(
+                            //             builder: (context) =>
+                            //                 const HomeScreen()),
+                            //       );
+                            //     } else {
+                            //       //show error
+                            //     }
+                            //   });
+                            //   provider.login();
+                            // }
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const HomeScreen()),
+                            );
                           },
                           context: context,
                           backgroundColor: primaryColor,
-                          buttonName: 'Sign In',
+                          buttonName: tr('admin.sign_in.Sign_In'),
                           iconAsset: 'logout.png',
                         ),
                         const SizedBox(
@@ -136,7 +150,7 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                           textColor: primaryColor,
                           iconColor: primaryColor,
                           backgroundColor: Colors.transparent,
-                          buttonName: 'Recover Password',
+                          buttonName: tr('admin.sign_in.Recover_password'),
                           iconAsset: 'key.png',
                         ),
                         const SizedBox(height: 10),
@@ -165,7 +179,7 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
         const SizedBox(height: 20),
         Padding(
           padding: const EdgeInsets.only(right: 40),
-          child: Text("Please enter your phone number in order\nto sign up",
+          child: Text(tr('admin.sign_in.enter_your_phone_no_sign_up'),
               style: Theme.of(context).textTheme.bodyText2),
         ),
         const SizedBox(height: 20),
@@ -179,7 +193,8 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
         phoneNumberTextField(controller: provider.phoneController),
         const SizedBox(height: 20),
         passwordTextField(
-            label: 'Password', controller: provider.passwordController),
+            label: tr('admin.sign_in.password'),
+            controller: provider.passwordController),
         const SizedBox(height: 20),
       ],
     );
