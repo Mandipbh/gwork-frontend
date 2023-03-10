@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/Constants.dart';
 import 'package:g_worker_app/colors.dart';
@@ -81,7 +82,7 @@ class MyProfileScreen extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Name',
+                      Text(tr('admin.Profile.First_name'),
                           style: Theme.of(context).textTheme.headline6),
                       const SizedBox(height: 6),
                       Text('ABC', style: Theme.of(context).textTheme.bodyText2),
@@ -115,7 +116,7 @@ class MyProfileScreen extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Last Name',
+                      Text(tr('admin.Profile.Last_name'),
                           style: Theme.of(context).textTheme.headline6),
                       const SizedBox(height: 6),
                       Text('XYZ', style: Theme.of(context).textTheme.bodyText2),
@@ -149,7 +150,7 @@ class MyProfileScreen extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Email',
+                      Text(tr('admin.Profile.Email'),
                           style: Theme.of(context).textTheme.headline6),
                       const SizedBox(height: 6),
                       Text('xyz@email.com',
@@ -184,7 +185,7 @@ class MyProfileScreen extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Phone Number',
+                      Text(tr('admin.Profile.Phone_number'),
                           style: Theme.of(context).textTheme.headline6),
                       const SizedBox(height: 6),
                       Text('+39 000 000 0000',
@@ -219,7 +220,7 @@ class MyProfileScreen extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('VAT Number',
+                      Text(tr('admin.Profile.Text_Code'),
                           style: Theme.of(context).textTheme.headline6),
                       const SizedBox(height: 6),
                       Text('AB876868798HFH',
@@ -255,7 +256,7 @@ class MyProfileScreen extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Birth Date',
+                      Text(tr('admin.Profile.Birth_Date'),
                           style: Theme.of(context).textTheme.headline6),
                       const SizedBox(height: 6),
                       Text('23/01/1998',
@@ -291,7 +292,7 @@ class MyProfileScreen extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Payment Method',
+                      Text(tr('admin.Profile.Payment_method'),
                           style: Theme.of(context).textTheme.headline6),
                       const SizedBox(height: 6),
                       Text('*****6576',
@@ -327,7 +328,7 @@ class MyProfileScreen extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Password',
+                      Text(tr('admin.Profile.Password'),
                           style: Theme.of(context).textTheme.headline6),
                       const SizedBox(height: 6),
                       Text('*********',
@@ -362,7 +363,7 @@ class MyProfileScreen extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Language',
+                      Text(tr('admin.Profile.Language'),
                           style: Theme.of(context).textTheme.headline6),
                       const SizedBox(height: 6),
                       Text('English',
@@ -393,24 +394,25 @@ class MyProfileScreen extends StatelessWidget {
                   context: context,
                   onButtonTap: () {
                     askForExit(
-                        context: context,
-                        onBackPressed: () {
-                          Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const SignInSignUpScreen()),
-                              (Route<dynamic> route) => false);
-                        },
-                        backButtonName: 'Logout',
-                        title: 'Are you sure you want to log out?',
-                        description:
-                            'You will need to log in again to proceed using the application.');
+                      context: context,
+                      onBackPressed: () {
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const SignInSignUpScreen()),
+                            (Route<dynamic> route) => false);
+                      },
+                      backButtonName: tr('admin.log_out_dialogue.Log_out'),
+                      title: tr('admin.log_out_dialogue.are_you_sure_logout'),
+                      description:
+                          tr('admin.log_out_dialogue.need_to_login_again'),
+                    );
                   },
                   backgroundColor: Colors.transparent,
                   iconColor: const Color(0xffE45E5E),
                   textColor: const Color(0xffE45E5E),
-                  buttonName: 'logout',
+                  buttonName: tr('admin.log_out_dialogue.Log_out'),
                   iconAsset: 'logout.png')
             ],
           ),
