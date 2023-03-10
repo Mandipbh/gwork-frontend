@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/common/common_buttons.dart';
 import 'package:g_worker_app/custom_progress_bar.dart';
+import 'package:g_worker_app/invoice_view_screen/invoice_view_screen.dart';
 import 'package:g_worker_app/main.dart';
 
 import '../Constants.dart';
@@ -9,7 +10,9 @@ import '../my_profile/my_profile_screen.dart';
 import 'job_detail_screen.dart';
 
 class JobListScreen extends StatefulWidget {
-  const JobListScreen({Key? key}) : super(key: key);
+  int role;
+
+  JobListScreen({Key? key, required this.role}) : super(key: key);
 
   @override
   State<JobListScreen> createState() => _JobListScreenState();
@@ -134,7 +137,7 @@ class _JobListScreenState extends State<JobListScreen> {
               ],
             ),
             const SizedBox(height: 8),
-            MyApp.userType == UserType.admin
+            widget.role == UserType.admin
                 ? Wrap(
                     alignment: WrapAlignment.start,
                     runAlignment: WrapAlignment.end,
@@ -633,7 +636,14 @@ class _JobListScreenState extends State<JobListScreen> {
                                     Row(
                                       children: [
                                         MaterialButton(
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            Navigator.pushAndRemoveUntil(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const InvoiceViewScreen()),
+                                                (Route<dynamic> route) => true);
+                                          },
                                           height: 30,
                                           color: redE45,
                                           elevation: 0,

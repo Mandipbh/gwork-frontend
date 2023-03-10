@@ -1,6 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
-import 'package:g_worker_app/sign_up/sign_up_widgets/profile_picture_view/provider/image_provider.dart';
+import 'package:g_worker_app/sign_up/sign_up_widgets/profile_picture_view/image_provider/image_provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
@@ -19,9 +20,9 @@ class UploadProfilePictureDialogue extends StatelessWidget {
               height: 24, width: 24, color: primaryColor),
         ),
         const SizedBox(height: 14),
-        const Text(
-          'Upload profile picture',
-          style: TextStyle(
+        Text(
+          tr('Professional.logIn.UploadPhotoDialog.Upload_profile_picture'),
+          style: const TextStyle(
               color: primaryColor,
               fontWeight: FontWeight.w700,
               fontSize: 24,
@@ -32,14 +33,16 @@ class UploadProfilePictureDialogue extends StatelessWidget {
           builder: (BuildContext context, value, Widget? child) {
             return GestureDetector(
               onTap: () {
-                value.getimage(ImageSource.camera);
+                value.getImage(ImageSource.camera);
+                Navigator.of(context).pop();
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Upload from camera'.toUpperCase(),
+                    tr('Professional.logIn.UploadPhotoDialog.Upload_from_camera')
+                        .toUpperCase(),
                     style: const TextStyle(
                         color: primaryColor,
                         fontWeight: FontWeight.w700,
@@ -61,13 +64,16 @@ class UploadProfilePictureDialogue extends StatelessWidget {
           builder: (BuildContext context, value, Widget? child) {
             return GestureDetector(
               onTap: () {
-                value.getimage(ImageSource.gallery);
+                value.getImage(ImageSource.gallery);
+                Navigator.of(context).pop();
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Upload from gallery'.toUpperCase(),
+                    tr('Professional.logIn.UploadPhotoDialog.Upload_from_gallery')
+                        .toUpperCase(),
                     style: const TextStyle(
                         color: primaryColor,
                         fontWeight: FontWeight.w700,
@@ -94,7 +100,7 @@ class UploadProfilePictureDialogue extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'CLose'.toUpperCase(),
+                tr('Professional.logIn.UploadPhotoDialog.CLose').toUpperCase(),
                 style: const TextStyle(
                     color: primaryColor,
                     fontWeight: FontWeight.w700,

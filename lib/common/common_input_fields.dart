@@ -1,8 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:g_worker_app/colors.dart';
 
-Widget phoneNumberTextField() {
+Widget phoneNumberTextField({required TextEditingController controller}) {
   return Container(
     height: 60,
     decoration: BoxDecoration(
@@ -11,18 +12,19 @@ Widget phoneNumberTextField() {
         border: Border.all(color: Colors.white)),
     child: TextField(
         keyboardType: TextInputType.number,
-        controller: TextEditingController(text: ' '),
+        controller: controller,
         maxLength: 10,
         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         decoration: InputDecoration(
             prefixIcon: Image.asset('assets/icons/phone.png', scale: 2),
-            labelText: 'Phone Number'.toUpperCase(),
+            labelText: tr('admin.sign_in.phone_number').toUpperCase(),
             counterText: "",
             prefixText: '+39')),
   );
 }
 
-Widget passwordTextField({required String label}) {
+Widget passwordTextField(
+    {required String label, required TextEditingController controller}) {
   bool isPasswordVisible = false;
   return StatefulBuilder(builder: (context, newState) {
     return Container(
@@ -32,6 +34,7 @@ Widget passwordTextField({required String label}) {
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: Colors.white)),
       child: TextField(
+        controller: controller,
         obscureText: !isPasswordVisible,
         obscuringCharacter: '*',
         keyboardType: TextInputType.visiblePassword,
@@ -54,12 +57,6 @@ Widget passwordTextField({required String label}) {
             ),
             prefixIcon: Image.asset('assets/icons/password.png', scale: 2),
             labelText: label.toUpperCase()),
-        onChanged: (value) {
-          bool isValid = RegExp(
-                  r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
-              .hasMatch(value);
-          print('password => $value :: isValid => $isValid');
-        },
       ),
     );
   });

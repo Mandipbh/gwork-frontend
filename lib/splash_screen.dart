@@ -2,18 +2,27 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
-import 'package:g_worker_app/sign_in/sign_in_sign_up_screen.dart';
+import 'package:g_worker_app/home_page/provider/home_page_provider.dart';
+import 'package:g_worker_app/home_page/view/home_screen.dart';
+import 'package:g_worker_app/sign_in/view/sign_in_sign_up_screen.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Timer(
-        const Duration(seconds: 3),
-            () =>
-            Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (BuildContext context) => const SignInSignUpScreen())));
+    Timer(const Duration(seconds: 3), () {
+      context.read<HomePageProvider>().getToken().then((value) {
+        if (value.isEmpty) {
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (BuildContext context) => const SignInSignUpScreen()));
+        } else {
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (BuildContext context) => const HomeScreen()));
+        }
+      });
+    });
     return Scaffold(
         body: SafeArea(
       child: Column(
@@ -25,8 +34,8 @@ class SplashScreen extends StatelessWidget {
               margin: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(24),
-                  gradient:
-                      const LinearGradient(colors: [splashColor1, splashColor2])),
+                  gradient: const LinearGradient(
+                      colors: [splashColor1, splashColor2])),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,

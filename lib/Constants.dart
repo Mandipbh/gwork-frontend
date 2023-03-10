@@ -1,3 +1,11 @@
+class API{
+  static const String baseUrl = "https://gwork.macca.cloud";
+}
+
+class ApiEndPoints{
+  static const String login = "/worker/auth/login";
+}
+
 class DashboardFilters {
   static const int all = 0;
   static const int today = 1;
@@ -35,12 +43,14 @@ class ProfileFieldType {
   static const int password = 3;
   static const int vatNumber = 4;
   static const int birthdate = 5;
+  static const int phoneNumber = 6;
+  static const int paymentMethod = 7;
 }
 
 class UserType {
   static const int client = 0;
-  static const int admin = 1;
-  static const int professional = 2;
+  static const int admin = 2;
+  static const int professional = 1;
 }
 
 class SelectionType {

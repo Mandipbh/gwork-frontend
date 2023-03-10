@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
 
@@ -16,9 +17,9 @@ class EditDocumentDialogue extends StatelessWidget {
               height: 24, width: 24, color: primaryColor),
         ),
         const SizedBox(height: 14),
-        const Text(
-          'Edit document',
-          style: TextStyle(
+        Text(
+          tr('Professional.logIn.EditDocumentsDialog.Edit_document'),
+          style: const TextStyle(
               color: primaryColor,
               fontWeight: FontWeight.w700,
               fontSize: 24,
@@ -29,7 +30,7 @@ class EditDocumentDialogue extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Browse'.toUpperCase(),
+              tr('Professional.logIn.EditDocumentsDialog.Browse').toUpperCase(),
               style: const TextStyle(
                   color: primaryColor,
                   fontWeight: FontWeight.w700,
@@ -48,7 +49,8 @@ class EditDocumentDialogue extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Upload from camera'.toUpperCase(),
+              tr('Professional.logIn.EditDocumentsDialog.Upload_from_camera')
+                  .toUpperCase(),
               style: const TextStyle(
                   color: primaryColor,
                   fontWeight: FontWeight.w700,
@@ -66,7 +68,8 @@ class EditDocumentDialogue extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Upload from gallery'.toUpperCase(),
+              tr('Professional.logIn.EditDocumentsDialog.Upload_from_gallery')
+                  .toUpperCase(),
               style: const TextStyle(
                   color: primaryColor,
                   fontWeight: FontWeight.w700,
@@ -84,7 +87,8 @@ class EditDocumentDialogue extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'delete Document'.toUpperCase(),
+              tr('Professional.logIn.EditDocumentsDialog.delete_Document')
+                  .toUpperCase(),
               style: const TextStyle(
                   color: redE45,
                   fontWeight: FontWeight.w700,
@@ -102,7 +106,7 @@ class EditDocumentDialogue extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'CLose'.toUpperCase(),
+              tr('Professional.logIn.EditDocumentsDialog.CLose').toUpperCase(),
               style: const TextStyle(
                   color: primaryColor,
                   fontWeight: FontWeight.w700,

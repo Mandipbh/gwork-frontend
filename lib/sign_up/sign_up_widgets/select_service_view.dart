@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import 'package:g_worker_app/colors.dart';
@@ -22,11 +23,11 @@ class _SelectServiceViewState extends State<SelectServiceView> {
         Padding(
           padding: const EdgeInsets.only(top: 15, bottom: 8),
           child: Text(
-            'What are you\nsearching for?',
+            tr('client.log_in.sign_up.searching_for'),
             style: Theme.of(context).textTheme.headline1,
           ),
         ),
-        Text('Please select one of two options.',
+        Text(tr('client.log_in.sign_up.select_options'),
             style: Theme.of(context).textTheme.bodyText2),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 16),
@@ -52,7 +53,7 @@ class _SelectServiceViewState extends State<SelectServiceView> {
                           child: Align(
                             alignment: Alignment.bottomCenter,
                             child: Text(
-                              'Provide Services',
+                              tr('client.log_in.sign_up.Provide_services'),
                               style: Theme.of(context).textTheme.caption!.apply(
                                   color: provideSelected
                                       ? Colors.white
@@ -99,7 +100,8 @@ class _SelectServiceViewState extends State<SelectServiceView> {
                           padding: const EdgeInsets.symmetric(vertical: 15),
                           child: Align(
                             alignment: Alignment.bottomCenter,
-                            child: Text('Require Services',
+                            child: Text(
+                                tr('client.log_in.sign_up.Require_services'),
                                 style: Theme.of(context)
                                     .textTheme
                                     .caption!
