@@ -4,6 +4,7 @@ class API{
 
 class ApiEndPoints{
   static const String login = "/worker/auth/login";
+  static const String adminLogin = "/admin/auth/login";
 }
 
 class DashboardFilters {

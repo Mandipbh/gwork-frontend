@@ -42,7 +42,7 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                           fontSize: 30, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 8),
-                    MyApp.userType == UserType.admin
+                    MyApp.apkType == UserType.admin
                         ? Text(
                             tr('admin.sign_in.enter_your_phone_no_sign_in'),
                             style: const TextStyle(
@@ -52,7 +52,7 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                                 fontWeight: FontWeight.w500),
                           )
                         : Container(),
-                    MyApp.userType != UserType.admin
+                    MyApp.apkType != UserType.admin
                         ? singleSelectionButtons(
                             context: context,
                             buttons: [
@@ -108,26 +108,25 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                       children: [
                         submitButton(
                           onButtonTap: () {
-                            // if (provider.isValidData()) {
-                            //   provider.getLoginResponseStream().listen((event) {
-                            //     if (event.success) {
-                            //       Navigator.pushReplacement(
-                            //         context,
-                            //         MaterialPageRoute(
-                            //             builder: (context) =>
-                            //                 const HomeScreen()),
-                            //       );
-                            //     } else {
-                            //       //show error
-                            //     }
-                            //   });
-                            //   provider.login();
-                            // }
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const HomeScreen()),
-                            );
+                            if (provider.isValidData()) {
+                              provider.getLoginResponseStream().listen((event) {
+                                if (event.success) {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const HomeScreen()),
+                                  );
+                                } else {
+                                  //show error
+                                }
+                              });
+                              if (MyApp.apkType == UserType.admin) {
+                                provider.adminLogin();
+                              } else {
+                                provider.login();
+                              }
+                            }
                           },
                           context: context,
                           backgroundColor: primaryColor,

@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ? clientView()
             : role == UserType.professional
                 ? professionalView()
-                : professionalView();
+                : const Center(child: Text('Something went wrong'));
   }
 
   Widget clientView() {

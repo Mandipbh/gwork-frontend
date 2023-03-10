@@ -19,4 +19,18 @@ class ApiClient {
       rethrow;
     }
   }
+
+  Future<SignInResponse> adminLogin(SignInRequest request) async {
+    try {
+      var response = await dio.post('${API.baseUrl}${ApiEndPoints.adminLogin}',
+          data: request,
+          options: Options(headers: {'Content-Type': 'application/json'}));
+      return SignInResponse.fromJson(response.data);
+    } on DioError {
+      rethrow;
+    } catch (e) {
+      print('ApiClient.adminLogin Error :: \ne');
+      rethrow;
+    }
+  }
 }
