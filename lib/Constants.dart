@@ -1,10 +1,11 @@
-class API{
+class API {
   static const String baseUrl = "https://gwork.macca.cloud";
 }
 
-class ApiEndPoints{
+class ApiEndPoints {
   static const String login = "/worker/auth/login";
   static const String adminLogin = "/admin/auth/login";
+  static const String signUp = "/worker/auth/register";
 }
 
 class DashboardFilters {
