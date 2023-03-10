@@ -43,21 +43,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         description = tr('admin.enter_new_phone_no');
         break;
       case ProfileFieldType.vatNumber:
-        label = tr('client.log_in.VAT_number.Edit_VAT_number');
-        description = tr('client.log_in.VAT_number.enter_VAR_number');
+        label = tr('client.VAT_number.Edit_VAT_number');
+        description = tr('client.VAT_number.enter_VAR_number');
         break;
       case ProfileFieldType.password:
         label = tr('admin.change_password');
         description = tr('admin.change_current_password');
         break;
       case ProfileFieldType.paymentMethod:
-        label = tr('client.log_in.Payment_method.Edit_payment_method');
-        description =
-            tr('client.log_in.Payment_method.Edit_your_payment_method');
+        label = tr('client.Payment_method.Edit_payment_method');
+        description = tr('client.Payment_method.Edit_your_payment_method');
         break;
       case ProfileFieldType.birthdate:
-        label = tr('client.log_in.Birth_date.Edit_birth_date');
-        description = tr('client.log_in.Birth_date.enter_your_birth_date');
+        label = tr('client.Birth_date.Edit_birth_date');
+        description = tr('client.Birth_date.enter_your_birth_date');
         break;
     }
     super.initState();
@@ -313,10 +312,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   context: context,
                   backgroundColor: primaryColor,
                   buttonName: widget.type == ProfileFieldType.password
-                      ? 'Set new password'
+                      ? tr('admin.set_new_password')
                       : widget.type == ProfileFieldType.paymentMethod
-                          ? 'Update payment info'
-                          : 'Confirm',
+                          ? tr('client.Payment_method.Update_payment_info')
+                          : tr('admin.Confirm'),
                   iconAsset: widget.type == ProfileFieldType.password
                       ? 'lock.png'
                       : widget.type == ProfileFieldType.paymentMethod

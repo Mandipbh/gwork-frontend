@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../common/common_input_fields.dart';
@@ -14,17 +15,20 @@ class MoreInfoView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: Text(
-              'More info',
+              tr('client.case_descrive.More_info'),
               style: Theme.of(context).textTheme.headline1,
             ),
           ),
-          Text('The following fields are optional.',
+          Text(tr('client.case_descrive.following_fields'),
               style: Theme.of(context).textTheme.bodyText2),
           const SizedBox(height: 24),
           multilineTextField(
-              label: 'Describe the job', asset: 'message_text.png'),
+              label: tr('client.case_descrive.Describe_job'),
+              asset: 'message_text.png'),
           const SizedBox(height: 20),
-          nameTextField(label: 'Budget', asset: 'coins_stacked.png'),
+          nameTextField(
+              label: tr('client.case_descrive.Budget'),
+              asset: 'coins_stacked.png'),
           const SizedBox(height: 20),
         ],
       ),

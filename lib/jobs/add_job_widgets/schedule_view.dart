@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../common/common_input_fields.dart';
@@ -14,11 +15,11 @@ class ScheduleView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: Text(
-              'Schedule',
+              tr('client.date_time.Schedule'),
               style: Theme.of(context).textTheme.headline1,
             ),
           ),
-          Text('Choose when do you want your job to be done.',
+          Text(tr('client.date_time.Choose_job'),
               style: Theme.of(context).textTheme.bodyText2),
           const SizedBox(height: 24),
           Container(
@@ -31,12 +32,13 @@ class ScheduleView extends StatelessWidget {
                 decoration: InputDecoration(
                     hintText: 'dd/mm/yyyy',
                     hintStyle:
-                    const TextStyle(fontSize: 18, color: Colors.black12),
-                    icon: Image.asset('assets/icons/calendar.png',height: 30,width: 30),
-                    labelText: 'Birth date'.toUpperCase())),
+                        const TextStyle(fontSize: 18, color: Colors.black12),
+                    icon: Image.asset('assets/icons/calendar.png',
+                        height: 30, width: 30),
+                    labelText: tr('client.date_time.Date').toUpperCase())),
           ),
           const SizedBox(height: 20),
-          nameTextField(label: 'Time', asset: 'clock.png'),
+          nameTextField(label: tr('client.date_time.Time'), asset: 'clock.png'),
           const SizedBox(height: 20),
         ],
       ),

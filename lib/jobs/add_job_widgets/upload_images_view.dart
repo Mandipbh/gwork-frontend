@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:image_picker/image_picker.dart';
@@ -18,11 +19,11 @@ class UploadImageView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 8),
             child: Text(
-              'Add some images for your work',
+              tr('client.gallery.Add_some_images'),
               style: Theme.of(context).textTheme.headline1,
             ),
           ),
-          Text('The following fields are optional',
+          Text(tr('client.case_descrive.following_fields'),
               style: Theme.of(context).textTheme.bodyText2),
           const SizedBox(height: 24),
           Expanded(
@@ -32,7 +33,7 @@ class UploadImageView extends StatelessWidget {
                 return GridView.builder(
                   itemCount: value.imageList.length,
                   shrinkWrap: true,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       crossAxisSpacing: 12,
                       mainAxisSpacing: 12),
@@ -68,7 +69,8 @@ class UploadImageView extends StatelessWidget {
                                     child: Align(
                                       alignment: Alignment.bottomCenter,
                                       child: Text(
-                                        'Upload Photo'.toUpperCase(),
+                                        tr('client.gallery.Upload_Photo')
+                                            .toUpperCase(),
                                         style: Theme.of(context)
                                             .textTheme
                                             .caption!
@@ -138,9 +140,9 @@ class UploadImage extends StatelessWidget {
               height: 24, width: 24, color: primaryColor),
         ),
         const SizedBox(height: 14),
-        const Text(
-          'Upload Image',
-          style: TextStyle(
+        Text(
+          tr('client.gallery.Upload_image'),
+          style: const TextStyle(
               color: primaryColor,
               fontWeight: FontWeight.w700,
               fontSize: 24,
@@ -159,7 +161,8 @@ class UploadImage extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Upload from camera'.toUpperCase(),
+                    tr('Professional.logIn.UploadPhotoDialog.Upload_from_camera')
+                        .toUpperCase(),
                     style: const TextStyle(
                         color: primaryColor,
                         fontWeight: FontWeight.w700,
@@ -188,7 +191,8 @@ class UploadImage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Upload from gallery'.toUpperCase(),
+                    tr('Professional.logIn.UploadPhotoDialog.Upload_from_gallery')
+                        .toUpperCase(),
                     style: const TextStyle(
                         color: primaryColor,
                         fontWeight: FontWeight.w700,
@@ -215,7 +219,7 @@ class UploadImage extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'CLose'.toUpperCase(),
+                tr('Professional.logIn.UploadPhotoDialog.CLose').toUpperCase(),
                 style: const TextStyle(
                     color: primaryColor,
                     fontWeight: FontWeight.w700,

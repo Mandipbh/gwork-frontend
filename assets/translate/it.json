@@ -90,6 +90,7 @@
       "Today": "Oggi",
       "This_week": "Questa settimana",
       "This_month": "Questo mese",
+      "This_year": "Quest'anno",
       "Earnings": "Guadagni",
       "Jobs": "Lavori",
       "Users": "Utenti",
@@ -119,6 +120,8 @@
       "Description": "Descrizione",
       "Gallery": "Galleria",
       "Applications": "Candidature",
+      "Price": "Prezzo",
+      "Apply": "Fare domanda a",
       "Ristrutturazione": "Ristrutturazione edilizia",
       "View_invoice": "Visualizza fattura",
       "reject": "Riutato",
@@ -277,6 +280,7 @@
     "chat":{
       "Babysitting": "Babysitting",
       "Offered_price": "Prezzo offerto",
+      "Edit": "",
       "Accept": "Accetta",
       "no_messages": "Per ora non ci sono messaggi",
       "start_conversattion": "Avanti, inizia la conversazione",
@@ -344,6 +348,30 @@
     "Splash": {
       "powerBy": "Realizzata da",
       "mokkaStudios": "Mokka Studios"
+    },
+    "apply_job_dialogue": {
+      "are_you_sure_apply": "Sei sicuro di volerti candidare per il lavoro?",
+      "you_can_change": "Puoi modificare l'offerta in qualsiasi momento",
+      "Apply": "Fare domanda a",
+      "Cancel": "Annulla"
+    },
+    "reject_job_dialogue": {
+      "are_you_sure_reject": "Sei sicuro di voler rifiutare il lavoro?",
+      "once_reject": "Una volta respinta, l'azione non può essere annullata",
+      "reject": "rifiutare",
+      "Cancel": "Annulla"
+    },
+    "start_job_dialogue": {
+      "are_you_sure_start": "Sei sicuro di voler iniziare il lavoro?",
+      "press_start": "Premi start se sei sul posto e sei pronto per iniziare a lavorare",
+      "Start_job": "Inizia lavoro",
+      "Cancel": "Annulla"
+    },
+    "complete_job_dialogue": {
+      "are_you_sure_complete": "Sei sicuro di voler completare il lavoro?",
+      "once_complete": "Una volta completato, lo stato non può essere modificato",
+      "Complete_job": "Lavoro completo",
+      "Cancel": "Annulla"
     },
     "logIn": {
       "welcome": "Benvenuto!",
