@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/jobs/add_new_job_screen.dart';
@@ -113,7 +114,7 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                                 );
                               },
                               backgroundColor: primaryColor,
-                              buttonName: 'New Job',
+                              buttonName: tr('client.type_picker.New_job'),
                               iconAsset: 'add.png'),
                         ),
                       ],
@@ -147,9 +148,9 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Jobs',
-                    style: TextStyle(
+                  Text(
+                    tr('Professional.logIn.Jobs.Jobs'),
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 32,
                       fontWeight: FontWeight.w700,
@@ -179,8 +180,8 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                 spacing: 16,
                 children: [
                   FilterChip(
-                    label: const Text(
-                      'All Jobs',
+                    label: Text(
+                      tr('Professional.logIn.Jobs.All_Jobs'),
                     ),
                     labelStyle: TextStyle(
                       color: selectedFilter != JobsFilters.all
@@ -203,8 +204,8 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                     ),
                   ),
                   FilterChip(
-                    label: const Text(
-                      'Applied',
+                    label: Text(
+                      tr('Professional.logIn.Jobs.Applied'),
                     ),
                     labelStyle: TextStyle(
                       color: selectedFilter != JobsFilters.applied
@@ -227,8 +228,8 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                     ),
                   ),
                   FilterChip(
-                    label: const Text(
-                      'Accepted',
+                    label: Text(
+                      tr('Professional.logIn.Jobs.Accepted'),
                     ),
                     labelStyle: TextStyle(
                       color: selectedFilter != JobsFilters.accepted
@@ -251,8 +252,8 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                     ),
                   ),
                   FilterChip(
-                    label: const Text(
-                      'Doing',
+                    label: Text(
+                      tr('Professional.logIn.Jobs.Doing'),
                     ),
                     labelStyle: TextStyle(
                       color: selectedFilter != JobsFilters.doing
@@ -275,8 +276,8 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                     ),
                   ),
                   FilterChip(
-                    label: const Text(
-                      'Rejected',
+                    label: Text(
+                      tr('Professional.logIn.Jobs.Rejected'),
                     ),
                     labelStyle: TextStyle(
                       color: selectedFilter != JobsFilters.rejected
@@ -299,8 +300,8 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                     ),
                   ),
                   FilterChip(
-                    label: const Text(
-                      'Completed',
+                    label: Text(
+                      tr('Professional.logIn.Jobs.Completed'),
                     ),
                     labelStyle: TextStyle(
                       color: selectedFilter != JobsFilters.completed
@@ -331,8 +332,8 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                 spacing: 16,
                 children: [
                   FilterChip(
-                    label: const Text(
-                      'All Type',
+                    label: Text(
+                      tr('Professional.logIn.Jobs.All_types'),
                     ),
                     labelStyle: TextStyle(
                       color: selectedJobType != JobsType.all
@@ -355,8 +356,8 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                     ),
                   ),
                   FilterChip(
-                    label: const Text(
-                      'Cleaning',
+                    label: Text(
+                      tr('admin.dashboard.Cleaning'),
                     ),
                     labelStyle: TextStyle(
                       color: selectedJobType != JobsType.cleaning
@@ -379,8 +380,8 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                     ),
                   ),
                   FilterChip(
-                    label: const Text(
-                      'Babysitting',
+                    label: Text(
+                      tr('admin.job_detail.Babysitting'),
                     ),
                     labelStyle: TextStyle(
                       color: selectedJobType != JobsType.babySitting
@@ -403,8 +404,8 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                     ),
                   ),
                   FilterChip(
-                    label: const Text(
-                      'Handyman',
+                    label: Text(
+                      tr('client.type_picker.Handyman'),
                     ),
                     labelStyle: TextStyle(
                       color: selectedJobType != JobsType.handyman
@@ -427,8 +428,8 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                     ),
                   ),
                   FilterChip(
-                    label: const Text(
-                      'Tutoring',
+                    label: Text(
+                      tr('admin.dashboard.tutoring'),
                     ),
                     labelStyle: TextStyle(
                       color: selectedJobType != JobsType.tutoring

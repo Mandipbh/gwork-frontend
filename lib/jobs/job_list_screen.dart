@@ -4,8 +4,6 @@ import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/common/common_buttons.dart';
 import 'package:g_worker_app/custom_progress_bar.dart';
 import 'package:g_worker_app/invoice_view_screen/invoice_view_screen.dart';
-import 'package:g_worker_app/main.dart';
-
 import '../Constants.dart';
 import '../my_profile/my_profile_screen.dart';
 import 'job_detail_screen.dart';

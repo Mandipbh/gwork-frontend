@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/Constants.dart';
 import 'package:g_worker_app/colors.dart';
@@ -139,9 +140,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                'Dashboard',
-                style: TextStyle(
+              Text(
+                tr('admin.dashboard.Dashboard'),
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 32,
                   fontWeight: FontWeight.w700,
@@ -170,8 +171,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
             child: Row(
               children: [
                 FilterChip(
-                  label: const Text(
-                    'All Time',
+                  label: Text(
+                    tr('admin.dashboard.All_time'),
                   ),
                   labelStyle: TextStyle(
                     color: selectedFilter != DashboardFilters.all
@@ -195,8 +196,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 const SizedBox(width: 10),
                 FilterChip(
-                  label: const Text(
-                    'Today',
+                  label: Text(
+                    tr('admin.dashboard.Today'),
                   ),
                   labelStyle: TextStyle(
                     color: selectedFilter != DashboardFilters.today
@@ -220,8 +221,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 const SizedBox(width: 10),
                 FilterChip(
-                  label: const Text(
-                    'This Week',
+                  label: Text(
+                    tr('admin.dashboard.This_week'),
                   ),
                   labelStyle: TextStyle(
                     color: selectedFilter != DashboardFilters.thisWeek
@@ -245,8 +246,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 const SizedBox(width: 10),
                 FilterChip(
-                  label: const Text(
-                    'This Month',
+                  label: Text(
+                    tr('admin.dashboard.This_month'),
                   ),
                   labelStyle: TextStyle(
                     color: selectedFilter != DashboardFilters.thisMonth
@@ -270,8 +271,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 const SizedBox(width: 10),
                 FilterChip(
-                  label: const Text(
-                    'This Year',
+                  label: Text(
+                    tr('admin.dashboard.This_year'),
                   ),
                   labelStyle: TextStyle(
                     color: selectedFilter != DashboardFilters.thisYear
@@ -322,9 +323,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 Text(title,
                     style: const TextStyle(
                         fontSize: 24, fontWeight: FontWeight.w700)),
-                const Text(
-                  'No data',
-                  style: TextStyle(
+                Text(
+                  tr('admin.dashboard.No_data'),
+                  style: const TextStyle(
                       fontSize: 24,
                       color: Colors.grey,
                       fontWeight: FontWeight.w700),
@@ -340,12 +341,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
               decoration: BoxDecoration(
                   color: whiteF2F, borderRadius: BorderRadius.circular(8)),
               child: Column(
-                children: const [
-                  Text("There is no data available",
+                children: [
+                  Text(tr('admin.dashboard.no_data_available'),
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
                   SizedBox(height: 4),
-                  Text("Check it later or set another filters",
+                  Text(tr('admin.dashboard.check_later'),
                       style:
                           TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
                 ],

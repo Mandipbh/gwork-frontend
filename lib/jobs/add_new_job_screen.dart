@@ -78,9 +78,9 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                           : const SizedBox(
                               width: 16,
                             ),
-                      const Text(
-                        'New Job',
-                        style: TextStyle(
+                      Text(
+                        tr('client.type_picker.New_job'),
+                        style: const TextStyle(
                             color: Colors.black,
                             fontSize: 20,
                             fontWeight: FontWeight.bold),
@@ -160,15 +160,15 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
 
   Widget progressView() {
     String label = currentPage == 1
-        ? 'Reason'
+        ? tr('Professional.logIn.onBoardingUserType.reason')
         : currentPage == 2
-            ? 'Job Info'
+            ? tr('client.Job_info.Job_info')
             : currentPage == 3
-                ? 'Schedule'
+                ? tr('client.date_time.Schedule')
                 : currentPage == 4 || currentPage == 5
-                    ? 'More Info'
+                    ? tr('client.case_descrive.More_info')
                     : currentPage == 6
-                        ? 'Summary'
+                        ? tr('client.summary.Summary')
                         : '';
     return Container(
       height: 128,
@@ -218,7 +218,9 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                       curve: Curves.easeIn);
                 }
               },
-              nextButtonName: currentPage > 5 ? 'Publish' : 'Next Step',
+              nextButtonName: currentPage > 5
+                  ? 'Publish'
+                  : tr('Professional.logIn.onBoardingUserType.Next'),
               nextButtonIcon: Icon(
                   currentPage > 5 ? Icons.done : Icons.arrow_forward,
                   color: Colors.white),

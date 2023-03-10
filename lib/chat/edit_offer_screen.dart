@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
 
@@ -37,9 +38,9 @@ class _EditOfferScreenState extends State<EditOfferScreen> {
         },
         child: const Icon(Icons.arrow_back, color: splashColor1, size: 20),
       ),
-      title: const Text(
-        'Edit offer',
-        style: TextStyle(
+      title: Text(
+        tr('Professional.edit_offer.Edit_offer'),
+        style: const TextStyle(
           color: splashColor1,
           fontSize: 18,
           fontWeight: FontWeight.w700,
@@ -54,9 +55,9 @@ class _EditOfferScreenState extends State<EditOfferScreen> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            const Text(
-              'Building restructuring, or even bigger title about what to do',
-              style: TextStyle(
+            Text(
+              tr('Professional.edit_offer.Building_restructuring'),
+              style: const TextStyle(
                 color: black343,
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
@@ -125,9 +126,9 @@ class _EditOfferScreenState extends State<EditOfferScreen> {
               ),
               child: ListTile(
                 horizontalTitleGap: 1,
-                title: const Text(
-                  "Offer price",
-                  style: TextStyle(
+                title: Text(
+                  tr('Professional.edit_offer.Offer_price'),
+                  style: const TextStyle(
                     color: black343,
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
@@ -146,9 +147,9 @@ class _EditOfferScreenState extends State<EditOfferScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            const Text(
-              "Once an offer is accepted and confirmed, it becomes a binding agreement.",
-              style: TextStyle(
+            Text(
+              tr('Professional.edit_offer.Once_an_offer_is_accepted'),
+              style: const TextStyle(
                 color: black343,
                 fontSize: 14,
                 fontWeight: FontWeight.w300,
@@ -168,7 +169,7 @@ class _EditOfferScreenState extends State<EditOfferScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    "Edit offer".toUpperCase(),
+                    tr('Professional.edit_offer.Edit_offer').toUpperCase(),
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,

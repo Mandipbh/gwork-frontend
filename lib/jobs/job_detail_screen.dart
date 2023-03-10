@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/chat/chat_screen.dart';
 import 'package:g_worker_app/colors.dart';
@@ -456,9 +457,9 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         },
         child: const Icon(Icons.arrow_back, color: splashColor1, size: 20),
       ),
-      title: const Text(
-        'Babysitting',
-        style: TextStyle(
+      title: Text(
+        tr('admin.job_detail.Babysitting'),
+        style: const TextStyle(
           color: splashColor1,
           fontSize: 18,
           fontWeight: FontWeight.w700,
@@ -482,10 +483,10 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
         child: Text(
           isReject == true
-              ? 'Rejected'
+              ? tr('admin.dashboard.rejected')
               : isApply == true
-                  ? 'Applied'
-                  : 'Published',
+                  ? tr('Professional.logIn.Jobs.Applied')
+                  : tr('admin.dashboard.Published'),
           style: TextStyle(
             color: isReject == true
                 ? Colors.white
@@ -501,9 +502,9 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   }
 
   Widget textView() {
-    return const Text(
-      'Building restructuring, or even bigger title about what to do',
-      style: TextStyle(
+    return Text(
+      tr('admin.job_detail.Building_restructuring'),
+      style: const TextStyle(
         color: splashColor1,
         fontSize: 18,
         fontWeight: FontWeight.w800,
@@ -514,7 +515,11 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   Widget tabView() {
     return singleSelectionButtons(
         context: context,
-        buttons: ['Description', 'Gallery', 'Applicants (5)'],
+        buttons: [
+          tr('admin.job_detail.Description'),
+          tr('admin.job_detail.Gallery'),
+          tr('admin.job_detail.Applications'),
+        ],
         padding: 8,
         selected: selectedType,
         onSelectionChange: (value) {
@@ -589,16 +594,16 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                           ),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
+                            children: [
                               Text(
-                                "Price",
-                                style: TextStyle(
+                                tr('admin.job_detail.Price'),
+                                style: const TextStyle(
                                   color: black343,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),
-                              Text(
+                              const Text(
                                 "100,00",
                                 style: TextStyle(
                                   color: black343,
@@ -633,7 +638,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          "Apply".toUpperCase(),
+                          tr('admin.job_detail.Apply').toUpperCase(),
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 16,
@@ -679,10 +684,10 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           ),
         ),
         const SizedBox(height: 14),
-        const Text(
-          "Are you sure you want to accept the job?",
+        Text(
+          tr('Professional.apply_job_dialogue.are_you_sure_apply'),
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: const TextStyle(
             color: splashColor1,
             fontSize: 24,
             fontFamily: 'Manrope',
@@ -690,10 +695,10 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           ),
         ),
         const SizedBox(height: 8),
-        const Text(
-          "Once complete it, the status can’t be changed",
+        Text(
+          tr('Professional.apply_job_dialogue.you_can_change'),
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: const TextStyle(
             color: black343,
             fontSize: 14,
             fontFamily: 'Manrope',
@@ -719,7 +724,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "Accept job".toUpperCase(),
+                tr('Professional.apply_job_dialogue.Apply').toUpperCase(),
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16,
@@ -748,7 +753,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                "Cancel".toUpperCase(),
+                tr('Professional.apply_job_dialogue.Cancel').toUpperCase(),
                 style: const TextStyle(
                   color: splashColor1,
                   fontSize: 16,
@@ -778,7 +783,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              "Reject".toUpperCase(),
+              tr('admin.job_detail.reject').toUpperCase(),
               style: const TextStyle(
                 color: redE45,
                 fontSize: 16,
@@ -815,20 +820,20 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
               height: 24, width: 24, color: redE45),
         ),
         const SizedBox(height: 14),
-        const Text(
-          "Are you sure you want to reject the job? ",
+        Text(
+          tr('Professional.reject_job_dialogue.are_you_sure_reject'),
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: const TextStyle(
             color: splashColor1,
             fontSize: 24,
             fontWeight: FontWeight.w700,
           ),
         ),
         const SizedBox(height: 8),
-        const Text(
-          "Once rejected the action can not be undone",
+        Text(
+          tr('Professional.reject_job_dialogue.once_reject'),
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: const TextStyle(
             color: black343,
             fontSize: 12,
             fontWeight: FontWeight.w500,
@@ -850,7 +855,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "Cancel".toUpperCase(),
+                tr('Professional.reject_job_dialogue.Cancel').toUpperCase(),
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16,
@@ -878,7 +883,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                "Reject job".toUpperCase(),
+                tr('Professional.reject_job_dialogue.reject').toUpperCase(),
                 style: const TextStyle(
                   color: redE45,
                   fontSize: 16,
@@ -918,10 +923,10 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           ),
         ),
         const SizedBox(height: 14),
-        const Text(
-          "Are you sure you want to start the job? ",
+        Text(
+          tr('Professional.start_job_dialogue.are_you_sure_start'),
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: const TextStyle(
             color: splashColor1,
             fontSize: 24,
             fontFamily: 'Manrope',
@@ -929,10 +934,10 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           ),
         ),
         const SizedBox(height: 8),
-        const Text(
-          "Press start if you are at the place and ready to start working",
+        Text(
+          tr('Professional.start_job_dialogue.press_start'),
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: const TextStyle(
             color: black343,
             fontSize: 14,
             fontFamily: 'Manrope',
@@ -958,7 +963,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "Start job".toUpperCase(),
+                tr('Professional.start_job_dialogue.Start_job').toUpperCase(),
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16,
@@ -987,7 +992,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                "Cancel".toUpperCase(),
+                tr('Professional.start_job_dialogue.Cancel').toUpperCase(),
                 style: const TextStyle(
                   color: splashColor1,
                   fontSize: 16,
@@ -1026,10 +1031,10 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           ),
         ),
         const SizedBox(height: 14),
-        const Text(
-          "Are you sure you want to complete the job? ",
+        Text(
+          tr('Professional.complete_job_dialogue.are_you_sure_complete'),
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: const TextStyle(
             color: splashColor1,
             fontSize: 24,
             fontFamily: 'Manrope',
@@ -1037,10 +1042,10 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           ),
         ),
         const SizedBox(height: 8),
-        const Text(
-          "Once complete it, the status can’t be changed",
+        Text(
+          tr('Professional.complete_job_dialogue.once_complete'),
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: const TextStyle(
             color: black343,
             fontSize: 14,
             fontFamily: 'Manrope',
@@ -1066,7 +1071,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "Complete job".toUpperCase(),
+                tr('Professional.complete_job_dialogue.Complete_job')
+                    .toUpperCase(),
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16,
@@ -1095,7 +1101,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                "Cancel".toUpperCase(),
+                tr('Professional.complete_job_dialogue.Cancel').toUpperCase(),
                 style: const TextStyle(
                   color: splashColor1,
                   fontSize: 16,

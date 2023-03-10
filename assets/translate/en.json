@@ -90,6 +90,7 @@
       "Today": "Today",
       "This_week": "This week",
       "This_month": "This month",
+      "This_year": "This year",
       "Earnings": "Earnings",
       "Jobs": "Jobs",
       "Users": "Users",
@@ -119,6 +120,8 @@
       "Description": "Description",
       "Gallery": "Gallery",
       "Applications": "Applications",
+      "Price": "Price",
+      "Apply": "Apply",
       "Ristrutturazione": "Ristrutturazione edilizia, o titolo ancora più grande su cosa fare",
       "View_invoice": "View invoice",
       "reject": "reject",
@@ -276,6 +279,7 @@
     "chat":{
       "Babysitting": "Babysitting",
       "Offered_price": "Offered price",
+      "Edit": "Edit",
       "Accept": "Accept",
       "no_messages": "There are no messages for now",
       "start_conversattion": "Go ahead and start conversattion",
@@ -343,6 +347,30 @@
     "Splash": {
       "powerBy": "Powered by",
       "mokkaStudios": "Mokka Studios"
+    },
+    "apply_job_dialogue": {
+      "are_you_sure_apply": "Are you sure you want to apply for the job? ",
+      "you_can_change": "You can change the offer in any moment",
+      "Apply": "Apply",
+      "Cancel": "Cancel"
+    },
+    "reject_job_dialogue": {
+      "are_you_sure_reject": "Are you sure you want to reject the job? ",
+      "once_reject": "Once rejected the action can not be undone",
+      "reject": "reject",
+      "Cancel": "Cancel"
+    },
+    "start_job_dialogue": {
+      "are_you_sure_start": "Are you sure you want to start the job? ",
+      "press_start": "Press start if you are at the place and ready to start working",
+      "Start_job": "Start job",
+      "Cancel": "Cancel"
+    },
+    "complete_job_dialogue": {
+      "are_you_sure_complete": "Are you sure you want to complete the job? ",
+      "once_complete": "Once complete it, the status can’t be changed",
+      "Complete_job": "Complete job",
+      "Cancel": "Cancel"
     },
     "logIn": {
       "welcome": "Welcome!",
@@ -474,6 +502,12 @@
         "You_didn’t_took_any_job": "You didn’t took any job",
         "Search_for_a_job": "Search for a job"
       }
+    },
+    "edit_offer":{
+      "Edit_offer": "Edit offer",
+      "Building_restructuring": "Building restructuring, or even bigger title about what to do",
+      "Offer_price": "Offer price",
+      "Once_an_offer_is_accepted": "Once an offer is accepted and confirmed, it becomes a binding agreement."
     }
   }
 }

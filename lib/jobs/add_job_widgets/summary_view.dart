@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../colors.dart';
@@ -24,12 +25,11 @@ class _SummaryViewState extends State<SummaryView> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: Text(
-                'Summary',
+                tr('client.summary.Summary'),
                 style: Theme.of(context).textTheme.headline1,
               ),
             ),
-            Text(
-                'Building restructuring, or even bigger title about what to do',
+            Text(tr('client.summary.Building_restructuring'),
                 style: Theme.of(context).textTheme.headline3),
             const SizedBox(height: 24),
             Container(
@@ -54,7 +54,7 @@ class _SummaryViewState extends State<SummaryView> {
                                 : whiteF2F),
                         child: Center(
                             child: Text(
-                          'Description',
+                          tr('client.summary.Description'),
                           style: Theme.of(context).textTheme.subtitle1!.apply(
                               color: isDescriptionSelected
                                   ? whiteF2F
@@ -79,7 +79,7 @@ class _SummaryViewState extends State<SummaryView> {
                                 ? primaryColor
                                 : whiteF2F),
                         child: Center(
-                          child: Text('Gallery',
+                          child: Text(tr('client.summary.Gallery'),
                               style: Theme.of(context)
                                   .textTheme
                                   .subtitle1!
@@ -204,7 +204,7 @@ class _SummaryViewState extends State<SummaryView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Accepted budget",
+                    tr('client.summary.Accepted_budget'),
                     style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
                   ),
                   Text(
@@ -267,7 +267,7 @@ class _SummaryViewState extends State<SummaryView> {
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Text(
-                    'Upload Photo'.toUpperCase(),
+                    tr('client.gallery.Upload_Photo').toUpperCase(),
                     style: Theme.of(context)
                         .textTheme
                         .caption!

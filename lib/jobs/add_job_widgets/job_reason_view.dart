@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:g_worker_app/Constants.dart';
@@ -25,11 +26,11 @@ class _JobReasonViewState extends State<JobReasonView> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: Text(
-              'What do you Need?',
+              tr('client.type_picker.need'),
               style: Theme.of(context).textTheme.headline1,
             ),
           ),
-          Text('Please select one of four options.',
+          Text(tr('client.type_picker.select_options'),
               style: Theme.of(context).textTheme.bodyText2),
           const SizedBox(height: 24),
           SizedBox(
@@ -55,7 +56,7 @@ class _JobReasonViewState extends State<JobReasonView> {
                           child: Align(
                             alignment: Alignment.bottomCenter,
                             child: Text(
-                              'Cleaning',
+                              tr('client.type_picker.Cleaning'),
                               style: Theme.of(context).textTheme.caption!.apply(
                                   color: jobType == JobsType.cleaning
                                       ? Colors.white
@@ -102,7 +103,7 @@ class _JobReasonViewState extends State<JobReasonView> {
                           padding: const EdgeInsets.symmetric(vertical: 15),
                           child: Align(
                             alignment: Alignment.bottomCenter,
-                            child: Text('Babysitting',
+                            child: Text(tr('client.chat.Babysitting'),
                                 style: Theme.of(context)
                                     .textTheme
                                     .caption!
@@ -160,7 +161,7 @@ class _JobReasonViewState extends State<JobReasonView> {
                           child: Align(
                             alignment: Alignment.bottomCenter,
                             child: Text(
-                              'Tutoring',
+                              tr('client.type_picker.Tutoring'),
                               style: Theme.of(context).textTheme.caption!.apply(
                                   color: jobType == JobsType.tutoring
                                       ? Colors.white
@@ -207,7 +208,7 @@ class _JobReasonViewState extends State<JobReasonView> {
                           padding: const EdgeInsets.symmetric(vertical: 15),
                           child: Align(
                             alignment: Alignment.bottomCenter,
-                            child: Text('Handyman',
+                            child: Text(tr('client.type_picker.Handyman'),
                                 style: Theme.of(context)
                                     .textTheme
                                     .caption!

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/chat/edit_offer_screen.dart';
 import 'package:g_worker_app/colors.dart';
@@ -55,8 +56,8 @@ class _ChatScreenState extends State<ChatScreen> {
                       color: splashColor1, size: 20),
                 ),
                 Column(
-                  children: const [
-                    Text(
+                  children: [
+                    const Text(
                       'Eleanor Pena',
                       style: TextStyle(
                         color: splashColor1,
@@ -65,8 +66,8 @@ class _ChatScreenState extends State<ChatScreen> {
                       ),
                     ),
                     Text(
-                      'Babysitting',
-                      style: TextStyle(
+                      tr('client.chat.Babysitting'),
+                      style: const TextStyle(
                         color: black343,
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
@@ -91,16 +92,16 @@ class _ChatScreenState extends State<ChatScreen> {
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
-                      'Offered price',
-                      style: TextStyle(
+                      tr('client.chat.Offered_price'),
+                      style: const TextStyle(
                         color: black343,
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    Text(
+                    const Text(
                       '5.000,00 €',
                       style: TextStyle(
                         color: splashColor1,
@@ -123,7 +124,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        'Edit'.toUpperCase(),
+                        tr('client.chat.Edit').toUpperCase(),
                         style: const TextStyle(
                           color: splashColor1,
                           fontSize: 16,
@@ -165,21 +166,21 @@ class _ChatScreenState extends State<ChatScreen> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 20, horizontal: 22),
                 child: Column(
-                  children: const [
+                  children: [
                     Text(
-                      'There are no messages for now',
+                      tr('client.chat.no_messages'),
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: splashColor1,
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     Text(
-                      'Go ahead and start conversattion',
+                      tr('client.chat.start_conversattion'),
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: black343,
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
@@ -215,7 +216,7 @@ class _ChatScreenState extends State<ChatScreen> {
           child: TextFormField(
             cursorColor: Colors.black,
             decoration: InputDecoration(
-              hintText: "Start typing...",
+              hintText: tr('client.chat.Start_typing'),
               hintStyle: const TextStyle(
                 color: grey9EA,
                 fontSize: 14,
