@@ -10,117 +10,115 @@ class UploadImageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: SizedBox(
-        height: MediaQuery.of(context).size.height,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: Text(
-                'Add some images for your work',
-                style: Theme.of(context).textTheme.headline1,
-              ),
+    return SizedBox(
+      height: MediaQuery.of(context).size.height,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 8),
+            child: Text(
+              'Add some images for your work',
+              style: Theme.of(context).textTheme.headline1,
             ),
-            Text('The following fields are optional',
-                style: Theme.of(context).textTheme.bodyText2),
-            const SizedBox(height: 24),
-            Expanded(child: Consumer<UploadImageProvider>(
+          ),
+          Text('The following fields are optional',
+              style: Theme.of(context).textTheme.bodyText2),
+          const SizedBox(height: 24),
+          Expanded(
+            child: Consumer<UploadImageProvider>(
               builder: (BuildContext context, value, Widget? child) {
-                return GridView.count(
-                    physics: const NeverScrollableScrollPhysics(),
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 12,
-                    mainAxisSpacing: 12,
-                    children: List.generate(6, (index) {
-                      return GestureDetector(
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return Dialog(
-                                insetPadding:
-                                    EdgeInsets.symmetric(horizontal: 20),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(18.0),
-                                  child: UploadImage(),
-                                ),
+                print("value.imageList ${value.imageList}");
+                return GridView.builder(
+                  itemCount: value.imageList.length,
+                  shrinkWrap: true,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 12,
+                      mainAxisSpacing: 12),
+                  itemBuilder: (context, index) {
+                    return value.imageList[index] == "add"
+                        ? InkWell(
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return Dialog(
+                                    insetPadding:
+                                        EdgeInsets.symmetric(horizontal: 20),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(18.0),
+                                      child: UploadImage(),
+                                    ),
+                                  );
+                                },
                               );
                             },
-                          );
-                        },
-                        child: value.imagePath == ""
-                            ? SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.width * 0.44,
-                                child: Stack(
-                                  children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(12)),
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 15),
-                                      child: Align(
-                                        alignment: Alignment.bottomCenter,
-                                        child: Text(
-                                          'Upload Photo'.toUpperCase(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .caption!
-                                              .apply(color: primaryColor),
-                                        ),
+                            child: SizedBox(
+                              height: MediaQuery.of(context).size.width * 0.44,
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(12)),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 15),
+                                    child: Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: Text(
+                                        'Upload Photo'.toUpperCase(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .caption!
+                                            .apply(color: primaryColor),
                                       ),
                                     ),
-                                    Positioned.fill(
-                                      child: Center(
-                                        child: Image.asset(
-                                            'assets/images/upload_image.png',
-                                            height: 100,
-                                            width: 100),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              )
-                            : Container(
-                                height:
-                                    MediaQuery.of(context).size.width * 0.44,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
-                                    image: DecorationImage(
-                                        image: FileImage(
-                                          File(value.imagePath),
-                                        ),
-                                        fit: BoxFit.cover))),
-                      );
-                    }));
+                                  ),
+                                  Positioned.fill(
+                                    child: Center(
+                                      child: Image.asset(
+                                          'assets/images/upload_image.png',
+                                          height: 100,
+                                          width: 100),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          )
+                        : ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Image.file(
+                              File(value.imageList[index]),
+                              fit: BoxFit.cover,
+                            ),
+                          );
+                  },
+                );
               },
-            )),
-            const SizedBox(height: 16),
-          ],
-        ),
+            ),
+          ),
+        ],
       ),
     );
   }
 }
 
 class UploadImageProvider extends ChangeNotifier {
-  String _imagePath = "";
-  String get imagePath => _imagePath;
+  List<String> _imageList = ["add"];
+  List<String> get imageList => _imageList;
 
   getimage(source) async {
     final ImagePicker _picker = ImagePicker();
     final XFile? image = await _picker.pickImage(source: source);
-    _imagePath = image!.path;
+    _imageList.add(image!.path);
 
     notifyListeners();
   }
 
   clearImage() {
-    _imagePath = "";
     notifyListeners();
   }
 }
@@ -154,6 +152,7 @@ class UploadImage extends StatelessWidget {
             return GestureDetector(
               onTap: () {
                 value.getimage(ImageSource.camera);
+                Navigator.pop(context);
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -183,6 +182,7 @@ class UploadImage extends StatelessWidget {
             return GestureDetector(
               onTap: () {
                 value.getimage(ImageSource.gallery);
+                Navigator.pop(context);
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
