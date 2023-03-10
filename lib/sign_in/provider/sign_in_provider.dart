@@ -51,4 +51,18 @@ class SignInProvider extends ChangeNotifier {
       _loginResponse.sink.add(loginResponse);
     });
   }
+
+  adminLogin() {
+    setIsLogging(true);
+    SignInRequest request = SignInRequest(
+        phoneNumber: phoneController.text.trim(),
+        password: passwordController.text.trim());
+    ApiClient().adminLogin(request).then((loginResponse) {
+      if(loginResponse.success){
+        preferenceData.setToken(loginResponse.token!);
+        preferenceData.setUserRole(UserType.admin);
+      }
+      _loginResponse.sink.add(loginResponse);
+    });
+  }
 }
