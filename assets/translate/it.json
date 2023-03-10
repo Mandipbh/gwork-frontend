@@ -44,7 +44,10 @@
       "Last_name": "Cognome",
       "Email": "Email",
       "Phone_number": "Numero di telefono",
-      "Password": "Password",
+      "Text_Code": "Codice testo",
+      "Birth_Date": "Data di nascita",
+      "Payment_method": "Metodo di pagamento",
+      "Password": "parola d'ordine",
       "Language": "Lingua",
       "Log_Out": "ESCI"
     },
@@ -70,6 +73,11 @@
     "Edit_email": "Modifica email",
     "enter_valid_email": "Inserire un indirizzo e-mail valido.",
     "Email": "EMAIL",
+    "phone_number": "numero di telefono",
+    "Birth_Date": "Data di nascita",
+    "New_Password": "nuova password",
+    "Confirm_New_PAssword": "Conferma la nuova password",
+    "VAT_Number": "Partita IVA",
     "Edit_phone_number": "Modifica telefono",
     "enter_new_phone_no": "Inserisci il tuo nuovo numero di telefono e ti invieremo un codice OTP per confermarlo.",
     "change_password": "Modifica password",
@@ -245,6 +253,7 @@
     },
     "Payment_method": {
       "Edit_payment_method": "Modifica Pagamento",
+      "Edit_your_payment_method": "Modifica il tuo metodo di pagamento",
       "Update_payment_info": "Modifica il metodo di pagamento."
     },
     "VAT_number": {
@@ -447,18 +456,21 @@
     },
     "Jobs": {
       "Jobs": "Jobs",
-      "All types": "Tutti",
+      "All_types": "Tutti",
+      "All_Jobs": "Tutti i lavori",
       "Applied": "Pubblicato",
       "Accepted": "Accettato",
       "Doing": "In corso",
       "Rejected": "Rifiutato",
       "Completed": "Completato",
-      "Search Jobs": "Ricerca lavoro",
-      "My Jobs": "I miei lavori",
-      "earning limit": "limite di guadagno",
+      "Search_Jobs": "Ricerca lavoro",
+      "My_Jobs": "I miei lavori",
+      "earning_limit": "limite di guadagno",
       "PRovince": "Provincia",
-      "There are no jobs for now": "Non ci sono lavori per il momento",
-      "Check it bit later or set another filters": "Controlla un po' più tardi o imposta altri filtri"
+      "There_are_no_jobs_for_now": "Non ci sono lavori per il momento",
+      "Check_it_bit_later_or_set_another_filters": "Controlla un po' più tardi o imposta altri filtri",
+      "You_didn’t_took_any_job": "Non hai accettato nessun lavoro",
+      "Search_for_a_job": "Cerca un lavoro"
     }
   }
 }

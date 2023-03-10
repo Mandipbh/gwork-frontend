@@ -44,6 +44,9 @@
       "Last_name": "Last name",
       "Email": "Email",
       "Phone_number": "Phone number",
+      "Text_Code": "Text Code",
+      "Birth_Date": "Birth date",
+      "Payment_method": "Payment method",
       "Password": "Password",
       "Language": "Language",
       "Log_Out": "Log Out"
@@ -70,6 +73,11 @@
     "Edit_email": "Edit email",
     "enter_valid_email": "Please enter a valid email address.",
     "Email": "Email",
+    "phone_number": "phone number",
+    "Birth_Date": "Birth date",
+    "New_Password": "New Password",
+    "Confirm_New_PAssword": "Confirm New PAssword",
+    "VAT_Number": "VAT Number",
     "Edit_phone_number": "Edit phone number",
     "enter_new_phone_no": "Please enter your new phone number and we will send you an OTP code to confirm it.",
     "change_password": "Change password",
@@ -244,6 +252,7 @@
     },
     "Payment_method": {
       "Edit_payment_method": "Edit payment method",
+      "Edit_your_payment_method": "Edit your payment method.",
       "Update_payment_info": "Update payment info"
     },
     "VAT_number": {
@@ -449,18 +458,21 @@
       },
       "Jobs": {
         "Jobs": "Jobs",
-        "All types": "All types",
+        "All_types": "All types",
+        "All_Jobs": "All Jobs",
         "Applied": "Applied",
         "Accepted": "Accepted",
         "Doing": "Doing",
         "Rejected": "Rejected",
         "Completed": "Completed",
-        "Search Jobs": "Search Jobs",
-        "My Jobs": "My Jobs",
-        "earning limit": "earning limit",
+        "Search_Jobs": "Search Jobs",
+        "My_Jobs": "My Jobs",
+        "earning_limit": "earning limit",
         "PRovince": "PRovince",
-        "There are no jobs for now": "There are no jobs for now",
-        "Check it bit later or set another filters": "Check it bit later or set another filters"
+        "There_are_no_jobs_for_now": "There are no jobs for now",
+        "Check_it_bit_later_or_set_another_filters": "Check it bit later or set another filters",
+        "You_didn’t_took_any_job": "You didn’t took any job",
+        "Search_for_a_job": "Search for a job"
       }
     }
   }

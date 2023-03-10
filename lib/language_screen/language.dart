@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/language_screen/language_provider/language_provider.dart';
@@ -11,19 +12,19 @@ class LanguageScreen extends StatelessWidget {
     List<Map> languageList = [
       {
         "image": "assets/images/english_language.png",
-        "title": "English",
+        "title": tr('admin.language.english'),
       },
       {
         "image": "assets/images/italian_language.png",
-        "title": "Italian",
+        "title": tr('admin.language.italian'),
       },
     ];
 
     return Scaffold(
         backgroundColor: whiteF2F,
         appBar: AppBar(
-          title: const Text(
-            'Language',
+          title: Text(
+            tr('admin.language.language'),
           ),
         ),
         body: Consumer<LanguageProvider>(
