@@ -124,7 +124,7 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                               if (MyApp.apkType == UserType.admin) {
                                 provider.adminLogin();
                               } else {
-                                provider.login();
+                                provider.login(context);
                               }
                             }
                           },
