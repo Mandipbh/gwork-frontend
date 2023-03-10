@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/common/common_buttons.dart';
@@ -98,7 +99,7 @@ class _JobListScreenState extends State<JobListScreen> {
       centerTitle: false,
       titlePadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       //Text
-      title: Text(innerBoxIsScrolled ? 'Jobs' : '',
+      title: Text(tr(innerBoxIsScrolled ? 'Professional.logIn.Jobs.Jobs' : ''),
           style: Theme.of(context)
               .textTheme
               .headline2!
@@ -111,9 +112,9 @@ class _JobListScreenState extends State<JobListScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  'Jobs',
-                  style: TextStyle(
+                Text(
+                  tr('Professional.logIn.Jobs.Jobs'),
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 32,
                     fontWeight: FontWeight.w700,
@@ -144,8 +145,8 @@ class _JobListScreenState extends State<JobListScreen> {
                     spacing: 8,
                     children: [
                       FilterChip(
-                        label: const Text(
-                          'All Jobs',
+                        label: Text(
+                          tr('Professional.logIn.Jobs.All_Jobs'),
                         ),
                         labelStyle: TextStyle(
                           color: selectedFilter != JobsFilters.all
@@ -319,8 +320,8 @@ class _JobListScreenState extends State<JobListScreen> {
                     spacing: 8,
                     children: [
                       FilterChip(
-                        label: const Text(
-                          'All Jobs',
+                        label: Text(
+                          tr('Professional.logIn.Jobs.All_Jobs'),
                         ),
                         labelStyle: TextStyle(
                           color: selectedFilter != JobsFilters.all
@@ -343,8 +344,8 @@ class _JobListScreenState extends State<JobListScreen> {
                         ),
                       ),
                       FilterChip(
-                        label: const Text(
-                          'Applied',
+                        label: Text(
+                          tr('Professional.logIn.Jobs.Applied'),
                         ),
                         labelStyle: TextStyle(
                           color: selectedFilter != JobsFilters.applied
@@ -367,8 +368,8 @@ class _JobListScreenState extends State<JobListScreen> {
                         ),
                       ),
                       FilterChip(
-                        label: const Text(
-                          'Accepted',
+                        label: Text(
+                          tr('Professional.logIn.Jobs.Accepted'),
                         ),
                         labelStyle: TextStyle(
                           color: selectedFilter != JobsFilters.accepted
@@ -391,8 +392,8 @@ class _JobListScreenState extends State<JobListScreen> {
                         ),
                       ),
                       FilterChip(
-                        label: const Text(
-                          'Doing',
+                        label: Text(
+                          tr('Professional.logIn.Jobs.Doing'),
                         ),
                         labelStyle: TextStyle(
                           color: selectedFilter != JobsFilters.doing
@@ -415,8 +416,8 @@ class _JobListScreenState extends State<JobListScreen> {
                         ),
                       ),
                       FilterChip(
-                        label: const Text(
-                          'Rejected',
+                        label: Text(
+                          tr('Professional.logIn.Jobs.Rejected'),
                         ),
                         labelStyle: TextStyle(
                           color: selectedFilter != JobsFilters.rejected
@@ -439,8 +440,8 @@ class _JobListScreenState extends State<JobListScreen> {
                         ),
                       ),
                       FilterChip(
-                        label: const Text(
-                          'Completed',
+                        label: Text(
+                          tr('Professional.logIn.Jobs.Completed'),
                         ),
                         labelStyle: TextStyle(
                           color: selectedFilter != JobsFilters.completed
@@ -478,7 +479,10 @@ class _JobListScreenState extends State<JobListScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     child: singleSelectionButtons(
                         context: context,
-                        buttons: ['Search Jobs', 'My Jobs'],
+                        buttons: [
+                          tr('Professional.logIn.Jobs.Search_Jobs'),
+                          tr('Professional.logIn.Jobs.My_Jobs')
+                        ],
                         padding: 8,
                         selected: selectedType,
                         onSelectionChange: (value) {
@@ -494,7 +498,8 @@ class _JobListScreenState extends State<JobListScreen> {
                           child: Row(
                             children: [
                               Text(
-                                'earning limit '.toUpperCase(),
+                                tr('Professional.logIn.Jobs.earning_limit')
+                                    .toUpperCase(),
                                 style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 12,
@@ -527,22 +532,23 @@ class _JobListScreenState extends State<JobListScreen> {
                               borderRadius: BorderRadius.circular(16),
                               color: Colors.white),
                           margin: const EdgeInsets.symmetric(horizontal: 12),
-                          child: const ListTile(
+                          child: ListTile(
                             horizontalTitleGap: 1,
-                            leading: Padding(
+                            leading: const Padding(
                               padding: EdgeInsets.only(top: 6),
                               child: Icon(Icons.location_on_outlined,
                                   color: Colors.black, size: 28),
                             ),
                             title: Text(
-                              'PROVINCE',
-                              style: TextStyle(
+                              tr('Professional.logIn.Jobs.PRovince')
+                                  .toUpperCase(),
+                              style: const TextStyle(
                                 color: black343,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
-                            subtitle: Text(
+                            subtitle: const Text(
                               'Milano',
                               style: TextStyle(
                                 color: splashColor1,
@@ -550,7 +556,7 @@ class _JobListScreenState extends State<JobListScreen> {
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            trailing: Icon(
+                            trailing: const Icon(
                               Icons.keyboard_arrow_down,
                               color: splashColor1,
                             ),
@@ -817,12 +823,14 @@ class _JobListScreenState extends State<JobListScreen> {
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(16)),
           child: Column(
-            children: const [
-              Text("You didn’t took any job",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
-              SizedBox(height: 4),
-              Text("Search for a job",
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
+            children: [
+              Text(tr('Professional.logIn.Jobs.You_didn’t_took_any_job'),
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.w700)),
+              const SizedBox(height: 4),
+              Text(tr('Professional.logIn.Jobs.Search_for_a_job'),
+                  style: const TextStyle(
+                      fontSize: 12, fontWeight: FontWeight.w500)),
             ],
           ),
         ),
@@ -990,27 +998,27 @@ class _JobListScreenState extends State<JobListScreen> {
                   borderRadius: BorderRadius.circular(12), color: Colors.white),
               child: Center(
                 child: Column(
-                  children: const [
-                    SizedBox(height: 12),
+                  children: [
+                    const SizedBox(height: 12),
                     Text(
-                      'There are no jobs for now',
-                      style: TextStyle(
+                      tr('Professional.logIn.Jobs.There_are_no_jobs_for_now'),
+                      style: const TextStyle(
                         color: splashColor1,
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text(
-                      'Check it bit later or set another filters',
+                      tr('Professional.logIn.Jobs.Check_it_bit_later_or_set_another_filters'),
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: black343,
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    SizedBox(height: 12),
+                    const SizedBox(height: 12),
                   ],
                 ),
               ),

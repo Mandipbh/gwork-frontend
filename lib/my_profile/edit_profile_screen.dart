@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:g_worker_app/Constants.dart';
@@ -26,37 +27,37 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     controller.text = widget.value;
     switch (widget.type) {
       case ProfileFieldType.firstName:
-        label = 'Edit name';
-        description = 'Please enter your first name.';
+        label = tr('admin.Edit_name');
+        description = tr('admin.enter_first_name');
         break;
       case ProfileFieldType.lastName:
-        label = 'Edit last name';
-        description = 'Please enter your last name.';
+        label = tr('admin.Edit_last_name');
+        description = tr('admin.enter_last_name');
         break;
       case ProfileFieldType.email:
-        label = 'Edit email';
-        description = 'Please enter a valid email address.';
+        label = tr('admin.Edit_email');
+        description = tr('admin.enter_valid_email');
         break;
       case ProfileFieldType.phoneNumber:
-        label = 'Edit phone number';
-        description =
-            'Please enter your new phone number and we will send you an OTP code to confirm it.';
+        label = tr('admin.Edit_phone_number');
+        description = tr('admin.enter_new_phone_no');
         break;
       case ProfileFieldType.vatNumber:
-        label = 'Edit VAT number';
-        description = 'Please enter your VAT number';
+        label = tr('client.log_in.VAT_number.Edit_VAT_number');
+        description = tr('client.log_in.VAT_number.enter_VAR_number');
         break;
       case ProfileFieldType.password:
-        label = 'Change password';
-        description = 'Change your current password with a new one.';
+        label = tr('admin.change_password');
+        description = tr('admin.change_current_password');
         break;
       case ProfileFieldType.paymentMethod:
-        label = 'Edit payment method';
-        description = 'Edit your payment method.';
+        label = tr('client.log_in.Payment_method.Edit_payment_method');
+        description =
+            tr('client.log_in.Payment_method.Edit_your_payment_method');
         break;
       case ProfileFieldType.birthdate:
-        label = 'Edit birth date';
-        description = 'Please enter your birth date.';
+        label = tr('client.log_in.Birth_date.Edit_birth_date');
+        description = tr('client.log_in.Birth_date.enter_your_birth_date');
         break;
     }
     super.initState();
@@ -95,32 +96,32 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   widget.type == ProfileFieldType.firstName
                       ? nameTextField(
                           controller: controller,
-                          label: 'Name',
+                          label: tr('admin.First_Name'),
                           asset: 'user_first_name.png')
                       : widget.type == ProfileFieldType.lastName
                           ? nameTextField(
                               controller: controller,
-                              label: 'Last name',
+                              label: tr('admin.Last_name'),
                               asset: 'user.png')
                           : widget.type == ProfileFieldType.email
                               ? nameTextField(
-                                  label: 'Email',
+                                  label: tr('admin.Email'),
                                   controller: controller,
                                   asset: 'mail.png')
                               : widget.type == ProfileFieldType.phoneNumber
                                   ? nameTextField(
-                                      label: 'phone number',
+                                      label: tr('admin.phone_number'),
                                       controller: controller,
                                       asset: 'phone.png')
                                   : widget.type == ProfileFieldType.birthdate
                                       ? nameTextField(
-                                          label: 'Birth date',
+                                          label: tr('admin.Birth_Date'),
                                           controller: controller,
                                           asset: 'calendar_birthday.png')
                                       : widget.type ==
                                               ProfileFieldType.vatNumber
                                           ? nameTextField(
-                                              label: 'VAT number',
+                                              label: tr('admin.VAT_Number'),
                                               controller: controller,
                                               asset: 'hash.png')
                                           : widget.type ==
@@ -128,23 +129,24 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                               ? Column(
                                                   children: [
                                                     passwordTextField(
-                                                        label:
-                                                            'current password',
+                                                        label: tr(
+                                                            'admin.Current_Password'),
                                                         controller:
                                                             TextEditingController()),
                                                     const SizedBox(
                                                       height: 20,
                                                     ),
                                                     passwordTextField(
-                                                        label: 'new password',
+                                                        label: tr(
+                                                            'admin.New_Password'),
                                                         controller:
                                                             TextEditingController()),
                                                     const SizedBox(
                                                       height: 20,
                                                     ),
                                                     passwordTextField(
-                                                        label:
-                                                            'confirm new password',
+                                                        label: tr(
+                                                            'admin.Confirm_New_PAssword'),
                                                         controller:
                                                             TextEditingController()),
                                                   ],
@@ -158,8 +160,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                                               .start,
                                                       children: [
                                                         nameTextField(
-                                                            label:
-                                                                'card holder',
+                                                            label: tr(
+                                                                'client.log_in.sign_up.card_holder'),
                                                             asset:
                                                                 'user_first_name.png'),
                                                         const SizedBox(
@@ -199,9 +201,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                                                           24),
                                                                   hintText:
                                                                       '0000 0000 0000 0000',
-                                                                  labelText:
-                                                                      'Card Number'
-                                                                          .toUpperCase())),
+                                                                  labelText: tr(
+                                                                          'client.log_in.sign_up.Card_number')
+                                                                      .toUpperCase())),
                                                         ),
                                                         const SizedBox(
                                                             height: 20),
@@ -244,7 +246,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                                                             width:
                                                                                 24),
                                                                         labelText:
-                                                                            'Expire Date'.toUpperCase())),
+                                                                            tr('client.log_in.sign_up.Expire_date').toUpperCase())),
                                                               ),
                                                             ),
                                                             const SizedBox(
@@ -291,7 +293,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                                                         hintText:
                                                                             '***',
                                                                         labelText:
-                                                                            'CVV'.toUpperCase())),
+                                                                            tr('client.log_in.sign_up.CVV').toUpperCase())),
                                                               ),
                                                             ),
                                                           ],
