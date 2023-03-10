@@ -55,7 +55,7 @@ class MyProfileScreen extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  ProgressLoader(context);
+                  // ProgressLoader(context);
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),

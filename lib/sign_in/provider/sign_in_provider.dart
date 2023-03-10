@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:g_worker_app/Constants.dart';
+import 'package:g_worker_app/common/common_loader.dart';
 import 'package:g_worker_app/server_connection/api_client.dart';
 import 'package:g_worker_app/shared_preference_data.dart';
 import 'package:g_worker_app/sign_in/model/sign_in_request.dart';
@@ -9,7 +10,8 @@ import 'package:g_worker_app/sign_in/model/sign_in_response.dart';
 import 'package:g_worker_app/validations.dart';
 
 class SignInProvider extends ChangeNotifier {
-  final StreamController<SignInResponse> _loginResponse = StreamController.broadcast();
+  final StreamController<SignInResponse> _loginResponse =
+      StreamController.broadcast();
   SharedPreferenceData preferenceData = SharedPreferenceData();
   var phoneController = TextEditingController();
   var passwordController = TextEditingController();
@@ -38,13 +40,15 @@ class SignInProvider extends ChangeNotifier {
         passwordController.text.isNotEmpty;
   }
 
-  login() {
+  login(BuildContext context) {
     setIsLogging(true);
     SignInRequest request = SignInRequest(
         phoneNumber: phoneController.text.trim(),
         password: passwordController.text.trim());
-    ApiClient().login(request).then((loginResponse) {
-      if(loginResponse.success){
+    ApiClient().login(request, context).then((loginResponse) {
+      if (loginResponse.success) {
+        ProgressLoader(context, "Your password has been correctly updated.");
+        setIsLogging(false);
         preferenceData.setToken(loginResponse.token!);
         preferenceData.setUserRole(loginResponse.role!);
       }
@@ -58,7 +62,7 @@ class SignInProvider extends ChangeNotifier {
         phoneNumber: phoneController.text.trim(),
         password: passwordController.text.trim());
     ApiClient().adminLogin(request).then((loginResponse) {
-      if(loginResponse.success){
+      if (loginResponse.success) {
         preferenceData.setToken(loginResponse.token!);
         preferenceData.setUserRole(UserType.admin);
       }

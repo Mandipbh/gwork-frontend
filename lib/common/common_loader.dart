@@ -5,9 +5,9 @@ import 'package:flutter/src/widgets/placeholder.dart';
 // close snakbar
 //  ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
-ProgressLoader(BuildContext context) {
+ProgressLoader(BuildContext context, data) {
   return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      duration: const Duration(seconds: 20),
+      duration: const Duration(seconds: 5),
       elevation: 0,
       backgroundColor: Colors.transparent,
       content: Column(
@@ -23,7 +23,7 @@ ProgressLoader(BuildContext context) {
                   Flexible(
                     flex: 9,
                     child: Text(
-                      "Your settings have been correctly updated.",
+                      data,
                       style:
                           TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                     ),
@@ -45,9 +45,9 @@ ProgressLoader(BuildContext context) {
       )));
 }
 
-ErrorLoader(BuildContext context) {
+ErrorLoader(BuildContext context, String data) {
   return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      duration: const Duration(seconds: 20),
+      duration: const Duration(seconds: 3),
       elevation: 0,
       backgroundColor: Colors.transparent,
       content: Column(
@@ -62,15 +62,19 @@ ErrorLoader(BuildContext context) {
                 children: [
                   Flexible(
                     flex: 9,
-                    child: Text(
-                      "Your settings have been correctly updated.",
-                      style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 6.0),
+                      child: Text(
+                        data,
+                        style: TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.w500),
+                      ),
                     ),
                   ),
                   Flexible(
                     flex: 1,
                     child: Container(
+                      alignment: Alignment.centerRight,
                       height: 23,
                       width: 23,
                       child: CircularProgressIndicator(
