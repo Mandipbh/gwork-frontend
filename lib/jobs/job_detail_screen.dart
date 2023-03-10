@@ -27,6 +27,48 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
     },
     {
       "image": "assets/images/Ellipse.png",
+      "name": "Devon Lane",
+      "money": "€30,00",
+      "chatpending": "1"
+    },
+    {
+      "image": "assets/images/Ellipse.png",
+      "name": "Devon Lane",
+      "money": "€30,00",
+      "chatpending": "1"
+    },
+    {
+      "image": "assets/images/Ellipse.png",
+      "name": "Devon Lane",
+      "money": "€30,00",
+      "chatpending": "1"
+    },
+    {
+      "image": "assets/images/Ellipse.png",
+      "name": "Devon Lane",
+      "money": "€30,00",
+      "chatpending": "1"
+    },
+    {
+      "image": "assets/images/Ellipse.png",
+      "name": "Devon Lane",
+      "money": "€30,00",
+      "chatpending": "1"
+    },
+    {
+      "image": "assets/images/Ellipse.png",
+      "name": "Devon Lane",
+      "money": "€30,00",
+      "chatpending": "1"
+    },
+    {
+      "image": "assets/images/Ellipse.png",
+      "name": "Devon Lane",
+      "money": "€30,00",
+      "chatpending": "1"
+    },
+    {
+      "image": "assets/images/Ellipse.png",
       "name": "Eleanor Pena",
       "money": "€60,00",
       "chatpending": "20"
@@ -58,8 +100,26 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
     "https://i.pinimg.com/564x/fe/ff/ee/feffee64844e3dd2decccaa3661b1a41.jpg",
     "https://i.pinimg.com/564x/47/d4/3b/47d43bb5fb9df374dc08d8620d744d81.jpg",
     "https://i.pinimg.com/564x/59/16/8b/59168ba23c7371050a093394a7b76080.jpg",
-    "https://i.pinimg.com/550x/9d/dd/50/9ddd50ff3f173ef56a61a7277b50dcbd.jpg"
   ];
+  List oddlist = [];
+  List evenlist = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    for (int i = 0; i < imagelist.length; i++) {
+      if (i % 2 == 0) {
+        oddlist.add(imagelist[i]);
+      }
+    }
+    for (int i = 0; i < imagelist.length; i++) {
+      if (i % 2 == 1) {
+        evenlist.add(imagelist[i]);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,24 +133,29 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
               appBarView(),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 10),
-                        statusView(),
-                        const SizedBox(height: 12),
-                        textView(),
-                        const SizedBox(height: 12),
-                        tabView(),
-                        const SizedBox(height: 12),
-                        selectedType == 1
-                            ? description()
-                            : selectedType == 2
-                                ? Gallary()
-                                : Application()
-                      ],
-                    ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 0.0),
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 10),
+                      statusView(),
+                      const SizedBox(height: 12),
+                      textView(),
+                      const SizedBox(height: 12),
+                      tabView(),
+                      const SizedBox(height: 12),
+                      selectedType == 1
+                          ? Expanded(
+                              child: SingleChildScrollView(
+                                child: description(),
+                              ),
+                            )
+                          : selectedType == 2
+                              ? Expanded(
+                                  child:
+                                      SingleChildScrollView(child: Gallary()))
+                              : Expanded(child: Application()),
+                    ],
                   ),
                 ),
               )
@@ -233,25 +298,60 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   }
 
   Widget Gallary() {
-    return MasonryGridView.builder(
-      shrinkWrap: true,
-      physics: ClampingScrollPhysics(),
-      itemCount: imagelist.length,
-      gridDelegate:
-          SliverSimpleGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.all(6.0),
-          child: Material(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10.0),
-            elevation: 7.0,
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            type: MaterialType.transparency,
-            child: Image.network(imagelist[index]),
-          ),
-        );
-      },
+    return Column(
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Flexible(
+              flex: 1,
+              child: ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                // itemCount: (imagelist.length / 2).toInt(),
+                itemCount: oddlist.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Container(
+                        height: MediaQuery.of(context).size.height * 0.2,
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        child: Image.network(
+                          oddlist[index],
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            Flexible(
+              flex: 1,
+              child: ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: evenlist.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(1.0),
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.35,
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      child: Image.network(
+                        evenlist[index],
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            )
+          ],
+        ),
+      ],
     );
   }
 
