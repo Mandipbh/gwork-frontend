@@ -11,3 +11,15 @@
 .dart_tool/version
 .dart_tool/package_config_subset
 .dart_tool/package_config.json
+.flutter-plugins-dependencies
+.flutter-plugins
+.dart_tool/package_config_subset
+.dart_tool/package_config.json
+.dart_tool/flutter_build/39cac54c107a0a734967212f83e72d35/outputs.json
+.dart_tool/flutter_build/39cac54c107a0a734967212f83e72d35/kernel_snapshot.stamp
+.dart_tool/flutter_build/39cac54c107a0a734967212f83e72d35/kernel_snapshot.d
+.dart_tool/flutter_build/39cac54c107a0a734967212f83e72d35/flutter_assets.d
+.dart_tool/flutter_build/39cac54c107a0a734967212f83e72d35/debug_android_application.stamp
+.dart_tool/flutter_build/39cac54c107a0a734967212f83e72d35/app.dill
+.dart_tool/flutter_build/39cac54c107a0a734967212f83e72d35/.filecache
+.dart_tool/dartpad/web_plugin_registrant.dart

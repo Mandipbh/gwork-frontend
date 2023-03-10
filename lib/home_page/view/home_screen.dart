@@ -44,8 +44,8 @@ class _HomeScreenState extends State<HomeScreen> {
         : role == UserType.client
             ? clientView()
             : role == UserType.professional
-                ? professionalView()
-                : professionalView();
+                ? clientView()
+                : clientView();
   }
 
   Widget clientView() {

@@ -6,6 +6,7 @@ import 'package:g_worker_app/language_screen/language.dart';
 import 'package:g_worker_app/my_profile/edit_profile_screen.dart';
 import 'package:g_worker_app/sign_in/view/sign_in_sign_up_screen.dart';
 
+import '../common/common_loader.dart';
 import '../common/common_widgets.dart';
 
 class MyProfileScreen extends StatelessWidget {
@@ -52,11 +53,26 @@ class MyProfileScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                child: Text('ABC XYZ',
-                    style: Theme.of(context).textTheme.headline2),
+              InkWell(
+                onTap: () {
+                  ProgressLoader(context);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: Text('ABC XYZ',
+                      style: Theme.of(context).textTheme.headline2),
+                ),
               ),
+              // InkWell(
+              //   onTap: () {
+              //     ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              //   },
+              //   child: Padding(
+              //     padding: const EdgeInsets.symmetric(vertical: 16),
+              //     child: Text('ABC XYZ',
+              //         style: Theme.of(context).textTheme.headline2),
+              //   ),
+              // ),
               Row(
                 children: [
                   Image.asset('assets/icons/user_first_name.png',

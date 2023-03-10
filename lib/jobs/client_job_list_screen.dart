@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/jobs/add_new_job_screen.dart';
+import 'package:g_worker_app/my_profile/my_profile_screen.dart';
 
 import '../Constants.dart';
 import '../common/common_buttons.dart';
@@ -154,11 +155,20 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                  CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 24,
-                    child: Text("ST",
-                        style: Theme.of(context).textTheme.headline1),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MyProfileScreen(),
+                          ));
+                    },
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      radius: 24,
+                      child: Text("ST",
+                          style: Theme.of(context).textTheme.headline1),
+                    ),
                   )
                 ],
               ),
