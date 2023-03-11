@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:g_worker_app/Constants.dart';
@@ -41,8 +42,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     //TODO remove this
 
-    print("this is nulll role $role");
-    role == -1 ? role = UserType.admin : role = UserType.admin;
+    if (kDebugMode) {
+      print("this is nulll role $role");
+      role == -1 ? role = UserType.admin : role = UserType.admin;
+    }
 
     //
     return role == UserType.admin

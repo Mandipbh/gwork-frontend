@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/Constants.dart';
 
@@ -109,11 +110,13 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                         submitButton(
                           onButtonTap: () {
                             //TODO remove this
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const HomeScreen()),
-                            );
+                            if (kDebugMode) {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const HomeScreen()),
+                              );
+                            }
                             //
                             if (provider.isValidData()) {
                               provider.getLoginResponseStream().listen((event) {
