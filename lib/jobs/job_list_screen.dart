@@ -167,8 +167,8 @@ class _JobListScreenState extends State<JobListScreen> {
                         ),
                       ),
                       FilterChip(
-                        label: const Text(
-                          'Published',
+                        label: Text(
+                          tr('admin.dashboard.Published'),
                         ),
                         labelStyle: TextStyle(
                           color: selectedFilter != JobsFilters.all
@@ -191,8 +191,8 @@ class _JobListScreenState extends State<JobListScreen> {
                         ),
                       ),
                       FilterChip(
-                        label: const Text(
-                          'Doing',
+                        label: Text(
+                          tr('admin.dashboard.Doing'),
                         ),
                         labelStyle: TextStyle(
                           color: selectedFilter != JobsFilters.all
@@ -215,8 +215,8 @@ class _JobListScreenState extends State<JobListScreen> {
                         ),
                       ),
                       FilterChip(
-                        label: const Text(
-                          'Pending',
+                        label: Text(
+                          tr('admin.dashboard.Pending'),
                         ),
                         labelStyle: TextStyle(
                           color: selectedFilter != JobsFilters.applied
@@ -239,8 +239,8 @@ class _JobListScreenState extends State<JobListScreen> {
                         ),
                       ),
                       FilterChip(
-                        label: const Text(
-                          'Rejected',
+                        label: Text(
+                          tr('admin.dashboard.rejected'),
                         ),
                         labelStyle: TextStyle(
                           color: selectedFilter != JobsFilters.rejected
@@ -263,8 +263,8 @@ class _JobListScreenState extends State<JobListScreen> {
                         ),
                       ),
                       FilterChip(
-                        label: const Text(
-                          'Accepted',
+                        label: Text(
+                          tr('admin.dashboard.Accepted'),
                         ),
                         labelStyle: TextStyle(
                           color: selectedFilter != JobsFilters.accepted
@@ -287,8 +287,8 @@ class _JobListScreenState extends State<JobListScreen> {
                         ),
                       ),
                       FilterChip(
-                        label: const Text(
-                          'Completed',
+                        label: Text(
+                          tr('admin.dashboard.Completed'),
                         ),
                         labelStyle: TextStyle(
                           color: selectedFilter != JobsFilters.completed

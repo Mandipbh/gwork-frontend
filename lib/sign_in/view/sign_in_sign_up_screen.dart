@@ -108,6 +108,13 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                       children: [
                         submitButton(
                           onButtonTap: () {
+                            //TODO remove this
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const HomeScreen()),
+                            );
+                            //
                             if (provider.isValidData()) {
                               provider.getLoginResponseStream().listen((event) {
                                 if (event.success) {

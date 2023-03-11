@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:badges/badges.dart' as badges;
@@ -46,7 +47,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
                           color: selected == 0 ? Colors.white : Colors.black),
                       const SizedBox(height: 4),
                       Text(
-                        'Home'.toUpperCase(),
+                        tr('admin.dashboard.Home').toUpperCase(),
                         style: TextStyle(
                             color: selected == 0 ? Colors.white : black343,
                             fontFamily: 'Satoshi',
@@ -79,7 +80,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        'Jobs'.toUpperCase(),
+                        tr('admin.dashboard.Jobs').toUpperCase(),
                         style: TextStyle(
                             color: selected == 1 ? Colors.white : black343,
                             fontFamily: 'Satoshi',
@@ -124,7 +125,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        'Users'.toUpperCase(),
+                        tr('admin.dashboard.Users').toUpperCase(),
                         style: TextStyle(
                             color: selected == 2 ? Colors.white : black343,
                             fontFamily: 'Satoshi',

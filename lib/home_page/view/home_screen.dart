@@ -39,6 +39,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //TODO remove this
+
+    print("this is nulll role $role");
+    role == -1 ? role = UserType.admin : role = UserType.admin;
+
+    //
     return role == UserType.admin
         ? adminView()
         : role == UserType.client

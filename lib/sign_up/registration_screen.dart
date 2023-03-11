@@ -42,10 +42,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     builder: (context) => const SignInSignUpScreen()),
                 (Route<dynamic> route) => false);
           },
-          title:
-              tr('client.log_in.confirmation_panel.want_to_stop_registration'),
+          title: tr('client.confirmation_panel.want_to_stop_registration'),
           description:
-              tr('client.log_in.confirmation_panel.saved_data_will_be_deleted'),
+              tr('client.confirmation_panel.saved_data_will_be_deleted'),
           backButtonName: tr('admin.exit_dialogue.go_back'),
         );
         return false;
@@ -89,9 +88,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   (Route<dynamic> route) => false);
                             },
                             title: tr(
-                                'client.log_in.confirmation_panel.want_to_stop_registration'),
+                                'client.confirmation_panel.want_to_stop_registration'),
                             description: tr(
-                                'client.log_in.confirmation_panel.saved_data_will_be_deleted'),
+                                'client.confirmation_panel.saved_data_will_be_deleted'),
                             backButtonName: tr('admin.exit_dialogue.go_back'),
                           );
                         },

@@ -20,25 +20,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
   final earningsData = [
     ChartData(
         percentage: 39,
-        title: 'Cleaning',
+        title: tr('admin.dashboard.Cleaning'),
         value: 8.4,
         isMoney: true,
         color: const Color(0xffF4D874)),
     ChartData(
         percentage: 24,
-        title: 'Babysitting',
+        title: tr('admin.dashboard.baby_sitting'),
         value: 1.3,
         isMoney: true,
         color: Colors.black),
     ChartData(
         percentage: 25,
-        title: 'Handyman',
+        title: tr('admin.dashboard.handy_man'),
         value: 2.9,
         isMoney: true,
         color: const Color(0xff6DCF82)),
     ChartData(
         percentage: 12,
-        title: 'Tutoring',
+        title: tr('admin.dashboard.tutoring'),
         value: 3.2,
         isMoney: true,
         color: const Color(0xffEB7373)),
@@ -47,19 +47,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
   final jobsData = [
     ChartData(
         percentage: 39,
-        title: 'Pending',
+        title: tr('admin.dashboard.Pending'),
         value: 21,
         color: const Color(0xffF4D874)),
     ChartData(
-        percentage: 24, title: 'Published', value: 52, color: Colors.black),
+        percentage: 24,
+        title: tr('admin.dashboard.Published'),
+        value: 52,
+        color: Colors.black),
     ChartData(
         percentage: 25,
-        title: 'Completed',
+        title: tr('admin.dashboard.Completed'),
         value: 24,
         color: const Color(0xff6DCF82)),
     ChartData(
         percentage: 12,
-        title: 'Rejected',
+        title: tr('admin.dashboard.rejected'),
         value: 87,
         color: const Color(0xffEB7373)),
   ];
@@ -67,24 +70,30 @@ class _DashboardScreenState extends State<DashboardScreen> {
   final usersData = [
     ChartData(
         percentage: 76,
-        title: 'Client',
+        title: tr('admin.dashboard.client'),
         value: 123,
         color: const Color(0xffF4D874)),
     ChartData(
-        percentage: 24, title: 'Professional', value: 3, color: Colors.black),
+        percentage: 24,
+        title: tr('admin.dashboard.Professional'),
+        value: 3,
+        color: Colors.black),
   ];
 
   final applicationsData = [
     ChartData(
         percentage: 52,
-        title: 'Pending',
+        title: tr('admin.dashboard.Pending'),
         value: 675,
         color: const Color(0xffF4D874)),
     ChartData(
-        percentage: 26, title: 'Accepted', value: 745, color: Colors.black),
+        percentage: 26,
+        title: tr('admin.dashboard.Accepted'),
+        value: 745,
+        color: Colors.black),
     ChartData(
         percentage: 22,
-        title: 'Rejected',
+        title: tr('admin.dashboard.rejected'),
         value: 123,
         color: const Color(0xffEB7373)),
   ];
@@ -111,15 +120,23 @@ class _DashboardScreenState extends State<DashboardScreen> {
               child: SingleChildScrollView(
                   child: Column(children: [
                 dashboardView(
-                    title: 'Earnings',
+                    title: tr('admin.dashboard.Earnings'),
                     data: selectedFilter == DashboardFilters.today
                         ? []
                         : earningsData,
                     total: 8.4),
-                dashboardView(title: 'Jobs', data: jobsData, total: 120),
-                dashboardView(title: 'Users', data: usersData, total: 34),
                 dashboardView(
-                    title: 'Applications', data: applicationsData, total: 67),
+                    title: tr('admin.dashboard.Jobs'),
+                    data: jobsData,
+                    total: 120),
+                dashboardView(
+                    title: tr('admin.dashboard.Users'),
+                    data: usersData,
+                    total: 34),
+                dashboardView(
+                    title: tr('admin.job_detail.Applications'),
+                    data: applicationsData,
+                    total: 67),
                 const SizedBox(
                   height: 100,
                 ),

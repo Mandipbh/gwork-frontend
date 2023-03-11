@@ -55,9 +55,9 @@ class _UserListScreenState extends State<UserListScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                'Users',
-                style: TextStyle(
+              Text(
+                tr('admin.dashboard.Users'),
+                style: const TextStyle(
                   fontFamily: 'Satoshi',
                   color: Colors.white,
                   fontSize: 32,
