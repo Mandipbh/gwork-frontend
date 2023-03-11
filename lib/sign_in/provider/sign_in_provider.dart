@@ -43,7 +43,7 @@ class SignInProvider extends ChangeNotifier {
   login(BuildContext context) {
     setIsLogging(true);
     SignInRequest request = SignInRequest(
-        phoneNumber: phoneController.text.trim(),
+        phoneNumber: '+91${phoneController.text.trim()}',
         password: passwordController.text.trim());
     ApiClient().login(request, context).then((loginResponse) {
       if (loginResponse.success) {

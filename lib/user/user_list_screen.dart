@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/Constants.dart';
 import 'package:g_worker_app/colors.dart';
@@ -83,7 +84,10 @@ class _UserListScreenState extends State<UserListScreen> {
           const SizedBox(height: 20),
           singleSelectionButtons(
               context: context,
-              buttons: ['Registered (48)', 'Applications (0)'],
+              buttons: [
+                tr('admin.users.Registered'),
+                tr('admin.job_detail.Applications')
+              ],
               padding: 8,
               selected: selected,
               onSelectionChange: (value) {
@@ -186,21 +190,21 @@ class _UserListScreenState extends State<UserListScreen> {
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(16)),
           child: Column(
-            children: const [
+            children: [
               Text(
-                "There is no applications for now",
+                tr('admin.users.no_application'),
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
                     fontFamily: 'Satoshi',
                     color: primaryColor),
               ),
-              SizedBox(height: 4),
+              const SizedBox(height: 4),
               Text(
-                "Check it bit later please",
+                tr('admin.users.check_letter'),
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
                   height: 2,
