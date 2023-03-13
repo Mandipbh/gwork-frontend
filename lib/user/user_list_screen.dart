@@ -4,7 +4,7 @@ import 'package:g_worker_app/Constants.dart';
 import 'package:g_worker_app/colors.dart';
 
 import '../common/common_buttons.dart';
-import '../my_profile/my_profile_screen.dart';
+import '../my_profile/my_profile_widgets/my_profile_screen.dart';
 
 class UserListScreen extends StatefulWidget {
   const UserListScreen({super.key});

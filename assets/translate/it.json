@@ -381,7 +381,25 @@
       "provideServices": "Fornire servizi",
       "requireServices": "Richiedere servizi",
       "reason": "Motivo",
-      "Next": "AVANTI"
+      "Next": "AVANTI",
+      "Jobs": {
+        "Jobs": "Jobs",
+        "All_types": "Tutti",
+        "All_Jobs": "Tutti i lavori",
+        "Applied": "Pubblicato",
+        "Accepted": "Accettato",
+        "Doing": "In corso",
+        "Rejected": "Rifiutato",
+        "Completed": "Completato",
+        "Search_Jobs": "Ricerca lavoro",
+        "My_Jobs": "I miei lavori",
+        "earning_limit": "limite di guadagno",
+        "PRovince": "Provincia",
+        "There_are_no_jobs_for_now": "Non ci sono lavori per il momento",
+        "Check_it_bit_later_or_set_another_filters": "Controlla un po' più tardi o imposta altri filtri",
+        "You_didn’t_took_any_job": "Non hai accettato nessun lavoro",
+        "Search_for_a_job": "Cerca un lavoro"
+      }
     },
     "onBoardingSetPassword": {
       "Set_Password?": "Impostare la Password",

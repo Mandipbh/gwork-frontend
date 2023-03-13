@@ -5,7 +5,7 @@ import 'package:g_worker_app/Constants.dart';
 
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/main.dart';
-import 'package:g_worker_app/recover_password/recover_password_screen.dart';
+import 'package:g_worker_app/recover_password/recover_password_widgets/recover_password_screen.dart';
 import 'package:g_worker_app/sign_in/provider/sign_in_provider.dart';
 import 'package:g_worker_app/sign_up/registration_screen.dart';
 import 'package:provider/provider.dart';

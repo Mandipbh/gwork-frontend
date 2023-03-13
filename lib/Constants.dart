@@ -6,6 +6,23 @@ class ApiEndPoints {
   static const String login = "/worker/auth/login";
   static const String adminLogin = "/admin/auth/login";
   static const String signUp = "/worker/auth/register";
+  static const String getOtp = "/worker/auth/request-otp";
+  static const String checkMobileNumber = "/worker/auth/check-phone";
+  static const String checkEmail = "/worker/auth/check-email";
+  static const String verifyOtp = "/worker/auth/otp-verify-phone";
+  static const String updateName = "/worker/profile/name";
+  static const String updateLastName = "/worker/profile/surname";
+  static const String updatePassword = "/worker/profile/password";
+  static const String updateEmail = "/worker/profile/email";
+  static const String updateBirthDate = "/worker/profile/birth_date";
+  static const String updateVatNumber = "/worker/profile/vat_number";
+  static const String requestChangePhoneNumber =
+      "/worker/auth/request-phone-change";
+  static const String verifyPhoneNumberOtp = "/worker/auth/verify-phone-otp";
+  static const String updatePhoneNumber = "/worker/auth/phone-number";
+  static const String otpVerifyPhone = "/worker/auth/otp-verify";
+  static const String requestOtp = "/worker/auth/otp-verify";
+  static const String changePassword = "/worker/auth/change-password";
 }
 
 class DashboardFilters {

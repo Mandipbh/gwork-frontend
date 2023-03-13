@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     if (kDebugMode) {
       print("this is nulll role $role");
-      role == -1 ? role = UserType.admin : role = UserType.admin;
+      role == -1 ? role = UserType.professional : role = UserType.professional;
     }
 
     //

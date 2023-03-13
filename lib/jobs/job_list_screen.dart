@@ -5,7 +5,7 @@ import 'package:g_worker_app/common/common_buttons.dart';
 import 'package:g_worker_app/custom_progress_bar.dart';
 import 'package:g_worker_app/invoice_view_screen/invoice_view_screen.dart';
 import '../Constants.dart';
-import '../my_profile/my_profile_screen.dart';
+import '../my_profile/my_profile_widgets/my_profile_screen.dart';
 import 'job_detail_screen.dart';
 
 class JobListScreen extends StatefulWidget {
