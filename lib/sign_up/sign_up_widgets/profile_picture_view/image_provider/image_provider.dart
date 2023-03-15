@@ -14,7 +14,8 @@ class ProfilePicProvider extends ChangeNotifier {
   String? get getImageString => _getImageString;
   getImage(source) async {
     final ImagePicker _picker = ImagePicker();
-    final XFile? image = await _picker.pickImage(source: source);
+    final XFile? image =
+        await _picker.pickImage(source: source, imageQuality: 50);
     _imagePath = image!.path;
     _getImageString = await upLoadImage(
       File(_imagePath),

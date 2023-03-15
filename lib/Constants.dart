@@ -23,6 +23,7 @@ class ApiEndPoints {
   static const String otpVerifyPhone = "/worker/auth/otp-verify";
   static const String requestOtp = "/worker/auth/otp-verify";
   static const String changePassword = "/worker/auth/change-password";
+  static const String getProfile = "/worker/auth/";
 }
 
 class DashboardFilters {

@@ -43,7 +43,7 @@ class SignInProvider extends ChangeNotifier {
   login(BuildContext context) {
     setIsLogging(true);
     SignInRequest request = SignInRequest(
-        phoneNumber: '+91${phoneController.text.trim()}',
+        phoneNumber: phoneController.text.trim(),
         password: passwordController.text.trim());
     ApiClient().login(request, context).then((loginResponse) {
       if (loginResponse.success) {
@@ -52,6 +52,7 @@ class SignInProvider extends ChangeNotifier {
         preferenceData.setToken(loginResponse.token!);
         preferenceData.setUserRole(loginResponse.role!);
       }
+
       _loginResponse.sink.add(loginResponse);
     });
   }

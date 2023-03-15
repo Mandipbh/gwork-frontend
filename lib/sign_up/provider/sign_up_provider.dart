@@ -17,7 +17,7 @@ class SignUpProvider extends ChangeNotifier {
   var phoneController = TextEditingController();
   bool _isLogging = false;
   SharedPreferenceData preferenceData = SharedPreferenceData();
-
+  bool getIsLogging() => _isLogging;
   getPhone(val) {
     _phoneNo = val;
     notifyListeners();
@@ -34,13 +34,13 @@ class SignUpProvider extends ChangeNotifier {
         .checkMobileNumber(phoneController.text, context)
         .then((checkPhoneResponse) {
       if (checkPhoneResponse.success!) {
-        ProgressLoader(
-            context, "Phone Number Registered  And Get Otp SuccessFully");
         setIsLogging(false);
         ApiClient()
             .getOtp(phoneController.text, context)
             .then((checkGetOtpResponse) {
           if (checkGetOtpResponse.success!) {
+            ProgressLoader(context,
+                "Phone Number Registered  And Get Otp SuccessFully ${checkGetOtpResponse.otp}");
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -62,13 +62,18 @@ class SignUpProvider extends ChangeNotifier {
   String? _password;
   String? get password => _password;
 
-  setPassword(String password1, String confirmPassword) {
-    print("password1 ==> $password1");
-    print("confpassword1 ==> $confirmPassword");
-    if (password1 == confirmPassword) {
+  setPassword(String password1, String confirmPassword, BuildContext context) {
+    if (password1.isEmpty || confirmPassword.isEmpty) {
+      ErrorLoader(context, "Password cannot be empty");
+      notifyListeners();
+    } else if (password1 != confirmPassword) {
+      ErrorLoader(context, "Password do not match");
+      notifyListeners();
+    } else {
       _password = confirmPassword;
       print("password ==> $_password");
       notifyListeners();
+      return true;
     }
   }
 
@@ -90,12 +95,23 @@ class SignUpProvider extends ChangeNotifier {
   var birthDateController = TextEditingController();
 
   setPersonalInfo(String name, String lastName, String email, String textCode,
-      String birthDate) {
-    _name = name;
-    _lastName = lastName;
-    _email = email;
-    _textCode = textCode;
-    _birthDate = birthDate;
+      String birthDate, BuildContext context) {
+    if (name.isEmpty ||
+        lastName.isEmpty ||
+        email.isEmpty ||
+        textCode.isEmpty ||
+        birthDate.isEmpty) {
+      ErrorLoader(context, "Please fill all the details");
+      notifyListeners();
+    } else {
+      _name = name;
+      _lastName = lastName;
+      _email = email;
+      _textCode = textCode;
+      _birthDate = birthDate;
+      notifyListeners();
+      return true;
+    }
   }
 
   // payment Method
@@ -114,10 +130,21 @@ class SignUpProvider extends ChangeNotifier {
   var expireDateController = TextEditingController();
   var cvvController = TextEditingController();
 
-  setPaymentMethod(cardHolder, cardNumber, expireDate, cvv) {
-    _cardHolder = cardHolder;
-    _cardNumber = cardNumber;
-    _expireDate = expireDate;
-    _cvv = cvv;
+  setPaymentMethod(String cardHolder, String cardNumber, String expireDate,
+      String cvv, BuildContext context) {
+    if (cardHolder.isEmpty ||
+        cardNumber.isEmpty ||
+        expireDate.isEmpty ||
+        cvv.isEmpty) {
+      ErrorLoader(context, "Please fill all the details");
+      notifyListeners();
+    } else {
+      _cardHolder = cardHolder;
+      _cardNumber = cardNumber;
+      _expireDate = expireDate;
+      _cvv = cvv;
+      notifyListeners();
+      return true;
+    }
   }
 }

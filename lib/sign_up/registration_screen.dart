@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/Constants.dart';
+import 'package:g_worker_app/common/common_loader.dart';
 
 import 'package:g_worker_app/home_page/view/home_screen.dart';
 import 'package:g_worker_app/main.dart';
@@ -147,7 +148,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               onPageChanged: (int pageIndex) {
                 WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
                   setState(() {
-                    log("pageIndex ==> ${pagesProf.length}");
+                    log("pageIndex ==> ${pagesClient.length}");
+                    log("pageIndex ==> $pageIndex");
                     currentPage = pageIndex + 1;
                     log(currentPage.toString());
                   });
@@ -241,62 +243,101 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               curve: Curves.easeIn);
                         },
                         onNextTap: () {
-                          if (currentPage == 2) {
-                            value.setPassword(
-                                value.passwordController.text.toString(),
-                                value.confirmPasswordController.text
-                                    .toString());
-                          }
-                          if (currentPage == 3) {
-                            value.setPersonalInfo(
-                                value.nameController.text.toString(),
-                                value.confirmPasswordController.text.toString(),
-                                value.emailController.text.toString(),
-                                value.textCodeController.text.toString(),
-                                value.birthDateController.text.toString());
-                          }
-                          if (currentPage == 4) {
-                            value.setPaymentMethod(
-                                value.cardHolderController.text.toString(),
-                                value.cardNumberController.text.toString(),
-                                value.expireDateController.text.toString(),
-                                value.cvvController.text.toString());
-                          }
-                          if (currentPage == 5) {
-                            log(Provider.of<ProfilePicProvider>(context,
-                                    listen: false)
-                                .getImageString!);
-                            ApiClient()
-                                .userRegister(
-                                    firstName: value.name,
-                                    lastName: value.lastName,
-                                    email: value.email,
-                                    phoneNumber: value.phoneController.text,
-                                    password: value.password,
-                                    vatNumber: value.textCode,
-                                    birthDate: value.birthDate,
-                                    role: '0',
-                                    cardHolderName: value.cardHolder,
-                                    cardNumber: value.cardNumber,
-                                    cardExpiry: value.expireDate,
-                                    image: Provider.of<ProfilePicProvider>(
-                                            context,
-                                            listen: false)
-                                        .getImageString,
-                                    cardCvv: value.cvv)
-                                .then((value) {
-                              if (currentPage > 5) {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const PendingApplicationScreen()));
-                              }
-                            });
-                          } else {
+                          if (currentPage == 1) {
                             controller.nextPage(
                                 duration: const Duration(milliseconds: 200),
                                 curve: Curves.easeIn);
+                          }
+                          if (currentPage == 2) {
+                            // if(value.passwordController.text.isEmpty || value.confirmPasswordController.text.isEmpty)
+                            //   {}
+                            // else if(value.passwordController.text.compareTo(value.confirmPasswordController.text)){
+                            //
+                            // }
+                            bool isValid = value.setPassword(
+                                value.passwordController.text.toString(),
+                                value.confirmPasswordController.text.toString(),
+                                context);
+                            if (isValid) {
+                              FocusManager.instance.primaryFocus?.unfocus();
+                              controller.nextPage(
+                                  duration: const Duration(milliseconds: 200),
+                                  curve: Curves.easeIn);
+                            }
+                          }
+                          if (currentPage == 3) {
+                            bool isValid = value.setPersonalInfo(
+                                value.nameController.text.toString(),
+                                value.lastNameController.text.toString(),
+                                value.emailController.text.toString(),
+                                value.textCodeController.text.toString(),
+                                value.birthDateController.text.toString(),
+                                context);
+                            if (isValid) {
+                              FocusManager.instance.primaryFocus?.unfocus();
+                              controller.nextPage(
+                                  duration: const Duration(milliseconds: 200),
+                                  curve: Curves.easeIn);
+                            }
+                          }
+                          if (currentPage == 4) {
+                            bool isValid = value.setPaymentMethod(
+                                value.cardHolderController.text.toString(),
+                                value.cardNumberController.text.toString(),
+                                value.expireDateController.text.toString(),
+                                value.cvvController.text.toString(),
+                                context);
+                            if (isValid) {
+                              FocusManager.instance.primaryFocus?.unfocus();
+                              controller.nextPage(
+                                  duration: const Duration(milliseconds: 200),
+                                  curve: Curves.easeIn);
+                            }
+                          }
+                          if (currentPage == 5) {
+                            var pImage = context.read<ProfilePicProvider>();
+                            if (pImage.imagePath == "") {
+                              ErrorLoader(
+                                  context, "Please select profile picture");
+                            } else {
+                              value.setIsLogging(true);
+                              print(currentPage);
+                              ApiClient()
+                                  .userRegister(context,
+                                      firstName: value.name,
+                                      lastName: value.lastName,
+                                      email: value.email,
+                                      phoneNumber: value.phoneController.text,
+                                      password: value.password,
+                                      vatNumber: value.textCode,
+                                      birthDate: value.birthDate,
+                                      role: '0',
+                                      cardHolderName: value.cardHolder,
+                                      cardNumber: value.cardNumber,
+                                      cardExpiry: value.expireDate,
+                                      image: Provider.of<ProfilePicProvider>(
+                                              context,
+                                              listen: false)
+                                          .getImageString,
+                                      cardCvv: value.cvv)
+                                  .then((lue) {
+                                value.setIsLogging(false);
+                                currentPage = currentPage + 1;
+                                if (currentPage > 5) {
+                                  controller.nextPage(
+                                      duration:
+                                          const Duration(milliseconds: 200),
+                                      curve: Curves.easeIn);
+                                }
+                              });
+                            }
+                          }
+
+                          if (currentPage == 6) {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const HomeScreen()));
                           }
                         },
                         nextButtonName: currentPage > 5
@@ -363,10 +404,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         },
                         onNextTap: () {
                           if (currentPage == 2) {
-                            value.setPassword(
+                            bool isValid = value.setPassword(
                                 value.passwordController.text.toString(),
-                                value.confirmPasswordController.text
-                                    .toString());
+                                value.confirmPasswordController.text.toString(),
+                                context);
+                            if (isValid) {}
                           }
                           if (currentPage == 3) {
                             value.setPersonalInfo(
@@ -374,21 +416,23 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 value.confirmPasswordController.text.toString(),
                                 value.emailController.text.toString(),
                                 value.textCodeController.text.toString(),
-                                value.birthDateController.text.toString());
+                                value.birthDateController.text.toString(),
+                                context);
                           }
                           if (currentPage == 4) {
                             value.setPaymentMethod(
                                 value.cardHolderController.text.toString(),
                                 value.cardNumberController.text.toString(),
                                 value.expireDateController.text.toString(),
-                                value.cvvController.text.toString());
+                                value.cvvController.text.toString(),
+                                context);
                           }
                           if (currentPage > 6) {
                             log(Provider.of<ProfilePicProvider>(context,
                                     listen: false)
                                 .getImageString!);
                             ApiClient()
-                                .userRegister(
+                                .userRegister(context,
                                     firstName: value.name,
                                     lastName: value.lastName,
                                     email: value.email,
@@ -406,7 +450,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                         .getImageString,
                                     cardCvv: value.cvv)
                                 .then((value) {
-                              if (currentPage > 6) {
+                              if (currentPage > 7) {
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
@@ -415,9 +459,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               }
                             });
                           } else {
-                            controller.nextPage(
-                                duration: const Duration(milliseconds: 200),
-                                curve: Curves.easeIn);
+                            // controller.nextPage(
+                            //     duration: const Duration(milliseconds: 200),
+                            //     curve: Curves.easeIn);
                           }
                         },
                         nextButtonName: currentPage > 6

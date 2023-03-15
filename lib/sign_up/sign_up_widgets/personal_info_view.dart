@@ -51,6 +51,7 @@ class PersonalInfoView extends StatelessWidget {
                 style: const TextStyle(fontSize: 18),
                 controller: Provider.of<SignUpProvider>(context, listen: false)
                     .textCodeController,
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                     icon: Image.asset('assets/icons/hash.png',
                         height: 24, width: 24),
@@ -58,24 +59,44 @@ class PersonalInfoView extends StatelessWidget {
                         tr('client.log_in.sign_up.Text_Code').toUpperCase())),
           ),
           const SizedBox(height: 20),
-          Container(
-            height: 60,
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(16)),
-            child: TextField(
-                controller: Provider.of<SignUpProvider>(context, listen: false)
-                    .birthDateController,
-                style: const TextStyle(fontSize: 18),
-                // keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                    hintText: 'dd/mm/yyyy',
-                    hintStyle:
-                        const TextStyle(fontSize: 18, color: Colors.black12),
-                    icon: Image.asset('assets/icons/calendar_birthday.png',
-                        height: 24, width: 24),
-                    labelText:
-                        tr('client.log_in.sign_up.Birth_date').toUpperCase())),
+          GestureDetector(
+            onTap: () async {
+              DateTime? date = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime.now().subtract(Duration(days: 355000)),
+                  lastDate: DateTime.now());
+
+              Provider.of<SignUpProvider>(context, listen: false)
+                      .birthDateController
+                      .text =
+                  date!.day.toString() +
+                      '/' +
+                      date.month.toString() +
+                      '/' +
+                      date.year.toString();
+            },
+            child: Container(
+              height: 60,
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(16)),
+              child: TextField(
+                  enabled: false,
+                  controller:
+                      Provider.of<SignUpProvider>(context, listen: false)
+                          .birthDateController,
+                  style: const TextStyle(fontSize: 18),
+                  // keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                      hintText: 'dd/mm/yyyy',
+                      hintStyle:
+                          const TextStyle(fontSize: 18, color: Colors.black12),
+                      icon: Image.asset('assets/icons/calendar_birthday.png',
+                          height: 24, width: 24),
+                      labelText: tr('client.log_in.sign_up.Birth_date')
+                          .toUpperCase())),
+            ),
           ),
           const SizedBox(height: 20),
         ],
