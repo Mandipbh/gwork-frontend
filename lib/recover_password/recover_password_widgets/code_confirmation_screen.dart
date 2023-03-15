@@ -23,8 +23,10 @@ class CodeConfirmationScreen extends StatefulWidget {
 class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
   int secondsRemaining = 60;
   bool enableResend = false;
+  bool codeProgress = false;
   late Timer timer;
   String otp = '';
+
 
   @override
   initState() {
@@ -79,84 +81,106 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
           ),
         ),
         body: SingleChildScrollView(
-          child: Container(
-            height: MediaQuery.of(context).size.height * 0.9,
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+            Visibility(
+              visible: codeProgress,
+              child: Align(
+                  alignment: Alignment.center,
+                  child: CircularProgressIndicator(color: Colors.red,)),
+            ),
+
+            Container(
+                height: MediaQuery.of(context).size.height * 0.9,
+                padding: const EdgeInsets.all(20),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Text(
+                            tr('admin.sign_in.Code_confirmation'),
+                            style: Theme.of(context).textTheme.headline1,
+                          ),
+                        ),
+                        Text(
+                            "${tr('admin.sign_in.enter_digit')} ${widget.phoneNumber}",
+                            style: Theme.of(context).textTheme.bodyText2),
+                        const SizedBox(height: 20),
+
+                        OTPTextField(
+                            // controller: otpController,
+                            length: 4,
+                            width: MediaQuery.of(context).size.width,
+                            textFieldAlignment: MainAxisAlignment.spaceAround,
+                            contentPadding: const EdgeInsets.symmetric(vertical: 6),
+                            fieldWidth: MediaQuery.of(context).size.width / 5,
+                            otpFieldStyle: OtpFieldStyle(
+                                backgroundColor: Colors.white,
+                                enabledBorderColor: Colors.white,
+                                focusBorderColor: const Color(0xffD3DCD7)),
+                            fieldStyle: FieldStyle.box,
+                            outlineBorderRadius: 12,
+                            style: Theme.of(context).textTheme.headline2!,
+
+                            onChanged: (pin) {},
+                            onCompleted: (pin) {
+
+                              setState(() {
+                                codeProgress=true;
+                              });
+
+                              // ProgressLoader(
+                              //     context, "OTP Verify..");
+                              ApiClient()
+                                  .verifyOtp(
+                                      widget.phoneNumber.toString(), pin, context)
+                                  .then((checkVerifyOtp) {
+                                if (checkVerifyOtp.success!) {
+
+                                  ProgressLoader(
+                                      context, "OTP Verify SuccessFully");
+                                  timer.cancel();
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const RegistrationScreen()),
+                                  );
+                                }
+                              });
+                            }),
+                        const SizedBox(height: 20),
+                      ],
+                    ),
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: Text(
-                        tr('admin.sign_in.Code_confirmation'),
-                        style: Theme.of(context).textTheme.headline1,
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom),
+                      child: submitButton(
+                        onButtonTap: () {
+                          if (enableResend) {
+                            resendOTP();
+                          }
+                        },
+                        context: context,
+                        backgroundColor: Colors.transparent,
+                        textColor: enableResend ? Colors.black : Colors.grey,
+                        buttonName: enableResend
+                            ? tr('admin.sign_in.Request_new_code')
+                            : 'Request a new code (00:${secondsRemaining.toString().padLeft(2, '0')})',
+                        iconAsset: 'otp_send.png',
+                        iconColor: enableResend ? Colors.black : Colors.grey,
                       ),
                     ),
-                    Text(
-                        "${tr('admin.sign_in.enter_digit')} ${widget.phoneNumber}",
-                        style: Theme.of(context).textTheme.bodyText2),
-                    const SizedBox(height: 20),
-                    OTPTextField(
-                        // controller: otpController,
-                        length: 4,
-                        width: MediaQuery.of(context).size.width,
-                        textFieldAlignment: MainAxisAlignment.spaceAround,
-                        contentPadding: const EdgeInsets.symmetric(vertical: 6),
-                        fieldWidth: MediaQuery.of(context).size.width / 5,
-                        otpFieldStyle: OtpFieldStyle(
-                            backgroundColor: Colors.white,
-                            enabledBorderColor: Colors.white,
-                            focusBorderColor: const Color(0xffD3DCD7)),
-                        fieldStyle: FieldStyle.box,
-                        outlineBorderRadius: 12,
-                        style: Theme.of(context).textTheme.headline2!,
-                        onChanged: (pin) {},
-                        onCompleted: (pin) {
-                          ApiClient()
-                              .verifyOtp(
-                                  widget.phoneNumber.toString(), pin, context)
-                              .then((checkVerifyOtp) {
-                            if (checkVerifyOtp.success!) {
-                              ProgressLoader(
-                                  context, "OTP Verify SuccessFully");
-                              timer.cancel();
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const RegistrationScreen()),
-                              );
-                            }
-                          });
-                        }),
-                    const SizedBox(height: 20),
                   ],
                 ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).viewInsets.bottom),
-                  child: submitButton(
-                    onButtonTap: () {
-                      if (enableResend) {
-                        resendOTP();
-                      }
-                    },
-                    context: context,
-                    backgroundColor: Colors.transparent,
-                    textColor: enableResend ? Colors.black : Colors.grey,
-                    buttonName: enableResend
-                        ? tr('admin.sign_in.Request_new_code')
-                        : 'Request a new code (00:${secondsRemaining.toString().padLeft(2, '0')})',
-                    iconAsset: 'otp_send.png',
-                    iconColor: enableResend ? Colors.black : Colors.grey,
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
