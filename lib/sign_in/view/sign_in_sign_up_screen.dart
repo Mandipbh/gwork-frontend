@@ -5,6 +5,7 @@ import 'package:g_worker_app/Constants.dart';
 
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/main.dart';
+import 'package:g_worker_app/my_profile/my_profile_widgets/my_profile_screen.dart';
 import 'package:g_worker_app/recover_password/recover_password_widgets/recover_password_screen.dart';
 import 'package:g_worker_app/sign_in/provider/sign_in_provider.dart';
 import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
@@ -88,6 +89,7 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                     child: submitButton(
                       onButtonTap: () {
                         signUpProvider.checkPhoneNo(context);
+                        FocusManager.instance.primaryFocus?.unfocus();
                       },
                       context: context,
                       backgroundColor: primaryColor,
@@ -106,18 +108,14 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                       children: [
                         submitButton(
                           onButtonTap: () {
-                            //TODO remove this
-                            // if (kDebugMode) {
-                            //   Navigator.pushReplacement(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => const HomeScreen()),
-                            //   );
-                            // }
+                            //  TODO remove this
+
                             //
                             if (provider.isValidData()) {
                               provider.getLoginResponseStream().listen((event) {
                                 if (event.success) {
+                                  provider.clearSignIn();
+                                  FocusManager.instance.primaryFocus?.unfocus();
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
@@ -166,11 +164,12 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
           ),
           Positioned.fill(
               child: Center(
-                  child: provider.getIsLogging()
-                      ? const CircularProgressIndicator()
-                      : const SizedBox(
-                          height: 0,
-                        )))
+                  child:
+                      provider.getIsLogging() || signUpProvider.getIsLogging()
+                          ? const CircularProgressIndicator()
+                          : const SizedBox(
+                              height: 0,
+                            )))
         ],
       );
     });

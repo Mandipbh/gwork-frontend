@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:g_worker_app/Constants.dart';
 import 'package:g_worker_app/common/common_loader.dart';
+import 'package:g_worker_app/my_profile/model/get_profile_response.dart';
 import 'package:g_worker_app/my_profile/model/request_change_phonenumber_response.dart';
 import 'package:g_worker_app/my_profile/model/update_birthdate_response.dart';
 import 'package:g_worker_app/my_profile/model/update_email_response.dart';
@@ -31,6 +32,7 @@ import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
 
 import 'package:provider/provider.dart';
 
+import '../shared_preference_data.dart';
 import '../sign_up/model/sign_up_response.dart';
 
 class ApiClient {
@@ -73,7 +75,8 @@ class ApiClient {
     }
   }
 
-  Future<SignUpModel> userRegister({
+  Future<SignUpModel> userRegister(
+    BuildContext context, {
     String? firstName,
     String? lastName,
     String? email,
@@ -123,8 +126,12 @@ class ApiClient {
       print('REGISTER API :: ${response.data}');
       return SignUpModel.fromJson(response.data);
     } on DioError {
+      ErrorLoader(context, "Error in registration");
+      Provider.of<SignUpProvider>(context).setIsLogging(false);
       rethrow;
     } catch (e) {
+      ErrorLoader(context, "Error in registration");
+      Provider.of<SignUpProvider>(context).setIsLogging(false);
       print('ApiClient.adminLogin Error :: \ne');
       rethrow;
     }
@@ -262,6 +269,32 @@ class ApiClient {
       rethrow;
     } catch (e) {
       print('ApiClient.getOtp Error :: \ne');
+      rethrow;
+    }
+  }
+
+  Future<GetProfileModel> getProfile(BuildContext context) async {
+    try {
+      var request = json.encode({"surname": "johnson"});
+      var response = await dio.get('${API.baseUrl}${ApiEndPoints.getProfile}',
+          data: request,
+          options: Options(headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer ${await SharedPreferenceData().getToken()}"
+          }));
+      print("GET PROFILE :: ${response.data}");
+      return GetProfileModel.fromJson(response.data);
+    } on DioError {
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+      // Provider.of<SignUpProvider>(context, listen: false).setIsLogging(false);
+      print("----DIO ERROR Get Profile----");
+      rethrow;
+    } catch (e) {
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+      // Provider.of<SignUpProvider>(context, listen: false).setIsLogging(false);
+      print("----CATCH ERROR Get Profile----");
       rethrow;
     }
   }

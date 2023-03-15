@@ -62,27 +62,22 @@ ErrorLoader(BuildContext context, String data) {
             child: Center(
               child: Row(
                 children: [
-                  Flexible(
-                    flex: 9,
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 6.0),
-                      child: Text(
-                        data,
-                        style: TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.w500),
-                      ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 6.0),
+                    child: Text(
+                      data,
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                     ),
                   ),
-                  Flexible(
-                    flex: 1,
-                    child: Container(
-                      alignment: Alignment.centerRight,
-                      height: 23,
-                      width: 23,
-                      child: CircularProgressIndicator(
-                          strokeWidth: 3,
-                          backgroundColor: Color.fromARGB(255, 230, 118, 118)),
-                    ),
+                  Spacer(),
+                  Container(
+                    alignment: Alignment.centerRight,
+                    height: 23,
+                    width: 23,
+                    child: CircularProgressIndicator(
+                        strokeWidth: 3,
+                        backgroundColor: Color.fromARGB(255, 230, 118, 118)),
                   )
                 ],
               ),

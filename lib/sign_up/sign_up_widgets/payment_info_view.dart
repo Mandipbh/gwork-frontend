@@ -40,8 +40,10 @@ class PaymentInfoView extends StatelessWidget {
                     Provider.of<SignUpProvider>(context).cardNumberController,
                 style: const TextStyle(fontSize: 18),
                 keyboardType: TextInputType.number,
+                maxLength: 12,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 decoration: InputDecoration(
+                    counterText: "",
                     icon: Image.asset('assets/icons/credit_card_shield.png',
                         height: 24, width: 24),
                     labelText:
@@ -51,28 +53,32 @@ class PaymentInfoView extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: Container(
-                  height: 60,
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16)),
-                  child: TextField(
-                      controller: Provider.of<SignUpProvider>(context)
-                          .expireDateController,
-                      keyboardType: TextInputType.emailAddress,
-                      style: const TextStyle(fontSize: 18),
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'dd/mm',
-                          hintStyle: const TextStyle(
-                              fontSize: 18, color: Colors.black12),
-                          icon: Image.asset(
-                              'assets/icons/calendar_expiry_date.png',
-                              height: 24,
-                              width: 24),
-                          labelText: tr('client.log_in.sign_up.Expire_date')
-                              .toUpperCase())),
+                child: Consumer<SignUpProvider>(
+                  builder: (context, value, child) => Container(
+                    height: 60,
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16)),
+                    child: TextField(
+                        controller: value.expireDateController,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [CardExpirationFormatter()],
+                        style: const TextStyle(fontSize: 18),
+                        maxLength: 5,
+                        decoration: InputDecoration(
+                            counterText: "",
+                            border: InputBorder.none,
+                            hintText: 'mm/yy',
+                            hintStyle: const TextStyle(
+                                fontSize: 18, color: Colors.black12),
+                            icon: Image.asset(
+                                'assets/icons/calendar_expiry_date.png',
+                                height: 24,
+                                width: 24),
+                            labelText: tr('client.log_in.sign_up.Expire_date')
+                                .toUpperCase())),
+                  ),
                 ),
               ),
               const SizedBox(width: 20),
@@ -91,7 +97,9 @@ class PaymentInfoView extends StatelessWidget {
                       obscuringCharacter: '*',
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       keyboardType: TextInputType.number,
+                      maxLength: 3,
                       decoration: InputDecoration(
+                          counterText: "",
                           border: InputBorder.none,
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           icon: Image.asset('assets/icons/lock_unlocked.png',
@@ -104,6 +112,32 @@ class PaymentInfoView extends StatelessWidget {
           ),
           const SizedBox(height: 20),
         ],
+      ),
+    );
+  }
+}
+
+class CardExpirationFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    final newValueString = newValue.text;
+    String valueToReturn = '';
+
+    for (int i = 0; i < newValueString.length; i++) {
+      if (newValueString[i] != '/') valueToReturn += newValueString[i];
+      var nonZeroIndex = i + 1;
+      final contains = valueToReturn.contains(RegExp(r'\/'));
+      if (nonZeroIndex % 2 == 0 &&
+          nonZeroIndex != newValueString.length &&
+          !(contains)) {
+        valueToReturn += '/';
+      }
+    }
+    return newValue.copyWith(
+      text: valueToReturn,
+      selection: TextSelection.fromPosition(
+        TextPosition(offset: valueToReturn.length),
       ),
     );
   }
