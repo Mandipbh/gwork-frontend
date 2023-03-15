@@ -338,7 +338,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const HomeScreen()));
+                                    builder: (context) =>
+                                        const SignInSignUpScreen()));
                           }
                         },
                         nextButtonName: currentPage > 5
