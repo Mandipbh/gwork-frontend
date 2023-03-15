@@ -33,6 +33,7 @@ class SignUpProvider extends ChangeNotifier {
     ApiClient()
         .checkMobileNumber(phoneController.text, context)
         .then((checkPhoneResponse) {
+
       if (checkPhoneResponse.success!) {
         setIsLogging(false);
         ApiClient()
@@ -47,8 +48,10 @@ class SignUpProvider extends ChangeNotifier {
                   builder: (context) => CodeConfirmationScreen(
                       phoneNumber: phoneController.text)),
             );
+            notifyListeners();
           }
         });
+        notifyListeners();
       }
     });
   }

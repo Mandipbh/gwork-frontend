@@ -178,7 +178,9 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 25),
-        phoneNumberTextField(controller: signUpProvider.phoneController),
+        phoneNumberTextField(
+          controller: signUpProvider.phoneController,
+        ),
         const SizedBox(height: 20),
         Padding(
           padding: const EdgeInsets.only(right: 40),
