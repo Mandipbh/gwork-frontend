@@ -7,6 +7,7 @@ import 'package:g_worker_app/language_screen/language.dart';
 import 'package:g_worker_app/my_profile/my_profile_widgets/edit_profile_screen.dart';
 import 'package:g_worker_app/my_profile/provider/my_profile_provider.dart';
 import 'package:g_worker_app/server_connection/api_client.dart';
+import 'package:g_worker_app/shared_preference_data.dart';
 import 'package:g_worker_app/sign_in/view/sign_in_sign_up_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -480,6 +481,10 @@ class MyProfileScreen extends StatelessWidget {
                               askForExit(
                                 context: context,
                                 onBackPressed: () {
+                                  Provider.of<MyProfileProvider>(context,
+                                          listen: false)
+                                      .clearProfileProvider();
+                                  SharedPreferenceData().clearPrefs();
                                   Navigator.pushAndRemoveUntil(
                                       context,
                                       MaterialPageRoute(

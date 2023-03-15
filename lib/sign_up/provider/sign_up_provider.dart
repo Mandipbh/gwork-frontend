@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:g_worker_app/common/validation_items.dart';
 import 'package:g_worker_app/recover_password/recover_password_widgets/code_confirmation_screen.dart';
 import 'package:g_worker_app/sign_in/provider/sign_in_provider.dart';
+import 'package:g_worker_app/sign_up/sign_up_widgets/profile_picture_view/image_provider/image_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../Constants.dart';
@@ -33,7 +34,6 @@ class SignUpProvider extends ChangeNotifier {
     ApiClient()
         .checkMobileNumber(phoneController.text, context)
         .then((checkPhoneResponse) {
-
       if (checkPhoneResponse.success!) {
         setIsLogging(false);
         ApiClient()
@@ -149,5 +149,22 @@ class SignUpProvider extends ChangeNotifier {
       notifyListeners();
       return true;
     }
+  }
+
+  clearSignUpProvider(BuildContext context) {
+    phoneController.clear();
+    passwordController.clear();
+    confirmPasswordController.clear();
+    nameController.clear();
+    lastNameController.clear();
+    textCodeController.clear();
+    emailController.clear();
+    birthDateController.clear();
+    cardHolderController.clear();
+    cardNumberController.clear();
+    expireDateController.clear();
+    cvvController.clear();
+    Provider.of<ProfilePicProvider>(context, listen: false).clearImage();
+    notifyListeners();
   }
 }

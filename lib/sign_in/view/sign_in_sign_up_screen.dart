@@ -114,6 +114,8 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                             if (provider.isValidData()) {
                               provider.getLoginResponseStream().listen((event) {
                                 if (event.success) {
+                                  provider.clearSignIn();
+                                  FocusManager.instance.primaryFocus?.unfocus();
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(

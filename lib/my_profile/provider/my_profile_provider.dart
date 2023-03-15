@@ -19,4 +19,9 @@ class MyProfileProvider extends ChangeNotifier {
     _model = await ApiClient().getProfile(context);
     notifyListeners();
   }
+
+  clearProfileProvider() {
+    _model = null;
+    notifyListeners();
+  }
 }

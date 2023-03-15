@@ -22,4 +22,9 @@ class SharedPreferenceData {
     final SharedPreferences prefs = await _prefs;
     return prefs.getString('user_token') ?? '';
   }
+
+  clearPrefs() async {
+    final SharedPreferences prefs = await _prefs;
+    await prefs.clear();
+  }
 }

@@ -70,4 +70,10 @@ class SignInProvider extends ChangeNotifier {
       _loginResponse.sink.add(loginResponse);
     });
   }
+
+  clearSignIn() {
+    passwordController.clear();
+    phoneController.clear();
+    notifyListeners();
+  }
 }

@@ -334,6 +334,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           }
 
                           if (currentPage == 6) {
+                            value.clearSignUpProvider(context);
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
