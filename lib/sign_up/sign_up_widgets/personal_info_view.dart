@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/common/common_input_fields.dart';
+import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
+import 'package:provider/provider.dart';
 
 class PersonalInfoView extends StatelessWidget {
   const PersonalInfoView({super.key});
@@ -22,13 +24,20 @@ class PersonalInfoView extends StatelessWidget {
               style: Theme.of(context).textTheme.bodyText2),
           const SizedBox(height: 24),
           nameTextField(
+              controller: Provider.of<SignUpProvider>(context, listen: false)
+                  .nameController,
               label: tr('client.log_in.sign_up.Name'),
               asset: 'user_first_name.png'),
           const SizedBox(height: 20),
           nameTextField(
-              label: tr('client.log_in.sign_up.Last_name'), asset: 'user.png'),
+              controller: Provider.of<SignUpProvider>(context, listen: false)
+                  .lastNameController,
+              label: tr('client.log_in.sign_up.Last_name'),
+              asset: 'user.png'),
           const SizedBox(height: 20),
           nameTextField(
+              controller: Provider.of<SignUpProvider>(context, listen: false)
+                  .emailController,
               label: tr('client.log_in.sign_up.Email_id'),
               asset: 'mail.png',
               keyboardType: TextInputType.emailAddress),
@@ -40,6 +49,8 @@ class PersonalInfoView extends StatelessWidget {
                 color: Colors.white, borderRadius: BorderRadius.circular(16)),
             child: TextField(
                 style: const TextStyle(fontSize: 18),
+                controller: Provider.of<SignUpProvider>(context, listen: false)
+                    .textCodeController,
                 decoration: InputDecoration(
                     icon: Image.asset('assets/icons/hash.png',
                         height: 24, width: 24),
@@ -53,8 +64,10 @@ class PersonalInfoView extends StatelessWidget {
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(16)),
             child: TextField(
+                controller: Provider.of<SignUpProvider>(context, listen: false)
+                    .birthDateController,
                 style: const TextStyle(fontSize: 18),
-                keyboardType: TextInputType.number,
+                // keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                     hintText: 'dd/mm/yyyy',
                     hintStyle:

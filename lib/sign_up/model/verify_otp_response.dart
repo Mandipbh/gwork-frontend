@@ -1,21 +1,21 @@
 class VerifyOtpModel {
-  String? phoneNumber;
-  String? otp;
+  bool? success;
+  String? error;
 
   VerifyOtpModel({
-    this.phoneNumber,
-    this.otp,
+    this.success,
+    this.error,
   });
 
   VerifyOtpModel.fromJson(Map<String, dynamic> json) {
-    phoneNumber = json['phone_number'];
-    otp = json['otp'];
+    success = json['success'];
+    error = json['error'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
-    data['phone_number'] = phoneNumber;
-    data['otp'] = otp;
+    data['success'] = success;
+    data['error'] = error;
     return data;
   }
 }

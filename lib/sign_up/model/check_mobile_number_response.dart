@@ -1,17 +1,17 @@
 class CheckMobileNumberModel {
-  String? phoneNumber;
+  bool? success;
 
   CheckMobileNumberModel({
-    this.phoneNumber,
+    this.success,
   });
 
   CheckMobileNumberModel.fromJson(Map<String, dynamic> json) {
-    phoneNumber = json['phone_number'];
+    success = json['success'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
-    data['phone_number'] = phoneNumber;
+    data['success'] = success;
     return data;
   }
 }

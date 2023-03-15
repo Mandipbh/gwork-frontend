@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:g_worker_app/common/common_input_fields.dart';
+import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
+import 'package:provider/provider.dart';
 
 class PaymentInfoView extends StatelessWidget {
   const PaymentInfoView({super.key});
@@ -23,6 +25,8 @@ class PaymentInfoView extends StatelessWidget {
               style: Theme.of(context).textTheme.bodyText2),
           const SizedBox(height: 40),
           nameTextField(
+              controller:
+                  Provider.of<SignUpProvider>(context).cardHolderController,
               label: tr('client.log_in.sign_up.card_holder'),
               asset: 'user_first_name.png'),
           const SizedBox(height: 20),
@@ -32,6 +36,8 @@ class PaymentInfoView extends StatelessWidget {
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(16)),
             child: TextField(
+                controller:
+                    Provider.of<SignUpProvider>(context).cardNumberController,
                 style: const TextStyle(fontSize: 18),
                 keyboardType: TextInputType.number,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -52,6 +58,8 @@ class PaymentInfoView extends StatelessWidget {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(16)),
                   child: TextField(
+                      controller: Provider.of<SignUpProvider>(context)
+                          .expireDateController,
                       keyboardType: TextInputType.emailAddress,
                       style: const TextStyle(fontSize: 18),
                       decoration: InputDecoration(
@@ -76,6 +84,8 @@ class PaymentInfoView extends StatelessWidget {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(16)),
                   child: TextField(
+                      controller:
+                          Provider.of<SignUpProvider>(context).cvvController,
                       style: const TextStyle(fontSize: 18),
                       obscureText: true,
                       obscuringCharacter: '*',

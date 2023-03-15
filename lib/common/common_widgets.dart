@@ -1,4 +1,9 @@
+import 'dart:convert';
+import 'dart:io';
+import 'dart:isolate';
+
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/common/common_buttons.dart';
@@ -6,6 +11,21 @@ import 'package:g_worker_app/sign_up/sign_up_widgets/profile_picture_view/edit_p
 import 'package:g_worker_app/sign_up/sign_up_widgets/profile_picture_view/upload_profile_picture_dialogue.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/upload_document_view/edit_document_dialogue.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/upload_document_view/upload_document_dialogue.dart';
+
+void base64EncodeFile(List<dynamic> args) {
+  final SendPort sendPort = args[0] as SendPort;
+  final File file = args[1] as File;
+  Uint8List imgBytes = file.readAsBytesSync();
+  String imageBase64 = base64Encode(imgBytes.toList());
+  sendPort.send(imageBase64);
+}
+
+Future<String> upLoadImage(File image) async {
+  final receivePort = ReceivePort();
+  Isolate.spawn(base64EncodeFile, [receivePort.sendPort, image]);
+  final dynamic imageBase64 = await receivePort.first;
+  return imageBase64 as String;
+}
 
 void askForExit({
   required BuildContext context,

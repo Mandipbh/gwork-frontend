@@ -27,6 +27,7 @@ import 'package:g_worker_app/sign_in/model/sign_in_request.dart';
 import 'package:g_worker_app/sign_in/model/sign_in_response.dart';
 import 'package:g_worker_app/sign_in/provider/sign_in_provider.dart';
 import 'package:g_worker_app/sign_up/model/verify_otp_response.dart';
+import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
 
 import 'package:provider/provider.dart';
 
@@ -49,6 +50,9 @@ class ApiClient {
       Provider.of<SignInProvider>(context, listen: false).setIsLogging(false);
       rethrow;
     } catch (e) {
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+      Provider.of<SignInProvider>(context, listen: false).setIsLogging(false);
       log("https2");
       print('ApiClient.adminLogin Error :: \ne');
       rethrow;
@@ -70,39 +74,53 @@ class ApiClient {
   }
 
   Future<SignUpModel> userRegister({
-    required String firstName,
-    required String lastName,
-    required String email,
-    required String phoneNumber,
-    required String password,
-    required String vatNumber,
-    required String birthDate,
-    required String role,
-    required String cardHolderName,
-    required String cardNumber,
-    required String cardExpiry,
-    required String image,
+    String? firstName,
+    String? lastName,
+    String? email,
+    String? phoneNumber,
+    String? password,
+    String? vatNumber,
+    String? birthDate,
+    String? role,
+    String? cardHolderName,
+    String? cardNumber,
+    String? cardExpiry,
+    String? cardCvv,
+    String? image,
   }) async {
+    print("firstName ==> $firstName");
+    print("lastName ==> $lastName");
+    print("email ==> $email");
+    print("phoneNumber ==> $phoneNumber");
+    print("password ==> $password");
+    print("vatNumber ==> $vatNumber");
+    print("role ==> $role");
+    print("cardHolderName ==> $cardHolderName");
+    print("cardNumber ==> $cardNumber");
+    print("cardExpiry ==> $cardExpiry");
+    print("cardCvv ==> $cardCvv");
+    print("image ==> $image");
     try {
+      print("@@@");
       var request = json.encode({
-        "first_name": "jaynik",
-        "last_name": "patel",
-        "email": "jaynikpatel119977.jp@gmail.com",
-        "phone_number": "9033834715",
-        "password": "Jk123@",
-        "vat_number": "12345",
-        "birth_date": "31/12/2002",
-        "role": "0",
-        "card_holder_name": "patel",
-        "card_number": "122212221222",
-        "card_expiry": "05/25",
-        "card_cvv": "555",
-        "image": ""
+        "first_name": firstName,
+        "last_name": lastName,
+        "email": email,
+        "phone_number": phoneNumber,
+        "password": password,
+        "vat_number": vatNumber,
+        "birth_date": birthDate,
+        "role": role,
+        "card_holder_name": cardHolderName,
+        "card_number": cardNumber,
+        "card_expiry": cardExpiry,
+        "card_cvv": cardCvv,
+        "image": image,
       });
       var response = await dio.put('${API.baseUrl}${ApiEndPoints.signUp}',
           data: request,
           options: Options(headers: {'Content-Type': 'application/json'}));
-
+      print('REGISTER API :: ${response.data}');
       return SignUpModel.fromJson(response.data);
     } on DioError {
       rethrow;
@@ -112,39 +130,55 @@ class ApiClient {
     }
   }
 
-  Future<OtpModel> getOtp({
-    required String phoneNumber,
-  }) async {
+  Future<OtpModel> getOtp(
+    String phoneNumber,
+    BuildContext context,
+  ) async {
     try {
-      var request = json.encode({"phone_number": "+919033834715"});
+      var request = json.encode({"phone_number": phoneNumber});
       var response = await dio.post('${API.baseUrl}${ApiEndPoints.getOtp}',
           data: request,
           options: Options(headers: {'Content-Type': 'application/json'}));
-
+      print('ApiClient.GET OTP  :: \ne${response.data}');
+      print('ApiClient.GET OTP  :: \ne$phoneNumber');
       return OtpModel.fromJson(response.data);
     } on DioError {
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+      Provider.of<SignUpProvider>(context, listen: false).setIsLogging(false);
+      print("----DIO ERROR GET OTP----");
       rethrow;
     } catch (e) {
-      print('ApiClient.getOtp Error :: \ne');
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+      Provider.of<SignUpProvider>(context, listen: false).setIsLogging(false);
+      print("----CATCH ERROR GET OTP----");
       rethrow;
     }
   }
 
-  Future<CheckMobileNumberModel> checkMobileNumber({
-    required String phoneNumber,
-  }) async {
+  Future<CheckMobileNumberModel> checkMobileNumber(
+      String phoneNumber, BuildContext context) async {
     try {
-      var request = json.encode({"phone_number": "+919033834715"});
+      var request = json.encode({"phone_number": phoneNumber});
       var response = await dio.post(
           '${API.baseUrl}${ApiEndPoints.checkMobileNumber}',
           data: request,
           options: Options(headers: {'Content-Type': 'application/json'}));
-
+      print('ApiClient.checkMobileNo  :: \ne${response.data}');
+      print('ApiClient.checkMobileNo  :: \ne$phoneNumber');
       return CheckMobileNumberModel.fromJson(response.data);
     } on DioError {
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+      Provider.of<SignUpProvider>(context, listen: false).setIsLogging(false);
+      print("----DIO ERROR CHECK MOBILENUMBER----");
       rethrow;
     } catch (e) {
-      print('ApiClient.getOtp Error :: \ne');
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+      Provider.of<SignUpProvider>(context, listen: false).setIsLogging(false);
+      print("----CATCH ERROR CHECK MOBILENUMBER----");
       rethrow;
     }
   }
@@ -167,24 +201,30 @@ class ApiClient {
     }
   }
 
-  Future<VerifyOtpModel> verifyOtp({
-    required String phoneNumber,
-    required String otp,
-  }) async {
+  Future<VerifyOtpModel> verifyOtp(
+      String phoneNumber, String otp, BuildContext context) async {
     try {
       var request = json.encode({
-        "phone_number": "+919033834715",
-        "otp": "8376",
+        "phone_number": phoneNumber,
+        "otp": otp,
       });
       var response = await dio.post('${API.baseUrl}${ApiEndPoints.verifyOtp}',
           data: request,
           options: Options(headers: {'Content-Type': 'application/json'}));
-
+      print('ApiClient.verify Otp  :: \ne$phoneNumber');
+      print('ApiClient.verify Otp  :: \ne${response.data}');
       return VerifyOtpModel.fromJson(response.data);
     } on DioError {
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+      Provider.of<SignUpProvider>(context, listen: false).setIsLogging(false);
+      print("----DIO ERROR Verify Otp----");
       rethrow;
     } catch (e) {
-      print('ApiClient.getOtp Error :: \ne');
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+      Provider.of<SignUpProvider>(context, listen: false).setIsLogging(false);
+      print("----CATCH ERROR Verify Otp----");
       rethrow;
     }
   }
@@ -245,21 +285,6 @@ class ApiClient {
       print('ApiClient.getOtp Error :: \ne');
       rethrow;
     }
-  }
-
-  void base64EncodeFile(List<dynamic> args) {
-    final SendPort sendPort = args[0] as SendPort;
-    final File file = args[1] as File;
-    Uint8List imgBytes = file.readAsBytesSync();
-    String imageBase64 = base64Encode(imgBytes.toList());
-    sendPort.send(imageBase64);
-  }
-
-  Future<String> upLoadImage(File image) async {
-    final receivePort = ReceivePort();
-    Isolate.spawn(base64EncodeFile, [receivePort.sendPort, image]);
-    final dynamic imageBase64 = await receivePort.first;
-    return imageBase64 as String;
   }
 
   Future<UpdateEmailModel> updateEmail({

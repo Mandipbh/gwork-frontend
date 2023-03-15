@@ -55,7 +55,7 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const CodeConfirmationScreen()),
+                          builder: (context) => CodeConfirmationScreen()),
                     );
                   },
                   context: context,

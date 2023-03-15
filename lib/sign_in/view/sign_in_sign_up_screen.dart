@@ -7,6 +7,7 @@ import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/main.dart';
 import 'package:g_worker_app/recover_password/recover_password_widgets/recover_password_screen.dart';
 import 'package:g_worker_app/sign_in/provider/sign_in_provider.dart';
+import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
 import 'package:g_worker_app/sign_up/registration_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -24,8 +25,8 @@ class SignInSignUpScreen extends StatefulWidget {
 class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<SignInProvider>(
-        builder: (BuildContext context, provider, Widget? child) {
+    return Consumer2<SignInProvider, SignUpProvider>(builder:
+        (BuildContext context, provider, signUpProvider, Widget? child) {
       return Stack(
         children: [
           Scaffold(
@@ -69,7 +70,7 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                       height: 30,
                     ),
                     provider.getSelected() == SelectionType.signUp
-                        ? signUpView()
+                        ? signUpView(signUpProvider)
                         : loginView(provider)
                   ],
                 ),
@@ -86,11 +87,7 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                             : 16),
                     child: submitButton(
                       onButtonTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const RegistrationScreen()),
-                        );
+                        signUpProvider.checkPhoneNo(context);
                       },
                       context: context,
                       backgroundColor: primaryColor,
@@ -110,13 +107,13 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                         submitButton(
                           onButtonTap: () {
                             //TODO remove this
-                            if (kDebugMode) {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const HomeScreen()),
-                              );
-                            }
+                            // if (kDebugMode) {
+                            //   Navigator.pushReplacement(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => const HomeScreen()),
+                            //   );
+                            // }
                             //
                             if (provider.isValidData()) {
                               provider.getLoginResponseStream().listen((event) {
@@ -179,12 +176,12 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
     });
   }
 
-  Widget signUpView() {
+  Widget signUpView(SignUpProvider signUpProvider) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 25),
-        phoneNumberTextField(controller: TextEditingController(text: ' ')),
+        phoneNumberTextField(controller: signUpProvider.phoneController),
         const SizedBox(height: 20),
         Padding(
           padding: const EdgeInsets.only(right: 40),

@@ -6,6 +6,8 @@ import 'package:g_worker_app/Constants.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/home_page/provider/home_page_provider.dart';
 import 'package:g_worker_app/language_screen/language_provider/language_provider.dart';
+import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
+import 'package:g_worker_app/sign_up/registration_screen.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/profile_picture_view/image_provider/image_provider.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/upload_document_view/document_provider/document_provider.dart';
 import 'package:g_worker_app/splash_screen.dart';
@@ -33,7 +35,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  static int apkType = UserType.professional;
+  static int apkType = UserType.client;
 
   // This widget is the root of your application.
   @override
@@ -57,7 +59,10 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => HomePageProvider(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (context) => SignUpProvider(),
+        ),
       ],
       child: MaterialApp(
         title: 'g.work',

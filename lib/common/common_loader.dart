@@ -11,11 +11,12 @@ ProgressLoader(BuildContext context, data) {
       elevation: 0,
       backgroundColor: Colors.transparent,
       content: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
             decoration: BoxDecoration(
-                color: Color(0xff343734),
+                color: const Color(0xff343734),
                 borderRadius: BorderRadius.circular(12)),
             child: Center(
               child: Row(
@@ -24,16 +25,17 @@ ProgressLoader(BuildContext context, data) {
                     flex: 9,
                     child: Text(
                       data,
-                      style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                      style: const TextStyle(
+                          fontSize: 14, fontWeight: FontWeight.w500),
                     ),
                   ),
+                  const SizedBox(width: 10),
                   Flexible(
                     flex: 1,
                     child: Container(
                       height: 23,
                       width: 23,
-                      child: CircularProgressIndicator(
+                      child: const CircularProgressIndicator(
                           strokeWidth: 3, backgroundColor: Color(0xff545855)),
                     ),
                   )
