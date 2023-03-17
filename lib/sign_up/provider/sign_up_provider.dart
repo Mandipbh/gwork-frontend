@@ -13,16 +13,16 @@ import '../../server_connection/api_client.dart';
 import '../../shared_preference_data.dart';
 
 class SignUpProvider extends ChangeNotifier {
-  String? _phoneNo;
-  String? get phoneNo => _phoneNo;
+  // String? _phoneNo;
+  // String? get phoneNo => _phoneNo;
   var phoneController = TextEditingController();
   bool _isLogging = false;
   SharedPreferenceData preferenceData = SharedPreferenceData();
   bool getIsLogging() => _isLogging;
-  getPhone(val) {
-    _phoneNo = val;
-    notifyListeners();
-  }
+  // getPhone(val) {
+  //   _phoneNo = val;
+  //   notifyListeners();
+  // }
 
   setIsLogging(bool value) {
     _isLogging = value;

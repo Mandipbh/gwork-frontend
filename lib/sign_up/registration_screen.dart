@@ -318,7 +318,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                       image: Provider.of<ProfilePicProvider>(
                                               context,
                                               listen: false)
-                                          .getImageString,
+                                          .imagePath,
                                       cardCvv: value.cvv)
                                   .then((lue) {
                                 value.setIsLogging(false);
