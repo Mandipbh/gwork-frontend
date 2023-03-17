@@ -138,7 +138,7 @@ class MyProfileScreen extends StatelessWidget {
                                     style:
                                         Theme.of(context).textTheme.headline6),
                                 const SizedBox(height: 6),
-                                Text('${myProfileProvder.model!.user!.name!}',
+                                Text(myProfileProvder.model!.user!.name!,
                                     style:
                                         Theme.of(context).textTheme.bodyText2),
                               ],
@@ -157,7 +157,8 @@ class MyProfileScreen extends StatelessWidget {
                                     MaterialPageRoute(
                                         builder: (context) => EditProfileScreen(
                                               type: ProfileFieldType.firstName,
-                                              value: 'ABC',
+                                              value: myProfileProvder
+                                                  .model!.user!.name!,
                                             )),
                                   );
                                 }),
@@ -176,8 +177,7 @@ class MyProfileScreen extends StatelessWidget {
                                     style:
                                         Theme.of(context).textTheme.headline6),
                                 const SizedBox(height: 6),
-                                Text(
-                                    '${myProfileProvder.model!.user!.surname!}',
+                                Text(myProfileProvder.model!.user!.surname!,
                                     style:
                                         Theme.of(context).textTheme.bodyText2),
                               ],
@@ -196,7 +196,8 @@ class MyProfileScreen extends StatelessWidget {
                                     MaterialPageRoute(
                                         builder: (context) => EditProfileScreen(
                                               type: ProfileFieldType.lastName,
-                                              value: 'xYZ',
+                                              value: myProfileProvder
+                                                  .model!.user!.surname!,
                                             )),
                                   );
                                 }),
@@ -215,7 +216,7 @@ class MyProfileScreen extends StatelessWidget {
                                     style:
                                         Theme.of(context).textTheme.headline6),
                                 const SizedBox(height: 6),
-                                Text('${myProfileProvder.model!.user!.email!}',
+                                Text(myProfileProvder.model!.user!.email!,
                                     style:
                                         Theme.of(context).textTheme.bodyText2),
                               ],
@@ -234,7 +235,8 @@ class MyProfileScreen extends StatelessWidget {
                                     MaterialPageRoute(
                                         builder: (context) => EditProfileScreen(
                                               type: ProfileFieldType.email,
-                                              value: 'xyz@email.com',
+                                              value: myProfileProvder
+                                                  .model!.user!.email!,
                                             )),
                                   );
                                 }),
@@ -293,8 +295,7 @@ class MyProfileScreen extends StatelessWidget {
                                     style:
                                         Theme.of(context).textTheme.headline6),
                                 const SizedBox(height: 6),
-                                Text(
-                                    '${myProfileProvder.model!.user!.vatNumber!}',
+                                Text(myProfileProvder.model!.user!.vatNumber!,
                                     style:
                                         Theme.of(context).textTheme.bodyText2),
                               ],
@@ -313,7 +314,8 @@ class MyProfileScreen extends StatelessWidget {
                                     MaterialPageRoute(
                                         builder: (context) => EditProfileScreen(
                                               type: ProfileFieldType.vatNumber,
-                                              value: 'AB876868798HFH',
+                                              value: myProfileProvder
+                                                  .model!.user!.vatNumber!,
                                             )),
                                   );
                                 }),
@@ -332,8 +334,7 @@ class MyProfileScreen extends StatelessWidget {
                                     style:
                                         Theme.of(context).textTheme.headline6),
                                 const SizedBox(height: 6),
-                                Text(
-                                    '${myProfileProvder.model!.user!.birthDate!}',
+                                Text(myProfileProvder.model!.user!.birthDate!,
                                     style:
                                         Theme.of(context).textTheme.bodyText2),
                               ],
@@ -352,7 +353,8 @@ class MyProfileScreen extends StatelessWidget {
                                     MaterialPageRoute(
                                         builder: (context) => EditProfileScreen(
                                               type: ProfileFieldType.birthdate,
-                                              value: '23/01/1998',
+                                              value: myProfileProvder
+                                                  .model!.user!.birthDate!,
                                             )),
                                   );
                                 }),
@@ -371,8 +373,7 @@ class MyProfileScreen extends StatelessWidget {
                                     style:
                                         Theme.of(context).textTheme.headline6),
                                 const SizedBox(height: 6),
-                                Text(
-                                    '${myProfileProvder.model!.user!.cardNumber!}',
+                                Text(myProfileProvder.model!.user!.cardNumber!,
                                     style:
                                         Theme.of(context).textTheme.bodyText2),
                               ],
