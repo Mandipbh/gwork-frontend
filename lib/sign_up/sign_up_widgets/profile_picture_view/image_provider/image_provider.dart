@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:g_worker_app/server_connection/api_client.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../common/common_widgets.dart';

@@ -430,9 +430,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 context);
                           }
                           if (currentPage > 6) {
-                            log(Provider.of<ProfilePicProvider>(context,
-                                    listen: false)
-                                .getImageString!);
+                            // log(Provider.of<ProfilePicProvider>(context,
+                            //         listen: false)
+                            //     .getImageString!);
                             ApiClient()
                                 .userRegister(context,
                                     firstName: value.name,

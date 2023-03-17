@@ -4,6 +4,7 @@ import 'package:g_worker_app/Constants.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/common/common_buttons.dart';
 import 'package:g_worker_app/language_screen/language.dart';
+import 'package:g_worker_app/my_profile/my_profile_widgets/edit_profile_picture_dialogue_client.dart';
 import 'package:g_worker_app/my_profile/my_profile_widgets/edit_profile_screen.dart';
 import 'package:g_worker_app/my_profile/provider/my_profile_provider.dart';
 import 'package:g_worker_app/server_connection/api_client.dart';
@@ -33,7 +34,7 @@ class MyProfileScreen extends StatelessWidget {
             myProfileProvder.getUserProfile(context);
           }
           return myProfileProvder.model == null
-              ? Center(
+              ? const Center(
                   child: CircularProgressIndicator(),
                 )
               : SingleChildScrollView(
@@ -81,7 +82,7 @@ class MyProfileScreen extends StatelessWidget {
                                             backgroundColor: Color(0xff6DCF82),
                                             child: Text(
                                               '${myProfileProvder.model!.user!.name!.substring(0, 1)}${myProfileProvder.model!.user!.surname!.substring(0, 1)}',
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontSize: 65,
                                                   color: Colors.white),
                                             ));
@@ -92,14 +93,19 @@ class MyProfileScreen extends StatelessWidget {
                                 Positioned(
                                     bottom: -2,
                                     right: -8,
-                                    child: CircleAvatar(
-                                      radius: 22,
-                                      backgroundColor: primaryColor,
-                                      child: Image.asset(
-                                          'assets/icons/edit.png',
-                                          height: 22,
-                                          width: 22,
-                                          color: Colors.white),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        editProfilePicture(context);
+                                      },
+                                      child: CircleAvatar(
+                                        radius: 22,
+                                        backgroundColor: primaryColor,
+                                        child: Image.asset(
+                                            'assets/icons/edit.png',
+                                            height: 22,
+                                            width: 22,
+                                            color: Colors.white),
+                                      ),
                                     ))
                               ],
                             ),

@@ -36,7 +36,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  static int apkType = UserType.client;
+  static int apkType = UserType.professional;
 
   // This widget is the root of your application.
   @override

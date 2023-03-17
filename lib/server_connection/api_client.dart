@@ -399,6 +399,46 @@ class ApiClient {
     }
   }
 
+  Future<SuccessDataModel> updateProfileImage(
+    String image,
+    BuildContext context,
+  ) async {
+    try {
+      var request = json.encode({"image": image});
+      var response =
+          await dio.put('${API.baseUrl}${ApiEndPoints.updateProfileImage}',
+              data: request,
+              options: Options(headers: {
+                'Content-Type': 'application/json',
+                "Authorization":
+                    "Bearer ${await SharedPreferenceData().getToken()}"
+              }));
+      // Provider.of<MyProfileProvider>(context, listen: false)
+      //     .getUserProfile(context);
+
+      //_model!.user!.image = profileImage;
+      // ProgressLoader(context, "your ProfilePicture Update SuccessFully");
+      // Navigator.of(context).pop();
+
+      return SuccessDataModel.fromJson(response.data);
+    } on DioError {
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+      Provider.of<MyProfileProvider>(context, listen: false)
+          .setIsLogging(false);
+      print("----DIO ERROR Update Image----");
+      rethrow;
+    } catch (e) {
+      // ErrorLoader(
+      //     context, "Oops, something is wrong with your data. Try again.");
+      // Provider.of<MyProfileProvider>(context, listen: false)
+      //     .setIsLogging(false);
+      print("----DIO ERROR Update Email----");
+      print('ApiClient.upDateImage Error :: $e');
+      rethrow;
+    }
+  }
+
   Future<SuccessDataModel> updateBirthDate(
       String birthDate, BuildContext context) async {
     try {

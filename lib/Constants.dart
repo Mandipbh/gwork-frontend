@@ -14,6 +14,7 @@ class ApiEndPoints {
   static const String updateLastName = "/worker/profile/surname";
   static const String updatePassword = "/worker/profile/password";
   static const String updateEmail = "/worker/profile/email";
+  static const String updateProfileImage = "/worker/profile/image";
   static const String updateBirthDate = "/worker/profile/birth_date";
   static const String updateVatNumber = "/worker/profile/vat_number";
   static const String requestChangePhoneNumber =

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:g_worker_app/common/common_loader.dart';
 import 'package:g_worker_app/my_profile/model/get_profile_response.dart';
+import 'package:provider/provider.dart';
 
 import '../../server_connection/api_client.dart';
 
@@ -23,6 +24,9 @@ class MyProfileProvider extends ChangeNotifier {
       _model!.user!.surname!;
       _model!.user!.email!;
       _model!.user!.birthDate!;
+      _model!.user!.vatNumber!;
+      _model!.user!.image!;
+      notifyListeners();
     }
     notifyListeners();
   }
@@ -140,6 +144,23 @@ class MyProfileProvider extends ChangeNotifier {
         }
       });
     }
+  }
+
+  updateProfileImage(profileImage, BuildContext context) {
+    setIsLogging(true);
+    ApiClient()
+        .updateProfileImage(profileImage, context)
+        .then((updateProfileImageSuccessResponse) {
+      if (updateProfileImageSuccessResponse.success!) {
+        getUserProfile(context);
+        setIsLogging(false);
+        //_model!.user!.image = profileImage;
+        ProgressLoader(context, "your ProfilePicture Update SuccessFully");
+        Navigator.of(context).pop();
+        notifyListeners();
+        return true;
+      }
+    });
   }
 
   var currentPasswordController = TextEditingController();
