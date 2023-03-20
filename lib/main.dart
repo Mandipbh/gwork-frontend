@@ -7,6 +7,7 @@ import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/home_page/provider/home_page_provider.dart';
 import 'package:g_worker_app/language_screen/language_provider/language_provider.dart';
 import 'package:g_worker_app/my_profile/provider/my_profile_provider.dart';
+import 'package:g_worker_app/recover_password/provider/recover_password_provider.dart';
 import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
 import 'package:g_worker_app/sign_up/registration_screen.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/profile_picture_view/image_provider/image_provider.dart';
@@ -66,6 +67,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => MyProfileProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => RecoverPasswordProvider(),
         ),
       ],
       child: MaterialApp(

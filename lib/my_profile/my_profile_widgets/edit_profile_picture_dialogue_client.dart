@@ -37,7 +37,7 @@ class EditProfilePictureDialogueClient extends StatelessWidget {
             onTap: () {
               profilePicProvider.getImage(ImageSource.camera);
               print(
-                  "Update Profile Image :: ${profilePicProvider.getImageString}");
+                  "!!Update Profile Image :: ${profilePicProvider.getImageString}");
               myProfileProvider.updateProfileImage(
                   profilePicProvider.getImageString.toString(), context);
             },
@@ -69,6 +69,8 @@ class EditProfilePictureDialogueClient extends StatelessWidget {
             return GestureDetector(
               onTap: () {
                 profilePicProvider.getImage(ImageSource.gallery);
+                print(
+                    "!!Update Profile Image :: ${profilePicProvider.getImageString}");
                 myProfileProvider.updateProfileImage(
                     profilePicProvider.getImageString.toString(), context);
               },

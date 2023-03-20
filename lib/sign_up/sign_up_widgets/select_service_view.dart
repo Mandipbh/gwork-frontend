@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import 'package:g_worker_app/colors.dart';
+import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
+import 'package:provider/provider.dart';
 
 class SelectServiceView extends StatefulWidget {
   const SelectServiceView({super.key});
@@ -38,6 +40,8 @@ class _SelectServiceViewState extends State<SelectServiceView> {
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
+                      Provider.of<SignUpProvider>(context, listen: false)
+                          .updateUserType(1);
                       setState(() {
                         provideSelected = !provideSelected;
                       });
@@ -85,6 +89,8 @@ class _SelectServiceViewState extends State<SelectServiceView> {
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
+                      Provider.of<SignUpProvider>(context, listen: false)
+                          .updateUserType(0);
                       setState(() {
                         provideSelected = !provideSelected;
                       });

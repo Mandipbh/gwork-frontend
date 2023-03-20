@@ -82,6 +82,12 @@ class UploadDocumentView extends StatelessWidget {
                               child: Image.file(
                                 File(value.docList[index]),
                                 fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return Center(
+                                    child: Text(
+                                        "${value.docList[index].split("/").last}"),
+                                  );
+                                },
                               ),
                             ),
                     ),

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,6 +9,7 @@ import 'package:g_worker_app/custom_bottom_navigation_bar.dart';
 import 'package:g_worker_app/dashboard/dashboard_screen.dart';
 import 'package:g_worker_app/home_page/provider/home_page_provider.dart';
 import 'package:g_worker_app/jobs/job_list_screen.dart';
+import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../jobs/client_job_list_screen.dart';
@@ -32,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
     ));
     context.read<HomePageProvider>().getUserRole().then((value) {
       setState(() {
-        role = value;
+        role = Provider.of<SignUpProvider>(context, listen: false).userType!;
       });
     });
     super.initState();
@@ -41,13 +44,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     //TODO remove this
-
-    if (kDebugMode) {
-      print("this is nulll role $role");
-      role == -1 ? role = UserType.client : role = UserType.client;
-    }
+    //
+    // if (kDebugMode) {
+    //   print("this is nulll role $role");
+    //   role == -1 ? role = UserType.client : role = UserType.client;
+    // }
 
     //
+    log(role.toString());
     return role == UserType.admin
         ? adminView()
         : role == UserType.client

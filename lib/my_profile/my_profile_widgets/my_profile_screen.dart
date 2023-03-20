@@ -261,8 +261,7 @@ class MyProfileScreen extends StatelessWidget {
                                     style:
                                         Theme.of(context).textTheme.headline6),
                                 const SizedBox(height: 6),
-                                Text(
-                                    '+39 ${myProfileProvder.model!.user!.phoneNumber!}',
+                                Text(myProfileProvder.model!.user!.phoneNumber!,
                                     style:
                                         Theme.of(context).textTheme.bodyText2),
                               ],

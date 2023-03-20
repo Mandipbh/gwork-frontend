@@ -17,6 +17,7 @@ import 'package:g_worker_app/sign_up/sign_up_widgets/profile_picture_view/image_
 import 'package:g_worker_app/sign_up/sign_up_widgets/profile_picture_view/profile_picture_view.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/select_service_view.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/set_password_view.dart';
+import 'package:g_worker_app/sign_up/sign_up_widgets/upload_document_view/document_provider/document_provider.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/upload_document_view/upload_document_view.dart';
 import 'package:provider/provider.dart';
 
@@ -155,8 +156,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   });
                 });
               },
-              children:
-                  MyApp.apkType == UserType.client ? pagesClient : pagesProf),
+              children: Provider.of<SignUpProvider>(context, listen: false)
+                          .userType ==
+                      0
+                  ? pagesClient
+                  : pagesProf),
         ),
         progressView()
       ],
@@ -165,7 +169,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   Widget progressView() {
     String? labelCli;
-    if (MyApp.apkType == UserType.client) {
+
+    if (Provider.of<SignUpProvider>(context, listen: false).userType == 0) {
       labelCli = currentPage == 1
           ? tr('client.log_in.sign_up.Reason')
           : currentPage == 2
@@ -179,7 +184,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           : '';
     }
     String? labelPro;
-    if (MyApp.apkType == UserType.professional) {
+    if (Provider.of<SignUpProvider>(context, listen: false).userType == 1) {
       labelPro = currentPage == 1
           ? tr('client.log_in.sign_up.Reason')
           : currentPage == 2
@@ -195,7 +200,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               : '';
     }
 
-    return MyApp.apkType == UserType.client
+    return Provider.of<SignUpProvider>(context, listen: false).userType == 0
         ? Container(
             height: currentPage > 5 ? 78 : 135,
             // margin: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -320,7 +325,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                               listen: false)
                                           .imagePath,
                                       cardCvv: value.cvv)
-                                  .then((lue) {
+                                  .then((v) {
                                 value.setIsLogging(false);
                                 currentPage = currentPage + 1;
                                 if (currentPage > 5) {
@@ -405,65 +410,122 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               curve: Curves.easeIn);
                         },
                         onNextTap: () {
+                          if (currentPage == 1) {
+                            controller.nextPage(
+                                duration: const Duration(milliseconds: 200),
+                                curve: Curves.easeIn);
+                          }
                           if (currentPage == 2) {
                             bool isValid = value.setPassword(
                                 value.passwordController.text.toString(),
                                 value.confirmPasswordController.text.toString(),
                                 context);
-                            if (isValid) {}
+                            if (isValid) {
+                              FocusManager.instance.primaryFocus?.unfocus();
+                              controller.nextPage(
+                                  duration: const Duration(milliseconds: 200),
+                                  curve: Curves.easeIn);
+                            }
                           }
                           if (currentPage == 3) {
-                            value.setPersonalInfo(
+                            bool isValid = value.setPersonalInfo(
                                 value.nameController.text.toString(),
                                 value.confirmPasswordController.text.toString(),
                                 value.emailController.text.toString(),
                                 value.textCodeController.text.toString(),
                                 value.birthDateController.text.toString(),
                                 context);
+                            if (isValid) {
+                              FocusManager.instance.primaryFocus?.unfocus();
+                              controller.nextPage(
+                                  duration: const Duration(milliseconds: 200),
+                                  curve: Curves.easeIn);
+                            }
                           }
                           if (currentPage == 4) {
-                            value.setPaymentMethod(
+                            bool isValid = value.setPaymentMethod(
                                 value.cardHolderController.text.toString(),
                                 value.cardNumberController.text.toString(),
                                 value.expireDateController.text.toString(),
                                 value.cvvController.text.toString(),
                                 context);
+                            if (isValid) {
+                              FocusManager.instance.primaryFocus?.unfocus();
+                              controller.nextPage(
+                                  duration: const Duration(milliseconds: 200),
+                                  curve: Curves.easeIn);
+                            }
                           }
-                          if (currentPage > 6) {
-                            // log(Provider.of<ProfilePicProvider>(context,
-                            //         listen: false)
-                            //     .getImageString!);
-                            ApiClient()
-                                .userRegister(context,
-                                    firstName: value.name,
-                                    lastName: value.lastName,
-                                    email: value.email,
-                                    phoneNumber: value.phoneController.text,
-                                    password: value.password,
-                                    vatNumber: value.textCode,
-                                    birthDate: value.birthDate,
-                                    role: '0',
-                                    cardHolderName: value.cardHolder,
-                                    cardNumber: value.cardNumber,
-                                    cardExpiry: value.expireDate,
-                                    image: Provider.of<ProfilePicProvider>(
-                                            context,
-                                            listen: false)
-                                        .getImageString,
-                                    cardCvv: value.cvv)
-                                .then((value) {
-                              if (currentPage > 7) {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const PendingApplicationScreen()));
-                              }
-                            });
-                          } else {
-                            // controller.nextPage(
-                            //     duration: const Duration(milliseconds: 200),
-                            //     curve: Curves.easeIn);
+                          if (currentPage == 5) {
+                            Provider.of<DocumentPicProvider>(context,
+                                    listen: false)
+                                .docList;
+                            print(
+                                "##${Provider.of<DocumentPicProvider>(context, listen: false).docList}");
+
+                            if (Provider.of<DocumentPicProvider>(context,
+                                        listen: false)
+                                    .docList
+                                    .length <=
+                                1) {
+                              print(Provider.of<DocumentPicProvider>(context,
+                                      listen: false)
+                                  .docList);
+                              ErrorLoader(
+                                  context, "Please select atleast 1 document");
+                            } else {
+                              controller.nextPage(
+                                  duration: const Duration(milliseconds: 200),
+                                  curve: Curves.easeIn);
+                            }
+                          }
+                          log(currentPage.toString());
+                          if (currentPage == 6) {
+                            var pImage = context.read<ProfilePicProvider>();
+                            if (pImage.imagePath == "") {
+                              ErrorLoader(
+                                  context, "Please select profile picture");
+                            } else {
+                              value.setIsLogging(true);
+                              ApiClient()
+                                  .userRegister(context,
+                                      firstName: value.name,
+                                      lastName: value.lastName,
+                                      email: value.email,
+                                      phoneNumber: value.phoneController.text,
+                                      password: value.password,
+                                      vatNumber: value.textCode,
+                                      birthDate: value.birthDate,
+                                      role: '1',
+                                      cardHolderName: value.cardHolder,
+                                      cardNumber: value.cardNumber,
+                                      cardExpiry: value.expireDate,
+                                      image: Provider.of<ProfilePicProvider>(
+                                              context,
+                                              listen: false)
+                                          .imagePath,
+                                      cardCvv: value.cvv)
+                                  .then((v) {
+                                value.setIsLogging(false);
+
+                                currentPage = currentPage + 1;
+                                if (currentPage > 6) {
+                                  controller.nextPage(
+                                      duration:
+                                          const Duration(milliseconds: 200),
+                                      curve: Curves.easeIn);
+                                }
+                              });
+                            }
+                          }
+
+                          if (currentPage == 7) {
+                            value.clearSignUpProvider(context);
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const PendingApplicationScreen()));
                           }
                         },
                         nextButtonName: currentPage > 6

@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/home_page/view/home_screen.dart';
+import 'package:g_worker_app/sign_in/view/sign_in_sign_up_screen.dart';
 
 class RejectedApplicationScreen extends StatelessWidget {
   const RejectedApplicationScreen({Key? key}) : super(key: key);
@@ -99,7 +100,8 @@ class RejectedApplicationScreen extends StatelessWidget {
                 onTap: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => const HomeScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => const SignInSignUpScreen()),
                   );
                 },
                 child: Container(

@@ -16,7 +16,8 @@ import 'package:provider/provider.dart';
 
 class CodeConfirmationScreen extends StatefulWidget {
   String? phoneNumber;
-  CodeConfirmationScreen({super.key, this.phoneNumber});
+  final bool? isRegister;
+  CodeConfirmationScreen({super.key, this.phoneNumber, this.isRegister});
 
   @override
   State<CodeConfirmationScreen> createState() => _CodeConfirmationScreenState();
@@ -121,22 +122,45 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                               style: Theme.of(context).textTheme.headline2!,
                               onChanged: (pin) {},
                               onCompleted: (pin) {
-                                ApiClient()
-                                    .verifyOtp(widget.phoneNumber.toString(),
-                                        pin, context)
-                                    .then((checkVerifyOtp) {
-                                  if (checkVerifyOtp.success!) {
-                                    ProgressLoader(
-                                        context, "OTP Verify SuccessFully");
-                                    timer.cancel();
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
+                                if (widget.isRegister!) {
+                                  ApiClient()
+                                      .verifyOtp(widget.phoneNumber.toString(),
+                                          pin, context)
+                                      .then((checkVerifyOtp) {
+                                    if (checkVerifyOtp.success!) {
+                                      ProgressLoader(
+                                          context, "OTP Verify SuccessFully");
+                                      timer.cancel();
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const RegistrationScreen()),
+                                      );
+                                    }
+                                  });
+                                } else {
+                                  ApiClient()
+                                      .otpVerify(widget.phoneNumber.toString(),
+                                          pin, context)
+                                      .then((otpVerify) {
+                                    if (otpVerify.success!) {
+                                      ProgressLoader(
+                                          context, "OTP Verify SuccessFully");
+                                      timer.cancel();
+                                      print("TOKEN CC :: ${otpVerify.token}");
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
                                           builder: (context) =>
-                                              const RegistrationScreen()),
-                                    );
-                                  }
-                                });
+                                              SetNewPasswordScreen(
+                                            token: otpVerify.token,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                  });
+                                }
                               }),
                           const SizedBox(height: 20),
                         ],

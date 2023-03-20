@@ -15,6 +15,11 @@ import '../../shared_preference_data.dart';
 class SignUpProvider extends ChangeNotifier {
   // String? _phoneNo;
   // String? get phoneNo => _phoneNo;
+
+  //GetUserType
+
+  int? _userType = 0;
+  int? get userType => _userType;
   var phoneController = TextEditingController();
   bool _isLogging = false;
   SharedPreferenceData preferenceData = SharedPreferenceData();
@@ -23,6 +28,11 @@ class SignUpProvider extends ChangeNotifier {
   //   _phoneNo = val;
   //   notifyListeners();
   // }
+
+  updateUserType(int type) {
+    _userType = type;
+    notifyListeners();
+  }
 
   setIsLogging(bool value) {
     _isLogging = value;
@@ -42,11 +52,12 @@ class SignUpProvider extends ChangeNotifier {
           if (checkGetOtpResponse.success!) {
             ProgressLoader(context,
                 "Phone Number Registered  And Get Otp SuccessFully ${checkGetOtpResponse.otp}");
+            print("AA");
             Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => CodeConfirmationScreen(
-                      phoneNumber: phoneController.text)),
+                      isRegister: true, phoneNumber: phoneController.text)),
             );
             notifyListeners();
           }

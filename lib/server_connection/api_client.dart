@@ -1,21 +1,17 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
-import 'dart:isolate';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/Constants.dart';
 import 'package:g_worker_app/common/common_loader.dart';
 import 'package:g_worker_app/my_profile/model/get_profile_response.dart';
 import 'package:g_worker_app/my_profile/model/request_change_phonenumber_response.dart';
-import 'package:g_worker_app/my_profile/model/update_password_response.dart';
 import 'package:g_worker_app/my_profile/model/update_phonenumber_response.dart';
 import 'package:g_worker_app/my_profile/model/verify_phonenumber_otp_response.dart';
 import 'package:g_worker_app/my_profile/provider/my_profile_provider.dart';
-import 'package:g_worker_app/recover_password/model/change_password_response.dart';
+import 'package:g_worker_app/recover_password/model/otp_request_model.dart';
 import 'package:g_worker_app/recover_password/model/otp_verify_response.dart';
-import 'package:g_worker_app/recover_password/model/request_otp_response.dart';
+import 'package:g_worker_app/recover_password/provider/recover_password_provider.dart';
 import 'package:g_worker_app/sign_up/model/check_email_response.dart';
 import 'package:g_worker_app/sign_up/model/check_mobile_number_response.dart';
 import 'package:g_worker_app/sign_up/model/otp_response.dart';
@@ -24,6 +20,7 @@ import 'package:g_worker_app/sign_in/model/sign_in_response.dart';
 import 'package:g_worker_app/sign_in/provider/sign_in_provider.dart';
 import 'package:g_worker_app/sign_up/model/verify_otp_response.dart';
 import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
+import 'package:g_worker_app/sign_up/sign_up_widgets/upload_document_view/document_provider/document_provider.dart';
 import 'package:g_worker_app/success_model/success_model_response.dart';
 
 import 'package:provider/provider.dart';
@@ -99,26 +96,48 @@ class ApiClient {
     print("cardExpiry ==> $cardExpiry");
     print("cardCvv ==> $cardCvv");
     print("image ==> $image");
+
     try {
       print("@@@");
 
       dio.options.headers["Content-Type"] = "multipart/form-data";
-      FormData formData = FormData.fromMap({
-        "first_name": firstName,
-        "last_name": lastName,
-        "email": email,
-        "phone_number": '+39$phoneNumber',
-        "password": password,
-        "vat_number": vatNumber,
-        "birth_date": birthDate,
-        "role": role,
-        "card_holder_name": cardHolderName,
-        "card_number": cardNumber,
-        "card_expiry": cardExpiry,
-        "card_cvv": cardCvv,
-        'image': await MultipartFile.fromFile('$image',
-            filename: image!.split('/').last),
-      });
+      FormData formData =
+          Provider.of<SignUpProvider>(context, listen: false).userType == 0
+              ? FormData.fromMap({
+                  "first_name": firstName,
+                  "last_name": lastName,
+                  "email": email,
+                  "phone_number": '+39$phoneNumber',
+                  "password": password,
+                  "vat_number": vatNumber,
+                  "birth_date": birthDate,
+                  "role": role,
+                  "card_holder_name": cardHolderName,
+                  "card_number": cardNumber,
+                  "card_expiry": cardExpiry,
+                  "card_cvv": cardCvv,
+                  'image': await MultipartFile.fromFile('$image',
+                      filename: image!.split('/').last),
+                })
+              : FormData.fromMap({
+                  "first_name": firstName,
+                  "last_name": lastName,
+                  "email": email,
+                  "phone_number": '+39$phoneNumber',
+                  "password": password,
+                  "vat_number": vatNumber,
+                  "birth_date": birthDate,
+                  "role": role,
+                  "card_holder_name": cardHolderName,
+                  "card_number": cardNumber,
+                  "card_expiry": cardExpiry,
+                  "card_cvv": cardCvv,
+                  'image': await MultipartFile.fromFile('$image',
+                      filename: image!.split('/').last),
+                  'docs': await MultipartFile.fromFile(
+                    '${Provider.of<DocumentPicProvider>(context, listen: false).docList[1]}',
+                  ),
+                });
 
       var response = await dio.put('${API.baseUrl}${ApiEndPoints.signUp}',
           data: formData,
@@ -465,7 +484,7 @@ class ApiClient {
       Provider.of<MyProfileProvider>(context, listen: false)
           .setIsLogging(false);
       print("----DIO ERROR Update birthdate----");
-      print('ApiClient.updateBirthdate Error :: \ne');
+      print('ApiClient.updateBirthdate Error :: $e');
       rethrow;
     }
   }
@@ -562,68 +581,109 @@ class ApiClient {
     }
   }
 
-  Future<OtpVerifyModel> otpVerify({
-    required String phoneNumber,
-    required String otp,
-  }) async {
+  Future<OtpVerifyModel> otpVerify(
+      String phoneNumber, String otp, BuildContext context) async {
     try {
       var request = json.encode({
-        "phone_number": "+919033834715",
-        "otp": "2841",
+        "phone_number": "+39$phoneNumber",
+        "otp": otp,
       });
-      var response = await dio.post(
-          '${API.baseUrl}${ApiEndPoints.otpVerifyPhone}',
-          data: request,
-          options: Options(headers: {'Content-Type': 'application/json'}));
-
+      var response =
+          await dio.post('${API.baseUrl}${ApiEndPoints.otpVerifyPhone}',
+              data: request,
+              options: Options(headers: {
+                'Content-Type': 'application/json',
+                "Authorization":
+                    "Bearer ${await SharedPreferenceData().getToken()}"
+              }));
+      print("OtpVerify :: $phoneNumber");
+      print("OtpVerify :: ${response.data}");
       return OtpVerifyModel.fromJson(response.data);
     } on DioError {
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+      Provider.of<RecoverPasswordProvider>(context, listen: false)
+          .setIsLogging(false);
+      print("----DIO ERROR  Otp Verify----");
       rethrow;
     } catch (e) {
-      print('ApiClient.getOtp Error :: \ne');
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+      Provider.of<RecoverPasswordProvider>(context, listen: false)
+          .setIsLogging(false);
+      print("----DIO ERROR  Otp Verify----");
+      print('ApiClient.otpVerify Error :: $e');
       rethrow;
     }
   }
 
-  Future<RequestOtpModel> requestOtp({
-    required String phoneNumber,
-  }) async {
+  Future<RequestOtpModel> requestOtp(
+      String phoneNumber, BuildContext context) async {
     try {
       var request = json.encode({
-        "phone_number": "+919033834715",
+        "phone_number": "+39$phoneNumber",
       });
       var response = await dio.post('${API.baseUrl}${ApiEndPoints.requestOtp}',
           data: request,
-          options: Options(headers: {'Content-Type': 'application/json'}));
-
+          options: Options(headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer ${await SharedPreferenceData().getToken()}"
+          }));
+      print("RequestOtpPhone :: $phoneNumber");
+      print("RequestOtpPhone :: ${response.data}");
       return RequestOtpModel.fromJson(response.data);
     } on DioError {
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+      Provider.of<RecoverPasswordProvider>(context, listen: false)
+          .setIsLogging(false);
+      print("----DIO ERROR Request Otp----");
       rethrow;
     } catch (e) {
-      print('ApiClient.getOtp Error :: \ne');
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+      Provider.of<RecoverPasswordProvider>(context, listen: false)
+          .setIsLogging(false);
+      print("----DIO ERROR Request Otp----");
+      print('ApiClient.requestOtp Error :: $e');
       rethrow;
     }
   }
 
-  Future<ChangePasswordModel> changePassword({
-    required String token,
-    required String password,
-  }) async {
+  Future<SuccessDataModel> changePassword(
+    String token,
+    String password,
+    BuildContext context,
+  ) async {
     try {
       var request = json.encode({
-        "token": "6cbjyU79cwDIesoJ99nGGjZjGtIXoVAp",
-        "password": "password",
+        "token": token,
+        "password": password,
       });
-      var response = await dio.post(
-          '${API.baseUrl}${ApiEndPoints.changePassword}',
-          data: request,
-          options: Options(headers: {'Content-Type': 'application/json'}));
-
-      return ChangePasswordModel.fromJson(response.data);
+      var response =
+          await dio.post('${API.baseUrl}${ApiEndPoints.changePassword}',
+              data: request,
+              options: Options(headers: {
+                'Content-Type': 'application/json',
+              }));
+      print("ChangePasswordToken :: $token");
+      print("ChangePassword :: $password");
+      print("ChangePassword :: ${response.data}");
+      return SuccessDataModel.fromJson(response.data);
     } on DioError {
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+      Provider.of<RecoverPasswordProvider>(context, listen: false)
+          .setIsLogging(false);
+      print("----DIO ERROR Change Password----");
       rethrow;
     } catch (e) {
-      print('ApiClient.getOtp Error :: \ne');
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+      Provider.of<RecoverPasswordProvider>(context, listen: false)
+          .setIsLogging(false);
+      print("----DIO ERROR Change Password----");
+      print('ApiClient.Change Password Error :: $e');
       rethrow;
     }
   }

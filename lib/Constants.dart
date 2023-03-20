@@ -22,7 +22,7 @@ class ApiEndPoints {
   static const String verifyPhoneNumberOtp = "/worker/auth/verify-phone-otp";
   static const String updatePhoneNumber = "/worker/auth/phone-number";
   static const String otpVerifyPhone = "/worker/auth/otp-verify";
-  static const String requestOtp = "/worker/auth/otp-verify";
+  static const String requestOtp = "/worker/auth/request-reset";
   static const String changePassword = "/worker/auth/change-password";
   static const String getProfile = "/worker/auth/";
 }
