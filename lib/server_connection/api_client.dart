@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:g_worker_app/Constants.dart';
 import 'package:g_worker_app/common/common_loader.dart';
 import 'package:g_worker_app/my_profile/model/get_profile_response.dart';
-import 'package:g_worker_app/my_profile/model/request_change_phonenumber_response.dart';
-import 'package:g_worker_app/my_profile/model/update_phonenumber_response.dart';
+import 'package:g_worker_app/my_profile/model/request_change_phone_response.dart';
 import 'package:g_worker_app/my_profile/model/verify_phonenumber_otp_response.dart';
 import 'package:g_worker_app/my_profile/provider/my_profile_provider.dart';
 import 'package:g_worker_app/recover_password/model/otp_request_model.dart';
@@ -187,7 +186,7 @@ class ApiClient {
   Future<CheckMobileNumberModel> checkMobileNumber(
       String phoneNumber, BuildContext context) async {
     try {
-      var request = json.encode({"phone_number": phoneNumber});
+      var request = json.encode({"phone_number": '+39$phoneNumber'});
       var response = await dio.post(
           '${API.baseUrl}${ApiEndPoints.checkMobileNumber}',
           data: request,
@@ -432,6 +431,7 @@ class ApiClient {
                 "Authorization":
                     "Bearer ${await SharedPreferenceData().getToken()}"
               }));
+      print("response image ${response.data}");
       // Provider.of<MyProfileProvider>(context, listen: false)
       //     .getUserProfile(context);
 
@@ -521,65 +521,95 @@ class ApiClient {
     }
   }
 
-  Future<RequestChangePhoneNumberModel> requestChangePhoneNumber(
+  Future<RequestChangePhoneModel> requestChangePhoneNumber(
       String phoneNumber, BuildContext context) async {
     try {
-      var request = json.encode({"phone_number": "+39${phoneNumber}"});
+      print("Phone==> $phoneNumber");
+      var request = json.encode({"phone_number": "+39$phoneNumber"});
       var response = await dio.post(
           '${API.baseUrl}${ApiEndPoints.requestChangePhoneNumber}',
           data: request,
-          options: Options(headers: {'Content-Type': 'application/json'}));
-
-      return RequestChangePhoneNumberModel.fromJson(response.data);
+          options: Options(headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer ${await SharedPreferenceData().getToken()}"
+          }));
+      print("Phone1==> $phoneNumber");
+      print("RequestChangePhone==> ${response.data}");
+      return RequestChangePhoneModel.fromJson(response.data);
     } on DioError {
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+      Provider.of<MyProfileProvider>(context, listen: false)
+          .setIsLogging(false);
+      print("----DIO ERROR Update requestChangePhone----");
       rethrow;
     } catch (e) {
-      print('ApiClient.getOtp Error :: \ne');
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+      Provider.of<MyProfileProvider>(context, listen: false)
+          .setIsLogging(false);
+      print("----DIO ERROR Update requestChangePhone----");
+      print('ApiClient.requestChangePhone Error :: $e');
       rethrow;
     }
   }
 
-  Future<VerifyPhoneNumberOtpModel> verifyPhoneNumberOtp({
-    required String otp,
-  }) async {
+  Future<VerifyPhoneNumberOtpModel> verifyPhoneNumberOtp(
+      String otp, BuildContext context) async {
     try {
-      var request = json.encode({"otp": "1252"});
-      var response = await dio.post(
-          '${API.baseUrl}${ApiEndPoints.verifyPhoneNumberOtp}',
-          data: request,
-          options: Options(headers: {'Content-Type': 'application/json'}));
-
+      var request = json.encode({"otp": otp});
+      print("Otp==> $otp");
+      var response =
+          await dio.post('${API.baseUrl}${ApiEndPoints.verifyPhoneNumberOtp}',
+              data: request,
+              options: Options(headers: {
+                'Content-Type': 'application/json',
+                "Authorization":
+                    "Bearer ${await SharedPreferenceData().getToken()}"
+              }));
+      print("Otp1==> $otp");
+      print("VerifyPhoneOtp==> ${response.data}");
       return VerifyPhoneNumberOtpModel.fromJson(response.data);
     } on DioError {
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+      Provider.of<MyProfileProvider>(context, listen: false)
+          .setIsLogging(false);
+      print("----DIO ERROR verifyPhoneOtp----");
       rethrow;
     } catch (e) {
-      print('ApiClient.getOtp Error :: \ne');
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+      Provider.of<MyProfileProvider>(context, listen: false)
+          .setIsLogging(false);
+      print("----DIO ERROR verifyPhoneOtp----");
+      print('ApiClient.getOtp Error :: $e');
       rethrow;
     }
   }
 
-  Future<UpdatePhoneNumberModel> updatePhoneNumber({
-    required String credentialToken,
-    required String phoneNumber,
-  }) async {
-    try {
-      var request = json.encode({
-        "credentials_token": "6cbjyU79cwDIesoJ99nGGjZjGtIXoVAp",
-        "phone_number": "+919033834715"
-      });
-      var response = await dio.put(
-          '${API.baseUrl}${ApiEndPoints.updatePhoneNumber}',
-          data: request,
-          options: Options(headers: {'Content-Type': 'application/json'}));
-
-      return UpdatePhoneNumberModel.fromJson(response.data);
-    } on DioError {
-      rethrow;
-    } catch (e) {
-      print('ApiClient.getOtp Error :: \ne');
-      rethrow;
-    }
-  }
+  // Future<UpdatePhoneNumberModel> updatePhoneNumber({
+  //   required String credentialToken,
+  //   required String phoneNumber,
+  // }) async {
+  //   try {
+  //     var request = json.encode({
+  //       "credentials_token": "6cbjyU79cwDIesoJ99nGGjZjGtIXoVAp",
+  //       "phone_number": "+919033834715"
+  //     });
+  //     var response = await dio.put(
+  //         '${API.baseUrl}${ApiEndPoints.updatePhoneNumber}',
+  //         data: request,
+  //         options: Options(headers: {'Content-Type': 'application/json'}));
+  //
+  //     return UpdatePhoneNumberModel.fromJson(response.data);
+  //   } on DioError {
+  //     rethrow;
+  //   } catch (e) {
+  //     print('ApiClient.getOtp Error :: \ne');
+  //     rethrow;
+  //   }
+  // }
 
   Future<OtpVerifyModel> otpVerify(
       String phoneNumber, String otp, BuildContext context) async {
@@ -656,6 +686,8 @@ class ApiClient {
     BuildContext context,
   ) async {
     try {
+      print("Token :: $token");
+      print("Password :: $password");
       var request = json.encode({
         "token": token,
         "password": password,
@@ -666,8 +698,8 @@ class ApiClient {
               options: Options(headers: {
                 'Content-Type': 'application/json',
               }));
-      print("ChangePasswordToken :: $token");
-      print("ChangePassword :: $password");
+      print("Token1 :: $token");
+      print("Password1 :: $password");
       print("ChangePassword :: ${response.data}");
       return SuccessDataModel.fromJson(response.data);
     } on DioError {

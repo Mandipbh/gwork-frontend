@@ -6,8 +6,8 @@ import 'package:g_worker_app/sign_up/sign_up_widgets/profile_picture_view/image_
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-class EditProfilePictureDialogueClient extends StatelessWidget {
-  const EditProfilePictureDialogueClient({Key? key}) : super(key: key);
+class EditProfilePictureDialogueClientProf extends StatelessWidget {
+  const EditProfilePictureDialogueClientProf({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

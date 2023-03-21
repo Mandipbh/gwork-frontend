@@ -7,7 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/common/common_buttons.dart';
-import 'package:g_worker_app/my_profile/my_profile_widgets/edit_profile_picture_dialogue_client.dart';
+import 'package:g_worker_app/my_profile/my_profile_widgets/edit_profile_picture_dialogue_client_prof.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/profile_picture_view/edit_profile_picture_dialogue.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/profile_picture_view/upload_profile_picture_dialogue.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/upload_document_view/edit_document_dialogue.dart';
@@ -130,5 +130,5 @@ void editProfilePicture(BuildContext context) {
       builder: (ctx) => const AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(8.0))),
-          content: EditProfilePictureDialogueClient()));
+          content: EditProfilePictureDialogueClientProf()));
 }

@@ -4,17 +4,13 @@ import 'package:g_worker_app/Constants.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/common/common_buttons.dart';
 import 'package:g_worker_app/language_screen/language.dart';
-import 'package:g_worker_app/my_profile/my_profile_widgets/edit_profile_picture_dialogue_client.dart';
 import 'package:g_worker_app/my_profile/my_profile_widgets/edit_profile_screen.dart';
 import 'package:g_worker_app/my_profile/provider/my_profile_provider.dart';
-import 'package:g_worker_app/server_connection/api_client.dart';
 import 'package:g_worker_app/shared_preference_data.dart';
 import 'package:g_worker_app/sign_in/view/sign_in_sign_up_screen.dart';
 import 'package:provider/provider.dart';
-
-import '../../common/common_loader.dart';
 import '../../common/common_widgets.dart';
-import '../model/get_profile_response.dart';
+import '../../sign_up/sign_up_widgets/profile_picture_view/image_provider/image_provider.dart';
 
 class MyProfileScreen extends StatelessWidget {
   const MyProfileScreen({super.key});
@@ -49,7 +45,7 @@ class MyProfileScreen extends StatelessWidget {
                             child: Stack(
                               clipBehavior: Clip.none,
                               children: [
-                                Container(
+                                SizedBox(
                                   width: 140,
                                   height: 140,
                                   child: ClipRRect(
@@ -60,8 +56,9 @@ class MyProfileScreen extends StatelessWidget {
                                       loadingBuilder: (BuildContext context,
                                           Widget child,
                                           ImageChunkEvent? loadingProgress) {
-                                        if (loadingProgress == null)
+                                        if (loadingProgress == null) {
                                           return child;
+                                        }
                                         return Center(
                                           child: CircularProgressIndicator(
                                             value: loadingProgress
@@ -79,7 +76,8 @@ class MyProfileScreen extends StatelessWidget {
                                           (context, error, stackTrace) {
                                         return CircleAvatar(
                                             radius: 75,
-                                            backgroundColor: Color(0xff6DCF82),
+                                            backgroundColor:
+                                                const Color(0xff6DCF82),
                                             child: Text(
                                               '${myProfileProvder.model!.user!.name!.substring(0, 1)}${myProfileProvder.model!.user!.surname!.substring(0, 1)}',
                                               style: const TextStyle(
@@ -95,6 +93,11 @@ class MyProfileScreen extends StatelessWidget {
                                     right: -8,
                                     child: GestureDetector(
                                       onTap: () {
+                                        print(
+                                            "img1==>${Provider.of<ProfilePicProvider>(context, listen: false).getImageString}");
+                                        print(
+                                            "img2==>${Provider.of<MyProfileProvider>(context, listen: false).model!.user!.image}");
+
                                         editProfilePicture(context);
                                       },
                                       child: CircleAvatar(
@@ -116,7 +119,7 @@ class MyProfileScreen extends StatelessWidget {
                             // ProgressLoader(context);
                           },
                           child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 16),
+                            padding: const EdgeInsets.symmetric(vertical: 16),
                             child: Text(
                                 '${myProfileProvder.model!.user!.name!} ${myProfileProvder.model!.user!.surname!}',
                                 style: Theme.of(context).textTheme.headline2),
@@ -281,7 +284,8 @@ class MyProfileScreen extends StatelessWidget {
                                         builder: (context) => EditProfileScreen(
                                               type:
                                                   ProfileFieldType.phoneNumber,
-                                              value: '+39 348 613 7727',
+                                              value: myProfileProvder
+                                                  .model!.user!.phoneNumber!,
                                             )),
                                   );
                                 }),

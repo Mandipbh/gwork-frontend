@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:g_worker_app/common/common_buttons.dart';
 import 'package:g_worker_app/common/common_loader.dart';
 import 'package:g_worker_app/common/common_widgets.dart';
+import 'package:g_worker_app/my_profile/my_profile_widgets/my_profile_screen.dart';
 import 'package:g_worker_app/recover_password/recover_password_widgets/set_new_password_screen.dart';
 import 'package:g_worker_app/server_connection/api_client.dart';
 import 'package:g_worker_app/sign_in/view/sign_in_sign_up_screen.dart';
@@ -16,8 +17,8 @@ import 'package:provider/provider.dart';
 
 class CodeConfirmationScreen extends StatefulWidget {
   String? phoneNumber;
-  final bool? isRegister;
-  CodeConfirmationScreen({super.key, this.phoneNumber, this.isRegister});
+  final int? comingFrom;
+  CodeConfirmationScreen({super.key, this.phoneNumber, this.comingFrom});
 
   @override
   State<CodeConfirmationScreen> createState() => _CodeConfirmationScreenState();
@@ -122,44 +123,69 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                               style: Theme.of(context).textTheme.headline2!,
                               onChanged: (pin) {},
                               onCompleted: (pin) {
-                                if (widget.isRegister!) {
-                                  ApiClient()
-                                      .verifyOtp(widget.phoneNumber.toString(),
-                                          pin, context)
-                                      .then((checkVerifyOtp) {
-                                    if (checkVerifyOtp.success!) {
-                                      ProgressLoader(
-                                          context, "OTP Verify SuccessFully");
-                                      timer.cancel();
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
+                                switch (widget.comingFrom!) {
+                                  case 1:
+                                    ApiClient()
+                                        .verifyOtp(
+                                            widget.phoneNumber.toString(),
+                                            pin,
+                                            context)
+                                        .then((checkVerifyOtp) {
+                                      if (checkVerifyOtp.success!) {
+                                        ProgressLoader(
+                                            context, "OTP Verify SuccessFully");
+                                        timer.cancel();
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const RegistrationScreen()),
+                                        );
+                                      }
+                                    });
+                                    break;
+                                  case 2:
+                                    ApiClient()
+                                        .otpVerify(
+                                            widget.phoneNumber.toString(),
+                                            pin,
+                                            context)
+                                        .then((otpVerify) {
+                                      if (otpVerify.success!) {
+                                        ProgressLoader(
+                                            context, "OTP Verify SuccessFully");
+                                        timer.cancel();
+                                        print("TOKEN CC :: ${otpVerify.token}");
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
                                             builder: (context) =>
-                                                const RegistrationScreen()),
-                                      );
-                                    }
-                                  });
-                                } else {
-                                  ApiClient()
-                                      .otpVerify(widget.phoneNumber.toString(),
-                                          pin, context)
-                                      .then((otpVerify) {
-                                    if (otpVerify.success!) {
-                                      ProgressLoader(
-                                          context, "OTP Verify SuccessFully");
-                                      timer.cancel();
-                                      print("TOKEN CC :: ${otpVerify.token}");
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              SetNewPasswordScreen(
-                                            token: otpVerify.token,
+                                                SetNewPasswordScreen(
+                                              token: otpVerify.token,
+                                            ),
                                           ),
-                                        ),
-                                      );
-                                    }
-                                  });
+                                        );
+                                      }
+                                    });
+                                    break;
+                                  case 3:
+                                    ApiClient()
+                                        .verifyPhoneNumberOtp(pin, context)
+                                        .then((verifyOtpPhoneResponse) {
+                                      if (verifyOtpPhoneResponse.success!) {
+                                        ProgressLoader(
+                                            context, "OTP Verify SuccessFully");
+                                        timer.cancel();
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const MyProfileScreen(),
+                                          ),
+                                        );
+                                      }
+                                    });
+                                    break;
                                 }
                               }),
                           const SizedBox(height: 20),

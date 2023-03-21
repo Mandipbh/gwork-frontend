@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:g_worker_app/chat/chat_screen.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
+import 'package:provider/provider.dart';
 import '../common/common_buttons.dart';
 
 class JobDetailsScreen extends StatefulWidget {
@@ -166,7 +168,11 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
               ? const SizedBox.shrink()
               : isApply == true
                   ? rejectView()
-                  : bottomView(),
+                  : Provider.of<SignUpProvider>(context, listen: false)
+                              .userType ==
+                          0
+                      ? const SizedBox.shrink()
+                      : bottomView(),
         ],
       ),
     );
@@ -465,6 +471,18 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           fontWeight: FontWeight.w700,
         ),
       ),
+      actions: [
+        Provider.of<SignUpProvider>(context, listen: false).userType == 0
+            ? Padding(
+                padding: const EdgeInsets.only(right: 18),
+                child: Image.asset(
+                  'assets/icons/delete.png',
+                  height: 24,
+                  width: 24,
+                ),
+              )
+            : const SizedBox.shrink(),
+      ],
     );
   }
 

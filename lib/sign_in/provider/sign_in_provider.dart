@@ -47,12 +47,11 @@ class SignInProvider extends ChangeNotifier {
         password: passwordController.text.trim());
     ApiClient().login(request, context).then((loginResponse) {
       if (loginResponse.success) {
-        ProgressLoader(context, "Your password has been correctly updated.");
+        ProgressLoader(context, "LogIn Successfully");
         setIsLogging(false);
         preferenceData.setToken(loginResponse.token!);
         preferenceData.setUserRole(loginResponse.role!);
       }
-
       _loginResponse.sink.add(loginResponse);
     });
   }

@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:g_worker_app/common/common_loader.dart';
 import 'package:g_worker_app/my_profile/model/get_profile_response.dart';
+import 'package:g_worker_app/recover_password/recover_password_widgets/code_confirmation_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../server_connection/api_client.dart';
@@ -23,6 +25,7 @@ class MyProfileProvider extends ChangeNotifier {
       _model!.user!.name!;
       _model!.user!.surname!;
       _model!.user!.email!;
+      _model!.user!.phoneNumber!;
       _model!.user!.birthDate!;
       _model!.user!.vatNumber!;
       _model!.user!.image!;
@@ -102,6 +105,35 @@ class MyProfileProvider extends ChangeNotifier {
     }
   }
 
+  updatePhone(phoneController, BuildContext context) {
+    if (phoneController.text.isEmpty) {
+      ErrorLoader(context, "Phone Number Can Not Be Empty");
+      notifyListeners();
+    } else {
+      setIsLogging(true);
+      ApiClient()
+          .requestChangePhoneNumber(phoneController.text, context)
+          .then((requestChangePhoneSuccessResponse) {
+        if (requestChangePhoneSuccessResponse.success!) {
+          setIsLogging(false);
+          _model!.user!.phoneNumber = phoneController.text;
+          print("!!${_model!.user!.phoneNumber}");
+          ProgressLoader(context,
+              "your Phone Number Update SuccessFully ${requestChangePhoneSuccessResponse.otp}");
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CodeConfirmationScreen(
+                  comingFrom: 3, phoneNumber: phoneController.text),
+            ),
+          );
+          notifyListeners();
+          return true;
+        }
+      });
+    }
+  }
+
   updateBirthDate(birthDateController, BuildContext context) {
     if (birthDateController.text.isEmpty) {
       ErrorLoader(context, "Birthdate Can Not Be Empty");
@@ -154,7 +186,7 @@ class MyProfileProvider extends ChangeNotifier {
       if (updateProfileImageSuccessResponse.success!) {
         getUserProfile(context);
         setIsLogging(false);
-        //_model!.user!.image = profileImage;
+        _model!.user!.image = profileImage;
         ProgressLoader(context, "your ProfilePicture Update SuccessFully");
         Navigator.of(context).pop();
         notifyListeners();

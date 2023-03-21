@@ -23,6 +23,48 @@ Widget phoneNumberTextField({required TextEditingController controller}) {
   );
 }
 
+Widget vatNumberTextField({required TextEditingController controller}) {
+  return Container(
+    height: 60,
+    decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.white)),
+    child: TextField(
+      keyboardType: TextInputType.number,
+      controller: controller,
+      maxLength: 10,
+      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+      decoration: InputDecoration(
+        prefixIcon: Image.asset('assets/icons/hash.png', scale: 2),
+        labelText: tr('admin.VAT_Number').toUpperCase(),
+        counterText: "",
+      ),
+    ),
+  );
+}
+
+Widget birthDateTextField({required TextEditingController controller}) {
+  return Container(
+    height: 60,
+    decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.white)),
+    child: TextField(
+      keyboardType: TextInputType.number,
+      controller: controller,
+      maxLength: 10,
+      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+      decoration: InputDecoration(
+        prefixIcon: Image.asset('assets/icons/calendar_birthday.png', scale: 2),
+        labelText: tr('admin.Birth_Date').toUpperCase(),
+        counterText: "",
+      ),
+    ),
+  );
+}
+
 Widget passwordTextField(
     {required String label, required TextEditingController controller}) {
   bool isPasswordVisible = false;
@@ -76,7 +118,7 @@ Widget nameTextField(
     child: TextField(
         controller: controller,
         style: const TextStyle(fontSize: 18),
-        keyboardType: keyboardType,
+        keyboardType: TextInputType.name,
         decoration: InputDecoration(
             icon: Image.asset('assets/icons/$asset', height: 24, width: 24),
             labelText: label.toUpperCase())),

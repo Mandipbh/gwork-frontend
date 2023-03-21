@@ -78,7 +78,14 @@ class _ChatScreenState extends State<ChatScreen> {
                 const CircleAvatar(
                   backgroundColor: whiteF2F,
                   radius: 25,
-                  child: Icon(Icons.person, color: Colors.grey, size: 40),
+                  child: Text(
+                    "ST",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: black343,
+                        fontSize: 20,
+                        fontFamily: 'Satoshi'),
+                  ),
                 ),
               ],
             ),
@@ -222,7 +229,8 @@ class _ChatScreenState extends State<ChatScreen> {
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
               ),
-              suffixIcon: const Icon(Icons.send, color: black343),
+              suffixIcon:
+                  Image.asset('assets/images/send.png', height: 15, width: 15),
               filled: true,
               fillColor: Colors.white,
               focusedBorder: OutlineInputBorder(

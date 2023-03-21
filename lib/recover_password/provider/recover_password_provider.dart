@@ -38,7 +38,7 @@ class RecoverPasswordProvider extends ChangeNotifier {
             context,
             MaterialPageRoute(
               builder: (context) => CodeConfirmationScreen(
-                  isRegister: false,
+                  comingFrom: 2,
                   phoneNumber: recoverPasswordPhoneController.text),
             ),
           );
@@ -48,7 +48,7 @@ class RecoverPasswordProvider extends ChangeNotifier {
     }
   }
 
-  changePassword(token, context) {
+  changePassword(token, BuildContext context) {
     if (newPasswordController.text.isEmpty ||
         confirmNewPasswordController.text.isEmpty) {
       ErrorLoader(context, "Password cannot be empty");
@@ -60,7 +60,7 @@ class RecoverPasswordProvider extends ChangeNotifier {
     } else {
       setIsLogging(true);
       ApiClient()
-          .changePassword(newPasswordController.text, token, context)
+          .changePassword(token, newPasswordController.text, context)
           .then((changePasswordResponse) {
         print("TOKEN :: $token");
         if (changePasswordResponse.success!) {
@@ -72,10 +72,11 @@ class RecoverPasswordProvider extends ChangeNotifier {
             MaterialPageRoute(
               builder: (BuildContext context) => const SignInSignUpScreen(),
             ),
-            (route) => false, //if you want to disable back feature set to false
+            (route) => true, //if you want to disable back feature set to false
           );
           notifyListeners();
         }
+        notifyListeners();
       });
     }
   }

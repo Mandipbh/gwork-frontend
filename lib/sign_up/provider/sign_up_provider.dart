@@ -57,7 +57,7 @@ class SignUpProvider extends ChangeNotifier {
               context,
               MaterialPageRoute(
                   builder: (context) => CodeConfirmationScreen(
-                      isRegister: true, phoneNumber: phoneController.text)),
+                      comingFrom: 1, phoneNumber: phoneController.text)),
             );
             notifyListeners();
           }

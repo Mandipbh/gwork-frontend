@@ -135,24 +135,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                           asset: 'mail.png')
                                       : widget.type ==
                                               ProfileFieldType.phoneNumber
-                                          ? nameTextField(
-                                              label: tr('admin.phone_number'),
+                                          ? phoneNumberTextField(
                                               controller: controller,
-                                              asset: 'phone.png')
+                                            )
                                           : widget.type ==
                                                   ProfileFieldType.birthdate
-                                              ? nameTextField(
-                                                  label: tr('admin.Birth_Date'),
+                                              ? birthDateTextField(
                                                   controller: controller,
-                                                  asset:
-                                                      'calendar_birthday.png')
+                                                )
                                               : widget.type ==
                                                       ProfileFieldType.vatNumber
-                                                  ? nameTextField(
-                                                      label: tr(
-                                                          'admin.VAT_Number'),
-                                                      controller: controller,
-                                                      asset: 'hash.png')
+                                                  ? vatNumberTextField(
+                                                      controller: controller)
                                                   : widget.type ==
                                                           ProfileFieldType
                                                               .password
@@ -251,7 +245,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                                                             borderRadius: BorderRadius.circular(16)),
                                                                         child: TextField(
                                                                             keyboardType:
-                                                                                TextInputType.emailAddress,
+                                                                                TextInputType.number,
                                                                             style: const TextStyle(fontSize: 18),
                                                                             decoration: InputDecoration(border: InputBorder.none, hintText: 'dd/mm', hintStyle: const TextStyle(fontSize: 18, color: Colors.black12), icon: Image.asset('assets/icons/calendar_expiry_date.png', height: 24, width: 24), labelText: tr('client.log_in.sign_up.Expire_date').toUpperCase())),
                                                                       ),
@@ -317,6 +311,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 break;
                               case ProfileFieldType.email:
                                 myProfileProvider.updateEmail(
+                                    controller, context);
+                                break;
+                              case ProfileFieldType.phoneNumber:
+                                myProfileProvider.updatePhone(
                                     controller, context);
                                 break;
                               case ProfileFieldType.birthdate:
