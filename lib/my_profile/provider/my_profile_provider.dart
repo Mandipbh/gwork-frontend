@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/common/common_loader.dart';
 import 'package:g_worker_app/my_profile/model/get_profile_response.dart';
 import 'package:g_worker_app/recover_password/recover_password_widgets/code_confirmation_screen.dart';
-import 'package:provider/provider.dart';
 
 import '../../server_connection/api_client.dart';
 
@@ -21,7 +19,7 @@ class MyProfileProvider extends ChangeNotifier {
   getUserProfile(BuildContext context) async {
     _model = await ApiClient().getProfile(context);
 
-    if (_model != null) {
+    if (_model != null && _model!.user!.image != null) {
       _model!.user!.name!;
       _model!.user!.surname!;
       _model!.user!.email!;
@@ -163,7 +161,7 @@ class MyProfileProvider extends ChangeNotifier {
     } else {
       setIsLogging(true);
       ApiClient()
-          .updateBirthDate(vatNumberController.text, context)
+          .updateVatNumber(vatNumberController.text, context)
           .then((updateVatNumberSuccessResponse) {
         if (updateVatNumberSuccessResponse.success!) {
           setIsLogging(false);
@@ -184,11 +182,29 @@ class MyProfileProvider extends ChangeNotifier {
         .updateProfileImage(profileImage, context)
         .then((updateProfileImageSuccessResponse) {
       if (updateProfileImageSuccessResponse.success!) {
-        getUserProfile(context);
         setIsLogging(false);
         _model!.user!.image = profileImage;
         ProgressLoader(context, "your ProfilePicture Update SuccessFully");
         Navigator.of(context).pop();
+        getUserProfile(context);
+        notifyListeners();
+        return true;
+      }
+    });
+  }
+
+  deleteProfileImage(BuildContext context) {
+    setIsLogging(true);
+    ApiClient()
+        .removeProfileImage(context)
+        .then((updateProfileImageSuccessResponse) {
+      if (updateProfileImageSuccessResponse.success!) {
+        print("DELETE IMAGE ==> ${updateProfileImageSuccessResponse.success}");
+        //
+        setIsLogging(false);
+        ProgressLoader(context, "your ProfilePicture delete SuccessFully");
+        Navigator.of(context).pop();
+        getUserProfile(context);
         notifyListeners();
         return true;
       }

@@ -34,12 +34,16 @@ class EditProfilePictureDialogueClientProf extends StatelessWidget {
             (BuildContext context, profilePicProvider, myProfileProvider,
                 Widget? child) {
           return GestureDetector(
-            onTap: () {
-              profilePicProvider.getImage(ImageSource.camera);
-              print(
-                  "!!Update Profile Image :: ${profilePicProvider.getImageString}");
-              myProfileProvider.updateProfileImage(
-                  profilePicProvider.getImageString.toString(), context);
+            onTap: () async {
+              bool isValid = await profilePicProvider.getImage(
+                  ImageSource.camera, context);
+              if (isValid) {
+                print(
+                    "!!Update Profile Image :: ${profilePicProvider.getImageString}");
+                // ignore: use_build_context_synchronously
+                myProfileProvider.updateProfileImage(
+                    profilePicProvider.getImageString.toString(), context);
+              }
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -67,12 +71,14 @@ class EditProfilePictureDialogueClientProf extends StatelessWidget {
         Consumer2<ProfilePicProvider, MyProfileProvider>(
           builder: (context, profilePicProvider, myProfileProvider, child) {
             return GestureDetector(
-              onTap: () {
-                profilePicProvider.getImage(ImageSource.gallery);
-                print(
-                    "!!Update Profile Image :: ${profilePicProvider.getImageString}");
-                myProfileProvider.updateProfileImage(
-                    profilePicProvider.getImageString.toString(), context);
+              onTap: () async {
+                bool isValid = await profilePicProvider.getImage(
+                    ImageSource.gallery, context);
+                if (isValid) {
+                  // ignore: use_build_context_synchronously
+                  myProfileProvider.updateProfileImage(
+                      profilePicProvider.getImageString.toString(), context);
+                }
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -98,21 +104,31 @@ class EditProfilePictureDialogueClientProf extends StatelessWidget {
         const SizedBox(height: 12),
         const Divider(thickness: 1, color: greyD3D),
         const SizedBox(height: 12),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              tr('Professional.logIn.EditProfileDialog.delete_photo')
-                  .toUpperCase(),
-              style: const TextStyle(
-                  color: redE45,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 16,
-                  fontFamily: 'Satoshi'),
-            ),
-            const SizedBox(width: 8),
-            Image.asset('assets/icons/trash.png', height: 24, width: 24),
-          ],
+        Consumer<MyProfileProvider>(
+          builder: (context, myProfileProvider, child) {
+            return GestureDetector(
+              onTap: () {
+                myProfileProvider.deleteProfileImage(context);
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    tr('Professional.logIn.EditProfileDialog.delete_photo')
+                        .toUpperCase(),
+                    style: const TextStyle(
+                        color: redE45,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16,
+                        fontFamily: 'Satoshi'),
+                  ),
+                  const SizedBox(width: 8),
+                  Image.asset('assets/icons/trash.png', height: 24, width: 24),
+                ],
+              ),
+            );
+          },
         ),
         const SizedBox(height: 12),
         const Divider(thickness: 1, color: greyD3D),

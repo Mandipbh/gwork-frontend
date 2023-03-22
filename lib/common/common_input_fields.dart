@@ -52,10 +52,9 @@ Widget birthDateTextField({required TextEditingController controller}) {
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: Colors.white)),
     child: TextField(
-      keyboardType: TextInputType.number,
+      keyboardType: TextInputType.datetime,
       controller: controller,
       maxLength: 10,
-      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
       decoration: InputDecoration(
         prefixIcon: Image.asset('assets/icons/calendar_birthday.png', scale: 2),
         labelText: tr('admin.Birth_Date').toUpperCase(),

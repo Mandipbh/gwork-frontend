@@ -430,7 +430,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           if (currentPage == 3) {
                             bool isValid = value.setPersonalInfo(
                                 value.nameController.text.toString(),
-                                value.confirmPasswordController.text.toString(),
+                                value.lastNameController.text.toString(),
                                 value.emailController.text.toString(),
                                 value.textCodeController.text.toString(),
                                 value.birthDateController.text.toString(),

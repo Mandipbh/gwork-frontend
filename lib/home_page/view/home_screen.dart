@@ -34,7 +34,10 @@ class _HomeScreenState extends State<HomeScreen> {
       statusBarBrightness: Brightness.dark,
     ));
     context.read<HomePageProvider>().getUserRole().then((value) {
+      log(value.toString());
       setState(() {
+        Provider.of<SignUpProvider>(context, listen: false)
+            .updateUserType(value);
         role = Provider.of<SignUpProvider>(context, listen: false).userType!;
       });
     });

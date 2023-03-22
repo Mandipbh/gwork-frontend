@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 ProgressLoader(BuildContext context, data) {
   return ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
-      duration: const Duration(seconds: 8),
+      duration: const Duration(seconds: 4),
       elevation: 0,
       backgroundColor: Colors.transparent,
       content: Container(
@@ -29,9 +29,7 @@ ProgressLoader(BuildContext context, data) {
                 height: 23,
                 width: 23,
                 child: CircularProgressIndicator(
-                    value: 0.5,
-                    strokeWidth: 3,
-                    backgroundColor: Color(0xff545855)),
+                    strokeWidth: 3, backgroundColor: Color(0xff545855)),
               ),
             ],
           ),
@@ -44,7 +42,7 @@ ProgressLoader(BuildContext context, data) {
 // ignore: non_constant_identifier_names
 ErrorLoader(BuildContext context, String data) {
   return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      duration: const Duration(seconds: 8),
+      duration: const Duration(seconds: 4),
       elevation: 0,
       backgroundColor: Colors.transparent,
       content: Container(
@@ -70,9 +68,7 @@ ErrorLoader(BuildContext context, String data) {
                 height: 23,
                 width: 23,
                 child: CircularProgressIndicator(
-                    value: 0.5,
-                    strokeWidth: 3,
-                    backgroundColor: Color(0xff545855)),
+                    strokeWidth: 3, backgroundColor: Color(0xff545855)),
               ),
             ],
           ),

@@ -25,6 +25,10 @@ class ApiEndPoints {
   static const String requestOtp = "/worker/auth/request-reset";
   static const String changePassword = "/worker/auth/change-password";
   static const String getProfile = "/worker/auth/";
+  static const String removeProfileImage = "/worker/profile/image";
+
+  //Client job list
+  static const String getClientJobList = "/worker/jobs/job-list";
 }
 
 class DashboardFilters {

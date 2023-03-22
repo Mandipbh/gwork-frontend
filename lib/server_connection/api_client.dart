@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/Constants.dart';
 import 'package:g_worker_app/common/common_loader.dart';
+import 'package:g_worker_app/jobs/model/get_job_list_response.dart';
 import 'package:g_worker_app/my_profile/model/get_profile_response.dart';
 import 'package:g_worker_app/my_profile/model/request_change_phone_response.dart';
 import 'package:g_worker_app/my_profile/model/verify_phonenumber_otp_response.dart';
@@ -110,7 +111,7 @@ class ApiClient {
                   "password": password,
                   "vat_number": vatNumber,
                   "birth_date": birthDate,
-                  "role": role,
+                  "role": 0,
                   "card_holder_name": cardHolderName,
                   "card_number": cardNumber,
                   "card_expiry": cardExpiry,
@@ -126,7 +127,7 @@ class ApiClient {
                   "password": password,
                   "vat_number": vatNumber,
                   "birth_date": birthDate,
-                  "role": role,
+                  "role": 1,
                   "card_holder_name": cardHolderName,
                   "card_number": cardNumber,
                   "card_expiry": cardExpiry,
@@ -160,7 +161,7 @@ class ApiClient {
     BuildContext context,
   ) async {
     try {
-      var request = json.encode({"phone_number": phoneNumber});
+      var request = json.encode({"phone_number": "+39$phoneNumber"});
       var response = await dio.post('${API.baseUrl}${ApiEndPoints.getOtp}',
           data: request,
           options: Options(headers: {'Content-Type': 'application/json'}));
@@ -232,7 +233,7 @@ class ApiClient {
       String phoneNumber, String otp, BuildContext context) async {
     try {
       var request = json.encode({
-        "phone_number": phoneNumber,
+        "phone_number": '+39$phoneNumber',
         "otp": otp,
       });
       var response = await dio.post('${API.baseUrl}${ApiEndPoints.verifyOtp}',
@@ -325,9 +326,9 @@ class ApiClient {
 
   Future<GetProfileModel> getProfile(BuildContext context) async {
     try {
-      var request = json.encode({"surname": "johnson"});
+      // var request = json.encode();
       var response = await dio.get('${API.baseUrl}${ApiEndPoints.getProfile}',
-          data: request,
+          // data: request,
           options: Options(headers: {
             'Content-Type': 'application/json',
             "Authorization": "Bearer ${await SharedPreferenceData().getToken()}"
@@ -611,6 +612,30 @@ class ApiClient {
   //   }
   // }
 
+  Future<SuccessDataModel> removeProfileImage(BuildContext context) async {
+    try {
+      // var request = json.encode({
+      //   "credentials_token": "6cbjyU79cwDIesoJ99nGGjZjGtIXoVAp",
+      //   "phone_number": "+919033834715"
+      // });
+      var response =
+          await dio.delete('${API.baseUrl}${ApiEndPoints.removeProfileImage}',
+              // data: request,
+              options: Options(headers: {
+                'Content-Type': 'application/json',
+                "Authorization":
+                    "Bearer ${await SharedPreferenceData().getToken()}"
+              }));
+
+      return SuccessDataModel.fromJson(response.data);
+    } on DioError {
+      rethrow;
+    } catch (e) {
+      print('ApiClient.getOtp Error :: $e');
+      rethrow;
+    }
+  }
+
   Future<OtpVerifyModel> otpVerify(
       String phoneNumber, String otp, BuildContext context) async {
     try {
@@ -718,5 +743,30 @@ class ApiClient {
       print('ApiClient.Change Password Error :: $e');
       rethrow;
     }
+  }
+
+  //GetClientJobList
+  Future<GetClientJobListModel> getClientJobService(
+      BuildContext context, String state, String category) async {
+    GetClientJobListModel? _model;
+    try {
+      var response = await dio.get(
+          '${API.baseUrl}${ApiEndPoints.getClientJobList}?state=$state&category=$category',
+          options: Options(headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer ${await SharedPreferenceData().getToken()}"
+          }));
+
+      print("VerifyPhoneOtp==> ${response.data}");
+      _model = GetClientJobListModel.fromJson(response.data);
+      return _model;
+    } on DioError catch (e) {
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+    } catch (e) {
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+    }
+    return _model!;
   }
 }

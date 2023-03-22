@@ -2,7 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/jobs/add_new_job_screen.dart';
+import 'package:g_worker_app/jobs/provider/get_job_list_provider.dart';
 import 'package:g_worker_app/my_profile/my_profile_widgets/my_profile_screen.dart';
+import 'package:provider/provider.dart';
 
 import '../Constants.dart';
 import '../common/common_buttons.dart';
@@ -37,6 +39,18 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
         });
       }
     });
+  }
+
+  getClientJobs() {
+    var data = context.read<GetClientJobListProvider>();
+    data.getData("Published", "Babysitting", context);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getClientJobs();
   }
 
   @override
@@ -769,226 +783,257 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
   Widget myJobsView() {
     return selectedFilter == JobsFilters.doing
         ? noMyJobsView()
-        : ListView.builder(
-            padding:
-                const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 4),
-            itemCount: 6,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              if (index == 5) {
-                return Column(
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const JobDetailsScreen()),
-                        );
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 12),
-                        child: Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              color: Colors.white),
+        : Consumer<GetClientJobListProvider>(
+            builder: (context, value, child) {
+              return value.model == null
+                  ? Center(child: CircularProgressIndicator())
+                  : ListView.builder(
+                      padding: const EdgeInsets.only(
+                          top: 16, left: 16, right: 16, bottom: 4),
+                      itemCount: value.model!.jobs.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        // if (index == 5) {
+                        //   return Column(
+                        //     children: [
+                        //       InkWell(
+                        //         onTap: () {
+                        //           Navigator.push(
+                        //             context,
+                        //             MaterialPageRoute(
+                        //                 builder: (context) =>
+                        //                     const JobDetailsScreen()),
+                        //           );
+                        //         },
+                        //         child: Padding(
+                        //           padding: const EdgeInsets.only(bottom: 12),
+                        //           child: Container(
+                        //             width: double.infinity,
+                        //             decoration: BoxDecoration(
+                        //                 borderRadius: BorderRadius.circular(12),
+                        //                 color: Colors.white),
+                        //             child: Padding(
+                        //               padding: const EdgeInsets.only(
+                        //                   left: 12,
+                        //                   top: 12,
+                        //                   bottom: 12,
+                        //                   right: 16),
+                        //               child: Row(
+                        //                 mainAxisAlignment:
+                        //                     MainAxisAlignment.spaceBetween,
+                        //                 children: [
+                        //                   Column(
+                        //                     crossAxisAlignment:
+                        //                         CrossAxisAlignment.start,
+                        //                     children: [
+                        //                       Row(
+                        //                         children: [
+                        //                           Text(
+                        //                             'Cleaning'.toUpperCase(),
+                        //                             style: const TextStyle(
+                        //                               color: black343,
+                        //                               fontSize: 12,
+                        //                               fontWeight:
+                        //                                   FontWeight.w700,
+                        //                             ),
+                        //                           ),
+                        //                           const SizedBox(width: 8),
+                        //                           const Icon(
+                        //                               Icons
+                        //                                   .location_on_outlined,
+                        //                               color: Colors.black,
+                        //                               size: 22),
+                        //                           const SizedBox(width: 3),
+                        //                           const Text(
+                        //                             'Via Zolo, 11, Milan',
+                        //                             style: TextStyle(
+                        //                               color: splashColor1,
+                        //                               fontSize: 12,
+                        //                               fontWeight:
+                        //                                   FontWeight.w400,
+                        //                             ),
+                        //                           ),
+                        //                         ],
+                        //                       ),
+                        //                       const Text(
+                        //                         '2 rooms, max 60\$',
+                        //                         style: TextStyle(
+                        //                           color: black343,
+                        //                           fontSize: 14,
+                        //                           fontWeight: FontWeight.w700,
+                        //                         ),
+                        //                       ),
+                        //                       const SizedBox(height: 4),
+                        //                       Row(
+                        //                         children: [
+                        //                           MaterialButton(
+                        //                             onPressed: () {},
+                        //                             height: 30,
+                        //                             color: redE45,
+                        //                             elevation: 0,
+                        //                             shape:
+                        //                                 RoundedRectangleBorder(
+                        //                                     borderRadius:
+                        //                                         BorderRadius
+                        //                                             .circular(
+                        //                                                 13)),
+                        //                             child: const Text(
+                        //                               'Rejected',
+                        //                               style: TextStyle(
+                        //                                 color: Colors.white,
+                        //                                 fontSize: 12,
+                        //                                 fontWeight:
+                        //                                     FontWeight.w700,
+                        //                               ),
+                        //                             ),
+                        //                           ),
+                        //                           const SizedBox(width: 4),
+                        //                           const Text(
+                        //                             '06/07/2022 — 12:30',
+                        //                             style: TextStyle(
+                        //                               color: black343,
+                        //                               fontSize: 12,
+                        //                               fontWeight:
+                        //                                   FontWeight.w700,
+                        //                             ),
+                        //                           ),
+                        //                         ],
+                        //                       ),
+                        //                     ],
+                        //                   ),
+                        //                   Row(
+                        //                     children: const [
+                        //                       Icon(Icons.circle,
+                        //                           size: 18, color: yellowF4D),
+                        //                       SizedBox(width: 8),
+                        //                       Icon(Icons.arrow_forward_ios,
+                        //                           color: Colors.black,
+                        //                           size: 20),
+                        //                     ],
+                        //                   ),
+                        //                 ],
+                        //               ),
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       ),
+                        //       const SizedBox(height: 90)
+                        //     ],
+                        //   );
+                        // }
+                        return InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const JobDetailsScreen()),
+                            );
+                          },
                           child: Padding(
-                            padding: const EdgeInsets.only(
-                                left: 12, top: 12, bottom: 12, right: 16),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                            padding: const EdgeInsets.only(bottom: 12),
+                            child: Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: Colors.white),
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 12, top: 12, bottom: 12, right: 16),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Row(
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
+                                        Row(
+                                          children: [
+                                            Text(
+                                              value.model!.jobs[index].category
+                                                  .toUpperCase(),
+                                              style: const TextStyle(
+                                                color: black343,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                            const SizedBox(width: 8),
+                                            const Icon(
+                                                Icons.location_on_outlined,
+                                                color: Colors.black,
+                                                size: 22),
+                                            const SizedBox(width: 3),
+                                            Text(
+                                              '${value.model!.jobs[index].street}, ${value.model!.jobs[index].province}',
+                                              style: const TextStyle(
+                                                color: splashColor1,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                         Text(
-                                          'Cleaning'.toUpperCase(),
+                                          value.model!.jobs[index].description,
                                           style: const TextStyle(
                                             color: black343,
-                                            fontSize: 12,
+                                            fontSize: 14,
                                             fontWeight: FontWeight.w700,
                                           ),
                                         ),
-                                        const SizedBox(width: 8),
-                                        const Icon(Icons.location_on_outlined,
-                                            color: Colors.black, size: 22),
-                                        const SizedBox(width: 3),
-                                        const Text(
-                                          'Via Zolo, 11, Milan',
-                                          style: TextStyle(
-                                            color: splashColor1,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const Text(
-                                      '2 rooms, max 60\$',
-                                      style: TextStyle(
-                                        color: black343,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Row(
-                                      children: [
-                                        MaterialButton(
-                                          onPressed: () {},
-                                          height: 30,
-                                          color: redE45,
-                                          elevation: 0,
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(13)),
-                                          child: const Text(
-                                            'Rejected',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w700,
+                                        const SizedBox(height: 4),
+                                        Row(
+                                          children: [
+                                            MaterialButton(
+                                              onPressed: () {},
+                                              height: 30,
+                                              color: redE45,
+                                              elevation: 0,
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          13)),
+                                              child: Text(
+                                                value.model!.jobs[index].state,
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                              ),
                                             ),
-                                          ),
+                                            const SizedBox(width: 4),
+                                            Text(
+                                              value.model!.jobs[index].jobDate,
+                                              style: const TextStyle(
+                                                color: black343,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                        const SizedBox(width: 4),
-                                        const Text(
-                                          '06/07/2022 — 12:30',
-                                          style: TextStyle(
-                                            color: black343,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: const [
+                                        Icon(Icons.circle,
+                                            size: 20, color: yellowF4D),
+                                        SizedBox(width: 8),
+                                        Icon(Icons.arrow_forward_ios,
+                                            color: Colors.black, size: 20),
                                       ],
                                     ),
                                   ],
                                 ),
-                                Row(
-                                  children: const [
-                                    Icon(Icons.circle,
-                                        size: 18, color: yellowF4D),
-                                    SizedBox(width: 8),
-                                    Icon(Icons.arrow_forward_ios,
-                                        color: Colors.black, size: 20),
-                                  ],
-                                ),
-                              ],
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 90)
-                  ],
-                );
-              }
-              return InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const JobDetailsScreen()),
-                  );
-                },
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 12),
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: Colors.white),
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 12, top: 12, bottom: 12, right: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    'Cleaning'.toUpperCase(),
-                                    style: const TextStyle(
-                                      color: black343,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 8),
-                                  const Icon(Icons.location_on_outlined,
-                                      color: Colors.black, size: 22),
-                                  const SizedBox(width: 3),
-                                  const Text(
-                                    'Via Zolo, 11, Milan',
-                                    style: TextStyle(
-                                      color: splashColor1,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const Text(
-                                '2 rooms, max 60\$',
-                                style: TextStyle(
-                                  color: black343,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                              const SizedBox(height: 4),
-                              Row(
-                                children: [
-                                  MaterialButton(
-                                    onPressed: () {},
-                                    height: 30,
-                                    color: redE45,
-                                    elevation: 0,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(13)),
-                                    child: const Text(
-                                      'Rejected',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 4),
-                                  const Text(
-                                    '06/07/2022 — 12:30',
-                                    style: TextStyle(
-                                      color: black343,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: const [
-                              Icon(Icons.circle, size: 20, color: yellowF4D),
-                              SizedBox(width: 8),
-                              Icon(Icons.arrow_forward_ios,
-                                  color: Colors.black, size: 20),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              );
+                        );
+                      },
+                    );
             },
           );
   }

@@ -12,8 +12,21 @@ import 'package:provider/provider.dart';
 import '../../common/common_widgets.dart';
 import '../../sign_up/sign_up_widgets/profile_picture_view/image_provider/image_provider.dart';
 
-class MyProfileScreen extends StatelessWidget {
+class MyProfileScreen extends StatefulWidget {
   const MyProfileScreen({super.key});
+
+  @override
+  State<MyProfileScreen> createState() => _MyProfileScreenState();
+}
+
+class _MyProfileScreenState extends State<MyProfileScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Provider.of<MyProfileProvider>(context, listen: false)
+        .getUserProfile(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +38,11 @@ class MyProfileScreen extends StatelessWidget {
         ),
       ),
       body: Consumer<MyProfileProvider>(
-        builder: (context, myProfileProvder, child) {
-          if (myProfileProvder.model == null) {
-            myProfileProvder.getUserProfile(context);
+        builder: (context, myProfileProvider, child) {
+          if (myProfileProvider.model == null) {
+            myProfileProvider.getUserProfile(context);
           }
-          return myProfileProvder.model == null
+          return myProfileProvider.model == null
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
@@ -50,42 +63,59 @@ class MyProfileScreen extends StatelessWidget {
                                   height: 140,
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(60.0),
-                                    child: Image.network(
-                                      myProfileProvder.model!.user!.image!,
-                                      fit: BoxFit.fill,
-                                      loadingBuilder: (BuildContext context,
-                                          Widget child,
-                                          ImageChunkEvent? loadingProgress) {
-                                        if (loadingProgress == null) {
-                                          return child;
-                                        }
-                                        return Center(
-                                          child: CircularProgressIndicator(
-                                            value: loadingProgress
-                                                        .expectedTotalBytes !=
-                                                    null
-                                                ? loadingProgress
-                                                        .cumulativeBytesLoaded /
-                                                    loadingProgress
-                                                        .expectedTotalBytes!
-                                                : null,
-                                          ),
-                                        );
-                                      },
-                                      errorBuilder:
-                                          (context, error, stackTrace) {
-                                        return CircleAvatar(
+                                    child: myProfileProvider
+                                                .model!.user!.image ==
+                                            null
+                                        ? CircleAvatar(
                                             radius: 75,
                                             backgroundColor:
                                                 const Color(0xff6DCF82),
                                             child: Text(
-                                              '${myProfileProvder.model!.user!.name!.substring(0, 1)}${myProfileProvder.model!.user!.surname!.substring(0, 1)}',
+                                              '${myProfileProvider.model!.user!.name!.substring(0, 1)}${myProfileProvider.model!.user!.surname!.substring(0, 1)}',
                                               style: const TextStyle(
                                                   fontSize: 65,
                                                   color: Colors.white),
-                                            ));
-                                      },
-                                    ),
+                                            ))
+                                        : Image.network(
+                                            myProfileProvider
+                                                .model!.user!.image!,
+                                            fit: BoxFit.fill,
+                                            loadingBuilder:
+                                                (BuildContext context,
+                                                    Widget child,
+                                                    ImageChunkEvent?
+                                                        loadingProgress) {
+                                              if (loadingProgress == null) {
+                                                return child;
+                                              }
+                                              return Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  value: loadingProgress
+                                                              .expectedTotalBytes !=
+                                                          null
+                                                      ? loadingProgress
+                                                              .cumulativeBytesLoaded /
+                                                          loadingProgress
+                                                              .expectedTotalBytes!
+                                                      : null,
+                                                ),
+                                              );
+                                            },
+                                            errorBuilder:
+                                                (context, error, stackTrace) {
+                                              return CircleAvatar(
+                                                  radius: 75,
+                                                  backgroundColor:
+                                                      const Color(0xff6DCF82),
+                                                  child: Text(
+                                                    '${myProfileProvider.model!.user!.name!.substring(0, 1)}${myProfileProvider.model!.user!.surname!.substring(0, 1)}',
+                                                    style: const TextStyle(
+                                                        fontSize: 65,
+                                                        color: Colors.white),
+                                                  ));
+                                            },
+                                          ),
                                   ),
                                 ),
                                 Positioned(
@@ -121,20 +151,10 @@ class MyProfileScreen extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 16),
                             child: Text(
-                                '${myProfileProvder.model!.user!.name!} ${myProfileProvder.model!.user!.surname!}',
+                                '${myProfileProvider.model!.user!.name!} ${myProfileProvider.model!.user!.surname!}',
                                 style: Theme.of(context).textTheme.headline2),
                           ),
                         ),
-                        // InkWell(
-                        //   onTap: () {
-                        //     ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                        //   },
-                        //   child: Padding(
-                        //     padding: const EdgeInsets.symmetric(vertical: 16),
-                        //     child: Text('ABC XYZ',
-                        //         style: Theme.of(context).textTheme.headline2),
-                        //   ),
-                        // ),
                         Row(
                           children: [
                             Image.asset('assets/icons/user_first_name.png',
@@ -147,7 +167,7 @@ class MyProfileScreen extends StatelessWidget {
                                     style:
                                         Theme.of(context).textTheme.headline6),
                                 const SizedBox(height: 6),
-                                Text(myProfileProvder.model!.user!.name!,
+                                Text(myProfileProvider.model!.user!.name!,
                                     style:
                                         Theme.of(context).textTheme.bodyText2),
                               ],
@@ -166,7 +186,7 @@ class MyProfileScreen extends StatelessWidget {
                                     MaterialPageRoute(
                                         builder: (context) => EditProfileScreen(
                                               type: ProfileFieldType.firstName,
-                                              value: myProfileProvder
+                                              value: myProfileProvider
                                                   .model!.user!.name!,
                                             )),
                                   );
@@ -186,7 +206,7 @@ class MyProfileScreen extends StatelessWidget {
                                     style:
                                         Theme.of(context).textTheme.headline6),
                                 const SizedBox(height: 6),
-                                Text(myProfileProvder.model!.user!.surname!,
+                                Text(myProfileProvider.model!.user!.surname!,
                                     style:
                                         Theme.of(context).textTheme.bodyText2),
                               ],
@@ -205,7 +225,7 @@ class MyProfileScreen extends StatelessWidget {
                                     MaterialPageRoute(
                                         builder: (context) => EditProfileScreen(
                                               type: ProfileFieldType.lastName,
-                                              value: myProfileProvder
+                                              value: myProfileProvider
                                                   .model!.user!.surname!,
                                             )),
                                   );
@@ -225,7 +245,7 @@ class MyProfileScreen extends StatelessWidget {
                                     style:
                                         Theme.of(context).textTheme.headline6),
                                 const SizedBox(height: 6),
-                                Text(myProfileProvder.model!.user!.email!,
+                                Text(myProfileProvider.model!.user!.email!,
                                     style:
                                         Theme.of(context).textTheme.bodyText2),
                               ],
@@ -244,7 +264,7 @@ class MyProfileScreen extends StatelessWidget {
                                     MaterialPageRoute(
                                         builder: (context) => EditProfileScreen(
                                               type: ProfileFieldType.email,
-                                              value: myProfileProvder
+                                              value: myProfileProvider
                                                   .model!.user!.email!,
                                             )),
                                   );
@@ -264,7 +284,8 @@ class MyProfileScreen extends StatelessWidget {
                                     style:
                                         Theme.of(context).textTheme.headline6),
                                 const SizedBox(height: 6),
-                                Text(myProfileProvder.model!.user!.phoneNumber!,
+                                Text(
+                                    myProfileProvider.model!.user!.phoneNumber!,
                                     style:
                                         Theme.of(context).textTheme.bodyText2),
                               ],
@@ -284,7 +305,7 @@ class MyProfileScreen extends StatelessWidget {
                                         builder: (context) => EditProfileScreen(
                                               type:
                                                   ProfileFieldType.phoneNumber,
-                                              value: myProfileProvder
+                                              value: myProfileProvider
                                                   .model!.user!.phoneNumber!,
                                             )),
                                   );
@@ -304,7 +325,7 @@ class MyProfileScreen extends StatelessWidget {
                                     style:
                                         Theme.of(context).textTheme.headline6),
                                 const SizedBox(height: 6),
-                                Text(myProfileProvder.model!.user!.vatNumber!,
+                                Text(myProfileProvider.model!.user!.vatNumber!,
                                     style:
                                         Theme.of(context).textTheme.bodyText2),
                               ],
@@ -323,7 +344,7 @@ class MyProfileScreen extends StatelessWidget {
                                     MaterialPageRoute(
                                         builder: (context) => EditProfileScreen(
                                               type: ProfileFieldType.vatNumber,
-                                              value: myProfileProvder
+                                              value: myProfileProvider
                                                   .model!.user!.vatNumber!,
                                             )),
                                   );
@@ -343,7 +364,7 @@ class MyProfileScreen extends StatelessWidget {
                                     style:
                                         Theme.of(context).textTheme.headline6),
                                 const SizedBox(height: 6),
-                                Text(myProfileProvder.model!.user!.birthDate!,
+                                Text(myProfileProvider.model!.user!.birthDate!,
                                     style:
                                         Theme.of(context).textTheme.bodyText2),
                               ],
@@ -362,7 +383,7 @@ class MyProfileScreen extends StatelessWidget {
                                     MaterialPageRoute(
                                         builder: (context) => EditProfileScreen(
                                               type: ProfileFieldType.birthdate,
-                                              value: myProfileProvder
+                                              value: myProfileProvider
                                                   .model!.user!.birthDate!,
                                             )),
                                   );
@@ -382,7 +403,7 @@ class MyProfileScreen extends StatelessWidget {
                                     style:
                                         Theme.of(context).textTheme.headline6),
                                 const SizedBox(height: 6),
-                                Text(myProfileProvder.model!.user!.cardNumber!,
+                                Text(myProfileProvider.model!.user!.cardNumber!,
                                     style:
                                         Theme.of(context).textTheme.bodyText2),
                               ],

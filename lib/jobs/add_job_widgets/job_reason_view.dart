@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:g_worker_app/Constants.dart';
 
 import 'package:g_worker_app/colors.dart';
+import 'package:g_worker_app/jobs/provider/create_client_job_provider.dart';
+import 'package:provider/provider.dart';
 
 class JobReasonView extends StatefulWidget {
   const JobReasonView({super.key});
@@ -43,6 +45,9 @@ class _JobReasonViewState extends State<JobReasonView> {
                       setState(() {
                         jobType = JobsType.cleaning;
                       });
+                      Provider.of<CreateClientJobProvider>(context,
+                              listen: false)
+                          .setCategory(JobsType.cleaning);
                     },
                     child: Stack(
                       children: [
@@ -91,6 +96,9 @@ class _JobReasonViewState extends State<JobReasonView> {
                       setState(() {
                         jobType = JobsType.babySitting;
                       });
+                      Provider.of<CreateClientJobProvider>(context,
+                              listen: false)
+                          .setCategory(JobsType.babySitting);
                     },
                     child: Stack(
                       children: [
@@ -148,6 +156,9 @@ class _JobReasonViewState extends State<JobReasonView> {
                       setState(() {
                         jobType = JobsType.tutoring;
                       });
+                      Provider.of<CreateClientJobProvider>(context,
+                              listen: false)
+                          .setCategory(JobsType.tutoring);
                     },
                     child: Stack(
                       children: [
@@ -196,6 +207,9 @@ class _JobReasonViewState extends State<JobReasonView> {
                       setState(() {
                         jobType = JobsType.handyman;
                       });
+                      Provider.of<CreateClientJobProvider>(context,
+                              listen: false)
+                          .setCategory(JobsType.handyman);
                     },
                     child: Stack(
                       children: [

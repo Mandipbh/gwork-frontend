@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:g_worker_app/Constants.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/home_page/provider/home_page_provider.dart';
+import 'package:g_worker_app/jobs/provider/create_client_job_provider.dart';
+import 'package:g_worker_app/jobs/provider/get_job_list_provider.dart';
 import 'package:g_worker_app/language_screen/language_provider/language_provider.dart';
 import 'package:g_worker_app/my_profile/provider/my_profile_provider.dart';
 import 'package:g_worker_app/recover_password/provider/recover_password_provider.dart';
@@ -70,6 +72,12 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => RecoverPasswordProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => GetClientJobListProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CreateClientJobProvider(),
         ),
       ],
       child: MaterialApp(

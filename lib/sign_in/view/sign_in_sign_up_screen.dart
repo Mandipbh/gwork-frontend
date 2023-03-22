@@ -108,9 +108,6 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                       children: [
                         submitButton(
                           onButtonTap: () {
-                            //  TODO remove this
-
-                            //
                             if (provider.isValidData()) {
                               provider.getLoginResponseStream().listen((event) {
                                 if (event.success) {
@@ -123,8 +120,6 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                                         builder: (context) =>
                                             const HomeScreen()),
                                   );
-                                } else {
-                                  //show error
                                 }
                               });
                               if (MyApp.apkType == UserType.admin) {
