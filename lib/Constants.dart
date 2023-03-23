@@ -32,6 +32,9 @@ class ApiEndPoints {
 
   //Get province List
   static const String getProvinceList = '/worker/activities/province';
+
+  //Get Professional List
+  static const String getProfessionalJobList = "/worker/jobs/job-list-professional";
 }
 
 class DashboardFilters {

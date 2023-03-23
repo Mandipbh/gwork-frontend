@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:g_worker_app/jobs/model/get_job_list_response.dart';
+import 'package:g_worker_app/jobs/model/get_client_job_list_response.dart';
 import 'package:g_worker_app/server_connection/api_client.dart';
 
 class GetClientJobListProvider extends ChangeNotifier {

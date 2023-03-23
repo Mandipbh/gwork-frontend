@@ -255,18 +255,18 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                         curve: Curves.easeIn);
                     break;
                   case 6:
-                    ApiClient().createClientJob(
-                        createJobProvider.category.toString(),
-                        createJobProvider.title.toString(),
-                        createJobProvider.street.toString(),
-                        createJobProvider.province.toString(),
-                        createJobProvider.comune.toString(),
-                        createJobProvider.date.toString(),
-                        createJobProvider.time.toString(),
-                        createJobProvider.description.toString(),
-                        createJobProvider.budget.toString(),
-                        Provider.of<UploadImageProvider>(context,listen: false).,
-                        context);
+                    // ApiClient().createClientJob(
+                    //     createJobProvider.category.toString(),
+                    //     createJobProvider.title.toString(),
+                    //     createJobProvider.street.toString(),
+                    //     createJobProvider.province.toString(),
+                    //     createJobProvider.comune.toString(),
+                    //     createJobProvider.date.toString(),
+                    //     createJobProvider.time.toString(),
+                    //     createJobProvider.description.toString(),
+                    //     createJobProvider.budget.toString(),
+                    //     Provider.of<UploadImageProvider>(context,listen: false).,
+                    //     context);
                     Navigator.of(context).pop();
                     break;
                 }

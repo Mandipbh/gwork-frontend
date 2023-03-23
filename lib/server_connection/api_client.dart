@@ -6,7 +6,8 @@ import 'package:g_worker_app/Constants.dart';
 import 'package:g_worker_app/common/common_loader.dart';
 import 'package:g_worker_app/jobs/add_job_widgets/upload_images_view.dart';
 import 'package:g_worker_app/jobs/model/create_client_job_response.dart';
-import 'package:g_worker_app/jobs/model/get_job_list_response.dart';
+import 'package:g_worker_app/jobs/model/get_client_job_list_response.dart';
+import 'package:g_worker_app/jobs/model/get_professional_job_response.dart';
 import 'package:g_worker_app/jobs/provider/create_client_job_provider.dart';
 import 'package:g_worker_app/my_profile/model/get_profile_response.dart';
 import 'package:g_worker_app/my_profile/model/request_change_phone_response.dart';
@@ -763,6 +764,31 @@ class ApiClient {
 
       print("VerifyPhoneOtp==> ${response.data}");
       _model = GetClientJobListModel.fromJson(response.data);
+      return _model;
+    } on DioError catch (e) {
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+    } catch (e) {
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+    }
+    return _model!;
+  }
+
+  //GetProfessionalJobList
+  Future<GetProfessionalJobListModel> getProfessionalJobListService(
+      BuildContext context, String category,String province,bool isSelf) async {
+    GetProfessionalJobListModel? _model;
+    try {
+      var response = await dio.get(
+          '${API.baseUrl}${ApiEndPoints.getProfessionalJobList}?category=$category&is_self=$isSelf&province=$province',
+          options: Options(headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer ${await SharedPreferenceData().getToken()}"
+          }));
+
+      print("GetProf==> ${response.data}");
+      _model = GetProfessionalJobListModel.fromJson(response.data);
       return _model;
     } on DioError catch (e) {
       ErrorLoader(

@@ -4,20 +4,23 @@ import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/common/common_buttons.dart';
 import 'package:g_worker_app/custom_progress_bar.dart';
 import 'package:g_worker_app/invoice_view_screen/invoice_view_screen.dart';
+import 'package:g_worker_app/jobs/provider/get_professional_job_list_provider.dart';
+import 'package:provider/provider.dart';
 import '../Constants.dart';
 import '../my_profile/my_profile_widgets/my_profile_screen.dart';
 import 'job_detail_screen.dart';
 
-class JobListScreen extends StatefulWidget {
+class ProfessionalJobListScreen extends StatefulWidget {
   int role;
 
-  JobListScreen({Key? key, required this.role}) : super(key: key);
+  ProfessionalJobListScreen({Key? key, required this.role}) : super(key: key);
 
   @override
-  State<JobListScreen> createState() => _JobListScreenState();
+  State<ProfessionalJobListScreen> createState() =>
+      _ProfessionalJobListScreenState();
 }
 
-class _JobListScreenState extends State<JobListScreen> {
+class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
   final ScrollController _sliverScrollController = ScrollController();
   int selectedFilter = 1;
   int selectedJobType = 1;
@@ -40,6 +43,18 @@ class _JobListScreenState extends State<JobListScreen> {
         });
       }
     });
+  }
+
+  getProfessionalJobs() {
+    Provider.of<GetProfessionalJobListProvider>(context, listen: false)
+        .getDataProfessional("Babysitting", "Avellino", false, context);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getProfessionalJobs();
   }
 
   @override
@@ -840,143 +855,154 @@ class _JobListScreenState extends State<JobListScreen> {
   }
 
   Widget searchJobsView() {
-    return ListView.builder(
-      padding: const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 4),
-      itemCount: 6,
-      shrinkWrap: true,
-      itemBuilder: (context, index) {
-        if (index == 5) {
-          return Column(
-            children: [
-              Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: Colors.white),
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      left: 12, top: 12, bottom: 12, right: 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+    return Consumer<GetProfessionalJobListProvider>(
+      builder: (context, value, child) {
+        return
+          value.model == null
+            ? const Center(child: CircularProgressIndicator())
+            : ListView.builder(
+                padding: const EdgeInsets.only(
+                    top: 16, left: 16, right: 16, bottom: 4),
+                itemCount: value.model!.jobs!.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  // if (index == 5) {
+                  //   return Column(
+                  //     children: [
+                  //       Container(
+                  //         width: double.infinity,
+                  //         decoration: BoxDecoration(
+                  //             borderRadius: BorderRadius.circular(12),
+                  //             color: Colors.white),
+                  //         child: Padding(
+                  //           padding: const EdgeInsets.only(
+                  //               left: 12, top: 12, bottom: 12, right: 16),
+                  //           child: Row(
+                  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //             children: [
+                  //               Column(
+                  //                 crossAxisAlignment: CrossAxisAlignment.start,
+                  //                 children: [
+                  //                   Row(
+                  //                     children: [
+                  //                       Text(
+                  //                         'Babysitting'.toUpperCase(),
+                  //                         style: const TextStyle(
+                  //                           color: black343,
+                  //                           fontSize: 12,
+                  //                           fontWeight: FontWeight.w700,
+                  //                         ),
+                  //                       ),
+                  //                       const SizedBox(width: 8),
+                  //                       const Icon(Icons.location_on_outlined,
+                  //                           color: Colors.black, size: 22),
+                  //                       const SizedBox(width: 3),
+                  //                       const Text(
+                  //                         'Help me with my child',
+                  //                         style: TextStyle(
+                  //                           color: splashColor1,
+                  //                           fontSize: 12,
+                  //                           fontWeight: FontWeight.w400,
+                  //                         ),
+                  //                       ),
+                  //                     ],
+                  //                   ),
+                  //                   const Text(
+                  //                     '2 rooms, max 60\$',
+                  //                     style: TextStyle(
+                  //                       color: black343,
+                  //                       fontSize: 14,
+                  //                       fontWeight: FontWeight.w700,
+                  //                     ),
+                  //                   ),
+                  //                   const SizedBox(height: 4),
+                  //                   const Text(
+                  //                     '06/07/2022 — 12:30',
+                  //                     style: TextStyle(
+                  //                       color: black343,
+                  //                       fontSize: 12,
+                  //                       fontWeight: FontWeight.w700,
+                  //                     ),
+                  //                   ),
+                  //                 ],
+                  //               ),
+                  //               const Icon(Icons.arrow_forward_ios,
+                  //                   color: Colors.black, size: 20),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //       ),
+                  //       const SizedBox(height: 90)
+                  //     ],
+                  //   );
+                  // }
+                  return Container(
+                    width: double.infinity,
+                    margin: EdgeInsets.only(bottom: 18.0),
+
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: Colors.white),
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 12, top: 12, bottom: 12, right: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Row(
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                'Babysitting'.toUpperCase(),
-                                style: const TextStyle(
+                              Row(
+                                children: [
+                                  Text(
+                                    value.model!.jobs![index].category.toString(),
+                                    style: const TextStyle(
+                                      color: black343,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  const Icon(Icons.location_on_outlined,
+                                      color: Colors.black, size: 22),
+                                  const SizedBox(width: 3),
+                                   Text(
+                                    '${value.model!.jobs![index].street.toString()},${value.model!.jobs![index].province.toString()}}',
+                                    style: const TextStyle(
+                                      color: splashColor1,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                               Text(
+                                '${value.model!.jobs![index].description.toString()}, max ${value.model!.jobs![index].budget.toString()}\$',
+                                style: TextStyle(
+                                  color: black343,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                               Text(
+                  '${value.model!.jobs![index].creationDate.toString()}',
+                                style: TextStyle(
                                   color: black343,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
-                              const SizedBox(width: 8),
-                              const Icon(Icons.location_on_outlined,
-                                  color: Colors.black, size: 22),
-                              const SizedBox(width: 3),
-                              const Text(
-                                'Help me with my child',
-                                style: TextStyle(
-                                  color: splashColor1,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
                             ],
                           ),
-                          const Text(
-                            '2 rooms, max 60\$',
-                            style: TextStyle(
-                              color: black343,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          const SizedBox(height: 4),
-                          const Text(
-                            '06/07/2022 — 12:30',
-                            style: TextStyle(
-                              color: black343,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
+                          const Icon(Icons.arrow_forward_ios,
+                              color: Colors.black, size: 20),
                         ],
                       ),
-                      const Icon(Icons.arrow_forward_ios,
-                          color: Colors.black, size: 20),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 90)
-            ],
-          );
-        }
-        return Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12), color: Colors.white),
-          child: Padding(
-            padding:
-                const EdgeInsets.only(left: 12, top: 12, bottom: 12, right: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          'Babysitting'.toUpperCase(),
-                          style: const TextStyle(
-                            color: black343,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        const Icon(Icons.location_on_outlined,
-                            color: Colors.black, size: 22),
-                        const SizedBox(width: 3),
-                        const Text(
-                          'Help me with my child',
-                          style: TextStyle(
-                            color: splashColor1,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
                     ),
-                    const Text(
-                      '2 rooms, max 60\$',
-                      style: TextStyle(
-                        color: black343,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    const Text(
-                      '06/07/2022 — 12:30',
-                      style: TextStyle(
-                        color: black343,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ],
-                ),
-                const Icon(Icons.arrow_forward_ios,
-                    color: Colors.black, size: 20),
-              ],
-            ),
-          ),
-        );
+                  );
+                },
+              );
       },
     );
   }

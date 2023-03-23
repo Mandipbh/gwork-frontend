@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/jobs/add_new_job_screen.dart';
-import 'package:g_worker_app/jobs/provider/get_job_list_provider.dart';
+import 'package:g_worker_app/jobs/provider/get_client_job_list_provider.dart';
 import 'package:g_worker_app/my_profile/my_profile_widgets/my_profile_screen.dart';
 import 'package:provider/provider.dart';
 
