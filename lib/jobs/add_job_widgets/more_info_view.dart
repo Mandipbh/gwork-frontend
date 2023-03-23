@@ -29,12 +29,12 @@ class MoreInfoView extends StatelessWidget {
               multilineTextField(
                   label: tr('client.case_descrive.Describe_job'),
                   asset: 'message_text.png',
-                  controller: value.dateController),
+                  controller: value.describeController),
               const SizedBox(height: 20),
               nameTextField(
                   label: tr('client.case_descrive.Budget'),
                   asset: 'coins_stacked.png',
-                  controller: value.timeController),
+                  controller: value.budgetController),
               const SizedBox(height: 20),
             ],
           );

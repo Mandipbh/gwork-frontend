@@ -22,6 +22,13 @@ class CreateClientJobProvider extends ChangeNotifier {
   String? get description => _description;
   String? get budget => _budget;
 
+  bool _isLogging = false;
+  bool getIsLogging() => _isLogging;
+  setIsLogging(bool value) {
+    _isLogging = value;
+    notifyListeners();
+  }
+
   setCategory(value) {
     _category = value;
     notifyListeners();
@@ -30,14 +37,19 @@ class CreateClientJobProvider extends ChangeNotifier {
   // Job Info
   var titleController = TextEditingController();
   var streetController = TextEditingController();
+  var comuneController = TextEditingController();
 
-  setJobInfo(String title, String street, BuildContext context) {
-    if (titleController.text.isEmpty || streetController.text.isEmpty) {
+  setJobInfo(BuildContext context) {
+    if (titleController.text.isEmpty ||
+        streetController.text.isEmpty ||
+        comuneController.text.isEmpty) {
       ErrorLoader(context, "Please fill all the details");
       notifyListeners();
+      return false;
     } else {
       _title = title;
       _street = street;
+      _comune = comune;
       notifyListeners();
       return true;
     }
@@ -47,10 +59,11 @@ class CreateClientJobProvider extends ChangeNotifier {
   var dateController = TextEditingController();
   var timeController = TextEditingController();
 
-  setSchedule(String date, String time, BuildContext context) {
+  setSchedule(BuildContext context) {
     if (dateController.text.isEmpty || timeController.text.isEmpty) {
       ErrorLoader(context, "Please fill all the details");
       notifyListeners();
+      return false;
     } else {
       _date = date;
       _time = time;
@@ -64,10 +77,11 @@ class CreateClientJobProvider extends ChangeNotifier {
   var describeController = TextEditingController();
   var budgetController = TextEditingController();
 
-  setMoreInfo(String description, String budget, BuildContext context) {
+  setMoreInfo(BuildContext context) {
     if (describeController.text.isEmpty || budgetController.text.isEmpty) {
       ErrorLoader(context, "Please fill all the details");
       notifyListeners();
+      return false;
     } else {
       _description = description;
       _time = time;

@@ -65,6 +65,7 @@ class RecoverPasswordProvider extends ChangeNotifier {
         print("TOKEN :: $token");
         if (changePasswordResponse.success!) {
           print("AAAAA${changePasswordResponse.success}");
+          clearRecoverPasswordProvider(context);
           setIsLogging(false);
           ProgressLoader(context, "Password Change SuccessFully");
           Navigator.pushAndRemoveUntil(
@@ -79,5 +80,12 @@ class RecoverPasswordProvider extends ChangeNotifier {
         notifyListeners();
       });
     }
+  }
+
+  clearRecoverPasswordProvider(BuildContext context) {
+    recoverPasswordPhoneController.clear();
+    newPasswordController.clear();
+    confirmNewPasswordController.clear();
+    notifyListeners();
   }
 }

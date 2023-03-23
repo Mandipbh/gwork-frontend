@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,6 +11,9 @@ import 'package:g_worker_app/jobs/add_job_widgets/more_info_view.dart';
 import 'package:g_worker_app/jobs/add_job_widgets/schedule_view.dart';
 import 'package:g_worker_app/jobs/add_job_widgets/summary_view.dart';
 import 'package:g_worker_app/jobs/add_job_widgets/upload_images_view.dart';
+import 'package:g_worker_app/jobs/provider/create_client_job_provider.dart';
+import 'package:g_worker_app/server_connection/api_client.dart';
+import 'package:provider/provider.dart';
 import '../colors.dart';
 import '../common/common_buttons.dart';
 import '../common/common_widgets.dart';
@@ -126,6 +131,7 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
     );
   }
 
+//TODO add job validations
   Widget mainView() {
     final List<Widget> pages = <Widget>[
       const JobReasonView(),
@@ -210,13 +216,67 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                     curve: Curves.easeIn);
               },
               onNextTap: () {
-                if (currentPage > 5) {
-                  Navigator.of(context).pop();
-                } else {
-                  controller.nextPage(
-                      duration: const Duration(milliseconds: 200),
-                      curve: Curves.easeIn);
+                log(currentPage.toString());
+                var createJobProvider = context.read<CreateClientJobProvider>();
+                switch (currentPage) {
+                  case 1:
+                    controller.nextPage(
+                        duration: const Duration(milliseconds: 200),
+                        curve: Curves.easeIn);
+
+                    break;
+                  case 2:
+                    if (createJobProvider.setJobInfo(context)) {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                      controller.nextPage(
+                          duration: const Duration(milliseconds: 200),
+                          curve: Curves.easeIn);
+                    }
+                    break;
+                  case 3:
+                    if (createJobProvider.setSchedule(context)) {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                      controller.nextPage(
+                          duration: const Duration(milliseconds: 200),
+                          curve: Curves.easeIn);
+                    }
+                    break;
+                  case 4:
+                    if (createJobProvider.setMoreInfo(context)) {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                      controller.nextPage(
+                          duration: const Duration(milliseconds: 200),
+                          curve: Curves.easeIn);
+                    }
+                    break;
+                  case 5:
+                    controller.nextPage(
+                        duration: const Duration(milliseconds: 200),
+                        curve: Curves.easeIn);
+                    break;
+                  case 6:
+                    ApiClient().createClientJob(
+                        createJobProvider.category.toString(),
+                        createJobProvider.title.toString(),
+                        createJobProvider.street.toString(),
+                        createJobProvider.province.toString(),
+                        createJobProvider.comune.toString(),
+                        createJobProvider.date.toString(),
+                        createJobProvider.time.toString(),
+                        createJobProvider.description.toString(),
+                        createJobProvider.budget.toString(),
+                        Provider.of<UploadImageProvider>(context,listen: false).,
+                        context);
+                    Navigator.of(context).pop();
+                    break;
                 }
+                // if (currentPage > 5) {
+                //   Navigator.of(context).pop();
+                // } else {
+                //   controller.nextPage(
+                //       duration: const Duration(milliseconds: 200),
+                //       curve: Curves.easeIn);
+                // }
               },
               nextButtonName: currentPage > 5
                   ? 'Publish'

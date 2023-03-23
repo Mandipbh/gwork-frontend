@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:g_worker_app/colors.dart';
+import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
+import 'package:provider/provider.dart';
 
 Widget phoneNumberTextField({required TextEditingController controller}) {
   return Container(
@@ -148,8 +150,10 @@ Widget multilineTextField(
   );
 }
 
-Widget dropdownField(
+Widget dropdownField(BuildContext context,
     {required String label,
+    required String value,
+    required Function(String? val) onChange,
     required String asset,
     required List<String> items}) {
   return Container(
@@ -159,32 +163,23 @@ Widget dropdownField(
         color: Colors.white, borderRadius: BorderRadius.circular(16)),
     child: Center(
       child: DropdownButtonFormField(
+        value: value,
+        icon: const Icon(Icons.keyboard_arrow_down),
         isExpanded: true,
         decoration: InputDecoration(
-          isDense: true,
-          suffixIcon: Icon(
-            Icons.expand_more,
-            color: Colors.black,
-            size: 26,
-          ),
-          prefixIcon: Row(
-            children: [
-              Image.asset(
-                "assets/icons/marker_location.png",
-                scale: 2,
-              ),
-            ],
+          prefixIcon: Image.asset(
+            "assets/icons/marker_location.png",
+            scale: 2,
           ),
         ),
-        hint: Text('Please choose account type'), // Down Arrow Icon
-        icon: const Icon(Icons.keyboard_arrow_down),
+        // Array list of items
         items: items.map((String items) {
           return DropdownMenuItem(
             value: items,
             child: Text(items),
           );
         }).toList(),
-        onChanged: (String? newValue) {},
+        onChanged: onChange,
       ),
     ),
   );

@@ -42,8 +42,8 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
   }
 
   getClientJobs() {
-    var data = context.read<GetClientJobListProvider>();
-    data.getData("Published", "Babysitting", context);
+    Provider.of<GetClientJobListProvider>(context, listen: false)
+        .getData("All", "All", context);
   }
 
   @override

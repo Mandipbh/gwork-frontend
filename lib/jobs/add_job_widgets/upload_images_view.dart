@@ -44,11 +44,11 @@ class UploadImageView extends StatelessWidget {
                               showDialog(
                                 context: context,
                                 builder: (context) {
-                                  return Dialog(
+                                  return const Dialog(
                                     insetPadding:
                                         EdgeInsets.symmetric(horizontal: 20),
                                     child: Padding(
-                                      padding: const EdgeInsets.all(18.0),
+                                      padding: EdgeInsets.all(18.0),
                                       child: UploadImage(),
                                     ),
                                   );

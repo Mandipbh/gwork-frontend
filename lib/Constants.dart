@@ -29,6 +29,9 @@ class ApiEndPoints {
 
   //Client job list
   static const String getClientJobList = "/worker/jobs/job-list";
+
+  //Get province List
+  static const String getProvinceList = '/worker/activities/province';
 }
 
 class DashboardFilters {

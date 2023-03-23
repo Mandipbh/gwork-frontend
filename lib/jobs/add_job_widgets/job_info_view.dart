@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/jobs/provider/create_client_job_provider.dart';
+import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../common/common_input_fields.dart';
@@ -36,14 +37,24 @@ class JobInfoView extends StatelessWidget {
                   asset: 'marker_location.png',
                   controller: value.streetController),
               const SizedBox(height: 20),
-              dropdownField(
-                  label: tr('client.Job_info.Province'),
-                  asset: 'marker_location.png',
-                  items: ['Province']),
+              Consumer<SignUpProvider>(
+                builder: (context, value, child) {
+                  return dropdownField(
+                    context,
+                    label: tr('client.Job_info.Province'),
+                    asset: 'marker_location.png',
+                    items: value.proviceModel!.provice,
+                    value: value.selectedProvince!,
+                    onChange: (val) {
+                      value.updateProvinceValue(val);
+                    },
+                  );
+                },
+              ),
               const SizedBox(height: 20),
-              dropdownField(
+              nameTextField(
                 label: tr('client.Job_info.Comune'),
-                items: ['Comune'],
+                controller: value.comuneController,
                 asset: 'marker_location.png',
               ),
               const SizedBox(height: 20),

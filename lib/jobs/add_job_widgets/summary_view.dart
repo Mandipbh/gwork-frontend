@@ -1,5 +1,10 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:g_worker_app/jobs/add_job_widgets/upload_images_view.dart';
+import 'package:g_worker_app/jobs/provider/create_client_job_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../colors.dart';
 import '../../common/common_input_fields.dart';
@@ -102,181 +107,206 @@ class _SummaryViewState extends State<SummaryView> {
   }
 
   Widget descriptionView() {
-    return Column(children: [
-      Container(
-        height: 50,
-        width: double.infinity,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12), color: Color(0x0ffffffff)),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Image.asset(
-                "assets/icons/marker_location.png",
-                scale: 2,
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Text(
-                "Via Bronzolo, 11, Milano, 25124",
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
-              )
-            ],
-          ),
-        ),
-      ),
-      SizedBox(
-        height: 10,
-      ),
-      Container(
-        height: 50,
-        width: double.infinity,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12), color: Color(0x0ffffffff)),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Image.asset(
-                "assets/icons/calendar.png",
-                scale: 2,
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Text(
-                "03/02/2021 — 09:31",
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
-              )
-            ],
-          ),
-        ),
-      ),
-      SizedBox(
-        height: 10,
-      ),
-      Container(
-        height: 50,
-        width: double.infinity,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12), color: Color(0x0ffffffff)),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Image.asset(
-                "assets/icons/job.png",
-                scale: 2,
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Text(
-                "Babysitting",
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
-              )
-            ],
-          ),
-        ),
-      ),
-      SizedBox(
-        height: 10,
-      ),
-      Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12), color: Color(0x0ffffffff)),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Image.asset(
-                "assets/icons/budget.png",
-                scale: 2,
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
+    return Consumer<CreateClientJobProvider>(
+      builder: (context, value, child) {
+        return Column(children: [
+          Container(
+            height: 50,
+            width: double.infinity,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: const Color(0xffffffff)),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
                 children: [
-                  Text(
-                    tr('client.summary.Accepted_budget'),
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+                  Image.asset(
+                    "assets/icons/marker_location.png",
+                    scale: 2,
+                  ),
+                  const SizedBox(
+                    width: 10,
                   ),
                   Text(
-                    "€60,00",
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
-                  ),
+                    value.streetController.text,
+                    style: const TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.w700),
+                  )
                 ],
-              )
-            ],
-          ),
-        ),
-      ),
-      SizedBox(
-        height: 10,
-      ),
-      Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12), color: Color(0x0ffffffff)),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Image.asset(
-                "assets/icons/message_text.png",
-                scale: 2,
               ),
-              SizedBox(
-                width: 10,
-              ),
-              Flexible(
-                child: Text(
-                  "Babysitters perform general caregiving duties that ensure children’s needs are met while their parents or guardians are away. Their duties include providing transportati",
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
-                ),
-              )
-            ],
+            ),
           ),
-        ),
-      ),
-    ]);
+          const SizedBox(
+            height: 10,
+          ),
+          Container(
+            height: 50,
+            width: double.infinity,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: const Color(0xffffffff)),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Image.asset(
+                    "assets/icons/calendar.png",
+                    scale: 2,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    "${value.dateController.text} — ${value.timeController.text}",
+                    style: const TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.w700),
+                  )
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Container(
+            height: 50,
+            width: double.infinity,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: const Color(0xffffffff)),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Image.asset(
+                    "assets/icons/job.png",
+                    scale: 2,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    value.category == 1
+                        ? "Cleaning"
+                        : value.category == 2
+                            ? "Babysitting"
+                            : value.category == 3
+                                ? "Tutoring"
+                                : "HandyMan",
+                    style: const TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.w700),
+                  )
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: const Color(0xffffffff)),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Image.asset(
+                    "assets/icons/budget.png",
+                    scale: 2,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        tr('client.summary.Accepted_budget'),
+                        style: const TextStyle(
+                            fontSize: 12, fontWeight: FontWeight.w500),
+                      ),
+                      Text(
+                        value.budgetController.text,
+                        style: const TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.w700),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: Color(0x0ffffffff)),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Image.asset(
+                    "assets/icons/message_text.png",
+                    scale: 2,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Flexible(
+                    child: Text(
+                      value.describeController.text,
+                      style: const TextStyle(
+                          fontSize: 12, fontWeight: FontWeight.w500),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ]);
+      },
+    );
   }
 
   galleryView() {
-    return Expanded(
-      child: GridView.count(
-          physics: const NeverScrollableScrollPhysics(),
-          crossAxisCount: 2,
-          crossAxisSpacing: 12,
-          mainAxisSpacing: 12,
-          children: List.generate(8, (index) {
-            return SizedBox(
-              height: MediaQuery.of(context).size.width * 0.44,
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12)),
-                padding: const EdgeInsets.symmetric(vertical: 15),
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Text(
-                    tr('client.gallery.Upload_Photo').toUpperCase(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .caption!
-                        .apply(color: primaryColor),
-                  ),
-                ),
-              ),
-            );
-          })),
+    return Consumer<UploadImageProvider>(
+      builder: (context, uploadImageProvider, child) {
+        return Expanded(
+          child: GridView.count(
+              physics: const NeverScrollableScrollPhysics(),
+              crossAxisCount: 2,
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
+              children:
+                  List.generate(uploadImageProvider.imageList.length, (index) {
+                return uploadImageProvider.imageList.isNotEmpty
+                    ? uploadImageProvider.imageList[index] == "add"
+                        ? SizedBox()
+                        : SizedBox(
+                            height: MediaQuery.of(context).size.width * 0.44,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.file(
+                                File(
+                                  uploadImageProvider.imageList[index],
+                                ),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          )
+                    : const Center(
+                        child: Text("NO IMAGE FOUND"),
+                      );
+              })),
+        );
+      },
     );
   }
 }

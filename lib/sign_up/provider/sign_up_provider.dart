@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/common/validation_items.dart';
+import 'package:g_worker_app/province/province_model.dart';
 import 'package:g_worker_app/recover_password/recover_password_widgets/code_confirmation_screen.dart';
 import 'package:g_worker_app/sign_in/provider/sign_in_provider.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/profile_picture_view/image_provider/image_provider.dart';
@@ -23,11 +24,28 @@ class SignUpProvider extends ChangeNotifier {
   var phoneController = TextEditingController();
   bool _isLogging = false;
   SharedPreferenceData preferenceData = SharedPreferenceData();
+  ProviceModel? _proviceModel;
+  ProviceModel? get proviceModel => _proviceModel;
+  String? _selectedProvince;
+  String? get selectedProvince => _selectedProvince;
   bool getIsLogging() => _isLogging;
   // getPhone(val) {
   //   _phoneNo = val;
   //   notifyListeners();
   // }
+
+  getProvinceList(BuildContext context) {
+    ApiClient().getProvinceList(context).then((value) {
+      _proviceModel = value;
+      _selectedProvince = _proviceModel!.provice.first;
+      notifyListeners();
+    });
+  }
+
+  updateProvinceValue(val) {
+    _selectedProvince = val;
+    notifyListeners();
+  }
 
   updateUserType(int type) {
     _userType = type;

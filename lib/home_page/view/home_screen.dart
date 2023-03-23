@@ -35,6 +35,9 @@ class _HomeScreenState extends State<HomeScreen> {
     ));
     context.read<HomePageProvider>().getUserRole().then((value) {
       log(value.toString());
+      //TODO get province list
+      Provider.of<SignUpProvider>(context, listen: false)
+          .getProvinceList(context);
       setState(() {
         Provider.of<SignUpProvider>(context, listen: false)
             .updateUserType(value);

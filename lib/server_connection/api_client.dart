@@ -4,7 +4,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/Constants.dart';
 import 'package:g_worker_app/common/common_loader.dart';
+import 'package:g_worker_app/jobs/add_job_widgets/upload_images_view.dart';
+import 'package:g_worker_app/jobs/model/create_client_job_response.dart';
 import 'package:g_worker_app/jobs/model/get_job_list_response.dart';
+import 'package:g_worker_app/jobs/provider/create_client_job_provider.dart';
 import 'package:g_worker_app/my_profile/model/get_profile_response.dart';
 import 'package:g_worker_app/my_profile/model/request_change_phone_response.dart';
 import 'package:g_worker_app/my_profile/model/verify_phonenumber_otp_response.dart';
@@ -25,6 +28,7 @@ import 'package:g_worker_app/success_model/success_model_response.dart';
 
 import 'package:provider/provider.dart';
 
+import '../province/province_model.dart';
 import '../shared_preference_data.dart';
 import '../sign_up/model/sign_up_response.dart';
 
@@ -768,5 +772,106 @@ class ApiClient {
           context, "Oops, something is wrong with your data. Try again.");
     }
     return _model!;
+  }
+
+  Future<ProviceModel> getProvinceList(BuildContext context) async {
+    ProviceModel? _model;
+    try {
+      var response =
+          await dio.get('${API.baseUrl}${ApiEndPoints.getProvinceList}',
+              options: Options(headers: {
+                'Content-Type': 'application/json',
+                "Authorization":
+                    "Bearer ${await SharedPreferenceData().getToken()}"
+              }));
+
+      print("VerifyPhoneOtp==> ${response.data}");
+      _model = ProviceModel.fromJson(response.data);
+      return _model;
+    } on DioError catch (e) {
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+    } catch (e) {
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+    }
+    return _model!;
+  }
+
+  Future<CreateClientJobModel> createClientJob(
+    String category,
+    String title,
+    String street,
+    String province,
+    String commune,
+    String date,
+    String time,
+    String description,
+    String budget,
+    List<String> docs,
+    BuildContext context,
+  ) async {
+    try {
+      print("category :: $category");
+      print("title :: $title");
+      print("street :: $street");
+      print("province :: $province");
+      print("comune :: $commune");
+      print("date :: $date");
+      print("time :: $time");
+      print("description :: $description");
+      print("budget :: $budget");
+      print("image :: $docs");
+
+      var formData = FormData();
+      for (var file in Provider.of<UploadImageProvider>(context, listen: false)
+          .imageList) {
+        formData.files.addAll([
+          MapEntry("docs", await MultipartFile.fromFile(file)),
+        ]);
+      }
+
+      var request = FormData.fromMap({
+        "category": category,
+        "title": title,
+        "street": street,
+        "province": province,
+        "commune": commune,
+        "date": date,
+        "time": time,
+        "description": description,
+        "budget": budget,
+        "docs": docs,
+        'docs': [
+          await MultipartFile.fromFile(
+            '${Provider.of<UploadImageProvider>(context, listen: false).imageList}',
+          ),
+        ],
+      });
+
+      var response =
+          await dio.post('${API.baseUrl}${ApiEndPoints.changePassword}',
+              data: request,
+              options: Options(headers: {
+                'Content-Type': 'application/json',
+              }));
+      print("CreateClientJob :: ${response.data}");
+      return CreateClientJobModel.fromJson(response.data);
+    } on DioError {
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+      Provider.of<CreateClientJobProvider>(context, listen: false)
+          .setIsLogging(false);
+      print("----DIO ERROR CreateClientJob----");
+      rethrow;
+    } catch (e) {
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+      Provider.of<CreateClientJobProvider>(context, listen: false)
+          .setIsLogging(false);
+      print("----DIO ERROR Change Password----");
+      print('ApiClient.CreateClientJob Error :: $e');
+      rethrow;
+    }
   }
 }
