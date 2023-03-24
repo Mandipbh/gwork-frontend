@@ -73,7 +73,7 @@ class ApiClient {
     }
   }
 
-  Future<SignUpModel> userRegister(
+  Future<CreateClientJobModel?> userRegister(
     BuildContext context, {
     String? firstName,
     String? lastName,
@@ -106,58 +106,70 @@ class ApiClient {
       print("@@@");
 
       dio.options.headers["Content-Type"] = "multipart/form-data";
-      FormData formData =
-          Provider.of<SignUpProvider>(context, listen: false).userType == 0
-              ? FormData.fromMap({
-                  "first_name": firstName,
-                  "last_name": lastName,
-                  "email": email,
-                  "phone_number": '+39$phoneNumber',
-                  "password": password,
-                  "vat_number": vatNumber,
-                  "birth_date": birthDate,
-                  "role": 0,
-                  "card_holder_name": cardHolderName,
-                  "card_number": cardNumber,
-                  "card_expiry": cardExpiry,
-                  "card_cvv": cardCvv,
-                  'image': await MultipartFile.fromFile('$image',
-                      filename: image!.split('/').last),
-                })
-              : FormData.fromMap({
-                  "first_name": firstName,
-                  "last_name": lastName,
-                  "email": email,
-                  "phone_number": '+39$phoneNumber',
-                  "password": password,
-                  "vat_number": vatNumber,
-                  "birth_date": birthDate,
-                  "role": 1,
-                  "card_holder_name": cardHolderName,
-                  "card_number": cardNumber,
-                  "card_expiry": cardExpiry,
-                  "card_cvv": cardCvv,
-                  'image': await MultipartFile.fromFile('$image',
-                      filename: image!.split('/').last),
-                  'docs': await MultipartFile.fromFile(
-                    '${Provider.of<DocumentPicProvider>(context, listen: false).docList[1]}',
-                  ),
-                });
 
-      var response = await dio.put('${API.baseUrl}${ApiEndPoints.signUp}',
-          data: formData,
-          options: Options(headers: {'Content-Type': 'application/json'}));
+      var formData = FormData();
+      for (var file
+          in Provider.of<DocumentPicProvider>(context, listen: false).docList) {
+        formData.files.addAll([
+          if (!file.contains("add"))
+            MapEntry("docs", await MultipartFile.fromFile(file)),
+        ]);
+      }
+
+      Provider.of<SignUpProvider>(context, listen: false).userType == 0
+          ? formData.fields.addAll([
+              MapEntry("first_name", firstName!),
+              MapEntry("last_name", lastName!),
+              MapEntry("email", email!),
+              MapEntry(
+                "phone_number",
+                '+39$phoneNumber',
+              ),
+              MapEntry("password", password!),
+              MapEntry("vat_number", vatNumber!),
+              MapEntry("birth_date", birthDate!),
+              const MapEntry("role", '${0}'),
+              MapEntry("card_holder_name", cardHolderName!),
+              MapEntry("card_number", cardNumber!),
+              MapEntry("card_expiry", cardExpiry!),
+              MapEntry("card_cvv", cardCvv!),
+            ])
+          : formData.fields.addAll([
+              MapEntry("first_name", firstName!),
+              MapEntry("last_name", lastName!),
+              MapEntry("email", email!),
+              MapEntry(
+                "phone_number",
+                '+39$phoneNumber',
+              ),
+              MapEntry("password", password!),
+              MapEntry("vat_number", vatNumber!),
+              MapEntry("birth_date", birthDate!),
+              const MapEntry("role", '${1}'),
+              MapEntry("card_holder_name", cardHolderName!),
+              MapEntry("card_number", cardNumber!),
+              MapEntry("card_expiry", cardExpiry!),
+              MapEntry("card_cvv", cardCvv!),
+            ]);
+      formData.files.addAll([
+        MapEntry("image", await MultipartFile.fromFile(image!)),
+      ]);
+      var response = await dio.put(
+        '${API.baseUrl}${ApiEndPoints.signUp}',
+        data: formData,
+        //options: Options(headers: {'Content-Type': 'application/json'})
+      );
       print('REGISTER API :: ${response.data}');
-      return SignUpModel.fromJson(response.data);
-    } on DioError {
+      return CreateClientJobModel.fromJson(response.data);
+    } on DioError catch (e) {
       ErrorLoader(context, "Error in registration");
       Provider.of<SignUpProvider>(context, listen: false).setIsLogging(false);
-      rethrow;
+      CreateClientJobModel();
     } catch (e) {
       ErrorLoader(context, "Error in registration");
       Provider.of<SignUpProvider>(context, listen: false).setIsLogging(false);
       print('ApiClient.adminLogin Error :: \n$e');
-      rethrow;
+      CreateClientJobModel();
     }
   }
 
@@ -619,13 +631,8 @@ class ApiClient {
 
   Future<SuccessDataModel> removeProfileImage(BuildContext context) async {
     try {
-      // var request = json.encode({
-      //   "credentials_token": "6cbjyU79cwDIesoJ99nGGjZjGtIXoVAp",
-      //   "phone_number": "+919033834715"
-      // });
       var response =
           await dio.delete('${API.baseUrl}${ApiEndPoints.removeProfileImage}',
-              // data: request,
               options: Options(headers: {
                 'Content-Type': 'application/json',
                 "Authorization":
@@ -777,7 +784,10 @@ class ApiClient {
 
   //GetProfessionalJobList
   Future<GetProfessionalJobListModel> getProfessionalJobListService(
-      BuildContext context, String category,String province,bool isSelf) async {
+      BuildContext context,
+      String category,
+      String province,
+      bool isSelf) async {
     GetProfessionalJobListModel? _model;
     try {
       var response = await dio.get(
@@ -828,68 +838,68 @@ class ApiClient {
     String category,
     String title,
     String street,
-    String province,
     String commune,
     String date,
     String time,
     String description,
     String budget,
-    List<String> docs,
     BuildContext context,
   ) async {
     try {
       print("category :: $category");
       print("title :: $title");
       print("street :: $street");
-      print("province :: $province");
+
       print("comune :: $commune");
       print("date :: $date");
       print("time :: $time");
       print("description :: $description");
       print("budget :: $budget");
-      print("image :: $docs");
 
       var formData = FormData();
       for (var file in Provider.of<UploadImageProvider>(context, listen: false)
           .imageList) {
         formData.files.addAll([
-          MapEntry("docs", await MultipartFile.fromFile(file)),
+          if (!file.contains("add"))
+            MapEntry("docs", await MultipartFile.fromFile(file)),
         ]);
       }
 
-      var request = FormData.fromMap({
-        "category": category,
-        "title": title,
-        "street": street,
-        "province": province,
-        "commune": commune,
-        "date": date,
-        "time": time,
-        "description": description,
-        "budget": budget,
-        "docs": docs,
-        'docs': [
-          await MultipartFile.fromFile(
-            '${Provider.of<UploadImageProvider>(context, listen: false).imageList}',
-          ),
-        ],
-      });
+      formData.fields.addAll([
+        MapEntry("category", "$category"),
+        MapEntry("title", "$title"),
+        MapEntry("street", "$street"),
+        MapEntry(
+            "province",
+            Provider.of<SignUpProvider>(context, listen: false)
+                .selectedProvince!),
+        MapEntry("commune", "$commune"),
+        MapEntry("date", "$date"),
+        MapEntry("time", "$time"),
+        MapEntry("description", "$description"),
+        MapEntry("budget", "$budget"),
+      ]);
+      print("CreateClientJob :: ${formData.fields}");
+      print("CreateClientJob :: ${formData.files}");
 
       var response =
-          await dio.post('${API.baseUrl}${ApiEndPoints.changePassword}',
-              data: request,
+          await dio.post('${API.baseUrl}${ApiEndPoints.createClientJobList}',
+              data: formData,
               options: Options(headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': "multipart/form-data",
+                "Authorization":
+                    "Bearer ${await SharedPreferenceData().getToken()}"
               }));
       print("CreateClientJob :: ${response.data}");
       return CreateClientJobModel.fromJson(response.data);
-    } on DioError {
+    } on DioError catch (e) {
+      log(e.response!.statusCode.toString());
       ErrorLoader(
           context, "Oops, something is wrong with your data. Try again.");
       Provider.of<CreateClientJobProvider>(context, listen: false)
           .setIsLogging(false);
       print("----DIO ERROR CreateClientJob----");
-      rethrow;
+      return CreateClientJobModel();
     } catch (e) {
       ErrorLoader(
           context, "Oops, something is wrong with your data. Try again.");
@@ -897,7 +907,7 @@ class ApiClient {
           .setIsLogging(false);
       print("----DIO ERROR Change Password----");
       print('ApiClient.CreateClientJob Error :: $e');
-      rethrow;
+      return CreateClientJobModel();
     }
   }
 }

@@ -50,6 +50,7 @@ dependencies:
   json_annotation: ^4.8.0
   dio: ^5.0.1
   shared_preferences: ^2.0.18
+  fluttertoast: ^8.2.1
 
 dev_dependencies:
   flutter_test:

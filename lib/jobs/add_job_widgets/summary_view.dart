@@ -21,87 +21,80 @@ class _SummaryViewState extends State<SummaryView> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: SizedBox(
-        height: MediaQuery.of(context).size.height,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: Text(
-                tr('client.summary.Summary'),
-                style: Theme.of(context).textTheme.headline1,
-              ),
+    return SizedBox(
+      height: MediaQuery.of(context).size.height,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: Text(
+              tr('client.summary.Summary'),
+              style: Theme.of(context).textTheme.headline1,
             ),
-            Text(tr('client.summary.Building_restructuring'),
-                style: Theme.of(context).textTheme.headline3),
-            const SizedBox(height: 24),
-            Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16), color: Colors.white),
-              padding: const EdgeInsets.all(8),
-              child: Row(children: [
-                Expanded(
-                  child: GestureDetector(
-                    behavior: HitTestBehavior.opaque,
-                    onTap: () {
-                      setState(() {
-                        isDescriptionSelected = !isDescriptionSelected;
-                      });
-                    },
-                    child: Container(
-                        height: 34,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
+          ),
+          Text(tr('client.summary.Building_restructuring'),
+              style: Theme.of(context).textTheme.headline3),
+          const SizedBox(height: 24),
+          Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16), color: Colors.white),
+            padding: const EdgeInsets.all(8),
+            child: Row(children: [
+              Expanded(
+                child: GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () {
+                    setState(() {
+                      isDescriptionSelected = !isDescriptionSelected;
+                    });
+                  },
+                  child: Container(
+                      height: 34,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color:
+                              isDescriptionSelected ? primaryColor : whiteF2F),
+                      child: Center(
+                          child: Text(
+                        tr('client.summary.Description'),
+                        style: Theme.of(context).textTheme.subtitle1!.apply(
                             color: isDescriptionSelected
-                                ? primaryColor
-                                : whiteF2F),
-                        child: Center(
-                            child: Text(
-                          tr('client.summary.Description'),
-                          style: Theme.of(context).textTheme.subtitle1!.apply(
-                              color: isDescriptionSelected
-                                  ? whiteF2F
-                                  : primaryColor),
-                        ))),
-                  ),
+                                ? whiteF2F
+                                : primaryColor),
+                      ))),
                 ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: GestureDetector(
-                    behavior: HitTestBehavior.opaque,
-                    onTap: () {
-                      setState(() {
-                        isDescriptionSelected = !isDescriptionSelected;
-                      });
-                    },
-                    child: Container(
-                        height: 34,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            color: !isDescriptionSelected
-                                ? primaryColor
-                                : whiteF2F),
-                        child: Center(
-                          child: Text(tr('client.summary.Gallery'),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .subtitle1!
-                                  .apply(
-                                      color: !isDescriptionSelected
-                                          ? Colors.white
-                                          : primaryColor)),
-                        )),
-                  ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () {
+                    setState(() {
+                      isDescriptionSelected = !isDescriptionSelected;
+                    });
+                  },
+                  child: Container(
+                      height: 34,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color:
+                              !isDescriptionSelected ? primaryColor : whiteF2F),
+                      child: Center(
+                        child: Text(tr('client.summary.Gallery'),
+                            style: Theme.of(context).textTheme.subtitle1!.apply(
+                                color: !isDescriptionSelected
+                                    ? Colors.white
+                                    : primaryColor)),
+                      )),
                 ),
-              ]),
-            ),
-            const SizedBox(height: 24),
-            isDescriptionSelected ? descriptionView() : galleryView(),
-            const SizedBox(height: 20),
-          ],
-        ),
+              ),
+            ]),
+          ),
+          const SizedBox(height: 24),
+          isDescriptionSelected ? descriptionView() : galleryView(),
+          const SizedBox(height: 20),
+        ],
       ),
     );
   }
@@ -279,32 +272,75 @@ class _SummaryViewState extends State<SummaryView> {
     return Consumer<UploadImageProvider>(
       builder: (context, uploadImageProvider, child) {
         return Expanded(
-          child: GridView.count(
-              physics: const NeverScrollableScrollPhysics(),
-              crossAxisCount: 2,
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
-              children:
-                  List.generate(uploadImageProvider.imageList.length, (index) {
-                return uploadImageProvider.imageList.isNotEmpty
-                    ? uploadImageProvider.imageList[index] == "add"
-                        ? SizedBox()
-                        : SizedBox(
-                            height: MediaQuery.of(context).size.width * 0.44,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
-                              child: Image.file(
-                                File(
-                                  uploadImageProvider.imageList[index],
+          child: uploadImageProvider.imageList.length == 1
+              ? const Center(
+                  child: Text("NO IMAGE FOUND"),
+                )
+              : GridView.count(
+                  // physics: const NeverScrollableScrollPhysics(),
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 12,
+                  children: List.generate(
+                      uploadImageProvider.imageList.length - 1, (index) {
+                    List<String> abc = [];
+                    for (var i in uploadImageProvider.imageList) {
+                      if (!i.contains("add")) {
+                        abc.add(i);
+                      }
+                    }
+                    return abc.isNotEmpty
+                        ? InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Scaffold(
+                                            appBar: AppBar(
+                                              title: Text(
+                                                  "${abc[index].split("/").last}"),
+                                            ),
+                                            body: Container(
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              height: MediaQuery.of(context)
+                                                  .size
+                                                  .height,
+                                              child: Hero(
+                                                tag: "abc",
+                                                child: Image.file(
+                                                  File(
+                                                    abc[index],
+                                                  ),
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                      fullscreenDialog: true));
+                            },
+                            child: SizedBox(
+                              height: MediaQuery.of(context).size.width * 0.44,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: Hero(
+                                  tag: "abc",
+                                  child: Image.file(
+                                    File(
+                                      abc[index],
+                                    ),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                                fit: BoxFit.cover,
                               ),
                             ),
                           )
-                    : const Center(
-                        child: Text("NO IMAGE FOUND"),
-                      );
-              })),
+                        : const Center(
+                            child: Text("NO IMAGE FOUND"),
+                          );
+                  }),
+                ),
         );
       },
     );

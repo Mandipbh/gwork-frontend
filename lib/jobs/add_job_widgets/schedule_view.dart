@@ -26,25 +26,23 @@ class ScheduleView extends StatelessWidget {
               Text(tr('client.date_time.Choose_job'),
                   style: Theme.of(context).textTheme.bodyText2),
               const SizedBox(height: 24),
-              // Container(
-              //   height: 60,
-              //   padding: const EdgeInsets.symmetric(horizontal: 8),
-              //   decoration: BoxDecoration(
-              //       color: Colors.white, borderRadius: BorderRadius.circular(16)),
-              //   child: TextField(
-              //       style: const TextStyle(fontSize: 18),
-              //       decoration: InputDecoration(
-              //           hintText: 'dd/mm/yyyy',
-              //           hintStyle:
-              //               const TextStyle(fontSize: 18, color: Colors.black12),
-              //           icon: Image.asset('assets/icons/calendar.png',
-              //               height: 30, width: 30),
-              //           labelText: tr('client.date_time.Date').toUpperCase())),
-              // ),
               GestureDetector(
                 onTap: () async {
                   DateTime? date = await showDatePicker(
                       context: context,
+                      builder: (context, picker) {
+                        return Theme(
+                          //TODO: change colors
+                          data: ThemeData.dark().copyWith(
+                            splashColor: Colors.white,
+                            colorScheme: const ColorScheme.dark(
+                              primary: Color(0xfff8f8f8),
+                            ),
+                            dialogBackgroundColor: Colors.grey.shade900,
+                          ),
+                          child: picker!,
+                        );
+                      },
                       initialDate: DateTime.now(),
                       firstDate:
                           DateTime.now().subtract(Duration(days: 355000)),
@@ -74,9 +72,10 @@ class ScheduleView extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              nameTextField(
+              timeTextField(
                   label: tr('client.date_time.Time'),
                   asset: 'clock.png',
+                  context: context,
                   controller: value.timeController),
               const SizedBox(height: 20),
             ],

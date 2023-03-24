@@ -29,12 +29,14 @@ class ApiEndPoints {
 
   //Client job list
   static const String getClientJobList = "/worker/jobs/job-list";
+  static const String createClientJobList = '/worker/jobs/add-job';
 
   //Get province List
   static const String getProvinceList = '/worker/activities/province';
 
   //Get Professional List
-  static const String getProfessionalJobList = "/worker/jobs/job-list-professional";
+  static const String getProfessionalJobList =
+      "/worker/jobs/job-list-professional";
 }
 
 class DashboardFilters {
@@ -52,14 +54,15 @@ class JobsFilters {
   static const int doing = 3;
   static const int rejected = 4;
   static const int completed = 5;
+  static const int expired = 6;
 }
 
 class JobsType {
-  static const int all = 0;
-  static const int cleaning = 1;
-  static const int babySitting = 2;
-  static const int handyman = 3;
-  static const int tutoring = 4;
+  static const String all = "All";
+  static const String cleaning = "Cleaning";
+  static const String babySitting = "BabySitting";
+  static const String handyman = "HandyMan";
+  static const String tutoring = "Tutoring";
 }
 
 class UserFilters {

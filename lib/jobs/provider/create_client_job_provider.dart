@@ -1,8 +1,13 @@
 import 'package:flutter/cupertino.dart';
+import 'package:g_worker_app/Constants.dart';
 import 'package:g_worker_app/common/common_loader.dart';
+import 'package:g_worker_app/server_connection/api_client.dart';
+import 'package:provider/provider.dart';
+
+import 'get_client_job_list_provider.dart';
 
 class CreateClientJobProvider extends ChangeNotifier {
-  int? _category;
+  String _category = JobsType.cleaning;
   String? _title;
   String? _street;
   String? _province;
@@ -12,7 +17,7 @@ class CreateClientJobProvider extends ChangeNotifier {
   String? _description;
   String? _budget;
 
-  int? get category => _category;
+  String? get category => _category;
   String? get title => _title;
   String? get street => _street;
   String? get province => _province;
@@ -47,9 +52,9 @@ class CreateClientJobProvider extends ChangeNotifier {
       notifyListeners();
       return false;
     } else {
-      _title = title;
-      _street = street;
-      _comune = comune;
+      _title = titleController.text;
+      _street = streetController.text;
+      _comune = comuneController.text;
       notifyListeners();
       return true;
     }
@@ -65,8 +70,8 @@ class CreateClientJobProvider extends ChangeNotifier {
       notifyListeners();
       return false;
     } else {
-      _date = date;
-      _time = time;
+      _date = dateController.text;
+      _time = timeController.text;
       notifyListeners();
       return true;
     }
@@ -83,10 +88,41 @@ class CreateClientJobProvider extends ChangeNotifier {
       notifyListeners();
       return false;
     } else {
-      _description = description;
-      _time = time;
+      _description = describeController.text;
+      _budget = budgetController.text;
       notifyListeners();
       return true;
     }
+  }
+
+  createJobClient(BuildContext context) {
+    setIsLogging(true);
+    ApiClient()
+        .createClientJob('$category', title!, street!, comune!, date!, time!,
+            description!, budget!, context)
+        .then((updateCreateClientJobSuccessResponse) {
+      if (updateCreateClientJobSuccessResponse.success!) {
+        //TODO refresh list
+        Provider.of<GetClientJobListProvider>(context, listen: false)
+            .getData("All", "All", context);
+        clearCreateJobProvider(context);
+        setIsLogging(false);
+        ProgressLoader(context, "Job Create SuccessFully");
+        Navigator.of(context).pop();
+        notifyListeners();
+        return true;
+      }
+    });
+  }
+
+  clearCreateJobProvider(BuildContext context) {
+    titleController.clear();
+    streetController.clear();
+    comuneController.clear();
+    dateController.clear();
+    timeController.clear();
+    describeController.clear();
+    budgetController.clear();
+    notifyListeners();
   }
 }

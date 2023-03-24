@@ -20,7 +20,7 @@ class ClientJobListScreen extends StatefulWidget {
 class _ClientJobListScreenState extends State<ClientJobListScreen> {
   final ScrollController _sliverScrollController = ScrollController();
   int selectedFilter = 1;
-  int selectedJobType = 1;
+  String selectedJobType = JobsType.all;
   var isPinned = false;
 
   void scrollListen(newState) {
@@ -789,7 +789,7 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                   ? Center(child: CircularProgressIndicator())
                   : ListView.builder(
                       padding: const EdgeInsets.only(
-                          top: 16, left: 16, right: 16, bottom: 4),
+                          top: 16, left: 16, right: 16, bottom: 100),
                       itemCount: value.model!.jobs.length,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {

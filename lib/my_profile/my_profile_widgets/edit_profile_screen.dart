@@ -141,8 +141,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                           : widget.type ==
                                                   ProfileFieldType.birthdate
                                               ? birthDateTextField(
-                                                  controller: controller,
-                                                )
+                                                  controller, context)
                                               : widget.type ==
                                                       ProfileFieldType.vatNumber
                                                   ? vatNumberTextField(

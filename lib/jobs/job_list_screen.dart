@@ -476,6 +476,30 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
+                      FilterChip(
+                        label: Text(
+                          "Expired",
+                        ),
+                        labelStyle: TextStyle(
+                          color: selectedFilter != JobsFilters.expired
+                              ? Colors.white
+                              : Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                        ),
+                        selected: selectedFilter == JobsFilters.expired,
+                        backgroundColor: black343,
+                        selectedColor: Colors.white,
+                        showCheckmark: false,
+                        onSelected: (bool value) {
+                          setState(() {
+                            selectedFilter = JobsFilters.expired;
+                          });
+                        },
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
                     ],
                   ),
             const SizedBox(height: 8),
@@ -857,8 +881,7 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
   Widget searchJobsView() {
     return Consumer<GetProfessionalJobListProvider>(
       builder: (context, value, child) {
-        return
-          value.model == null
+        return value.model == null
             ? const Center(child: CircularProgressIndicator())
             : ListView.builder(
                 padding: const EdgeInsets.only(
@@ -939,7 +962,6 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
                   return Container(
                     width: double.infinity,
                     margin: EdgeInsets.only(bottom: 18.0),
-
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                         color: Colors.white),
@@ -955,7 +977,8 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
                               Row(
                                 children: [
                                   Text(
-                                    value.model!.jobs![index].category.toString(),
+                                    value.model!.jobs![index].category
+                                        .toString(),
                                     style: const TextStyle(
                                       color: black343,
                                       fontSize: 12,
@@ -966,7 +989,7 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
                                   const Icon(Icons.location_on_outlined,
                                       color: Colors.black, size: 22),
                                   const SizedBox(width: 3),
-                                   Text(
+                                  Text(
                                     '${value.model!.jobs![index].street.toString()},${value.model!.jobs![index].province.toString()}}',
                                     style: const TextStyle(
                                       color: splashColor1,
@@ -976,7 +999,7 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
                                   ),
                                 ],
                               ),
-                               Text(
+                              Text(
                                 '${value.model!.jobs![index].description.toString()}, max ${value.model!.jobs![index].budget.toString()}\$',
                                 style: TextStyle(
                                   color: black343,
@@ -985,8 +1008,8 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
                                 ),
                               ),
                               const SizedBox(height: 4),
-                               Text(
-                  '${value.model!.jobs![index].creationDate.toString()}',
+                              Text(
+                                '${value.model!.jobs![index].creationDate.toString()}',
                                 style: TextStyle(
                                   color: black343,
                                   fontSize: 12,

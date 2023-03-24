@@ -17,247 +17,267 @@ class JobReasonView extends StatefulWidget {
 class _JobReasonViewState extends State<JobReasonView> {
   PageController controller = PageController();
   int currentPage = 1;
-  int jobType = JobsType.cleaning;
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Text(
-              tr('client.type_picker.need'),
-              style: Theme.of(context).textTheme.headline1,
-            ),
+    return Consumer<CreateClientJobProvider>(
+      builder: (context, createClientJobProvider, child) {
+        return SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Text(
+                  tr('client.type_picker.need'),
+                  style: Theme.of(context).textTheme.headline1,
+                ),
+              ),
+              Text(tr('client.type_picker.select_options'),
+                  style: Theme.of(context).textTheme.bodyText2),
+              const SizedBox(height: 24),
+              SizedBox(
+                height: MediaQuery.of(context).size.width * 0.44,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          createClientJobProvider
+                              .setCategory(JobsType.cleaning);
+                        },
+                        child: Stack(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: createClientJobProvider.category ==
+                                          JobsType.cleaning
+                                      ? primaryColor
+                                      : Colors.white,
+                                  borderRadius: BorderRadius.circular(12)),
+                              padding: const EdgeInsets.symmetric(vertical: 15),
+                              child: Align(
+                                alignment: Alignment.bottomCenter,
+                                child: Text(
+                                  tr('client.type_picker.Cleaning'),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .caption!
+                                      .apply(
+                                          color: createClientJobProvider
+                                                      .category ==
+                                                  JobsType.cleaning
+                                              ? Colors.white
+                                              : primaryColor),
+                                ),
+                              ),
+                            ),
+                            Positioned.fill(
+                              child: Center(
+                                child: CircleAvatar(
+                                  radius: 40,
+                                  backgroundColor:
+                                      createClientJobProvider.category ==
+                                              JobsType.cleaning
+                                          ? const Color(0xff343734)
+                                          : const Color(0xfff2f2f2),
+                                  child: Image.asset(
+                                      'assets/icons/cleaning.png',
+                                      height: 30,
+                                      width: 30,
+                                      color: createClientJobProvider.category ==
+                                              JobsType.cleaning
+                                          ? Colors.white
+                                          : primaryColor),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          createClientJobProvider
+                              .setCategory(JobsType.babySitting);
+                        },
+                        child: Stack(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: createClientJobProvider.category ==
+                                          JobsType.babySitting
+                                      ? primaryColor
+                                      : Colors.white,
+                                  borderRadius: BorderRadius.circular(12)),
+                              padding: const EdgeInsets.symmetric(vertical: 15),
+                              child: Align(
+                                alignment: Alignment.bottomCenter,
+                                child: Text(tr('client.chat.Babysitting'),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .caption!
+                                        .apply(
+                                            color: createClientJobProvider
+                                                        .category ==
+                                                    JobsType.babySitting
+                                                ? Colors.white
+                                                : primaryColor)),
+                              ),
+                            ),
+                            Positioned.fill(
+                              child: Center(
+                                child: CircleAvatar(
+                                  radius: 40,
+                                  backgroundColor:
+                                      createClientJobProvider.category ==
+                                              JobsType.babySitting
+                                          ? const Color(0xff343734)
+                                          : const Color(0xfff2f2f2),
+                                  child: Image.asset(
+                                      'assets/icons/babysitting.png',
+                                      height: 30,
+                                      width: 30,
+                                      color: createClientJobProvider.category ==
+                                              JobsType.babySitting
+                                          ? Colors.white
+                                          : primaryColor),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 4,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          createClientJobProvider
+                              .setCategory(JobsType.tutoring);
+                        },
+                        child: Stack(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: createClientJobProvider.category ==
+                                          JobsType.tutoring
+                                      ? primaryColor
+                                      : Colors.white,
+                                  borderRadius: BorderRadius.circular(12)),
+                              padding: const EdgeInsets.symmetric(vertical: 15),
+                              child: Align(
+                                alignment: Alignment.bottomCenter,
+                                child: Text(
+                                  tr('client.type_picker.Tutoring'),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .caption!
+                                      .apply(
+                                          color: createClientJobProvider
+                                                      .category ==
+                                                  JobsType.tutoring
+                                              ? Colors.white
+                                              : primaryColor),
+                                ),
+                              ),
+                            ),
+                            Positioned.fill(
+                              child: Center(
+                                child: CircleAvatar(
+                                  radius: 40,
+                                  backgroundColor:
+                                      createClientJobProvider.category ==
+                                              JobsType.tutoring
+                                          ? const Color(0xff343734)
+                                          : const Color(0xfff2f2f2),
+                                  child: Image.asset('assets/icons/tutor.png',
+                                      height: 30,
+                                      width: 30,
+                                      color: createClientJobProvider.category ==
+                                              JobsType.tutoring
+                                          ? Colors.white
+                                          : primaryColor),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          createClientJobProvider
+                              .setCategory(JobsType.handyman);
+                        },
+                        child: Stack(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: createClientJobProvider.category ==
+                                          JobsType.handyman
+                                      ? primaryColor
+                                      : Colors.white,
+                                  borderRadius: BorderRadius.circular(12)),
+                              padding: const EdgeInsets.symmetric(vertical: 15),
+                              child: Align(
+                                alignment: Alignment.bottomCenter,
+                                child: Text(tr('client.type_picker.Handyman'),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .caption!
+                                        .apply(
+                                            color: createClientJobProvider
+                                                        .category ==
+                                                    JobsType.handyman
+                                                ? Colors.white
+                                                : primaryColor)),
+                              ),
+                            ),
+                            Positioned.fill(
+                              child: Center(
+                                child: CircleAvatar(
+                                  radius: 40,
+                                  backgroundColor:
+                                      createClientJobProvider.category ==
+                                              JobsType.handyman
+                                          ? const Color(0xff343734)
+                                          : const Color(0xfff2f2f2),
+                                  child: Image.asset(
+                                      'assets/icons/handyman.png',
+                                      height: 30,
+                                      width: 30,
+                                      color: createClientJobProvider.category ==
+                                              JobsType.handyman
+                                          ? Colors.white
+                                          : primaryColor),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
+            ],
           ),
-          Text(tr('client.type_picker.select_options'),
-              style: Theme.of(context).textTheme.bodyText2),
-          const SizedBox(height: 24),
-          SizedBox(
-            height: MediaQuery.of(context).size.width * 0.44,
-            child: Row(
-              children: [
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        jobType = JobsType.cleaning;
-                      });
-                      Provider.of<CreateClientJobProvider>(context,
-                              listen: false)
-                          .setCategory(JobsType.cleaning);
-                    },
-                    child: Stack(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              color: jobType == JobsType.cleaning
-                                  ? primaryColor
-                                  : Colors.white,
-                              borderRadius: BorderRadius.circular(12)),
-                          padding: const EdgeInsets.symmetric(vertical: 15),
-                          child: Align(
-                            alignment: Alignment.bottomCenter,
-                            child: Text(
-                              tr('client.type_picker.Cleaning'),
-                              style: Theme.of(context).textTheme.caption!.apply(
-                                  color: jobType == JobsType.cleaning
-                                      ? Colors.white
-                                      : primaryColor),
-                            ),
-                          ),
-                        ),
-                        Positioned.fill(
-                          child: Center(
-                            child: CircleAvatar(
-                              radius: 40,
-                              backgroundColor: jobType == JobsType.cleaning
-                                  ? const Color(0xff343734)
-                                  : const Color(0xfff2f2f2),
-                              child: Image.asset('assets/icons/cleaning.png',
-                                  height: 30,
-                                  width: 30,
-                                  color: jobType == JobsType.cleaning
-                                      ? Colors.white
-                                      : primaryColor),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        jobType = JobsType.babySitting;
-                      });
-                      Provider.of<CreateClientJobProvider>(context,
-                              listen: false)
-                          .setCategory(JobsType.babySitting);
-                    },
-                    child: Stack(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              color: jobType == JobsType.babySitting
-                                  ? primaryColor
-                                  : Colors.white,
-                              borderRadius: BorderRadius.circular(12)),
-                          padding: const EdgeInsets.symmetric(vertical: 15),
-                          child: Align(
-                            alignment: Alignment.bottomCenter,
-                            child: Text(tr('client.chat.Babysitting'),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .caption!
-                                    .apply(
-                                        color: jobType == JobsType.babySitting
-                                            ? Colors.white
-                                            : primaryColor)),
-                          ),
-                        ),
-                        Positioned.fill(
-                          child: Center(
-                            child: CircleAvatar(
-                              radius: 40,
-                              backgroundColor: jobType == JobsType.babySitting
-                                  ? const Color(0xff343734)
-                                  : const Color(0xfff2f2f2),
-                              child: Image.asset('assets/icons/babysitting.png',
-                                  height: 30,
-                                  width: 30,
-                                  color: jobType == JobsType.babySitting
-                                      ? Colors.white
-                                      : primaryColor),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 16),
-          SizedBox(
-            height: MediaQuery.of(context).size.height / 4,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        jobType = JobsType.tutoring;
-                      });
-                      Provider.of<CreateClientJobProvider>(context,
-                              listen: false)
-                          .setCategory(JobsType.tutoring);
-                    },
-                    child: Stack(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              color: jobType == JobsType.tutoring
-                                  ? primaryColor
-                                  : Colors.white,
-                              borderRadius: BorderRadius.circular(12)),
-                          padding: const EdgeInsets.symmetric(vertical: 15),
-                          child: Align(
-                            alignment: Alignment.bottomCenter,
-                            child: Text(
-                              tr('client.type_picker.Tutoring'),
-                              style: Theme.of(context).textTheme.caption!.apply(
-                                  color: jobType == JobsType.tutoring
-                                      ? Colors.white
-                                      : primaryColor),
-                            ),
-                          ),
-                        ),
-                        Positioned.fill(
-                          child: Center(
-                            child: CircleAvatar(
-                              radius: 40,
-                              backgroundColor: jobType == JobsType.tutoring
-                                  ? const Color(0xff343734)
-                                  : const Color(0xfff2f2f2),
-                              child: Image.asset('assets/icons/tutor.png',
-                                  height: 30,
-                                  width: 30,
-                                  color: jobType == JobsType.tutoring
-                                      ? Colors.white
-                                      : primaryColor),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        jobType = JobsType.handyman;
-                      });
-                      Provider.of<CreateClientJobProvider>(context,
-                              listen: false)
-                          .setCategory(JobsType.handyman);
-                    },
-                    child: Stack(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              color: jobType == JobsType.handyman
-                                  ? primaryColor
-                                  : Colors.white,
-                              borderRadius: BorderRadius.circular(12)),
-                          padding: const EdgeInsets.symmetric(vertical: 15),
-                          child: Align(
-                            alignment: Alignment.bottomCenter,
-                            child: Text(tr('client.type_picker.Handyman'),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .caption!
-                                    .apply(
-                                        color: jobType == JobsType.handyman
-                                            ? Colors.white
-                                            : primaryColor)),
-                          ),
-                        ),
-                        Positioned.fill(
-                          child: Center(
-                            child: CircleAvatar(
-                              radius: 40,
-                              backgroundColor: jobType == JobsType.handyman
-                                  ? const Color(0xff343734)
-                                  : const Color(0xfff2f2f2),
-                              child: Image.asset('assets/icons/handyman.png',
-                                  height: 30,
-                                  width: 30,
-                                  color: jobType == JobsType.handyman
-                                      ? Colors.white
-                                      : primaryColor),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 16),
-        ],
-      ),
+        );
+      },
     );
   }
 }

@@ -46,8 +46,48 @@ Widget vatNumberTextField({required TextEditingController controller}) {
   );
 }
 
-Widget birthDateTextField({required TextEditingController controller}) {
-  return Container(
+Widget birthDateTextField(
+    TextEditingController controller, BuildContext context) {
+  return GestureDetector(
+    onTap: () async {
+      DateTime? date = await showDatePicker(
+          context: context,
+          builder: (context, picker) {
+            return Theme(
+              //TODO: change colors
+              data: ThemeData.dark().copyWith(
+                splashColor: Colors.white,
+                colorScheme: const ColorScheme.dark(
+                  primary: Color(0xfff8f8f8),
+                ),
+                dialogBackgroundColor: Colors.grey.shade900,
+              ),
+              child: picker!,
+            );
+          },
+          initialDate: DateTime.now(),
+          firstDate: DateTime.now().subtract(Duration(days: 355000)),
+          lastDate: DateTime.now());
+      controller.text = '${date!.day}/${date.month}/${date.year}';
+    },
+    child: Container(
+      height: 60,
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      decoration: BoxDecoration(
+          color: Colors.white, borderRadius: BorderRadius.circular(16)),
+      child: TextField(
+          enabled: false,
+          controller: controller,
+          style: const TextStyle(fontSize: 18),
+          decoration: InputDecoration(
+            hintStyle: const TextStyle(fontSize: 18, color: Colors.black12),
+            icon: Image.asset('assets/icons/calendar_birthday.png',
+                height: 24, width: 24),
+            labelText: tr('admin.Birth_Date').toUpperCase(),
+          )),
+    ),
+  );
+  Container(
     height: 60,
     decoration: BoxDecoration(
         color: Colors.white,
@@ -103,6 +143,90 @@ Widget passwordTextField(
       ),
     );
   });
+}
+
+Widget timeTextField(
+    {required String label,
+    required String asset,
+    TextEditingController? controller,
+    BuildContext? context}) {
+  controller ??= TextEditingController();
+  return Container(
+    height: 60,
+    padding: const EdgeInsets.symmetric(horizontal: 8),
+    decoration: BoxDecoration(
+        color: Colors.white, borderRadius: BorderRadius.circular(16)),
+    child: TextField(
+      controller: controller,
+      readOnly: true,
+      style: const TextStyle(fontSize: 18),
+      decoration: InputDecoration(
+        icon: Image.asset('assets/icons/$asset', height: 24, width: 24),
+        labelText: label.toUpperCase(),
+      ),
+      onTap: () async {
+        TimeOfDay? pickedTime = await showTimePicker(
+          initialTime: TimeOfDay.now(),
+          builder: (context, picker) {
+            return Theme(
+              //TODO: change colors
+              data: ThemeData.dark().copyWith(
+                splashColor: Colors.white,
+                colorScheme: const ColorScheme.dark(
+                  primary: Color(0xfff8f8f8),
+                ),
+                dialogBackgroundColor: Colors.grey.shade900,
+              ),
+              child: picker!,
+            );
+          },
+          context: context!,
+        );
+
+        if (pickedTime != null) {
+          print(pickedTime.format(context)); //output 10:51 PM
+
+          print(pickedTime
+              .toString()
+              .replaceAll("(", "")
+              .replaceAll(")", "")
+              .split("y")
+              .last);
+
+          // print(formattedTime); //output 14:59:00
+          controller!.text = pickedTime
+              .toString()
+              .replaceAll("(", "")
+              .replaceAll(")", "")
+              .split("y")
+              .last;
+        } else {
+          print("Time is not selected");
+        }
+      },
+    ),
+  );
+}
+
+Widget budgetTextField(
+    {required String label,
+    required String asset,
+    TextEditingController? controller,
+    keyboardType = TextInputType.number}) {
+  controller ??= TextEditingController();
+  return Container(
+    height: 60,
+    padding: const EdgeInsets.symmetric(horizontal: 8),
+    decoration: BoxDecoration(
+        color: Colors.white, borderRadius: BorderRadius.circular(16)),
+    child: TextField(
+        controller: controller,
+        style: const TextStyle(fontSize: 18),
+        keyboardType: keyboardType,
+        decoration: InputDecoration(
+            icon: Image.asset('assets/icons/$asset', height: 24, width: 24),
+            labelText: label.toUpperCase())),
+  );
 }
 
 Widget nameTextField(

@@ -62,19 +62,27 @@ class PersonalInfoView extends StatelessWidget {
           GestureDetector(
             onTap: () async {
               DateTime? date = await showDatePicker(
+                  builder: (context, picker) {
+                    return Theme(
+                      //TODO: change colors
+                      data: ThemeData.dark().copyWith(
+                        splashColor: Colors.white,
+                        colorScheme: const ColorScheme.dark(
+                          primary: Color(0xfff8f8f8),
+                        ),
+                        dialogBackgroundColor: Colors.grey.shade900,
+                      ),
+                      child: picker!,
+                    );
+                  },
                   context: context,
                   initialDate: DateTime.now(),
                   firstDate: DateTime.now().subtract(Duration(days: 355000)),
                   lastDate: DateTime.now());
-
+              // ignore: use_build_context_synchronously
               Provider.of<SignUpProvider>(context, listen: false)
-                      .birthDateController
-                      .text =
-                  date!.day.toString() +
-                      '/' +
-                      date.month.toString() +
-                      '/' +
-                      date.year.toString();
+                  .birthDateController
+                  .text = '${date!.day}/${date.month}/${date.year}';
             },
             child: Container(
               height: 60,

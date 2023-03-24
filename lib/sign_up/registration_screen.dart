@@ -325,7 +325,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                               listen: false)
                                           .imagePath,
                                       cardCvv: value.cvv)
-                                  .then((v) {
+                                  .then((val) {
                                 value.setIsLogging(false);
                                 currentPage = currentPage + 1;
                                 if (currentPage > 5) {

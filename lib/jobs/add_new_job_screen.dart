@@ -13,6 +13,7 @@ import 'package:g_worker_app/jobs/add_job_widgets/summary_view.dart';
 import 'package:g_worker_app/jobs/add_job_widgets/upload_images_view.dart';
 import 'package:g_worker_app/jobs/provider/create_client_job_provider.dart';
 import 'package:g_worker_app/server_connection/api_client.dart';
+import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
 import 'package:provider/provider.dart';
 import '../colors.dart';
 import '../common/common_buttons.dart';
@@ -255,19 +256,22 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                         curve: Curves.easeIn);
                     break;
                   case 6:
+                    createJobProvider.createJobClient(context);
+                    break;
+                  case 7:
                     // ApiClient().createClientJob(
                     //     createJobProvider.category.toString(),
                     //     createJobProvider.title.toString(),
                     //     createJobProvider.street.toString(),
-                    //     createJobProvider.province.toString(),
+                    //     Provider.of<SignUpProvider>(context, listen: false)
+                    //         .selectedProvince!,
                     //     createJobProvider.comune.toString(),
                     //     createJobProvider.date.toString(),
                     //     createJobProvider.time.toString(),
                     //     createJobProvider.description.toString(),
                     //     createJobProvider.budget.toString(),
-                    //     Provider.of<UploadImageProvider>(context,listen: false).,
                     //     context);
-                    Navigator.of(context).pop();
+                    // Navigator.of(context).pop();
                     break;
                 }
                 // if (currentPage > 5) {
