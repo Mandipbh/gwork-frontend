@@ -1,4 +1,6 @@
+import 'package:draggable_home/draggable_home.dart';
 import 'package:easy_localization/easy_localization.dart';
+
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/jobs/add_new_job_screen.dart';
@@ -53,6 +55,21 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
     getClientJobs();
   }
 
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //     body: SafeArea(
+  //       top: false,
+  //       child: DraggableHome(
+  //           title: Text("Title"),
+  //           headerWidget: Container(),
+  //           body: [
+  //             Container(),
+  //           ]),
+  //     ),
+  //   );
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,6 +96,7 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                 scrollListen(newState);
                 return Container(
                   width: double.infinity,
+                  height: MediaQuery.of(context).size.height,
                   margin: EdgeInsets.only(
                       top: isPinned ? AppBar().preferredSize.height + 20 : 0),
                   decoration: const BoxDecoration(
@@ -921,6 +939,7 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                         //     ],
                         //   );
                         // }
+
                         return InkWell(
                           onTap: () {
                             Navigator.push(

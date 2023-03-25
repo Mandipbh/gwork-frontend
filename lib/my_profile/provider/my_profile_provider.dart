@@ -185,7 +185,6 @@ class MyProfileProvider extends ChangeNotifier {
         setIsLogging(false);
         _model!.user!.image = profileImage;
         ProgressLoader(context, "your ProfilePicture Update SuccessFully");
-        Navigator.of(context).pop();
         getUserProfile(context);
         notifyListeners();
         return true;
@@ -203,7 +202,6 @@ class MyProfileProvider extends ChangeNotifier {
         //
         setIsLogging(false);
         ProgressLoader(context, "your ProfilePicture delete SuccessFully");
-        Navigator.of(context).pop();
         getUserProfile(context);
         notifyListeners();
         return true;

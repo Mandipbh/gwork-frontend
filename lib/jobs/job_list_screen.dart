@@ -73,7 +73,7 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
                 floating: true,
                 pinned: true,
                 expandedHeight:
-                    selectedType == SelectionType.myJobs ? 300 : 360,
+                    selectedType == SelectionType.myJobs ? 320 : 380,
                 snap: true,
               ),
             ];
@@ -150,7 +150,7 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
                 ),
               ],
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 24),
             widget.role == UserType.admin
                 ? Wrap(
                     alignment: WrapAlignment.start,

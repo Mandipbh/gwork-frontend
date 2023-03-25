@@ -7,7 +7,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class EditProfilePictureDialogueClientProf extends StatelessWidget {
-  const EditProfilePictureDialogueClientProf({Key? key}) : super(key: key);
+  Function cameraClick, galleryClick, deleteClick;
+  EditProfilePictureDialogueClientProf(
+      {Key? key,
+      required this.cameraClick,
+      required this.galleryClick,
+      required this.deleteClick})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,17 +40,7 @@ class EditProfilePictureDialogueClientProf extends StatelessWidget {
             (BuildContext context, profilePicProvider, myProfileProvider,
                 Widget? child) {
           return GestureDetector(
-            onTap: () async {
-              bool isValid = await profilePicProvider.getImage(
-                  ImageSource.camera, context);
-              if (isValid) {
-                print(
-                    "!!Update Profile Image :: ${profilePicProvider.getImageString}");
-                // ignore: use_build_context_synchronously
-                myProfileProvider.updateProfileImage(
-                    profilePicProvider.getImageString.toString(), context);
-              }
-            },
+            onTap: () => cameraClick(),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
@@ -71,15 +67,7 @@ class EditProfilePictureDialogueClientProf extends StatelessWidget {
         Consumer2<ProfilePicProvider, MyProfileProvider>(
           builder: (context, profilePicProvider, myProfileProvider, child) {
             return GestureDetector(
-              onTap: () async {
-                bool isValid = await profilePicProvider.getImage(
-                    ImageSource.gallery, context);
-                if (isValid) {
-                  // ignore: use_build_context_synchronously
-                  myProfileProvider.updateProfileImage(
-                      profilePicProvider.getImageString.toString(), context);
-                }
-              },
+              onTap: () => galleryClick(),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
@@ -107,9 +95,7 @@ class EditProfilePictureDialogueClientProf extends StatelessWidget {
         Consumer<MyProfileProvider>(
           builder: (context, myProfileProvider, child) {
             return GestureDetector(
-              onTap: () {
-                myProfileProvider.deleteProfileImage(context);
-              },
+              onTap: () => deleteClick(),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,

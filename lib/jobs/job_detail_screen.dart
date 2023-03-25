@@ -153,11 +153,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                                 child: description(),
                               ),
                             )
-                          : selectedType == 2
-                              ? Expanded(
-                                  child:
-                                      SingleChildScrollView(child: Gallary()))
-                              : Expanded(child: Application()),
+                          : Expanded(
+                              child: SingleChildScrollView(child: Gallary())),
                     ],
                   ),
                 ),
@@ -192,10 +189,13 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           ),
           child: ListTile(
             horizontalTitleGap: 10,
-            leading: const CircleAvatar(
-              backgroundColor: Colors.grey,
+            leading: CircleAvatar(
+              backgroundColor: Colors.grey.withOpacity(0.2),
               radius: 20,
-              child: Icon(Icons.person, color: Colors.white, size: 30),
+              child: const Text(
+                "ST",
+                style: TextStyle(color: black343),
+              ),
             ),
             title: const Text(
               "Eleanor Pena",
@@ -362,93 +362,93 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
     );
   }
 
-  Widget Application() {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: chatlist.length,
-      itemBuilder: (context, index) {
-        String b = chatlist[index]["chatpending"].toString();
-        double aaa = b.length.toDouble() + 10.0;
-        return InkWell(
-          onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ChatScreen(),
-                ));
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Container(
-              decoration: BoxDecoration(
-                  color: white, borderRadius: BorderRadius.circular(12)),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(children: [
-                  CircleAvatar(
-                    child: Image.asset("${chatlist[index]["image"]}"),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "${chatlist[index]["name"]}",
-                        style: TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.w700),
-                      ),
-                      Text(
-                        "${chatlist[index]["money"]}",
-                        style: TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.w500),
-                      ),
-                    ],
-                  ),
-                  Spacer(),
-                  Container(
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(top: 5.0, right: aaa),
-                          child: Image.asset(
-                            "assets/icons/message_chat.png",
-                            height: 25,
-                            width: 50,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: aaa),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Color(0xffF4D874),
-                                borderRadius: BorderRadius.circular(13)),
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 5.0),
-                              child: Text(
-                                "${chatlist[index]["chatpending"]}",
-                                style: TextStyle(fontSize: 12),
-                              ),
-                            ),
-                          ),
-                        ),
-                        // Row(children: [
-
-                        // ],),
-                      ],
-                    ),
-                  )
-                ]),
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
+  // Widget Application() {
+  //   return ListView.builder(
+  //     shrinkWrap: true,
+  //     itemCount: chatlist.length,
+  //     itemBuilder: (context, index) {
+  //       String b = chatlist[index]["chatpending"].toString();
+  //       double aaa = b.length.toDouble() + 10.0;
+  //       return InkWell(
+  //         onTap: () {
+  //           Navigator.push(
+  //               context,
+  //               MaterialPageRoute(
+  //                 builder: (context) => ChatScreen(),
+  //               ));
+  //         },
+  //         child: Padding(
+  //           padding: const EdgeInsets.all(5.0),
+  //           child: Container(
+  //             decoration: BoxDecoration(
+  //                 color: white, borderRadius: BorderRadius.circular(12)),
+  //             child: Padding(
+  //               padding: const EdgeInsets.all(10.0),
+  //               child: Row(children: [
+  //                 CircleAvatar(
+  //                   child: Image.asset("${chatlist[index]["image"]}"),
+  //                 ),
+  //                 SizedBox(
+  //                   width: 10,
+  //                 ),
+  //                 Column(
+  //                   crossAxisAlignment: CrossAxisAlignment.start,
+  //                   children: [
+  //                     Text(
+  //                       "${chatlist[index]["name"]}",
+  //                       style: TextStyle(
+  //                           fontSize: 14, fontWeight: FontWeight.w700),
+  //                     ),
+  //                     Text(
+  //                       "${chatlist[index]["money"]}",
+  //                       style: TextStyle(
+  //                           fontSize: 14, fontWeight: FontWeight.w500),
+  //                     ),
+  //                   ],
+  //                 ),
+  //                 Spacer(),
+  //                 Container(
+  //                   child: Stack(
+  //                     alignment: Alignment.center,
+  //                     children: [
+  //                       Padding(
+  //                         padding: EdgeInsets.only(top: 5.0, right: aaa),
+  //                         child: Image.asset(
+  //                           "assets/icons/message_chat.png",
+  //                           height: 25,
+  //                           width: 50,
+  //                         ),
+  //                       ),
+  //                       Padding(
+  //                         padding: EdgeInsets.only(left: aaa),
+  //                         child: Container(
+  //                           decoration: BoxDecoration(
+  //                               color: Color(0xffF4D874),
+  //                               borderRadius: BorderRadius.circular(13)),
+  //                           child: Padding(
+  //                             padding:
+  //                                 const EdgeInsets.symmetric(horizontal: 5.0),
+  //                             child: Text(
+  //                               "${chatlist[index]["chatpending"]}",
+  //                               style: TextStyle(fontSize: 12),
+  //                             ),
+  //                           ),
+  //                         ),
+  //                       ),
+  //                       // Row(children: [
+  //
+  //                       // ],),
+  //                     ],
+  //                   ),
+  //                 )
+  //               ]),
+  //             ),
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 
   Widget appBarView() {
     return AppBar(
@@ -536,7 +536,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         buttons: [
           tr('admin.job_detail.Description'),
           tr('admin.job_detail.Gallery'),
-          tr('admin.job_detail.Applications'),
+          // tr('admin.job_detail.Applications'),
         ],
         padding: 8,
         selected: selectedType,

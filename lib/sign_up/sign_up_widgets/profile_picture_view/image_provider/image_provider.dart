@@ -12,7 +12,7 @@ class ProfilePicProvider extends ChangeNotifier {
 
   String? _getImageString;
   String? get getImageString => _getImageString;
-  getImage<bool>(source, context) async {
+  Future<bool> getImage(source, context) async {
     try {
       final ImagePicker _picker = ImagePicker();
       final XFile? image =

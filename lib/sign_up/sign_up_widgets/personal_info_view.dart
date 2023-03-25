@@ -49,6 +49,7 @@ class PersonalInfoView extends StatelessWidget {
                 color: Colors.white, borderRadius: BorderRadius.circular(16)),
             child: TextField(
                 style: const TextStyle(fontSize: 18),
+                maxLength: 16,
                 controller: Provider.of<SignUpProvider>(context, listen: false)
                     .textCodeController,
                 keyboardType: TextInputType.number,

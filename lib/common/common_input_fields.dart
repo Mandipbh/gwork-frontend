@@ -35,7 +35,7 @@ Widget vatNumberTextField({required TextEditingController controller}) {
     child: TextField(
       keyboardType: TextInputType.number,
       controller: controller,
-      maxLength: 10,
+      maxLength: 16,
       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
       decoration: InputDecoration(
         prefixIcon: Image.asset('assets/icons/hash.png', scale: 2),

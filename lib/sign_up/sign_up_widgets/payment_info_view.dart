@@ -40,7 +40,7 @@ class PaymentInfoView extends StatelessWidget {
                     Provider.of<SignUpProvider>(context).cardNumberController,
                 style: const TextStyle(fontSize: 18),
                 keyboardType: TextInputType.number,
-                maxLength: 12,
+                maxLength: 16,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 decoration: InputDecoration(
                     counterText: "",
