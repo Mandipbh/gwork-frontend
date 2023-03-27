@@ -8,6 +8,7 @@ import 'package:g_worker_app/jobs/provider/get_professional_job_list_provider.da
 import 'package:provider/provider.dart';
 import '../Constants.dart';
 import '../my_profile/my_profile_widgets/my_profile_screen.dart';
+import '../my_profile/provider/my_profile_provider.dart';
 import 'job_detail_screen.dart';
 
 class ProfessionalJobListScreen extends StatefulWidget {
@@ -21,29 +22,11 @@ class ProfessionalJobListScreen extends StatefulWidget {
 }
 
 class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
-  final ScrollController _sliverScrollController = ScrollController();
+  final ScrollController scrollController = ScrollController();
   int selectedFilter = 1;
   int selectedJobType = 1;
   int selectedType = 1;
   var isPinned = false;
-
-  void scrollListen(newState) {
-    _sliverScrollController.addListener(() {
-      if (!isPinned &&
-          _sliverScrollController.hasClients &&
-          _sliverScrollController.offset == 300) {
-        newState(() {
-          isPinned = true;
-        });
-      } else if (isPinned &&
-          _sliverScrollController.hasClients &&
-          _sliverScrollController.offset == 0) {
-        newState(() {
-          isPinned = false;
-        });
-      }
-    });
-  }
 
   getProfessionalJobs() {
     Provider.of<GetProfessionalJobListProvider>(context, listen: false)
@@ -54,557 +37,429 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    scrollController.addListener(() {
+      if (!isPinned && scrollController.offset > 60) {
+        setState(() {
+          isPinned = true;
+        });
+      }
+      if (isPinned && scrollController.offset < 60) {
+        setState(() {
+          isPinned = false;
+        });
+      }
+    });
     getProfessionalJobs();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: primaryColor,
-      body: SafeArea(
-        child: NestedScrollView(
-          controller: _sliverScrollController,
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return <Widget>[
-              SliverAppBar(
-                backgroundColor: primaryColor,
-                centerTitle: false,
-                flexibleSpace: appBarView(innerBoxIsScrolled),
-                floating: true,
-                pinned: true,
-                expandedHeight:
-                    selectedType == SelectionType.myJobs ? 320 : 380,
-                snap: true,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: const Color(0xff1B1F1C),
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(AppBar().preferredSize.height + 10),
+          child: Column(
+            children: [
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      tr('Professional.logIn.Jobs.Jobs'),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 32,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    Visibility(
+                      visible: isPinned,
+                      child: Chip(
+                        label: const Text(
+                          "Filters(2)",
+                        ),
+                        labelStyle: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                        ),
+                        backgroundColor: white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
+                    Consumer<MyProfileProvider>(
+                      builder: (context, myProfileProvider, child) {
+                        return myProfileProvider.getIsLoggingProfile()
+                            ? const Center(child: CircularProgressIndicator())
+                            : InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => MyProfileScreen(),
+                                      ));
+                                },
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(50),
+                                  child: Container(
+                                    height: 42,
+                                    width: 42,
+                                    decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.white,
+                                    ),
+                                    child: myProfileProvider.model != null
+                                        ? myProfileProvider
+                                                    .model!.user!.image !=
+                                                null
+                                            ? Image.network(
+                                                myProfileProvider
+                                                    .model!.user!.image!,
+                                                fit: BoxFit.cover,
+                                              )
+                                            : Text(
+                                                "${(myProfileProvider.model!.user!.name![0])}${(myProfileProvider.model!.user!.surname![0])}",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline1)
+                                        : Text(
+                                            "${(myProfileProvider.model!.user!.name![0])}${(myProfileProvider.model!.user!.surname![0])}",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline1),
+                                  ),
+                                ),
+                              );
+                      },
+                    ),
+                  ],
+                ),
               ),
+            ],
+          ),
+        ),
+        body: NestedScrollView(
+          controller: scrollController,
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return [
+              SliverToBoxAdapter(child: appBarView()),
             ];
           },
-          body: StatefulBuilder(builder: (context, newState) {
-            scrollListen(newState);
-            return Container(
-              width: double.infinity,
-              margin: EdgeInsets.only(
-                  top: isPinned ? AppBar().preferredSize.height + 20 : 0),
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(20),
-                  topLeft: Radius.circular(20),
-                ),
-                color: whiteF2F,
+          body: Container(
+            width: double.infinity,
+            margin: EdgeInsets.only(
+                top: isPinned ? AppBar().preferredSize.height + 20 : 0),
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(20),
+                topLeft: Radius.circular(20),
               ),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(20),
-                  topLeft: Radius.circular(20),
-                ),
-                child: selectedType == SelectionType.myJobs
-                    ? myJobsView()
-                    : searchJobsView(),
+              color: whiteF2F,
+            ),
+            child: ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(20),
+                topLeft: Radius.circular(20),
               ),
-            );
-          }),
+              child: selectedType == SelectionType.myJobs
+                  ? myJobsView()
+                  : searchJobsView(),
+            ),
+          ),
         ),
       ),
     );
   }
 
-  Widget appBarView(bool innerBoxIsScrolled) {
-    return FlexibleSpaceBar(
-      centerTitle: false,
-      titlePadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      //Text
-      title: Text(tr(innerBoxIsScrolled ? 'Professional.logIn.Jobs.Jobs' : ''),
-          style: Theme.of(context)
-              .textTheme
-              .headline2!
-              .apply(color: Colors.white)),
-      background: Container(
-          color: const Color(0xff1B1F1C),
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  tr('Professional.logIn.Jobs.Jobs'),
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 32,
-                    fontWeight: FontWeight.w700,
-                  ),
+  Widget appBarView() {
+    return Container(
+        color: const Color(0xff1B1F1C),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          const SizedBox(height: 24),
+          Wrap(
+            alignment: WrapAlignment.start,
+            runAlignment: WrapAlignment.end,
+            spacing: 8,
+            children: [
+              FilterChip(
+                label: Text(
+                  tr('Professional.logIn.Jobs.All_Jobs'),
                 ),
-                GestureDetector(
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 24,
-                    child: Text("ST",
-                        style: Theme.of(context).textTheme.headline1),
-                  ),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const MyProfileScreen()),
-                    );
-                  },
+                labelStyle: TextStyle(
+                  color: selectedFilter != JobsFilters.all
+                      ? Colors.white
+                      : Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
                 ),
-              ],
-            ),
-            const SizedBox(height: 24),
-            widget.role == UserType.admin
-                ? Wrap(
-                    alignment: WrapAlignment.start,
-                    runAlignment: WrapAlignment.end,
-                    spacing: 8,
-                    children: [
-                      FilterChip(
-                        label: Text(
-                          tr('Professional.logIn.Jobs.All_Jobs'),
-                        ),
-                        labelStyle: TextStyle(
-                          color: selectedFilter != JobsFilters.all
-                              ? Colors.white
-                              : Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                        ),
-                        selected: selectedFilter == JobsFilters.all,
-                        backgroundColor: black343,
-                        selectedColor: Colors.white,
-                        showCheckmark: false,
-                        onSelected: (bool value) {
-                          setState(() {
-                            selectedFilter = JobsFilters.all;
-                          });
-                        },
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      FilterChip(
-                        label: Text(
-                          tr('admin.dashboard.Published'),
-                        ),
-                        labelStyle: TextStyle(
-                          color: selectedFilter != JobsFilters.all
-                              ? Colors.white
-                              : Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                        ),
-                        selected: selectedFilter == JobsFilters.all,
-                        backgroundColor: black343,
-                        selectedColor: Colors.white,
-                        showCheckmark: false,
-                        onSelected: (bool value) {
-                          setState(() {
-                            selectedFilter = JobsFilters.all;
-                          });
-                        },
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      FilterChip(
-                        label: Text(
-                          tr('admin.dashboard.Doing'),
-                        ),
-                        labelStyle: TextStyle(
-                          color: selectedFilter != JobsFilters.all
-                              ? Colors.white
-                              : Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                        ),
-                        selected: selectedFilter == JobsFilters.all,
-                        backgroundColor: black343,
-                        selectedColor: Colors.white,
-                        showCheckmark: false,
-                        onSelected: (bool value) {
-                          setState(() {
-                            selectedFilter = JobsFilters.all;
-                          });
-                        },
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      FilterChip(
-                        label: Text(
-                          tr('admin.dashboard.Pending'),
-                        ),
-                        labelStyle: TextStyle(
-                          color: selectedFilter != JobsFilters.applied
-                              ? Colors.white
-                              : Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                        ),
-                        selected: selectedFilter == JobsFilters.applied,
-                        backgroundColor: black343,
-                        selectedColor: Colors.white,
-                        showCheckmark: false,
-                        onSelected: (bool value) {
-                          setState(() {
-                            selectedFilter = JobsFilters.applied;
-                          });
-                        },
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      FilterChip(
-                        label: Text(
-                          tr('admin.dashboard.rejected'),
-                        ),
-                        labelStyle: TextStyle(
-                          color: selectedFilter != JobsFilters.rejected
-                              ? Colors.white
-                              : Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                        ),
-                        selected: selectedFilter == JobsFilters.rejected,
-                        backgroundColor: black343,
-                        selectedColor: Colors.white,
-                        showCheckmark: false,
-                        onSelected: (bool value) {
-                          setState(() {
-                            selectedFilter = JobsFilters.rejected;
-                          });
-                        },
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      FilterChip(
-                        label: Text(
-                          tr('admin.dashboard.Accepted'),
-                        ),
-                        labelStyle: TextStyle(
-                          color: selectedFilter != JobsFilters.accepted
-                              ? Colors.white
-                              : Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                        ),
-                        selected: selectedFilter == JobsFilters.accepted,
-                        backgroundColor: black343,
-                        selectedColor: Colors.white,
-                        showCheckmark: false,
-                        onSelected: (bool value) {
-                          setState(() {
-                            selectedFilter = JobsFilters.accepted;
-                          });
-                        },
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      FilterChip(
-                        label: Text(
-                          tr('admin.dashboard.Completed'),
-                        ),
-                        labelStyle: TextStyle(
-                          color: selectedFilter != JobsFilters.completed
-                              ? Colors.white
-                              : Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                        ),
-                        selected: selectedFilter == JobsFilters.completed,
-                        backgroundColor: black343,
-                        selectedColor: Colors.white,
-                        showCheckmark: false,
-                        onSelected: (bool value) {
-                          setState(() {
-                            selectedFilter = JobsFilters.completed;
-                          });
-                        },
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                    ],
-                  )
-                : Wrap(
-                    alignment: WrapAlignment.start,
-                    runAlignment: WrapAlignment.end,
-                    spacing: 8,
-                    children: [
-                      FilterChip(
-                        label: Text(
-                          tr('Professional.logIn.Jobs.All_Jobs'),
-                        ),
-                        labelStyle: TextStyle(
-                          color: selectedFilter != JobsFilters.all
-                              ? Colors.white
-                              : Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                        ),
-                        selected: selectedFilter == JobsFilters.all,
-                        backgroundColor: black343,
-                        selectedColor: Colors.white,
-                        showCheckmark: false,
-                        onSelected: (bool value) {
-                          setState(() {
-                            selectedFilter = JobsFilters.all;
-                          });
-                        },
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      FilterChip(
-                        label: Text(
-                          tr('Professional.logIn.Jobs.Applied'),
-                        ),
-                        labelStyle: TextStyle(
-                          color: selectedFilter != JobsFilters.applied
-                              ? Colors.white
-                              : Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                        ),
-                        selected: selectedFilter == JobsFilters.applied,
-                        backgroundColor: black343,
-                        selectedColor: Colors.white,
-                        showCheckmark: false,
-                        onSelected: (bool value) {
-                          setState(() {
-                            selectedFilter = JobsFilters.applied;
-                          });
-                        },
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      FilterChip(
-                        label: Text(
-                          tr('Professional.logIn.Jobs.Accepted'),
-                        ),
-                        labelStyle: TextStyle(
-                          color: selectedFilter != JobsFilters.accepted
-                              ? Colors.white
-                              : Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                        ),
-                        selected: selectedFilter == JobsFilters.accepted,
-                        backgroundColor: black343,
-                        selectedColor: Colors.white,
-                        showCheckmark: false,
-                        onSelected: (bool value) {
-                          setState(() {
-                            selectedFilter = JobsFilters.accepted;
-                          });
-                        },
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      FilterChip(
-                        label: Text(
-                          tr('Professional.logIn.Jobs.Doing'),
-                        ),
-                        labelStyle: TextStyle(
-                          color: selectedFilter != JobsFilters.doing
-                              ? Colors.white
-                              : Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                        ),
-                        selected: selectedFilter == JobsFilters.doing,
-                        backgroundColor: black343,
-                        selectedColor: Colors.white,
-                        showCheckmark: false,
-                        onSelected: (bool value) {
-                          setState(() {
-                            selectedFilter = JobsFilters.doing;
-                          });
-                        },
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      FilterChip(
-                        label: Text(
-                          tr('Professional.logIn.Jobs.Rejected'),
-                        ),
-                        labelStyle: TextStyle(
-                          color: selectedFilter != JobsFilters.rejected
-                              ? Colors.white
-                              : Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                        ),
-                        selected: selectedFilter == JobsFilters.rejected,
-                        backgroundColor: black343,
-                        selectedColor: Colors.white,
-                        showCheckmark: false,
-                        onSelected: (bool value) {
-                          setState(() {
-                            selectedFilter = JobsFilters.rejected;
-                          });
-                        },
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      FilterChip(
-                        label: Text(
-                          tr('Professional.logIn.Jobs.Completed'),
-                        ),
-                        labelStyle: TextStyle(
-                          color: selectedFilter != JobsFilters.completed
-                              ? Colors.white
-                              : Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                        ),
-                        selected: selectedFilter == JobsFilters.completed,
-                        backgroundColor: black343,
-                        selectedColor: Colors.white,
-                        showCheckmark: false,
-                        onSelected: (bool value) {
-                          setState(() {
-                            selectedFilter = JobsFilters.completed;
-                          });
-                        },
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      FilterChip(
-                        label: Text(
-                          "Expired",
-                        ),
-                        labelStyle: TextStyle(
-                          color: selectedFilter != JobsFilters.expired
-                              ? Colors.white
-                              : Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                        ),
-                        selected: selectedFilter == JobsFilters.expired,
-                        backgroundColor: black343,
-                        selectedColor: Colors.white,
-                        showCheckmark: false,
-                        onSelected: (bool value) {
-                          setState(() {
-                            selectedFilter = JobsFilters.expired;
-                          });
-                        },
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                    ],
-                  ),
-            const SizedBox(height: 8),
-            Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: whiteF2F,
+                selected: selectedFilter == JobsFilters.all,
+                backgroundColor: black343,
+                selectedColor: Colors.white,
+                showCheckmark: false,
+                onSelected: (bool value) {
+                  setState(() {
+                    selectedFilter = JobsFilters.all;
+                  });
+                },
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
               ),
-              child: Column(
-                children: [
-                  const SizedBox(height: 12),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: singleSelectionButtons(
-                        context: context,
-                        buttons: [
-                          tr('Professional.logIn.Jobs.Search_Jobs'),
-                          tr('Professional.logIn.Jobs.My_Jobs')
-                        ],
-                        padding: 8,
-                        selected: selectedType,
-                        onSelectionChange: (value) {
-                          setState(() {
-                            selectedType = value;
-                          });
-                        }),
-                  ),
-                  const SizedBox(height: 12),
-                  selectedType == SelectionType.myJobs
-                      ? Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Row(
-                            children: [
-                              Text(
-                                tr('Professional.logIn.Jobs.earning_limit')
-                                    .toUpperCase(),
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                              const SizedBox(width: 20),
-                              const Expanded(
-                                child: CustomProgressBar(
-                                  max: 5,
-                                  current: 2,
-                                  color: primaryColor,
-                                  bgColor: Colors.white,
-                                ),
-                              ),
-                              const SizedBox(width: 20),
-                              const Text(
-                                '2500€/5000€',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
-                      : Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16),
-                              color: Colors.white),
-                          margin: const EdgeInsets.symmetric(horizontal: 12),
-                          child: ListTile(
-                            horizontalTitleGap: 1,
-                            leading: const Padding(
-                              padding: EdgeInsets.only(top: 6),
-                              child: Icon(Icons.location_on_outlined,
-                                  color: Colors.black, size: 28),
-                            ),
-                            title: Text(
-                              tr('Professional.logIn.Jobs.PRovince')
+              FilterChip(
+                label: Text(
+                  tr('Professional.logIn.Jobs.Applied'),
+                ),
+                labelStyle: TextStyle(
+                  color: selectedFilter != JobsFilters.applied
+                      ? Colors.white
+                      : Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                ),
+                selected: selectedFilter == JobsFilters.applied,
+                backgroundColor: black343,
+                selectedColor: Colors.white,
+                showCheckmark: false,
+                onSelected: (bool value) {
+                  setState(() {
+                    selectedFilter = JobsFilters.applied;
+                  });
+                },
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              FilterChip(
+                label: Text(
+                  tr('Professional.logIn.Jobs.Accepted'),
+                ),
+                labelStyle: TextStyle(
+                  color: selectedFilter != JobsFilters.accepted
+                      ? Colors.white
+                      : Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                ),
+                selected: selectedFilter == JobsFilters.accepted,
+                backgroundColor: black343,
+                selectedColor: Colors.white,
+                showCheckmark: false,
+                onSelected: (bool value) {
+                  setState(() {
+                    selectedFilter = JobsFilters.accepted;
+                  });
+                },
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              FilterChip(
+                label: Text(
+                  tr('Professional.logIn.Jobs.Doing'),
+                ),
+                labelStyle: TextStyle(
+                  color: selectedFilter != JobsFilters.doing
+                      ? Colors.white
+                      : Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                ),
+                selected: selectedFilter == JobsFilters.doing,
+                backgroundColor: black343,
+                selectedColor: Colors.white,
+                showCheckmark: false,
+                onSelected: (bool value) {
+                  setState(() {
+                    selectedFilter = JobsFilters.doing;
+                  });
+                },
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              FilterChip(
+                label: Text(
+                  tr('Professional.logIn.Jobs.Rejected'),
+                ),
+                labelStyle: TextStyle(
+                  color: selectedFilter != JobsFilters.rejected
+                      ? Colors.white
+                      : Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                ),
+                selected: selectedFilter == JobsFilters.rejected,
+                backgroundColor: black343,
+                selectedColor: Colors.white,
+                showCheckmark: false,
+                onSelected: (bool value) {
+                  setState(() {
+                    selectedFilter = JobsFilters.rejected;
+                  });
+                },
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              FilterChip(
+                label: Text(
+                  tr('Professional.logIn.Jobs.Completed'),
+                ),
+                labelStyle: TextStyle(
+                  color: selectedFilter != JobsFilters.completed
+                      ? Colors.white
+                      : Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                ),
+                selected: selectedFilter == JobsFilters.completed,
+                backgroundColor: black343,
+                selectedColor: Colors.white,
+                showCheckmark: false,
+                onSelected: (bool value) {
+                  setState(() {
+                    selectedFilter = JobsFilters.completed;
+                  });
+                },
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              FilterChip(
+                label: Text(
+                  "Expired",
+                ),
+                labelStyle: TextStyle(
+                  color: selectedFilter != JobsFilters.expired
+                      ? Colors.white
+                      : Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                ),
+                selected: selectedFilter == JobsFilters.expired,
+                backgroundColor: black343,
+                selectedColor: Colors.white,
+                showCheckmark: false,
+                onSelected: (bool value) {
+                  setState(() {
+                    selectedFilter = JobsFilters.expired;
+                  });
+                },
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: whiteF2F,
+            ),
+            child: Column(
+              children: [
+                const SizedBox(height: 12),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: singleSelectionButtons(
+                      context: context,
+                      buttons: [
+                        tr('Professional.logIn.Jobs.Search_Jobs'),
+                        tr('Professional.logIn.Jobs.My_Jobs')
+                      ],
+                      padding: 8,
+                      selected: selectedType,
+                      onSelectionChange: (value) {
+                        setState(() {
+                          selectedType = value;
+                        });
+                      }),
+                ),
+                const SizedBox(height: 12),
+                selectedType == SelectionType.myJobs
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Row(
+                          children: [
+                            Text(
+                              tr('Professional.logIn.Jobs.earning_limit')
                                   .toUpperCase(),
                               style: const TextStyle(
-                                color: black343,
+                                color: Colors.black,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
-                            subtitle: const Text(
-                              'Milano',
-                              style: TextStyle(
-                                color: splashColor1,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
+                            const SizedBox(width: 20),
+                            const Expanded(
+                              child: CustomProgressBar(
+                                max: 5,
+                                current: 2,
+                                color: primaryColor,
+                                bgColor: Colors.white,
                               ),
                             ),
-                            trailing: const Icon(
-                              Icons.keyboard_arrow_down,
-                              color: splashColor1,
+                            const SizedBox(width: 20),
+                            const Text(
+                              '2500€/5000€',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    : Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            color: Colors.white),
+                        margin: const EdgeInsets.symmetric(horizontal: 12),
+                        child: ListTile(
+                          horizontalTitleGap: 1,
+                          leading: const Padding(
+                            padding: EdgeInsets.only(top: 6),
+                            child: Icon(Icons.location_on_outlined,
+                                color: Colors.black, size: 28),
+                          ),
+                          title: Text(
+                            tr('Professional.logIn.Jobs.PRovince')
+                                .toUpperCase(),
+                            style: const TextStyle(
+                              color: black343,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
                             ),
                           ),
+                          subtitle: const Text(
+                            'Milano',
+                            style: TextStyle(
+                              color: splashColor1,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          trailing: const Icon(
+                            Icons.keyboard_arrow_down,
+                            color: splashColor1,
+                          ),
                         ),
-                  const SizedBox(height: 12),
-                ],
-              ),
-            )
-          ])), //Images.network
-    );
+                      ),
+                const SizedBox(height: 12),
+              ],
+            ),
+          )
+        ]));
   }
 
   Widget myJobsView() {

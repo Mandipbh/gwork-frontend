@@ -125,7 +125,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       const SelectServiceView(),
       const SetPasswordView(),
       const PersonalInfoView(),
-      const PaymentInfoView(),
+      PaymentInfoView(),
       const ProfilePictureView(),
       const PrivacyPolicyView()
     ];
@@ -133,7 +133,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       const SelectServiceView(),
       const SetPasswordView(),
       const PersonalInfoView(),
-      const PaymentInfoView(),
+      PaymentInfoView(),
       const UploadDocumentView(),
       const ProfilePictureView(),
       const PrivacyPolicyView()

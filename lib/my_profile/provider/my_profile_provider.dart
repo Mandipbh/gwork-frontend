@@ -16,20 +16,18 @@ class MyProfileProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool _isProfileDataLogging = true;
+
+  bool getIsLoggingProfile() => _isProfileDataLogging;
+
+  setIsLoggingProfile(bool value) {
+    _isProfileDataLogging = value;
+    notifyListeners();
+  }
+
   getUserProfile(BuildContext context) async {
     _model = await ApiClient().getProfile(context);
-
-    if (_model != null && _model!.user!.image != null) {
-      _model!.user!.name!;
-      _model!.user!.surname!;
-      _model!.user!.email!;
-      _model!.user!.phoneNumber!;
-      _model!.user!.birthDate!;
-      _model!.user!.vatNumber!;
-      _model!.user!.image!;
-      notifyListeners();
-    }
-    notifyListeners();
+    setIsLoggingProfile(false);
   }
 
   clearProfileProvider() {

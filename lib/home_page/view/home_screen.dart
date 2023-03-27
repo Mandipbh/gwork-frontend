@@ -8,11 +8,13 @@ import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/custom_bottom_navigation_bar.dart';
 import 'package:g_worker_app/dashboard/dashboard_screen.dart';
 import 'package:g_worker_app/home_page/provider/home_page_provider.dart';
-import 'package:g_worker_app/jobs/job_list_screen.dart';
+import 'package:g_worker_app/jobs/professional_job_list_screen.dart';
+import 'package:g_worker_app/server_connection/api_client.dart';
 import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../jobs/client_job_list_screen.dart';
+import '../../my_profile/provider/my_profile_provider.dart';
 import '../../user/user_list_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -38,9 +40,10 @@ class _HomeScreenState extends State<HomeScreen> {
       //TODO get province list
       Provider.of<SignUpProvider>(context, listen: false)
           .getProvinceList(context);
+      Provider.of<SignUpProvider>(context, listen: false).updateUserType(value);
+      Provider.of<MyProfileProvider>(context, listen: false)
+          .getUserProfile(context);
       setState(() {
-        Provider.of<SignUpProvider>(context, listen: false)
-            .updateUserType(value);
         role = Provider.of<SignUpProvider>(context, listen: false).userType!;
       });
     });
@@ -58,43 +61,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
     //
     log(role.toString());
-    return role == UserType.admin
-        ? adminView()
-        : role == UserType.client
-            ? clientView()
-            : role == UserType.professional
-                ? professionalView()
-                : const Center(child: Text('Something went wrong'));
+    return role == UserType.client
+        ? clientView()
+        : role == UserType.professional
+            ? professionalView()
+            : const Center(child: Text('Something went wrong'));
   }
 
   Widget clientView() {
     return const ClientJobListScreen();
-  }
-
-  Widget adminView() {
-    List<Widget> pages = <Widget>[
-      const DashboardScreen(),
-      ProfessionalJobListScreen(role: role),
-      const UserListScreen(),
-    ];
-    return Scaffold(
-      body: SafeArea(
-          child: Stack(
-        children: [
-          pages.elementAt(_selectedIndex),
-          Positioned(
-            bottom: 1,
-            child: CustomBottomNavigationBar(
-                onItemTapped: (index) {
-                  setState(() {
-                    _selectedIndex = index;
-                  });
-                },
-                selected: _selectedIndex),
-          )
-        ],
-      )),
-    );
   }
 
   Widget professionalView() {

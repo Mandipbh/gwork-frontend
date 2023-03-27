@@ -30,517 +30,557 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: whiteF2F,
-      appBar: AppBar(
-        title: const Text(
-          'Profile',
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.of(context).pop();
+        return true;
+      },
+      child: Scaffold(
+        backgroundColor: whiteF2F,
+        appBar: AppBar(
+          title: const Text(
+            'Profile',
+          ),
         ),
-      ),
-      body: Consumer<MyProfileProvider>(
-        builder: (context, myProfileProvider, child) {
-          if (myProfileProvider.model == null) {
-            myProfileProvider.getUserProfile(context);
-          }
-          return myProfileProvider.model == null
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      children: [
-                        Center(
-                          child: SizedBox(
-                            height: 108,
-                            width: 108,
-                            child: Stack(
-                              clipBehavior: Clip.none,
-                              children: [
-                                SizedBox(
-                                  width: 140,
-                                  height: 140,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(60.0),
-                                    child: myProfileProvider
-                                                .model!.user!.image ==
-                                            null
-                                        ? CircleAvatar(
-                                            radius: 75,
-                                            backgroundColor:
-                                                const Color(0xff6DCF82),
-                                            child: Text(
-                                              '${myProfileProvider.model!.user!.name!.substring(0, 1)}${myProfileProvider.model!.user!.surname!.substring(0, 1)}',
-                                              style: const TextStyle(
-                                                  fontSize: 65,
-                                                  color: Colors.white),
-                                            ))
-                                        : Image.network(
-                                            myProfileProvider
-                                                .model!.user!.image!,
-                                            fit: BoxFit.fill,
-                                            loadingBuilder:
-                                                (BuildContext context,
-                                                    Widget child,
-                                                    ImageChunkEvent?
-                                                        loadingProgress) {
-                                              if (loadingProgress == null) {
-                                                return child;
-                                              }
-                                              return Center(
-                                                child:
-                                                    CircularProgressIndicator(
-                                                  value: loadingProgress
-                                                              .expectedTotalBytes !=
-                                                          null
-                                                      ? loadingProgress
-                                                              .cumulativeBytesLoaded /
-                                                          loadingProgress
-                                                              .expectedTotalBytes!
-                                                      : null,
-                                                ),
-                                              );
-                                            },
-                                            errorBuilder:
-                                                (context, error, stackTrace) {
-                                              return CircleAvatar(
-                                                  radius: 75,
-                                                  backgroundColor:
-                                                      const Color(0xff6DCF82),
-                                                  child: Text(
-                                                    '${myProfileProvider.model!.user!.name!.substring(0, 1)}${myProfileProvider.model!.user!.surname!.substring(0, 1)}',
-                                                    style: const TextStyle(
-                                                        fontSize: 65,
-                                                        color: Colors.white),
-                                                  ));
-                                            },
-                                          ),
+        body: Consumer<MyProfileProvider>(
+          builder: (context, myProfileProvider, child) {
+            if (myProfileProvider.model == null) {
+              myProfileProvider.getUserProfile(context);
+            }
+            return myProfileProvider.model == null
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        children: [
+                          Center(
+                            child: SizedBox(
+                              height: 108,
+                              width: 108,
+                              child: Stack(
+                                clipBehavior: Clip.none,
+                                children: [
+                                  SizedBox(
+                                    width: 140,
+                                    height: 140,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(60.0),
+                                      child: myProfileProvider
+                                                  .model!.user!.image ==
+                                              null
+                                          ? CircleAvatar(
+                                              radius: 75,
+                                              backgroundColor:
+                                                  const Color(0xff6DCF82),
+                                              child: Text(
+                                                '${myProfileProvider.model!.user!.name!.substring(0, 1)}${myProfileProvider.model!.user!.surname!.substring(0, 1)}',
+                                                style: const TextStyle(
+                                                    fontSize: 65,
+                                                    color: Colors.white),
+                                              ))
+                                          : Image.network(
+                                              myProfileProvider
+                                                  .model!.user!.image!,
+                                              fit: BoxFit.fill,
+                                              loadingBuilder:
+                                                  (BuildContext context,
+                                                      Widget child,
+                                                      ImageChunkEvent?
+                                                          loadingProgress) {
+                                                if (loadingProgress == null) {
+                                                  return child;
+                                                }
+                                                return Center(
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                    value: loadingProgress
+                                                                .expectedTotalBytes !=
+                                                            null
+                                                        ? loadingProgress
+                                                                .cumulativeBytesLoaded /
+                                                            loadingProgress
+                                                                .expectedTotalBytes!
+                                                        : null,
+                                                  ),
+                                                );
+                                              },
+                                              errorBuilder:
+                                                  (context, error, stackTrace) {
+                                                return CircleAvatar(
+                                                    radius: 75,
+                                                    backgroundColor:
+                                                        const Color(0xff6DCF82),
+                                                    child: Text(
+                                                      '${myProfileProvider.model!.user!.name!.substring(0, 1)}${myProfileProvider.model!.user!.surname!.substring(0, 1)}',
+                                                      style: const TextStyle(
+                                                          fontSize: 65,
+                                                          color: Colors.white),
+                                                    ));
+                                              },
+                                            ),
+                                    ),
                                   ),
-                                ),
-                                Positioned(
-                                    bottom: -2,
-                                    right: -8,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        print(
-                                            "img1==>${Provider.of<ProfilePicProvider>(context, listen: false).getImageString}");
-                                        print(
-                                            "img2==>${Provider.of<MyProfileProvider>(context, listen: false).model!.user!.image}");
+                                  Positioned(
+                                      bottom: -2,
+                                      right: -8,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          print(
+                                              "img1==>${Provider.of<ProfilePicProvider>(context, listen: false).getImageString}");
+                                          print(
+                                              "img2==>${Provider.of<MyProfileProvider>(context, listen: false).model!.user!.image}");
 
-                                        editProfilePicture(context);
-                                      },
-                                      child: CircleAvatar(
-                                        radius: 22,
-                                        backgroundColor: primaryColor,
-                                        child: Image.asset(
-                                            'assets/icons/edit.png',
-                                            height: 22,
-                                            width: 22,
-                                            color: Colors.white),
-                                      ),
-                                    ))
-                              ],
+                                          editProfilePicture(context);
+                                        },
+                                        child: CircleAvatar(
+                                          radius: 22,
+                                          backgroundColor: primaryColor,
+                                          child: Image.asset(
+                                              'assets/icons/edit.png',
+                                              height: 22,
+                                              width: 22,
+                                              color: Colors.white),
+                                        ),
+                                      ))
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            // ProgressLoader(context);
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 16),
-                            child: Text(
-                                '${myProfileProvider.model!.user!.name!} ${myProfileProvider.model!.user!.surname!}',
-                                style: Theme.of(context).textTheme.headline2),
+                          InkWell(
+                            onTap: () {
+                              // ProgressLoader(context);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              child: Text(
+                                  '${myProfileProvider.model!.user!.name!} ${myProfileProvider.model!.user!.surname!}',
+                                  style: Theme.of(context).textTheme.headline2),
+                            ),
                           ),
-                        ),
-                        Row(
-                          children: [
-                            Image.asset('assets/icons/user_first_name.png',
-                                height: 24, width: 24),
-                            const SizedBox(width: 16),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(tr('admin.Profile.First_name'),
-                                    style:
-                                        Theme.of(context).textTheme.headline6),
-                                const SizedBox(height: 6),
-                                Text(myProfileProvider.model!.user!.name!,
-                                    style:
-                                        Theme.of(context).textTheme.bodyText2),
-                              ],
-                            ),
-                            const Spacer(),
-                            GestureDetector(
-                                behavior: HitTestBehavior.opaque,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Image.asset('assets/icons/edit.png',
-                                      height: 24, width: 24),
-                                ),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => EditProfileScreen(
-                                              type: ProfileFieldType.firstName,
-                                              value: myProfileProvider
-                                                  .model!.user!.name!,
-                                            )),
-                                  );
-                                }),
-                          ],
-                        ),
-                        const Divider(height: 25),
-                        Row(
-                          children: [
-                            Image.asset('assets/icons/user.png',
-                                height: 24, width: 24),
-                            const SizedBox(width: 16),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(tr('admin.Profile.Last_name'),
-                                    style:
-                                        Theme.of(context).textTheme.headline6),
-                                const SizedBox(height: 6),
-                                Text(myProfileProvider.model!.user!.surname!,
-                                    style:
-                                        Theme.of(context).textTheme.bodyText2),
-                              ],
-                            ),
-                            const Spacer(),
-                            GestureDetector(
-                                behavior: HitTestBehavior.opaque,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Image.asset('assets/icons/edit.png',
-                                      height: 24, width: 24),
-                                ),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => EditProfileScreen(
-                                              type: ProfileFieldType.lastName,
-                                              value: myProfileProvider
-                                                  .model!.user!.surname!,
-                                            )),
-                                  );
-                                }),
-                          ],
-                        ),
-                        const Divider(height: 25),
-                        Row(
-                          children: [
-                            Image.asset('assets/icons/mail.png',
-                                height: 24, width: 24),
-                            const SizedBox(width: 16),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(tr('admin.Profile.Email'),
-                                    style:
-                                        Theme.of(context).textTheme.headline6),
-                                const SizedBox(height: 6),
-                                Text(myProfileProvider.model!.user!.email!,
-                                    style:
-                                        Theme.of(context).textTheme.bodyText2),
-                              ],
-                            ),
-                            const Spacer(),
-                            GestureDetector(
-                                behavior: HitTestBehavior.opaque,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Image.asset('assets/icons/edit.png',
-                                      height: 24, width: 24),
-                                ),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => EditProfileScreen(
-                                              type: ProfileFieldType.email,
-                                              value: myProfileProvider
-                                                  .model!.user!.email!,
-                                            )),
-                                  );
-                                }),
-                          ],
-                        ),
-                        const Divider(height: 25),
-                        Row(
-                          children: [
-                            Image.asset('assets/icons/phone.png',
-                                height: 24, width: 24),
-                            const SizedBox(width: 16),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(tr('admin.Profile.Phone_number'),
-                                    style:
-                                        Theme.of(context).textTheme.headline6),
-                                const SizedBox(height: 6),
-                                Text(
-                                    myProfileProvider.model!.user!.phoneNumber!,
-                                    style:
-                                        Theme.of(context).textTheme.bodyText2),
-                              ],
-                            ),
-                            const Spacer(),
-                            GestureDetector(
-                                behavior: HitTestBehavior.opaque,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Image.asset('assets/icons/edit.png',
-                                      height: 24, width: 24),
-                                ),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => EditProfileScreen(
-                                              type:
-                                                  ProfileFieldType.phoneNumber,
-                                              value: myProfileProvider
-                                                  .model!.user!.phoneNumber!,
-                                            )),
-                                  );
-                                }),
-                          ],
-                        ),
-                        const Divider(height: 25),
-                        Row(
-                          children: [
-                            Image.asset('assets/icons/hash.png',
-                                height: 24, width: 24),
-                            const SizedBox(width: 16),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(tr('admin.Profile.Text_Code'),
-                                    style:
-                                        Theme.of(context).textTheme.headline6),
-                                const SizedBox(height: 6),
-                                Text(myProfileProvider.model!.user!.vatNumber!,
-                                    style:
-                                        Theme.of(context).textTheme.bodyText2),
-                              ],
-                            ),
-                            const Spacer(),
-                            GestureDetector(
-                                behavior: HitTestBehavior.opaque,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Image.asset('assets/icons/edit.png',
-                                      height: 24, width: 24),
-                                ),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => EditProfileScreen(
-                                              type: ProfileFieldType.vatNumber,
-                                              value: myProfileProvider
-                                                  .model!.user!.vatNumber!,
-                                            )),
-                                  );
-                                }),
-                          ],
-                        ),
-                        const Divider(height: 25),
-                        Row(
-                          children: [
-                            Image.asset('assets/icons/calendar_birthday.png',
-                                height: 24, width: 24),
-                            const SizedBox(width: 16),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(tr('admin.Profile.Birth_Date'),
-                                    style:
-                                        Theme.of(context).textTheme.headline6),
-                                const SizedBox(height: 6),
-                                Text(myProfileProvider.model!.user!.birthDate!,
-                                    style:
-                                        Theme.of(context).textTheme.bodyText2),
-                              ],
-                            ),
-                            const Spacer(),
-                            GestureDetector(
-                                behavior: HitTestBehavior.opaque,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Image.asset('assets/icons/edit.png',
-                                      height: 24, width: 24),
-                                ),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => EditProfileScreen(
-                                              type: ProfileFieldType.birthdate,
-                                              value: myProfileProvider
-                                                  .model!.user!.birthDate!,
-                                            )),
-                                  );
-                                }),
-                          ],
-                        ),
-                        const Divider(height: 25),
-                        Row(
-                          children: [
-                            Image.asset('assets/icons/credit_card_upload.png',
-                                height: 24, width: 24),
-                            const SizedBox(width: 16),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(tr('admin.Profile.Payment_method'),
-                                    style:
-                                        Theme.of(context).textTheme.headline6),
-                                const SizedBox(height: 6),
-                                Text(myProfileProvider.model!.user!.cardNumber!,
-                                    style:
-                                        Theme.of(context).textTheme.bodyText2),
-                              ],
-                            ),
-                            const Spacer(),
-                            GestureDetector(
-                                behavior: HitTestBehavior.opaque,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Image.asset('assets/icons/edit.png',
-                                      height: 24, width: 24),
-                                ),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => EditProfileScreen(
-                                              type: ProfileFieldType
-                                                  .paymentMethod,
-                                              value: 'testt',
-                                            )),
-                                  );
-                                }),
-                          ],
-                        ),
-                        const Divider(height: 25),
-                        Row(
-                          children: [
-                            Image.asset('assets/icons/password.png',
-                                height: 24, width: 24),
-                            const SizedBox(width: 16),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(tr('admin.Profile.Password'),
-                                    style:
-                                        Theme.of(context).textTheme.headline6),
-                                const SizedBox(height: 6),
-                                Text('*********',
-                                    style:
-                                        Theme.of(context).textTheme.bodyText2),
-                              ],
-                            ),
-                            const Spacer(),
-                            GestureDetector(
-                                behavior: HitTestBehavior.opaque,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Image.asset('assets/icons/edit.png',
-                                      height: 24, width: 24),
-                                ),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => EditProfileScreen(
-                                              type: ProfileFieldType.password,
-                                              value: '*****************',
-                                            )),
-                                  );
-                                }),
-                          ],
-                        ),
-                        const Divider(height: 25),
-                        Row(
-                          children: [
-                            Image.asset('assets/icons/globe.png',
-                                height: 24, width: 24),
-                            const SizedBox(width: 16),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(tr('admin.Profile.Language'),
-                                    style:
-                                        Theme.of(context).textTheme.headline6),
-                                const SizedBox(height: 6),
-                                Text('English',
-                                    style:
-                                        Theme.of(context).textTheme.bodyText2),
-                              ],
-                            ),
-                            const Spacer(),
-                            GestureDetector(
-                                behavior: HitTestBehavior.opaque,
-                                child: const Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Icon(
-                                    Icons.arrow_forward_ios,
-                                    size: 24,
+                          Row(
+                            children: [
+                              Image.asset('assets/icons/user_first_name.png',
+                                  height: 24, width: 24),
+                              const SizedBox(width: 16),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(tr('admin.Profile.First_name'),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline6),
+                                  const SizedBox(height: 6),
+                                  Text(myProfileProvider.model!.user!.name!,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText2),
+                                ],
+                              ),
+                              const Spacer(),
+                              GestureDetector(
+                                  behavior: HitTestBehavior.opaque,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Image.asset('assets/icons/edit.png',
+                                        height: 24, width: 24),
                                   ),
-                                ),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const LanguageScreen()),
-                                  );
-                                }),
-                          ],
-                        ),
-                        const Divider(height: 25),
-                        submitButton(
-                            context: context,
-                            onButtonTap: () {
-                              askForExit(
-                                context: context,
-                                onBackPressed: () {
-                                  Provider.of<MyProfileProvider>(context,
-                                          listen: false)
-                                      .clearProfileProvider();
-                                  SharedPreferenceData().clearPrefs();
-                                  Navigator.pushAndRemoveUntil(
+                                  onTap: () {
+                                    Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              const SignInSignUpScreen()),
-                                      (Route<dynamic> route) => false);
-                                },
-                                backButtonName:
-                                    tr('admin.log_out_dialogue.Log_out'),
-                                title: tr(
-                                    'admin.log_out_dialogue.are_you_sure_logout'),
-                                description: tr(
-                                    'admin.log_out_dialogue.need_to_login_again'),
-                              );
-                            },
-                            backgroundColor: Colors.transparent,
-                            iconColor: const Color(0xffE45E5E),
-                            textColor: const Color(0xffE45E5E),
-                            buttonName: tr('admin.log_out_dialogue.Log_out'),
-                            iconAsset: 'logout.png')
-                      ],
+                                              EditProfileScreen(
+                                                type:
+                                                    ProfileFieldType.firstName,
+                                                value: myProfileProvider
+                                                    .model!.user!.name!,
+                                              )),
+                                    );
+                                  }),
+                            ],
+                          ),
+                          const Divider(height: 25),
+                          Row(
+                            children: [
+                              Image.asset('assets/icons/user.png',
+                                  height: 24, width: 24),
+                              const SizedBox(width: 16),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(tr('admin.Profile.Last_name'),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline6),
+                                  const SizedBox(height: 6),
+                                  Text(myProfileProvider.model!.user!.surname!,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText2),
+                                ],
+                              ),
+                              const Spacer(),
+                              GestureDetector(
+                                  behavior: HitTestBehavior.opaque,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Image.asset('assets/icons/edit.png',
+                                        height: 24, width: 24),
+                                  ),
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              EditProfileScreen(
+                                                type: ProfileFieldType.lastName,
+                                                value: myProfileProvider
+                                                    .model!.user!.surname!,
+                                              )),
+                                    );
+                                  }),
+                            ],
+                          ),
+                          const Divider(height: 25),
+                          Row(
+                            children: [
+                              Image.asset('assets/icons/mail.png',
+                                  height: 24, width: 24),
+                              const SizedBox(width: 16),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(tr('admin.Profile.Email'),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline6),
+                                  const SizedBox(height: 6),
+                                  Text(myProfileProvider.model!.user!.email!,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText2),
+                                ],
+                              ),
+                              const Spacer(),
+                              GestureDetector(
+                                  behavior: HitTestBehavior.opaque,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Image.asset('assets/icons/edit.png',
+                                        height: 24, width: 24),
+                                  ),
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              EditProfileScreen(
+                                                type: ProfileFieldType.email,
+                                                value: myProfileProvider
+                                                    .model!.user!.email!,
+                                              )),
+                                    );
+                                  }),
+                            ],
+                          ),
+                          const Divider(height: 25),
+                          Row(
+                            children: [
+                              Image.asset('assets/icons/phone.png',
+                                  height: 24, width: 24),
+                              const SizedBox(width: 16),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(tr('admin.Profile.Phone_number'),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline6),
+                                  const SizedBox(height: 6),
+                                  Text(
+                                      myProfileProvider
+                                          .model!.user!.phoneNumber!,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText2),
+                                ],
+                              ),
+                              const Spacer(),
+                              GestureDetector(
+                                  behavior: HitTestBehavior.opaque,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Image.asset('assets/icons/edit.png',
+                                        height: 24, width: 24),
+                                  ),
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              EditProfileScreen(
+                                                type: ProfileFieldType
+                                                    .phoneNumber,
+                                                value: myProfileProvider
+                                                    .model!.user!.phoneNumber!,
+                                              )),
+                                    );
+                                  }),
+                            ],
+                          ),
+                          const Divider(height: 25),
+                          Row(
+                            children: [
+                              Image.asset('assets/icons/hash.png',
+                                  height: 24, width: 24),
+                              const SizedBox(width: 16),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(tr('admin.Profile.Text_Code'),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline6),
+                                  const SizedBox(height: 6),
+                                  Text(
+                                      myProfileProvider.model!.user!.vatNumber!,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText2),
+                                ],
+                              ),
+                              const Spacer(),
+                              GestureDetector(
+                                  behavior: HitTestBehavior.opaque,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Image.asset('assets/icons/edit.png',
+                                        height: 24, width: 24),
+                                  ),
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              EditProfileScreen(
+                                                type:
+                                                    ProfileFieldType.vatNumber,
+                                                value: myProfileProvider
+                                                    .model!.user!.vatNumber!,
+                                              )),
+                                    );
+                                  }),
+                            ],
+                          ),
+                          const Divider(height: 25),
+                          Row(
+                            children: [
+                              Image.asset('assets/icons/calendar_birthday.png',
+                                  height: 24, width: 24),
+                              const SizedBox(width: 16),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(tr('admin.Profile.Birth_Date'),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline6),
+                                  const SizedBox(height: 6),
+                                  Text(
+                                      myProfileProvider.model!.user!.birthDate!,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText2),
+                                ],
+                              ),
+                              const Spacer(),
+                              GestureDetector(
+                                  behavior: HitTestBehavior.opaque,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Image.asset('assets/icons/edit.png',
+                                        height: 24, width: 24),
+                                  ),
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              EditProfileScreen(
+                                                type:
+                                                    ProfileFieldType.birthdate,
+                                                value: myProfileProvider
+                                                    .model!.user!.birthDate!,
+                                              )),
+                                    );
+                                  }),
+                            ],
+                          ),
+                          const Divider(height: 25),
+                          Row(
+                            children: [
+                              Image.asset('assets/icons/credit_card_upload.png',
+                                  height: 24, width: 24),
+                              const SizedBox(width: 16),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(tr('admin.Profile.Payment_method'),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline6),
+                                  const SizedBox(height: 6),
+                                  Text(
+                                      myProfileProvider
+                                          .model!.user!.cardNumber!,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText2),
+                                ],
+                              ),
+                              const Spacer(),
+                              GestureDetector(
+                                  behavior: HitTestBehavior.opaque,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Image.asset('assets/icons/edit.png',
+                                        height: 24, width: 24),
+                                  ),
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              EditProfileScreen(
+                                                type: ProfileFieldType
+                                                    .paymentMethod,
+                                                value: 'testt',
+                                              )),
+                                    );
+                                  }),
+                            ],
+                          ),
+                          const Divider(height: 25),
+                          Row(
+                            children: [
+                              Image.asset('assets/icons/password.png',
+                                  height: 24, width: 24),
+                              const SizedBox(width: 16),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(tr('admin.Profile.Password'),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline6),
+                                  const SizedBox(height: 6),
+                                  Text('*********',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText2),
+                                ],
+                              ),
+                              const Spacer(),
+                              GestureDetector(
+                                  behavior: HitTestBehavior.opaque,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Image.asset('assets/icons/edit.png',
+                                        height: 24, width: 24),
+                                  ),
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              EditProfileScreen(
+                                                type: ProfileFieldType.password,
+                                                value: '*****************',
+                                              )),
+                                    );
+                                  }),
+                            ],
+                          ),
+                          const Divider(height: 25),
+                          Row(
+                            children: [
+                              Image.asset('assets/icons/globe.png',
+                                  height: 24, width: 24),
+                              const SizedBox(width: 16),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(tr('admin.Profile.Language'),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline6),
+                                  const SizedBox(height: 6),
+                                  Text('English',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText2),
+                                ],
+                              ),
+                              const Spacer(),
+                              GestureDetector(
+                                  behavior: HitTestBehavior.opaque,
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Icon(
+                                      Icons.arrow_forward_ios,
+                                      size: 24,
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const LanguageScreen()),
+                                    );
+                                  }),
+                            ],
+                          ),
+                          const Divider(height: 25),
+                          submitButton(
+                              context: context,
+                              onButtonTap: () {
+                                askForExit(
+                                  context: context,
+                                  onBackPressed: () {
+                                    Provider.of<MyProfileProvider>(context,
+                                            listen: false)
+                                        .clearProfileProvider();
+                                    SharedPreferenceData().clearPrefs();
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const SignInSignUpScreen()),
+                                        (Route<dynamic> route) => false);
+                                  },
+                                  backButtonName:
+                                      tr('admin.log_out_dialogue.Log_out'),
+                                  title: tr(
+                                      'admin.log_out_dialogue.are_you_sure_logout'),
+                                  description: tr(
+                                      'admin.log_out_dialogue.need_to_login_again'),
+                                );
+                              },
+                              backgroundColor: Colors.transparent,
+                              iconColor: const Color(0xffE45E5E),
+                              textColor: const Color(0xffE45E5E),
+                              buttonName: tr('admin.log_out_dialogue.Log_out'),
+                              iconAsset: 'logout.png')
+                        ],
+                      ),
                     ),
-                  ),
-                );
-        },
+                  );
+          },
+        ),
       ),
     );
   }

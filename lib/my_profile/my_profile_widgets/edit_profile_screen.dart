@@ -42,6 +42,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         description = tr('admin.enter_valid_email');
         break;
       case ProfileFieldType.phoneNumber:
+        String filteredNumber = controller.text.substring(3);
+        controller.text = filteredNumber;
         label = tr('admin.Edit_phone_number');
         description = tr('admin.enter_new_phone_no');
         break;

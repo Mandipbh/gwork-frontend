@@ -801,6 +801,7 @@ class ApiClient {
       _model = GetProfessionalJobListModel.fromJson(response.data);
       return _model;
     } on DioError catch (e) {
+      log(e.toString());
       // ErrorLoader(
       //     context, "Oops, something is wrong with your data. Try again.");
     } catch (e) {

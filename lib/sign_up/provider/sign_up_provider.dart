@@ -161,16 +161,85 @@ class SignUpProvider extends ChangeNotifier {
   var cardNumberController = TextEditingController();
   var expireDateController = TextEditingController();
   var cvvController = TextEditingController();
+  static bool hasDateExpired(int month, int year) {
+    return isNotExpired(year, month);
+  }
+
+  static bool isNotExpired(int year, int month) {
+    // It has not expired if both the year and date has not passed
+    return !hasYearPassed(year) && !hasMonthPassed(year, month);
+  }
+
+  static List<int> getExpiryDate(String value) {
+    var split = value.split(RegExp(r'(/)'));
+    return [int.parse(split[0]), int.parse(split[1])];
+  }
+
+  static bool hasMonthPassed(int year, int month) {
+    var now = DateTime.now();
+    // The month has passed if:
+    // 1. The year is in the past. In that case, we just assume that the month
+    // has passed
+    // 2. Card's month (plus another month) is more than current month.
+    return hasYearPassed(year) ||
+        convertYearTo4Digits(year) == now.year && (month < now.month + 1);
+  }
+
+  static bool hasYearPassed(int year) {
+    int fourDigitsYear = convertYearTo4Digits(year);
+    var now = DateTime.now();
+    // The year has passed if the year we are currently is more than card's
+    // year
+    return fourDigitsYear < now.year;
+  }
+
+  static int convertYearTo4Digits(int year) {
+    if (year < 100 && year >= 0) {
+      var now = DateTime.now();
+      String currentYear = now.year.toString();
+      String prefix = currentYear.substring(0, currentYear.length - 2);
+      year = int.parse('$prefix${year.toString().padLeft(2, '0')}');
+    }
+    return year;
+  }
 
   setPaymentMethod(String cardHolder, String cardNumber, String expireDate,
       String cvv, BuildContext context) {
+    int? year;
+    int? month;
+
     if (cardHolder.isEmpty ||
         cardNumber.isEmpty ||
         expireDate.isEmpty ||
         cvv.isEmpty) {
       ErrorLoader(context, "Please fill all the details");
       notifyListeners();
-    } else {
+      return false;
+    }
+    // else if (expireDate.contains(RegExp(r'(/)'))) {
+    //   var split = expireDate.split(RegExp(r'(/)'));
+    //
+    //   month = int.parse(split[0]);
+    //   year = int.parse(split[1]);
+    //   notifyListeners();
+    //   return false;
+    // } else if ((month! < 1) || (month > 12)) {
+    //   ErrorLoader(context, "Expiry month is invalid");
+    //   notifyListeners();
+    //   return false;
+    // } else if ((convertYearTo4Digits(year!) < 1) ||
+    //     (convertYearTo4Digits(year!) > 2099)) {
+    //   // We are assuming a valid should be between 1 and 2099.
+    //   // Note that, it's valid doesn't mean that it has not expired.
+    //   ErrorLoader(context, "Expiry year is invalid'");
+    //   notifyListeners();
+    //   return false;
+    // } else if (!hasDateExpired(month, year)) {
+    //   ErrorLoader(context, "Card has expired");
+    //   notifyListeners();
+    //   return false;
+    // }
+    else {
       _cardHolder = cardHolder;
       _cardNumber = cardNumber;
       _expireDate = expireDate;

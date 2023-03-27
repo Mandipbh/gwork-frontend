@@ -16,6 +16,7 @@ import 'package:g_worker_app/sign_up/registration_screen.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/profile_picture_view/image_provider/image_provider.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/upload_document_view/document_provider/document_provider.dart';
 import 'package:g_worker_app/splash_screen.dart';
+import 'package:month_year_picker/month_year_picker.dart';
 
 import 'package:provider/provider.dart';
 
@@ -45,6 +46,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    var localization = context.localizationDelegates;
+    localization.add(MonthYearPickerLocalizations.delegate);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -86,7 +89,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'g.work',
-        localizationsDelegates: context.localizationDelegates,
+        localizationsDelegates: localization,
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         debugShowCheckedModeBanner: false,

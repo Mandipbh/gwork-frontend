@@ -52,6 +52,7 @@ dependencies:
   shared_preferences: ^2.0.18
   fluttertoast: ^8.2.1
   draggable_home: ^1.0.4
+  month_year_picker: ^0.2.0+3
 
 dev_dependencies:
   flutter_test:

@@ -63,11 +63,20 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
       askForExit(
         context: context,
         onBackPressed: () {
-          Navigator.pushAndRemoveUntil(
+          if (widget.comingFrom == 1 || widget.comingFrom == 2) {
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const SignInSignUpScreen()),
+                (Route<dynamic> route) => false);
+          } else {
+            Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => const SignInSignUpScreen()),
-              (Route<dynamic> route) => false);
+                builder: (context) => const MyProfileScreen(),
+              ),
+            );
+          }
         },
         title: tr('admin.exit_dialogue.are_you_sure'),
         description: tr('admin.exit_dialogue.need_to_ask'),
