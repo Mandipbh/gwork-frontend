@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:g_worker_app/Constants.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/common/common_buttons.dart';
+import 'package:g_worker_app/home_page/view/home_screen.dart';
 import 'package:g_worker_app/language_screen/language.dart';
 import 'package:g_worker_app/my_profile/my_profile_widgets/edit_profile_screen.dart';
 import 'package:g_worker_app/my_profile/provider/my_profile_provider.dart';
@@ -32,7 +33,10 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Navigator.of(context).pop();
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const HomeScreen()),
+            (Route<dynamic> route) => false);
         return true;
       },
       child: Scaffold(

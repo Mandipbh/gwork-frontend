@@ -7,6 +7,7 @@ import 'package:g_worker_app/common/common_loader.dart';
 import 'package:g_worker_app/jobs/add_job_widgets/upload_images_view.dart';
 import 'package:g_worker_app/jobs/model/create_client_job_response.dart';
 import 'package:g_worker_app/jobs/model/get_client_job_list_response.dart';
+import 'package:g_worker_app/jobs/model/get_prof_job_details_model.dart';
 import 'package:g_worker_app/jobs/model/get_professional_job_response.dart';
 import 'package:g_worker_app/jobs/provider/create_client_job_provider.dart';
 import 'package:g_worker_app/my_profile/model/get_profile_response.dart';
@@ -787,11 +788,13 @@ class ApiClient {
       BuildContext context,
       String category,
       String province,
-      bool isSelf) async {
+      bool isSelf,
+      String state,
+      String jobState) async {
     GetProfessionalJobListModel? _model;
     try {
       var response = await dio.get(
-          '${API.baseUrl}${ApiEndPoints.getProfessionalJobList}?category=$category&is_self=$isSelf&province=$province',
+          '${API.baseUrl}${ApiEndPoints.getProfessionalJobList}?category=$category&is_self=$isSelf&province=$province&state=$state&job_state=$jobState',
           options: Options(headers: {
             'Content-Type': 'application/json',
             "Authorization": "Bearer ${await SharedPreferenceData().getToken()}"
@@ -802,11 +805,13 @@ class ApiClient {
       return _model;
     } on DioError catch (e) {
       log(e.toString());
-      // ErrorLoader(
-      //     context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+      GetProfessionalJobListModel();
     } catch (e) {
       ErrorLoader(
           context, "Oops, something is wrong with your data. Try again.");
+      GetProfessionalJobListModel();
     }
     return _model!;
   }
@@ -909,6 +914,98 @@ class ApiClient {
       print("----DIO ERROR Change Password----");
       print('ApiClient.CreateClientJob Error :: $e');
       return CreateClientJobModel();
+    }
+  }
+
+  Future<GetProfJobDetailsModel> getProfessionalJobDetailsService(
+      BuildContext context, String jobId) async {
+    GetProfJobDetailsModel? _model;
+    try {
+      var request = json.encode({"job_id": jobId});
+      var response = await dio.post(
+          data: request,
+          '${API.baseUrl}${ApiEndPoints.getProfessionalJobDetails}',
+          options: Options(headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer ${await SharedPreferenceData().getToken()}"
+          }));
+
+      print("GetProf==> ${response.data}");
+      _model = GetProfJobDetailsModel.fromJson(response.data);
+      return _model;
+    } on DioError catch (e) {
+      log(e.toString());
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+      GetProfJobDetailsModel();
+    } catch (e) {
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+      GetProfJobDetailsModel();
+    }
+    return _model!;
+  }
+
+  Future<GetGalleryDetailsModel> getGalleryDetailsService(
+      BuildContext context, String jobId) async {
+    GetGalleryDetailsModel? _model;
+    try {
+      var response = await dio.get(
+          'https://gwork.macca.cloud/${ApiEndPoints.getGalleryDetails}?job_id=$jobId',
+          options: Options(headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer ${await SharedPreferenceData().getToken()}"
+          }));
+
+      print("GetGallery==> ${response.data}");
+      _model = GetGalleryDetailsModel.fromJson(response.data);
+      return _model;
+    } on DioError catch (e) {
+      log(e.toString());
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+      GetGalleryDetailsModel();
+    } catch (e) {
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+      GetGalleryDetailsModel();
+    }
+    return _model!;
+  }
+
+  //Apply for job Professional
+
+  Future<SuccessDataModel?> applyForJobProfessional(
+      String jobId, String price, BuildContext context) async {
+    try {
+      var request = json.encode({"job_id": jobId, "price": price});
+      print("NAME :: $jobId");
+      var response = await dio.post(
+          '${API.baseUrl}${ApiEndPoints.applyForJobProfessional}',
+          data: request,
+          options: Options(headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer ${await SharedPreferenceData().getToken()}"
+          }));
+
+      print("UPDATENAME :: ${response.data}");
+
+      return SuccessDataModel.fromJson(response.data);
+    } on DioError catch (e) {
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+      Provider.of<MyProfileProvider>(context, listen: false)
+          .setIsLogging(false);
+      print("----DIO ERROR Update Name----");
+      SuccessDataModel();
+    } catch (e) {
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+      Provider.of<MyProfileProvider>(context, listen: false)
+          .setIsLogging(false);
+      print("----CATCH ERROR Update Name----");
+      print('ApiClient.UpdateName Error :: \n$e');
+      SuccessDataModel();
     }
   }
 }

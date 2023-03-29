@@ -1,14 +1,14 @@
 class GetProfessionalJobListModel {
   GetProfessionalJobListModel({
-     this.success,
-     this.jobs,
+    this.success,
+    this.jobs,
   });
-   bool? success;
-   List<Jobs>? jobs;
+  bool? success;
+  List<Jobs>? jobs;
 
-  GetProfessionalJobListModel.fromJson(Map<String, dynamic> json){
+  GetProfessionalJobListModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
-    jobs = List.from(json['jobs']).map((e)=>Jobs.fromJson(e)).toList();
+    jobs = List.from(json['jobs']).map((e) => Jobs.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
@@ -20,30 +20,31 @@ class GetProfessionalJobListModel {
 }
 
 class Jobs {
-  Jobs({
-     this.id,
-     this.title,
-     this.state,
-     this.description,
-     this.street,
-     this.province,
-     this.budget,
-     this.category,
-     this.professionalNotify,
-     this.creationDate,
-  });
-   String? id;
-   String?title;
-   String? state;
-   String? description;
-   String? street;
-   String?province;
-   int? budget;
-   String? category;
-   int? professionalNotify;
-   String? creationDate;
+  Jobs(
+      {this.id,
+      this.title,
+      this.state,
+      this.description,
+      this.street,
+      this.province,
+      this.budget,
+      this.category,
+      this.professionalNotify,
+      this.creationDate,
+      this.applicationState});
+  String? id;
+  String? title;
+  String? state;
+  String? description;
+  String? street;
+  String? province;
+  int? budget;
+  String? category;
+  int? professionalNotify;
+  String? creationDate;
+  String? applicationState;
 
-  Jobs.fromJson(Map<String, dynamic> json){
+  Jobs.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
     state = json['state'];
@@ -54,6 +55,7 @@ class Jobs {
     category = json['category'];
     professionalNotify = json['professional_notify'];
     creationDate = json['creation_date'];
+    applicationState = json['application_state'];
   }
 
   Map<String, dynamic> toJson() {

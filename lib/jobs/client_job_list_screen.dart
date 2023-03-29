@@ -92,47 +92,92 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                     ),
                     Consumer<MyProfileProvider>(
                       builder: (context, myProfileProvider, child) {
-                        return myProfileProvider.getIsLoggingProfile()
-                            ? const Center(child: CircularProgressIndicator())
-                            : InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => MyProfileScreen(),
-                                      ));
-                                },
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(50),
-                                  child: Container(
-                                    height: 42,
-                                    width: 42,
-                                    decoration: const BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.white,
+                        return myProfileProvider.model == null
+                            ? Container()
+                            : myProfileProvider.getIsLoggingProfile()
+                                ? const Center(
+                                    child: CircularProgressIndicator())
+                                : InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                MyProfileScreen(),
+                                          ));
+                                    },
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(50),
+                                      child: Container(
+                                        height: 42,
+                                        width: 42,
+                                        decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.white,
+                                        ),
+                                        child: myProfileProvider.model != null
+                                            ? myProfileProvider
+                                                        .model!.user!.image !=
+                                                    null
+                                                ? Image.network(
+                                                    myProfileProvider
+                                                        .model!.user!.image!,
+                                                    fit: BoxFit.cover,
+                                                    loadingBuilder: (BuildContext
+                                                            context,
+                                                        Widget child,
+                                                        ImageChunkEvent?
+                                                            loadingProgress) {
+                                                      if (loadingProgress ==
+                                                          null) {
+                                                        return child;
+                                                      }
+                                                      return Center(
+                                                        child:
+                                                            CircularProgressIndicator(
+                                                          value: loadingProgress
+                                                                      .expectedTotalBytes !=
+                                                                  null
+                                                              ? loadingProgress
+                                                                      .cumulativeBytesLoaded /
+                                                                  loadingProgress
+                                                                      .expectedTotalBytes!
+                                                              : null,
+                                                        ),
+                                                      );
+                                                    },
+                                                    errorBuilder: (context,
+                                                        error, stackTrace) {
+                                                      return const CircleAvatar(
+                                                          radius: 75,
+                                                          backgroundColor:
+                                                              Colors.white,
+                                                          child: Center(
+                                                            child: Icon(
+                                                              Icons.person,
+                                                              size: 22,
+                                                              color: grey9EA,
+                                                            ),
+                                                          ));
+                                                    },
+                                                  )
+                                                : Center(
+                                                    child: Text(
+                                                        "${(myProfileProvider.model!.user!.name![0])}${(myProfileProvider.model!.user!.surname![0])}",
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .headline3),
+                                                  )
+                                            : Center(
+                                                child: Text(
+                                                    "${(myProfileProvider.model!.user!.name![0])}${(myProfileProvider.model!.user!.surname![0])}",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headline3),
+                                              ),
+                                      ),
                                     ),
-                                    child: myProfileProvider.model != null
-                                        ? myProfileProvider
-                                                    .model!.user!.image !=
-                                                null
-                                            ? Image.network(
-                                                myProfileProvider
-                                                    .model!.user!.image!,
-                                                fit: BoxFit.cover,
-                                              )
-                                            : Text(
-                                                "${(myProfileProvider.model!.user!.name![0])}${(myProfileProvider.model!.user!.surname![0])}",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .headline1)
-                                        : Text(
-                                            "${(myProfileProvider.model!.user!.name![0])}${(myProfileProvider.model!.user!.surname![0])}",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline1),
-                                  ),
-                                ),
-                              );
+                                  );
                       },
                     ),
                   ],
@@ -961,8 +1006,9 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      const JobDetailsScreen()),
+                                  builder: (context) => JobDetailsScreen(
+                                        jobId: value.model!.jobs[index].id,
+                                      )),
                             );
                           },
                           child: Padding(
@@ -1011,7 +1057,12 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                                           ],
                                         ),
                                         Text(
-                                          value.model!.jobs[index].description,
+                                          value.model!.jobs[index].description
+                                                      .length >
+                                                  20
+                                              ? "${value.model!.jobs[index].description.substring(0, 20)}..."
+                                              : value.model!.jobs[index]
+                                                  .description,
                                           style: const TextStyle(
                                             color: black343,
                                             fontSize: 14,

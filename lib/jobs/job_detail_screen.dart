@@ -4,14 +4,20 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/chat/chat_screen.dart';
 import 'package:g_worker_app/colors.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:g_worker_app/jobs/provider/get_professional_job_list_provider.dart';
+import 'package:g_worker_app/server_connection/api_client.dart';
+
 import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
 import 'package:provider/provider.dart';
 import '../common/common_buttons.dart';
 
 class JobDetailsScreen extends StatefulWidget {
-  const JobDetailsScreen({Key? key}) : super(key: key);
+  const JobDetailsScreen({
+    Key? key,
+    required this.jobId,
+  }) : super(key: key);
 
+  final String? jobId;
   @override
   State<JobDetailsScreen> createState() => _JobDetailsScreenState();
 }
@@ -21,6 +27,14 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   bool isApply = false;
   bool isReject = false;
   int selectedType = 1;
+
+  getJobDetails() {
+    Provider.of<GetProfessionalJobListProvider>(context, listen: false)
+        .getDetailsProfessional(context, widget.jobId);
+    Provider.of<GetProfessionalJobListProvider>(context, listen: false)
+        .getGallery(context, widget.jobId);
+  }
+
   List chatlist = [
     {
       "image": "assets/images/Ellipse.png",
@@ -32,95 +46,51 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
       "image": "assets/images/Ellipse.png",
       "name": "Devon Lane",
       "money": "€30,00",
-      "chatpending": "1"
+      "chatpending": "44"
     },
     {
       "image": "assets/images/Ellipse.png",
       "name": "Devon Lane",
       "money": "€30,00",
-      "chatpending": "1"
+      "chatpending": "144"
     },
     {
       "image": "assets/images/Ellipse.png",
       "name": "Devon Lane",
       "money": "€30,00",
-      "chatpending": "1"
+      "chatpending": "1566"
     },
-    {
-      "image": "assets/images/Ellipse.png",
-      "name": "Devon Lane",
-      "money": "€30,00",
-      "chatpending": "1"
-    },
-    {
-      "image": "assets/images/Ellipse.png",
-      "name": "Devon Lane",
-      "money": "€30,00",
-      "chatpending": "1"
-    },
-    {
-      "image": "assets/images/Ellipse.png",
-      "name": "Devon Lane",
-      "money": "€30,00",
-      "chatpending": "1"
-    },
-    {
-      "image": "assets/images/Ellipse.png",
-      "name": "Devon Lane",
-      "money": "€30,00",
-      "chatpending": "1"
-    },
-    {
-      "image": "assets/images/Ellipse.png",
-      "name": "Eleanor Pena",
-      "money": "€60,00",
-      "chatpending": "20"
-    },
-    {
-      "image": "assets/images/Ellipse.png",
-      "name": "Kathryn Murphy",
-      "money": "€60,00",
-      "chatpending": "100"
-    },
-    {
-      "image": "assets/images/Ellipse.png",
-      "name": "Ronald Richards",
-      "money": "€10,00",
-      "chatpending": "1012"
-    },
-    {
-      "image": "assets/images/Ellipse.png",
-      "name": "Devon Lane",
-      "money": "€50,00",
-      "chatpending": "1"
-    }
   ];
-  List imagelist = [
-    "https://i.pinimg.com/550x/2f/eb/0d/2feb0d13f24b8474915d732b071d0123.jpg",
-    "https://i.pinimg.com/564x/15/be/7b/15be7b96ffa36a6b799e79ba895029be.jpg",
-    "https://i.pinimg.com/564x/52/77/c8/5277c8cdeb152d49a635cf1899a3ef85.jpg",
-    "https://i.pinimg.com/564x/74/d1/72/74d17228a9ab972ac3a4d5c0ead0f4b6.jpg",
-    "https://i.pinimg.com/564x/fe/ff/ee/feffee64844e3dd2decccaa3661b1a41.jpg",
-    "https://i.pinimg.com/564x/47/d4/3b/47d43bb5fb9df374dc08d8620d744d81.jpg",
-    "https://i.pinimg.com/564x/59/16/8b/59168ba23c7371050a093394a7b76080.jpg",
-  ];
-  List oddlist = [];
-  List evenlist = [];
 
   @override
   void initState() {
     // TODO: implement initState
+
     super.initState();
-    for (int i = 0; i < imagelist.length; i++) {
-      if (i % 2 == 0) {
-        oddlist.add(imagelist[i]);
-      }
-    }
-    for (int i = 0; i < imagelist.length; i++) {
-      if (i % 2 == 1) {
-        evenlist.add(imagelist[i]);
-      }
-    }
+    getJobDetails();
+    // for (int i = 0; i < imagelist.length; i++) {
+    //   if (i % 2 == 0) {
+    //     oddlist.add(imagelist[i]);
+    //   }
+    // }
+    // for (int i = 0; i < imagelist.length; i++) {
+    //   if (i % 2 == 1) {
+    //     evenlist.add(imagelist[i]);
+    //   }
+    // }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    Provider.of<GetProfessionalJobListProvider>(context, listen: false)
+        .clearDataModel();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
   }
 
   @override
@@ -133,7 +103,15 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           Column(
             children: [
               const SizedBox(height: 35),
-              appBarView(),
+              Consumer<GetProfessionalJobListProvider>(
+                builder: (context, value, child) {
+                  return value.detailsModel == null
+                      ? const Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : appBarView();
+                },
+              ),
               Expanded(
                 child: Padding(
                   padding:
@@ -145,16 +123,60 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                       const SizedBox(height: 12),
                       textView(),
                       const SizedBox(height: 12),
-                      tabView(),
+                      Provider.of<SignUpProvider>(context, listen: false)
+                                  .userType ==
+                              0
+                          ? tabViewClient()
+                          : tabViewProfessional(),
                       const SizedBox(height: 12),
                       selectedType == 1
                           ? Expanded(
-                              child: SingleChildScrollView(
-                                child: description(),
+                              child: Consumer<GetProfessionalJobListProvider>(
+                                builder: (context, value, child) {
+                                  return value.detailsModel == null
+                                      ? const Center(
+                                          child: CircularProgressIndicator(),
+                                        )
+                                      : SingleChildScrollView(
+                                          child: description(),
+                                        );
+                                },
                               ),
                             )
-                          : Expanded(
-                              child: SingleChildScrollView(child: Gallary())),
+                          : selectedType == 2
+                              ? Expanded(child:
+                                  Consumer<GetProfessionalJobListProvider>(
+                                  builder: (context, value, child) {
+                                    return value.galleryDetailsModel == null
+                                        ? const Center(
+                                            child: CircularProgressIndicator(),
+                                          )
+                                        : SingleChildScrollView(
+                                            child: Gallary());
+                                  },
+                                ))
+                              : Provider.of<SignUpProvider>(context,
+                                              listen: false)
+                                          .userType ==
+                                      0
+                                  ? Expanded(
+                                      child: SingleChildScrollView(
+                                          child: applicationWidgetView()),
+                                      // Consumer<GetProfessionalJobListProvider>(
+                                      //   builder: (context, value, child) {
+                                      //     return value.galleryDetailsModel ==
+                                      //             null
+                                      //         ? const Center(
+                                      //             child:
+                                      //                 CircularProgressIndicator(),
+                                      //           )
+                                      //         : SingleChildScrollView(
+                                      //             child:
+                                      //                 applicationWidgetView());
+                                      //   },
+                                      // ),
+                                    )
+                                  : const SizedBox.shrink(),
                     ],
                   ),
                 ),
@@ -179,7 +201,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
     return Column(
       children: [
         jobDetailView("assets/icons/marker_location.png",
-            "Via Bronzolo, 11, Milano, 25124"),
+            "${Provider.of<GetProfessionalJobListProvider>(context, listen: false).detailsModel!.jobDetails!.street!}, ${Provider.of<GetProfessionalJobListProvider>(context, listen: false).detailsModel!.jobDetails!.province!}"),
         const SizedBox(height: 12),
         Container(
           width: double.infinity,
@@ -192,14 +214,46 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
             leading: CircleAvatar(
               backgroundColor: Colors.grey.withOpacity(0.2),
               radius: 20,
-              child: const Text(
-                "ST",
-                style: TextStyle(color: black343),
-              ),
+              child: Provider.of<GetProfessionalJobListProvider>(context,
+                              listen: false)
+                          .detailsModel!
+                          .jobDetails!
+                          .clientImage !=
+                      null
+                  ? Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(
+                          60.0,
+                        ),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(
+                          60.0,
+                        ),
+                        child: Image.network(
+                          Provider.of<GetProfessionalJobListProvider>(context,
+                                  listen: false)
+                              .detailsModel!
+                              .jobDetails!
+                              .clientImage!,
+                          fit: BoxFit.fitWidth,
+                        ),
+                      ),
+                    )
+                  : Text(
+                      "${Provider.of<GetProfessionalJobListProvider>(context, listen: false).detailsModel!.jobDetails!.clientName!.substring(0, 1)}${Provider.of<GetProfessionalJobListProvider>(context, listen: false).detailsModel!.jobDetails!.clientName!.substring(0, 1)}",
+                      style: const TextStyle(color: black343),
+                    ),
             ),
-            title: const Text(
-              "Eleanor Pena",
-              style: TextStyle(
+            title: Text(
+              Provider.of<GetProfessionalJobListProvider>(context,
+                      listen: false)
+                  .detailsModel!
+                  .jobDetails!
+                  .clientName!,
+              style: const TextStyle(
                 color: black343,
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
@@ -261,11 +315,14 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           ),
         ),
         const SizedBox(height: 12),
-        jobDetailView("assets/icons/calendar.png", "03/02/2021 — 09:31"),
+        jobDetailView("assets/icons/calendar.png",
+            "${Provider.of<GetProfessionalJobListProvider>(context, listen: false).detailsModel!.jobDetails!.jobDate}"),
         const SizedBox(height: 12),
-        jobDetailView("assets/icons/briefcase.png", "Babysitting"),
+        jobDetailView("assets/icons/briefcase.png",
+            "${Provider.of<GetProfessionalJobListProvider>(context, listen: false).detailsModel!.jobDetails!.category}"),
         const SizedBox(height: 12),
-        jobDetailView("assets/icons/coins_stacked.png", "€60,00"),
+        jobDetailView("assets/icons/coins_stacked.png",
+            "${Provider.of<GetProfessionalJobListProvider>(context, listen: false).detailsModel!.jobDetails!.budget}"),
         const SizedBox(height: 12),
         Container(
           width: double.infinity,
@@ -285,9 +342,9 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                   width: 24,
                 ),
                 const SizedBox(width: 12),
-                const Expanded(
+                Expanded(
                   child: Text(
-                    "Babysitters perform general caregiving duties that ensure children’s needs are met while their parents or guardians are away. Their duties include providing transportation to and from a child’s extracurricular activities, preparing basic meals and keeping the child company with games and other entertainment.",
+                    "${Provider.of<GetProfessionalJobListProvider>(context, listen: false).detailsModel!.jobDetails!.description}",
                     style: TextStyle(
                       color: black343,
                       fontSize: 12,
@@ -305,150 +362,155 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   }
 
   Widget Gallary() {
+    //  var newData = context.read<GetProfessionalJobListProvider>();
+
     return Column(
       children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Flexible(
-              flex: 1,
-              child: ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                // itemCount: (imagelist.length / 2).toInt(),
-                itemCount: oddlist.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Container(
-                        height: MediaQuery.of(context).size.height * 0.2,
-                        width: MediaQuery.of(context).size.width * 0.4,
-                        child: Image.network(
-                          oddlist[index],
-                          fit: BoxFit.cover,
+        Consumer<GetProfessionalJobListProvider>(
+          builder: (context, value, child) {
+            return Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Flexible(
+                  flex: 1,
+                  child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    // itemCount: (imagelist.length / 2).toInt(),
+                    itemCount: value.oddList.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Container(
+                            height: MediaQuery.of(context).size.height * 0.2,
+                            width: MediaQuery.of(context).size.width * 0.4,
+                            child: Image.network(
+                              value.oddList[index],
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-            Flexible(
-              flex: 1,
-              child: ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: evenlist.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(1.0),
-                    child: Container(
-                      height: MediaQuery.of(context).size.height * 0.35,
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      child: Image.network(
-                        evenlist[index],
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  );
-                },
-              ),
-            )
-          ],
+                      );
+                    },
+                  ),
+                ),
+                Flexible(
+                  flex: 1,
+                  child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: value.evenList.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(1.0),
+                        child: Container(
+                          height: MediaQuery.of(context).size.height * 0.35,
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          child: Image.network(
+                            value.evenList[index],
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                )
+              ],
+            );
+          },
         ),
       ],
     );
   }
 
-  // Widget Application() {
-  //   return ListView.builder(
-  //     shrinkWrap: true,
-  //     itemCount: chatlist.length,
-  //     itemBuilder: (context, index) {
-  //       String b = chatlist[index]["chatpending"].toString();
-  //       double aaa = b.length.toDouble() + 10.0;
-  //       return InkWell(
-  //         onTap: () {
-  //           Navigator.push(
-  //               context,
-  //               MaterialPageRoute(
-  //                 builder: (context) => ChatScreen(),
-  //               ));
-  //         },
-  //         child: Padding(
-  //           padding: const EdgeInsets.all(5.0),
-  //           child: Container(
-  //             decoration: BoxDecoration(
-  //                 color: white, borderRadius: BorderRadius.circular(12)),
-  //             child: Padding(
-  //               padding: const EdgeInsets.all(10.0),
-  //               child: Row(children: [
-  //                 CircleAvatar(
-  //                   child: Image.asset("${chatlist[index]["image"]}"),
-  //                 ),
-  //                 SizedBox(
-  //                   width: 10,
-  //                 ),
-  //                 Column(
-  //                   crossAxisAlignment: CrossAxisAlignment.start,
-  //                   children: [
-  //                     Text(
-  //                       "${chatlist[index]["name"]}",
-  //                       style: TextStyle(
-  //                           fontSize: 14, fontWeight: FontWeight.w700),
-  //                     ),
-  //                     Text(
-  //                       "${chatlist[index]["money"]}",
-  //                       style: TextStyle(
-  //                           fontSize: 14, fontWeight: FontWeight.w500),
-  //                     ),
-  //                   ],
-  //                 ),
-  //                 Spacer(),
-  //                 Container(
-  //                   child: Stack(
-  //                     alignment: Alignment.center,
-  //                     children: [
-  //                       Padding(
-  //                         padding: EdgeInsets.only(top: 5.0, right: aaa),
-  //                         child: Image.asset(
-  //                           "assets/icons/message_chat.png",
-  //                           height: 25,
-  //                           width: 50,
-  //                         ),
-  //                       ),
-  //                       Padding(
-  //                         padding: EdgeInsets.only(left: aaa),
-  //                         child: Container(
-  //                           decoration: BoxDecoration(
-  //                               color: Color(0xffF4D874),
-  //                               borderRadius: BorderRadius.circular(13)),
-  //                           child: Padding(
-  //                             padding:
-  //                                 const EdgeInsets.symmetric(horizontal: 5.0),
-  //                             child: Text(
-  //                               "${chatlist[index]["chatpending"]}",
-  //                               style: TextStyle(fontSize: 12),
-  //                             ),
-  //                           ),
-  //                         ),
-  //                       ),
-  //                       // Row(children: [
-  //
-  //                       // ],),
-  //                     ],
-  //                   ),
-  //                 )
-  //               ]),
-  //             ),
-  //           ),
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
+  Widget applicationWidgetView() {
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: chatlist.length,
+      padding: EdgeInsets.zero,
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (context, index) {
+        String b = chatlist[index]["chatpending"].toString();
+        double aaa = b.length.toDouble() + 10.0;
+        return InkWell(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ChatScreen(),
+                ));
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Container(
+              decoration: BoxDecoration(
+                  color: white, borderRadius: BorderRadius.circular(12)),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(children: [
+                  CircleAvatar(
+                    child: Image.asset("${chatlist[index]["image"]}"),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "${chatlist[index]["name"]}",
+                        style: const TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.w700),
+                      ),
+                      Text(
+                        "${chatlist[index]["money"]}",
+                        style: const TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.w500),
+                      ),
+                    ],
+                  ),
+                  const Spacer(),
+                  Container(
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(top: 5.0, right: aaa),
+                          child: Image.asset(
+                            "assets/icons/message_chat.png",
+                            height: 25,
+                            width: 50,
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: aaa),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: yellowF4D,
+                                borderRadius: BorderRadius.circular(13)),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 5.0),
+                              child: Text(
+                                "${chatlist[index]["chatpending"]}",
+                                style: TextStyle(fontSize: 12),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ]),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   Widget appBarView() {
     return AppBar(
@@ -464,7 +526,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         child: const Icon(Icons.arrow_back, color: splashColor1, size: 20),
       ),
       title: Text(
-        tr('admin.job_detail.Babysitting'),
+        tr('admin.job_detail.${Provider.of<GetProfessionalJobListProvider>(context, listen: false).detailsModel!.jobDetails!.applicationState!}'),
         style: const TextStyle(
           color: splashColor1,
           fontSize: 18,
@@ -530,13 +592,29 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
     );
   }
 
-  Widget tabView() {
+  Widget tabViewClient() {
     return singleSelectionButtons(
         context: context,
         buttons: [
           tr('admin.job_detail.Description'),
           tr('admin.job_detail.Gallery'),
-          // tr('admin.job_detail.Applications'),
+          tr('admin.job_detail.Applications'),
+        ],
+        padding: 8,
+        selected: selectedType,
+        onSelectionChange: (value) {
+          setState(() {
+            selectedType = value;
+          });
+        });
+  }
+
+  Widget tabViewProfessional() {
+    return singleSelectionButtons(
+        context: context,
+        buttons: [
+          tr('admin.job_detail.Description'),
+          tr('admin.job_detail.Gallery'),
         ],
         padding: 8,
         selected: selectedType,
@@ -727,6 +805,23 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         MaterialButton(
           onPressed: () {
             setState(() {
+              ApiClient().applyForJobProfessional(
+                  Provider.of<GetProfessionalJobListProvider>(context,
+                          listen: false)
+                      .detailsModel!
+                      .jobDetails!
+                      .id!,
+                  Provider.of<GetProfessionalJobListProvider>(context,
+                          listen: false)
+                      .detailsModel!
+                      .jobDetails!
+                      .budget!
+                      .toString(),
+                  context);
+              Provider.of<GetProfessionalJobListProvider>(context,
+                      listen: false)
+                  .getDataProfessional(
+                      "All", "All", false, context, "All", "All");
               isApply = true;
               Navigator.pop(context);
             });

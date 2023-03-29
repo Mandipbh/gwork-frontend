@@ -37,6 +37,11 @@ class ApiEndPoints {
   //Get Professional List
   static const String getProfessionalJobList =
       "/worker/jobs/job-list-professional";
+  static const String getProfessionalJobDetails =
+      "/worker/jobs/job-overview-professional";
+  static const String getGalleryDetails = "worker/jobs/job-gallery";
+  static const String applyForJobProfessional =
+      "/worker/jobs/add-job-application";
 }
 
 class DashboardFilters {
