@@ -569,7 +569,7 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
       centerTitle: true,
       elevation: 0,
       title: Text(
-        tr('admin.job_detail.Babysitting'),
+        jobDetails.category!,
       ),
       actions: [
         userType == UserType.client && jobDetails.state == JobStatus.published

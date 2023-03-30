@@ -554,7 +554,11 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         child: const Icon(Icons.arrow_back, color: splashColor1, size: 20),
       ),
       title: Text(
-        tr('admin.dashboard.${Provider.of<GetProfessionalJobListProvider>(context, listen: false).detailsModel!.jobDetails!.category!.toLowerCase()}'),
+        // tr('admin.type_picker.${Provider.of<GetProfessionalJobListProvider>(context, listen: false).detailsModel!.jobDetails!.category!}'),
+        Provider.of<GetProfessionalJobListProvider>(context, listen: false)
+            .detailsModel!
+            .jobDetails!
+            .category!,
         style: const TextStyle(
           color: splashColor1,
           fontSize: 18,
