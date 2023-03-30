@@ -27,27 +27,27 @@ class ProfessionalJobListScreen extends StatefulWidget {
 
 class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
   final ScrollController scrollController = ScrollController();
-  String selectedFilter = JobsFilters.all;
-  int selectedJobType = 1;
-  int selectedType = 1;
-  String selectedSearchJobType = JobsType.all;
   var isPinned = false;
+  bool isSelf = false;
   String selectedProvince = "All";
+  String selectedState = JobsFilters.all;
+  String selectedCategory = JobsType.all;
 
-  getProfessionalJobs({String? state}) {
+  getProfessionalJobs() {
     Provider.of<GetProfessionalJobListProvider>(context, listen: false)
         .getDataProfessional(
-            selectedFilter,
-            selectedProvince,
-            selectedType == SelectionType.searchJobs ? false : true,
-            context,
-            "All",
-            "All");
+            jobState: isSelf ? 'All' : 'Published',
+            state: !isSelf ? "All" : selectedState,
+            isSelf: isSelf,
+            province: selectedProvince,
+            category: isSelf ? "All" : selectedCategory,
+            context: context);
   }
 
   @override
   void initState() {
     super.initState();
+    getProfessionalJobs();
     scrollController.addListener(() {
       if (!isPinned && scrollController.offset > 60) {
         setState(() {
@@ -60,7 +60,6 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
         });
       }
     });
-    getProfessionalJobs();
   }
 
   @override
@@ -191,7 +190,7 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
                     ? const Center(
                         child: CircularProgressIndicator(),
                       )
-                    : selectedType == SelectionType.myJobs
+                    : isSelf
                         ? myJobsView()
                         : searchJobsView(),
               ),
@@ -208,181 +207,321 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
         padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           const SizedBox(height: 24),
-          Wrap(
-            alignment: WrapAlignment.start,
-            runAlignment: WrapAlignment.end,
-            spacing: 8,
-            children: [
-              FilterChip(
-                label: Text(
-                  tr('Professional.logIn.Jobs.All_Jobs'),
+          !isSelf
+              ? Wrap(
+                  alignment: WrapAlignment.start,
+                  runAlignment: WrapAlignment.end,
+                  spacing: 8,
+                  children: [
+                    FilterChip(
+                      label: Text(
+                        tr('client.type_picker.All'),
+                      ),
+                      labelStyle: TextStyle(
+                        color: selectedCategory != JobsType.all
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      selected: selectedCategory == JobsType.all,
+                      backgroundColor: black343,
+                      selectedColor: Colors.white,
+                      showCheckmark: false,
+                      onSelected: (bool value) {
+                        setState(() {
+                          selectedCategory = JobsType.all;
+                        });
+                        getProfessionalJobs();
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    FilterChip(
+                      label: Text(
+                        tr('client.type_picker.Cleaning'),
+                      ),
+                      labelStyle: TextStyle(
+                        color: selectedCategory != JobsType.cleaning
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      selected: selectedCategory == JobsType.cleaning,
+                      backgroundColor: black343,
+                      selectedColor: Colors.white,
+                      showCheckmark: false,
+                      onSelected: (bool value) {
+                        setState(() {
+                          selectedCategory = JobsType.cleaning;
+                        });
+                        getProfessionalJobs();
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    FilterChip(
+                      label: Text(
+                        tr('client.type_picker.baby_sitting'),
+                      ),
+                      labelStyle: TextStyle(
+                        color: selectedCategory != JobsType.babySitting
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      selected: selectedCategory == JobsType.babySitting,
+                      backgroundColor: black343,
+                      selectedColor: Colors.white,
+                      showCheckmark: false,
+                      onSelected: (bool value) {
+                        setState(() {
+                          selectedCategory = JobsType.babySitting;
+                        });
+                        getProfessionalJobs();
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    FilterChip(
+                      label: Text(
+                        tr('client.type_picker.Tutoring'),
+                      ),
+                      labelStyle: TextStyle(
+                        color: selectedCategory != JobsType.tutoring
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      selected: selectedCategory == JobsType.tutoring,
+                      backgroundColor: black343,
+                      selectedColor: Colors.white,
+                      showCheckmark: false,
+                      onSelected: (bool value) {
+                        setState(() {
+                          selectedCategory = JobsType.tutoring;
+                        });
+                        getProfessionalJobs();
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    FilterChip(
+                      label: Text(
+                        tr('client.type_picker.Handyman'),
+                      ),
+                      labelStyle: TextStyle(
+                        color: selectedCategory != JobsType.handyman
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      selected: selectedCategory == JobsType.handyman,
+                      backgroundColor: black343,
+                      selectedColor: Colors.white,
+                      showCheckmark: false,
+                      onSelected: (bool value) {
+                        setState(() {
+                          selectedCategory = JobsType.handyman;
+                        });
+                        getProfessionalJobs();
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ],
+                )
+              : Wrap(
+                  alignment: WrapAlignment.start,
+                  runAlignment: WrapAlignment.end,
+                  spacing: 8,
+                  children: [
+                    FilterChip(
+                      label: Text(
+                        tr('Professional.logIn.Jobs.All_Jobs'),
+                      ),
+                      labelStyle: TextStyle(
+                        color: selectedState != JobsFilters.all
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      selected: selectedState == JobsFilters.all,
+                      backgroundColor: black343,
+                      selectedColor: Colors.white,
+                      showCheckmark: false,
+                      onSelected: (bool value) {
+                        setState(() {
+                          selectedState = JobsFilters.all;
+                        });
+                        getProfessionalJobs();
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    FilterChip(
+                      label: Text(
+                        tr('Professional.logIn.Jobs.Applied'),
+                      ),
+                      labelStyle: TextStyle(
+                        color: selectedState != JobsFilters.applied
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      selected: selectedState == JobsFilters.applied,
+                      backgroundColor: black343,
+                      selectedColor: Colors.white,
+                      showCheckmark: false,
+                      onSelected: (bool value) {
+                        setState(() {
+                          selectedState = JobsFilters.applied;
+                        });
+                        getProfessionalJobs();
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    FilterChip(
+                      label: Text(
+                        tr('Professional.logIn.Jobs.Accepted'),
+                      ),
+                      labelStyle: TextStyle(
+                        color: selectedState != JobsFilters.accepted
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      selected: selectedState == JobsFilters.accepted,
+                      backgroundColor: black343,
+                      selectedColor: Colors.white,
+                      showCheckmark: false,
+                      onSelected: (bool value) {
+                        setState(() {
+                          selectedState = JobsFilters.accepted;
+                        });
+                        getProfessionalJobs();
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    FilterChip(
+                      label: Text(
+                        tr('Professional.logIn.Jobs.Doing'),
+                      ),
+                      labelStyle: TextStyle(
+                        color: selectedState != JobsFilters.doing
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      selected: selectedState == JobsFilters.doing,
+                      backgroundColor: black343,
+                      selectedColor: Colors.white,
+                      showCheckmark: false,
+                      onSelected: (bool value) {
+                        setState(() {
+                          selectedState = JobsFilters.doing;
+                        });
+                        getProfessionalJobs();
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    FilterChip(
+                      label: Text(
+                        tr('Professional.logIn.Jobs.Rejected'),
+                      ),
+                      labelStyle: TextStyle(
+                        color: selectedState != JobsFilters.rejected
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      selected: selectedState == JobsFilters.rejected,
+                      backgroundColor: black343,
+                      selectedColor: Colors.white,
+                      showCheckmark: false,
+                      onSelected: (bool value) {
+                        setState(() {
+                          selectedState = JobsFilters.rejected;
+                        });
+                        getProfessionalJobs();
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    FilterChip(
+                      label: Text(
+                        tr('Professional.logIn.Jobs.Completed'),
+                      ),
+                      labelStyle: TextStyle(
+                        color: selectedState != JobsFilters.completed
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      selected: selectedState == JobsFilters.completed,
+                      backgroundColor: black343,
+                      selectedColor: Colors.white,
+                      showCheckmark: false,
+                      onSelected: (bool value) {
+                        setState(() {
+                          selectedState = JobsFilters.completed;
+                        });
+                        getProfessionalJobs();
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    FilterChip(
+                      label: Text(
+                        "Expired",
+                      ),
+                      labelStyle: TextStyle(
+                        color: selectedState != JobsFilters.expired
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      selected: selectedState == JobsFilters.expired,
+                      backgroundColor: black343,
+                      selectedColor: Colors.white,
+                      showCheckmark: false,
+                      onSelected: (bool value) {
+                        setState(() {
+                          selectedState = JobsFilters.expired;
+                        });
+                        getProfessionalJobs();
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ],
                 ),
-                labelStyle: TextStyle(
-                  color: selectedFilter != JobsFilters.all
-                      ? Colors.white
-                      : Colors.black,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                ),
-                selected: selectedFilter == JobsFilters.all,
-                backgroundColor: black343,
-                selectedColor: Colors.white,
-                showCheckmark: false,
-                onSelected: (bool value) {
-                  setState(() {
-                    selectedFilter = JobsFilters.all;
-                  });
-                },
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              FilterChip(
-                label: Text(
-                  tr('Professional.logIn.Jobs.Applied'),
-                ),
-                labelStyle: TextStyle(
-                  color: selectedFilter != JobsFilters.applied
-                      ? Colors.white
-                      : Colors.black,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                ),
-                selected: selectedFilter == JobsFilters.applied,
-                backgroundColor: black343,
-                selectedColor: Colors.white,
-                showCheckmark: false,
-                onSelected: (bool value) {
-                  setState(() {
-                    selectedFilter = JobsFilters.applied;
-                  });
-                },
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              FilterChip(
-                label: Text(
-                  tr('Professional.logIn.Jobs.Accepted'),
-                ),
-                labelStyle: TextStyle(
-                  color: selectedFilter != JobsFilters.accepted
-                      ? Colors.white
-                      : Colors.black,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                ),
-                selected: selectedFilter == JobsFilters.accepted,
-                backgroundColor: black343,
-                selectedColor: Colors.white,
-                showCheckmark: false,
-                onSelected: (bool value) {
-                  setState(() {
-                    selectedFilter = JobsFilters.accepted;
-                  });
-                },
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              FilterChip(
-                label: Text(
-                  tr('Professional.logIn.Jobs.Doing'),
-                ),
-                labelStyle: TextStyle(
-                  color: selectedFilter != JobsFilters.doing
-                      ? Colors.white
-                      : Colors.black,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                ),
-                selected: selectedFilter == JobsFilters.doing,
-                backgroundColor: black343,
-                selectedColor: Colors.white,
-                showCheckmark: false,
-                onSelected: (bool value) {
-                  setState(() {
-                    selectedFilter = JobsFilters.doing;
-                  });
-                },
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              FilterChip(
-                label: Text(
-                  tr('Professional.logIn.Jobs.Rejected'),
-                ),
-                labelStyle: TextStyle(
-                  color: selectedFilter != JobsFilters.rejected
-                      ? Colors.white
-                      : Colors.black,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                ),
-                selected: selectedFilter == JobsFilters.rejected,
-                backgroundColor: black343,
-                selectedColor: Colors.white,
-                showCheckmark: false,
-                onSelected: (bool value) {
-                  setState(() {
-                    selectedFilter = JobsFilters.rejected;
-                  });
-                },
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              FilterChip(
-                label: Text(
-                  tr('Professional.logIn.Jobs.Completed'),
-                ),
-                labelStyle: TextStyle(
-                  color: selectedFilter != JobsFilters.completed
-                      ? Colors.white
-                      : Colors.black,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                ),
-                selected: selectedFilter == JobsFilters.completed,
-                backgroundColor: black343,
-                selectedColor: Colors.white,
-                showCheckmark: false,
-                onSelected: (bool value) {
-                  setState(() {
-                    selectedFilter = JobsFilters.completed;
-                  });
-                },
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              FilterChip(
-                label: Text(
-                  "Expired",
-                ),
-                labelStyle: TextStyle(
-                  color: selectedFilter != JobsFilters.expired
-                      ? Colors.white
-                      : Colors.black,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                ),
-                selected: selectedFilter == JobsFilters.expired,
-                backgroundColor: black343,
-                selectedColor: Colors.white,
-                showCheckmark: false,
-                onSelected: (bool value) {
-                  setState(() {
-                    selectedFilter = JobsFilters.expired;
-                  });
-                },
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-            ],
-          ),
           const SizedBox(height: 8),
           Container(
             width: double.infinity,
@@ -402,17 +541,19 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
                         tr('Professional.logIn.Jobs.My_Jobs')
                       ],
                       padding: 8,
-                      selected: selectedType,
+                      selected: !isSelf
+                          ? SelectionType.searchJobs
+                          : SelectionType.myJobs,
                       onSelectionChange: (value) {
                         log(value.toString());
                         setState(() {
-                          selectedType = value;
-                          getProfessionalJobs(state: value == 2 ? "All" : null);
+                          isSelf = value == SelectionType.myJobs;
                         });
+                        getProfessionalJobs();
                       }),
                 ),
                 const SizedBox(height: 12),
-                selectedType == SelectionType.myJobs
+                isSelf
                     ? earningView()
                     : Container(
                         decoration: BoxDecoration(
@@ -433,8 +574,8 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
                                       value.updateProvinceValue(val);
                                       setState(() {
                                         selectedProvince = val.toString();
-                                        getProfessionalJobs();
                                       });
+                                      getProfessionalJobs();
                                     },
                                   );
                           },
@@ -491,7 +632,7 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
   Widget myJobsView() {
     return Consumer<GetProfessionalJobListProvider>(
       builder: (context, value, child) {
-        return selectedFilter == JobsFilters.doing
+        return value.getIsLogging()
             ? noMyJobsView()
             : value.model!.jobs!.isEmpty
                 ? noMyJobsView()

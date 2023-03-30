@@ -816,7 +816,12 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
               Provider.of<GetProfessionalJobListProvider>(context,
                       listen: false)
                   .getDataProfessional(
-                      "All", "All", false, context, "All", "All");
+                      category: "All",
+                      province: "All",
+                      isSelf: false,
+                      context: context,
+                      state: "All",
+                      jobState: "All");
               isApply = true;
               Navigator.pop(context);
             });

@@ -787,22 +787,30 @@ class ApiClient {
 
   //GetProfessionalJobList
   Future<GetProfessionalJobListModel> getProfessionalJobListService(
-      BuildContext context,
-      String category,
-      String province,
-      bool isSelf,
-      String state,
-      String jobState) async {
+      {required BuildContext context,
+      required String category,
+      required String province,
+      required bool isSelf,
+      required String state,
+      required String jobState}) async {
     GetProfessionalJobListModel? _model;
+    var params = {
+      "category": category,
+      "is_self": isSelf,
+      "province": province,
+      "state": state,
+      "job_state": jobState
+    };
     try {
-      var response = await dio.get(
-          '${API.baseUrl}${ApiEndPoints.getProfessionalJobList}?category=$category&is_self=$isSelf&province=$province&state=$state&job_state=$jobState',
-          options: Options(headers: {
-            'Content-Type': 'application/json',
-            "Authorization": "Bearer ${await SharedPreferenceData().getToken()}"
-          }));
-
-      print("GetProf==> ${response.data}");
+      print('params :: $params');
+      var response =
+          await dio.get('${API.baseUrl}${ApiEndPoints.getProfessionalJobList}',
+              queryParameters: params,
+              options: Options(headers: {
+                'Content-Type': 'application/json',
+                "Authorization":
+                    "Bearer ${await SharedPreferenceData().getToken()}"
+              }));
       _model = GetProfessionalJobListModel.fromJson(response.data);
       return _model;
     } on DioError catch (e) {

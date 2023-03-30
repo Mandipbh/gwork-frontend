@@ -298,9 +298,11 @@
       "need": "What do you need?",
       "select_options": "Please select one of the four options.",
       "Cleaning": "Cleaning",
+      "baby_sitting": "BabySitting",
       "Tutoring": "Tutoring",
       "Handyman": "Handyman",
-      "Next": "Next"
+      "Next": "Next",
+      "All": "All"
     },
     "Job_info": {
       "Job_info": "Job info",

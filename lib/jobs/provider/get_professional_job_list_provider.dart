@@ -8,45 +8,48 @@ import 'package:g_worker_app/server_connection/api_client.dart';
 
 class GetProfessionalJobListProvider extends ChangeNotifier {
   GetProfessionalJobListModel? _model;
+
   GetProfessionalJobListModel? get model => _model;
 
   GetProfJobDetailsModel? _detailsModel;
+
   GetProfJobDetailsModel? get detailsModel => _detailsModel;
 
   GetGalleryDetailsModel? _galleryDetailsModel;
+
   GetGalleryDetailsModel? get galleryDetailsModel => _galleryDetailsModel;
 
   List<String> oddList = [];
   List<String> evenList = [];
 
-  // List<Jobs>? _babySitting = [];
-  // List<Jobs>? get babySitting => _babySitting;
-  //
-  // List<Jobs>? _cleaning = [];
-  // List<Jobs>? get cleaning => _cleaning;
-  //
-  // List<Jobs>? _handyMan = [];
-  // List<Jobs>? get handyMan => _handyMan;
-  //
-  // List<Jobs>? _tutoring = [];
-  // List<Jobs>? get tutoring => _tutoring;
-
-  bool _isLogging = false;
+  bool _isLogging = true;
 
   bool getIsLogging() => _isLogging;
 
   setIsLogging(bool value) {
     _isLogging = value;
-    //notifyListeners();
+    notifyListeners();
   }
 
-  getDataProfessional(String category, String province, bool isSelf,
-      BuildContext context, String state, String jobState) {
-    setIsLogging(true);
+  getDataProfessional(
+      {required String category,
+      required String province,
+      required bool isSelf,
+      required BuildContext context,
+      required String state,
+      required String jobState}) {
+    if (!_isLogging) {
+      setIsLogging(true);
+    }
     _model = null;
     ApiClient()
         .getProfessionalJobListService(
-            context, category, province, isSelf, state, jobState)
+            context: context,
+            category: category,
+            province: province,
+            isSelf: isSelf,
+            state: state,
+            jobState: jobState)
         .then((value) {
       _model = value;
 
