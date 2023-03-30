@@ -1,7 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:g_worker_app/Constants.dart';
 import 'package:g_worker_app/chat/edit_offer_screen.dart';
 import 'package:g_worker_app/colors.dart';
+import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
+import 'package:provider/provider.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key}) : super(key: key);
@@ -118,32 +121,70 @@ class _ChatScreenState extends State<ChatScreen> {
                     ),
                   ],
                 ),
-                GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () {
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const EditOfferScreen()),
-                        (Route<dynamic> route) => true);
-                  },
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        tr('client.chat.Edit').toUpperCase(),
-                        style: const TextStyle(
-                          color: splashColor1,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
+                Provider.of<SignUpProvider>(context).userType == UserType.client
+                    ? GestureDetector(
+                        behavior: HitTestBehavior.opaque,
+                        onTap: () {
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const EditOfferScreen()),
+                              (Route<dynamic> route) => true);
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: primaryColor,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 12),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  tr('client.chat.Accept').toUpperCase(),
+                                  style: const TextStyle(
+                                      color: white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w700,
+                                      fontFamily: "Satoshi"),
+                                ),
+                                const SizedBox(width: 8),
+                                const Icon(Icons.check, color: white, size: 30),
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
+                    : GestureDetector(
+                        behavior: HitTestBehavior.opaque,
+                        onTap: () {
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const EditOfferScreen()),
+                              (Route<dynamic> route) => true);
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              tr('client.chat.Edit').toUpperCase(),
+                              style: const TextStyle(
+                                color: splashColor1,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Image.asset('assets/icons/edit_profile.png',
+                                height: 24, width: 24),
+                          ],
                         ),
                       ),
-                      const SizedBox(width: 8),
-                      Image.asset('assets/icons/edit_profile.png',
-                          height: 24, width: 24),
-                    ],
-                  ),
-                ),
               ],
             ),
           ),

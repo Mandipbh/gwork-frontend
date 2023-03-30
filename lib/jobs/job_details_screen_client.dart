@@ -36,6 +36,9 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
         .getDetailsClient(context, widget.jobId);
     Provider.of<GetProfessionalJobListProvider>(context, listen: false)
         .getGallery(context, widget.jobId);
+
+    Provider.of<GetClientJobListProvider>(context, listen: false)
+        .getApplicantsForClient(context, widget.jobId);
   }
 
   List chatlist = [
@@ -84,6 +87,13 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
   }
 
   @override
+  void deactivate() {
+    Provider.of<GetClientJobListProvider>(context, listen: false)
+        .clearDataModel(context);
+    super.deactivate();
+  }
+
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     // Provider.of<GetClientJobListProvider>(context, listen: false)
@@ -92,7 +102,6 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 
@@ -122,15 +131,15 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                   child: Column(
                     children: [
                       const SizedBox(height: 10),
-                      Consumer<GetClientJobListProvider>(
-                        builder: (context, value, child) {
-                          return value.detailsModel == null
-                              ? const Center(
-                                  child: SizedBox(),
-                                )
-                              : statusView();
-                        },
-                      ),
+                      // Consumer<GetClientJobListProvider>(
+                      //   builder: (context, value, child) {
+                      //     return value.detailsModel == null
+                      //         ? const Center(
+                      //             child: SizedBox(),
+                      //           )
+                      //         : statusView();
+                      //   },
+                      // ),
                       const SizedBox(height: 12),
                       textView(),
                       const SizedBox(height: 12),
@@ -449,11 +458,12 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
     return Consumer<GetClientJobListProvider>(builder: (context, value, child) {
       return ListView.builder(
         shrinkWrap: true,
-        itemCount: chatlist.length,
+        itemCount: value.applicationsModel!.applications!.length,
         padding: EdgeInsets.zero,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
-          String b = chatlist[index]["chatpending"].toString();
+          String b =
+              '${value.applicationsModel!.applications![index].chatCount}';
           double aaa = b.length.toDouble() + 10.0;
           return InkWell(
             onTap: () {
@@ -472,8 +482,8 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                   padding: const EdgeInsets.all(10.0),
                   child: Row(children: [
                     CircleAvatar(
-                      child: Image.asset("${chatlist[index]["image"]}"),
-                    ),
+                        backgroundImage: NetworkImage(
+                            "${value.applicationsModel!.applications![index].professionalImage}")),
                     const SizedBox(
                       width: 10,
                     ),
@@ -481,14 +491,22 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "${chatlist[index]["name"]}",
+                          "${value.applicationsModel!.applications![index].professionalName}",
                           style: const TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w700),
                         ),
-                        Text(
-                          "${chatlist[index]["money"]}",
-                          style: const TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.w500),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.euro_symbol,
+                              size: 14.0,
+                            ),
+                            Text(
+                              "${value.applicationsModel!.applications![index].price}",
+                              style: const TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.w500),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -515,7 +533,7 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 5.0),
                                 child: Text(
-                                  "${chatlist[index]["chatpending"]}",
+                                  '${value.applicationsModel!.applications![index].chatCount}',
                                   style: TextStyle(fontSize: 12),
                                 ),
                               ),
@@ -571,83 +589,33 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
   }
 
   Widget statusView() {
-    //TODO add status
-    return Center(
-      child: MaterialButton(
-        onPressed: () {},
-        height: 22,
-        minWidth: 73,
-        color: Provider.of<GetClientJobListProvider>(context, listen: false)
-                    .detailsModel!
-                    .jobDetails!
-                    .applicationState ==
-                JobStatus.published
-            ? greenE1F
-            : Provider.of<GetClientJobListProvider>(context, listen: false)
-                        .detailsModel!
-                        .jobDetails!
-                        .applicationState ==
-                    JobStatus.applied
-                ? Color(0xffC1D0E7)
-                : Provider.of<GetClientJobListProvider>(context, listen: false)
-                            .detailsModel!
-                            .jobDetails!
-                            .applicationState ==
-                        JobStatus.rejected
-                    ? redE45
-                    : Provider.of<GetClientJobListProvider>(context,
-                                    listen: false)
-                                .detailsModel!
-                                .jobDetails!
-                                .applicationState ==
-                            JobStatus.pending
-                        ? yellowF4D
-                        : Provider.of<GetClientJobListProvider>(context,
-                                        listen: false)
-                                    .detailsModel!
-                                    .jobDetails!
-                                    .applicationState ==
-                                JobStatus.completed
-                            ? green26A
-                            : Colors.grey,
-        elevation: 0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
-        child: Text(
-          '${Provider.of<GetClientJobListProvider>(context, listen: false).detailsModel!.jobDetails!.applicationState}',
-          style: TextStyle(
-            color: Provider.of<GetClientJobListProvider>(context, listen: false)
-                        .detailsModel!
-                        .jobDetails!
-                        .applicationState ==
-                    JobStatus.published
-                ? green26A
-                : Provider.of<GetClientJobListProvider>(context, listen: false)
-                            .detailsModel!
-                            .jobDetails!
-                            .applicationState ==
-                        JobStatus.applied
-                    ? Colors.blue
-                    : Provider.of<GetClientJobListProvider>(context,
-                                    listen: false)
-                                .detailsModel!
-                                .jobDetails!
-                                .applicationState ==
-                            JobStatus.pending
-                        ? primaryColor
-                        : Provider.of<GetClientJobListProvider>(context,
-                                        listen: false)
-                                    .detailsModel!
-                                    .jobDetails!
-                                    .applicationState ==
-                                JobStatus.completed
-                            ? Colors.white
-                            : Colors.black,
-            fontSize: 12,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-      ),
-    );
+    String state = Provider.of<GetClientJobListProvider>(context, listen: false)
+        .detailsModel!
+        .jobDetails!
+        .applicationState!;
+    return Chip(
+        backgroundColor: state == JobStatus.published
+            ? publishedChipColor
+            : state == JobStatus.accepted
+                ? acceptedChipColor
+                : state == JobStatus.doing
+                    ? doingChipColor
+                    : state == JobStatus.pending
+                        ? pendingChipColor
+                        : state == JobStatus.completed
+                            ? completedChipColor
+                            : state == JobStatus.rejected
+                                ? rejectedChipColor
+                                : Colors.white,
+        label: Text(state,
+            style: Theme.of(context).textTheme.caption!.apply(
+                color: state == JobStatus.published
+                    ? green26A
+                    : state == JobStatus.accepted
+                        ? acceptedTagTextColor
+                        : state == JobStatus.pending
+                            ? primaryColor
+                            : Colors.white)));
   }
 
   Widget textView() {

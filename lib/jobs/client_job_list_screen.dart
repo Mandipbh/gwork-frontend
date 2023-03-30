@@ -1110,35 +1110,29 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
   }
 
   Widget statusChip(String state) {
-    return MaterialButton(
-      onPressed: () {},
-      height: 30,
-      color: state == JobStatus.published
-          ? greenE1F
-          : state == JobStatus.rejected
-              ? redE45
-              : state == JobStatus.pending
-                  ? yellowF4D
-                  : state == JobStatus.completed
-                      ? green26A
-                      : Colors.grey,
-      elevation: 0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
-      child: Text(
-        state.toString(),
-        style: TextStyle(
-          color: state == JobStatus.published
-              ? green26A
-              : state == JobStatus.pending
-                  ? primaryColor
-                  : state == JobStatus.completed
-                      ? Colors.white
-                      : Colors.black,
-          fontSize: 12,
-          fontWeight: FontWeight.w700,
-        ),
-      ),
-    );
+    return Chip(
+        backgroundColor: state == JobStatus.published
+            ? publishedChipColor
+            : state == JobStatus.accepted
+                ? acceptedChipColor
+                : state == JobStatus.doing
+                    ? doingChipColor
+                    : state == JobStatus.pending
+                        ? pendingChipColor
+                        : state == JobStatus.completed
+                            ? completedChipColor
+                            : state == JobStatus.rejected
+                                ? rejectedChipColor
+                                : Colors.white,
+        label: Text(state,
+            style: Theme.of(context).textTheme.caption!.apply(
+                color: state == JobStatus.published
+                    ? green26A
+                    : state == JobStatus.accepted
+                        ? acceptedTagTextColor
+                        : state == JobStatus.pending
+                            ? primaryColor
+                            : Colors.white)));
   }
 
   Widget noMyJobsView() {

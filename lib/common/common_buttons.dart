@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:g_worker_app/jobs/provider/get_client_job_list_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../colors.dart';
 
@@ -166,7 +168,13 @@ Widget singleSelectionButtons(
                   color: selected == index + 1 ? primaryColor : white),
               child: Center(
                   child: Text(
-                buttonName,
+                buttonName == "Applications"
+                    ? Provider.of<GetClientJobListProvider>(context)
+                                .applicationsModel ==
+                            null
+                        ? buttonName
+                        : '$buttonName (${Provider.of<GetClientJobListProvider>(context).applicationsModel!.applications!.length})'
+                    : buttonName,
                 style: TextStyle(
                     fontSize: 14,
                     color: selected == index + 1 ? white : primaryColor),

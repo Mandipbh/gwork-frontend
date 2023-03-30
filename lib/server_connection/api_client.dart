@@ -1047,7 +1047,7 @@ class ApiClient {
     GetClientApplicationsModel? _model;
     try {
       var response = await dio.get(
-          'https://gwork.macca.cloud/${ApiEndPoints.getClientJobApplications}?job_id=$jobId',
+          '${API.baseUrl}${ApiEndPoints.getClientJobApplications}?job_id=$jobId',
           options: Options(headers: {
             'Content-Type': 'application/json',
             "Authorization": "Bearer ${await SharedPreferenceData().getToken()}"

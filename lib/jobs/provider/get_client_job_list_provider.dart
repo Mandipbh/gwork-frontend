@@ -6,6 +6,7 @@ import 'package:g_worker_app/jobs/model/get_job_details_client_model.dart';
 import 'package:g_worker_app/server_connection/api_client.dart';
 import 'package:provider/provider.dart';
 
+import '../model/get_client_job_applications_model.dart';
 import 'get_professional_job_list_provider.dart';
 
 class GetClientJobListProvider extends ChangeNotifier {
@@ -14,6 +15,9 @@ class GetClientJobListProvider extends ChangeNotifier {
 
   GetClientJobOverviewModel? _detailsModel;
   GetClientJobOverviewModel? get detailsModel => _detailsModel;
+
+  GetClientApplicationsModel? _applicationsModel;
+  GetClientApplicationsModel? get applicationsModel => _applicationsModel;
 
   bool _isLogging = false;
 
@@ -49,8 +53,22 @@ class GetClientJobListProvider extends ChangeNotifier {
     //notifyListeners();
   }
 
-  // clearDataModel(BuildContext context) {
-  //   Provider.of<GetProfessionalJobListProvider>(context).clearDataModel();
-  //   _detailsModel = null;
-  // }
+  getApplicantsForClient(BuildContext context, String? jobId) async {
+    setIsLogging(true);
+
+    ApiClient().getClientApplications(context, jobId!).then((value) {
+      if (value!.success!) {
+        _applicationsModel = value;
+
+        setIsLogging(false);
+        notifyListeners();
+      }
+    });
+  }
+
+  clearDataModel(BuildContext context) {
+    Provider.of<GetProfessionalJobListProvider>(context).clearDataModel();
+    _detailsModel = null;
+    _applicationsModel = null;
+  }
 }
