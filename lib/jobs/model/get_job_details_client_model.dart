@@ -48,6 +48,7 @@ class JobDetails {
   int? gallery;
   int? applicationCount;
   String? applicationState;
+  int? chatCount;
 
   JobDetails(
       {this.id,
@@ -75,7 +76,8 @@ class JobDetails {
       this.role,
       this.gallery,
       this.applicationCount,
-      this.applicationState});
+      this.applicationState,
+      this.chatCount});
 
   JobDetails.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -104,6 +106,7 @@ class JobDetails {
     gallery = json['gallery'];
     applicationCount = json['application_count'];
     applicationState = json['application_state'];
+    chatCount = json['chat_count'];
   }
 
   Map<String, dynamic> toJson() {
@@ -134,6 +137,7 @@ class JobDetails {
     data['gallery'] = this.gallery;
     data['application_count'] = this.applicationCount;
     data['application_state'] = this.applicationState;
+    data['chat_count'] = this.chatCount;
     return data;
   }
 }

@@ -67,7 +67,6 @@ class GetClientJobListProvider extends ChangeNotifier {
   }
 
   clearDataModel(BuildContext context) {
-    Provider.of<GetProfessionalJobListProvider>(context).clearDataModel();
     _detailsModel = null;
     _applicationsModel = null;
   }

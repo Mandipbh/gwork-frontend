@@ -128,7 +128,9 @@
       "reject": "reject",
       "Accept": "Accept",
       "no_applicant": "There are no applicants for now",
-      "check_later": "Check it bit later please"
+      "check_later": "Check it bit later please",
+      "created_at": "Created at",
+      "accepted_at": "Accepted at"
     },
     "accept_job_dialogue": {
       "are_you_sure_accept": "Are you sure you want to accept the job?",

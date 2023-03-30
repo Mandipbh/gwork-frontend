@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/chat/chat_screen.dart';
 import 'package:g_worker_app/colors.dart';
+import 'package:g_worker_app/jobs/model/get_job_details_client_model.dart';
 import 'package:g_worker_app/jobs/provider/get_client_job_list_provider.dart';
 import 'package:g_worker_app/jobs/provider/get_professional_job_list_provider.dart';
 import 'package:g_worker_app/server_connection/api_client.dart';
@@ -26,9 +27,6 @@ class JobDetailsClientScreen extends StatefulWidget {
 }
 
 class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
-  bool isSelected = false;
-  bool isApply = false;
-  bool isReject = false;
   int selectedType = 1;
 
   getJobDetails() {
@@ -70,34 +68,8 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
-
     super.initState();
     getJobDetails();
-    // for (int i = 0; i < imagelist.length; i++) {
-    //   if (i % 2 == 0) {
-    //     oddlist.add(imagelist[i]);
-    //   }
-    // }
-    // for (int i = 0; i < imagelist.length; i++) {
-    //   if (i % 2 == 1) {
-    //     evenlist.add(imagelist[i]);
-    //   }
-    // }
-  }
-
-  @override
-  void deactivate() {
-    Provider.of<GetClientJobListProvider>(context, listen: false)
-        .clearDataModel(context);
-    super.deactivate();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    // Provider.of<GetClientJobListProvider>(context, listen: false)
-    //     .clearDataModel(context);
   }
 
   @override
@@ -107,251 +79,274 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: whiteF2F,
-      body: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          Column(
-            children: [
-              const SizedBox(height: 35),
-              Consumer<GetClientJobListProvider>(
-                builder: (context, value, child) {
-                  return value.detailsModel == null
-                      ? const Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : appBarView();
-                },
-              ),
-              Expanded(
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 0.0),
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 10),
-                      // Consumer<GetClientJobListProvider>(
-                      //   builder: (context, value, child) {
-                      //     return value.detailsModel == null
-                      //         ? const Center(
-                      //             child: SizedBox(),
-                      //           )
-                      //         : statusView();
-                      //   },
-                      // ),
-                      const SizedBox(height: 12),
-                      textView(),
-                      const SizedBox(height: 12),
-                      Provider.of<SignUpProvider>(context, listen: false)
-                                  .userType ==
-                              0
-                          ? tabViewClient()
-                          : tabViewProfessional(),
-                      const SizedBox(height: 12),
-                      selectedType == 1
-                          ? Expanded(
-                              child: Consumer<GetClientJobListProvider>(
-                                builder: (context, value, child) {
-                                  return value.detailsModel == null
-                                      ? const Center(
-                                          child: CircularProgressIndicator(),
-                                        )
-                                      : SingleChildScrollView(
-                                          child: description(),
-                                        );
-                                },
-                              ),
-                            )
-                          : selectedType == 2
-                              ? Expanded(child:
-                                  Consumer<GetProfessionalJobListProvider>(
-                                  builder: (context, value, child) {
-                                    return value.galleryDetailsModel == null
-                                        ? const Center(
-                                            child: CircularProgressIndicator(),
-                                          )
-                                        : SingleChildScrollView(
-                                            child: Gallary());
-                                  },
-                                ))
-                              : Provider.of<SignUpProvider>(context,
-                                              listen: false)
-                                          .userType ==
-                                      0
-                                  ? Expanded(
-                                      child: SingleChildScrollView(
-                                          child: applicationWidgetView()),
-                                      // Consumer<GetClientJobListProvider>(
-                                      //   builder: (context, value, child) {
-                                      //     return value.galleryDetailsModel ==
-                                      //             null
-                                      //         ? const Center(
-                                      //             child:
-                                      //                 CircularProgressIndicator(),
-                                      //           )
-                                      //         : SingleChildScrollView(
-                                      //             child:
-                                      //                 applicationWidgetView());
-                                      //   },
-                                      // ),
-                                    )
-                                  : const SizedBox.shrink(),
-                    ],
-                  ),
+    return Consumer<GetClientJobListProvider>(
+        builder: (context, jobProvider, child) {
+      return WillPopScope(
+        onWillPop: () async {
+          context.read<GetProfessionalJobListProvider>().clearDataModel();
+          jobProvider.clearDataModel(context);
+          return true;
+        },
+        child: Scaffold(
+          backgroundColor: whiteF2F,
+          body: jobProvider.detailsModel == null
+              ? const Center(child: CircularProgressIndicator())
+              : Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 0.0),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 70),
+                          appBarView(jobProvider.detailsModel!.jobDetails!),
+                          statusView(
+                              jobProvider.detailsModel!.jobDetails!.state!),
+                          const SizedBox(height: 12),
+                          textView(),
+                          const SizedBox(height: 12),
+                          Provider.of<SignUpProvider>(context, listen: false)
+                                      .userType ==
+                                  0
+                              ? tabViewClient(
+                                  jobProvider.detailsModel!.jobDetails!.state!,
+                                  jobProvider
+                                      .applicationsModel!.applications!.length)
+                              : tabViewProfessional(),
+                          const SizedBox(height: 12),
+                          selectedType == 1
+                              ? Expanded(
+                                  child: SingleChildScrollView(
+                                    child: description(jobProvider),
+                                  ),
+                                )
+                              : selectedType == 2
+                                  ? Expanded(child: gallery())
+                                  : Expanded(
+                                      child: applicationWidgetView(),
+                                    ),
+                          // Consumer<GetClientJobListProvider>(
+                          //   builder: (context, value, child) {
+                          //     return value.detailsModel == null
+                          //         ? const SizedBox.shrink()
+                          //         : value.detailsModel!.jobDetails!.applicationState! ==
+                          //                 JobStatus.published
+                          //             ? bottomView()
+                          //             : rejectView();
+                          //   },
+                          // ),
+                          // isReject == true
+                          //     ? const SizedBox.shrink()
+                          //     : isApply == true
+                          //         ? rejectView()
+                          //         : Provider.of<SignUpProvider>(context, listen: false)
+                          //                     .userType ==
+                          //                 0
+                          //             ? const SizedBox.shrink()
+                          //             : bottomView(),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-              )
-            ],
-          ),
-          // Consumer<GetClientJobListProvider>(
-          //   builder: (context, value, child) {
-          //     return value.detailsModel == null
-          //         ? const SizedBox.shrink()
-          //         : value.detailsModel!.jobDetails!.applicationState! ==
-          //                 JobStatus.published
-          //             ? bottomView()
-          //             : rejectView();
-          //   },
-          // ),
-          // isReject == true
-          //     ? const SizedBox.shrink()
-          //     : isApply == true
-          //         ? rejectView()
-          //         : Provider.of<SignUpProvider>(context, listen: false)
-          //                     .userType ==
-          //                 0
-          //             ? const SizedBox.shrink()
-          //             : bottomView(),
-        ],
-      ),
-    );
+        ),
+      );
+    });
   }
 
-  Widget description() {
+  Widget description(GetClientJobListProvider jobProvider) {
     return Column(
       children: [
         jobDetailView("assets/icons/marker_location.png",
-            "${Provider.of<GetClientJobListProvider>(context, listen: false).detailsModel!.jobDetails!.street!}, ${Provider.of<GetClientJobListProvider>(context, listen: false).detailsModel!.jobDetails!.province!}"),
-        const SizedBox(height: 12),
+            "${jobProvider.detailsModel!.jobDetails!.street!}, ${jobProvider.detailsModel!.jobDetails!.province!}"),
         Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            color: Colors.white,
-          ),
-          child: ListTile(
-            horizontalTitleGap: 10,
-            leading: CircleAvatar(
-              backgroundColor: Colors.grey.withOpacity(0.2),
-              radius: 20,
-              child:
-                  Provider.of<GetClientJobListProvider>(context, listen: false)
-                              .detailsModel!
-                              .jobDetails!
-                              .clientImage !=
-                          null
-                      ? Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(
-                              60.0,
-                            ),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(
-                              60.0,
-                            ),
-                            child: Image.network(
-                              Provider.of<GetClientJobListProvider>(context,
-                                      listen: false)
-                                  .detailsModel!
-                                  .jobDetails!
-                                  .clientImage!,
-                              fit: BoxFit.fitWidth,
-                            ),
-                          ),
-                        )
-                      : Text(
-                          "${Provider.of<GetClientJobListProvider>(context, listen: false).detailsModel!.jobDetails!.clientName!.substring(0, 1)}${Provider.of<GetClientJobListProvider>(context, listen: false).detailsModel!.jobDetails!.clientName!.substring(0, 1)}",
-                          style: const TextStyle(color: black343),
+          width: MediaQuery.of(context).size.width,
+          margin: const EdgeInsets.only(top: 12),
+          child: Row(
+            children: [
+              jobProvider.detailsModel!.jobDetails!.state! ==
+                      JobStatus.published
+                  ? Expanded(
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: Colors.white,
                         ),
-            ),
-            title: Text(
-              Provider.of<GetClientJobListProvider>(context, listen: false)
-                  .detailsModel!
-                  .jobDetails!
-                  .clientName!,
-              style: const TextStyle(
-                color: black343,
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            subtitle: const Text(
-              "Client",
-              style: TextStyle(
-                color: grey807,
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            trailing: isApply == true
-                ? GestureDetector(
-                    behavior: HitTestBehavior.opaque,
-                    onTap: () {
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ChatScreen()),
-                          (Route<dynamic> route) => true);
-                    },
-                    child: Stack(
-                      alignment: Alignment.topRight,
-                      clipBehavior: Clip.none,
-                      children: [
-                        Image.asset(
-                          "assets/icons/message_chat.png",
-                          height: 30,
-                          width: 45,
-                        ),
-                        Positioned(
-                          top: 3,
-                          right: -2,
-                          child: Container(
-                            height: 18,
-                            width: 25,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(24),
-                              color: yellowF4D,
-                            ),
-                            child: const Center(
-                              child: Text(
-                                '12',
-                                style: TextStyle(
-                                  color: splashColor1,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                            ),
+                        child: ListTile(
+                          horizontalTitleGap: 1,
+                          leading: Image.asset('assets/icons/file.png',
+                              color: primaryColor, height: 24, width: 24),
+                          title: Text(
+                            tr('admin.job_detail.created_at'),
+                            style: Theme.of(context).textTheme.headline4,
                           ),
+                          subtitle: Text(jobProvider
+                              .detailsModel!.jobDetails!.creationDate!),
                         ),
-                      ],
+                      ),
+                    )
+                  : Expanded(
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: Colors.white,
+                        ),
+                        child: ListTile(
+                          horizontalTitleGap: 1,
+                          title: Text(
+                            tr('admin.job_detail.created_at'),
+                            style: Theme.of(context).textTheme.headline4,
+                          ),
+                          subtitle: Text(jobProvider
+                              .detailsModel!.jobDetails!.creationDate!),
+                        ),
+                      ),
                     ),
-                  )
-                : const SizedBox.shrink(),
+              const SizedBox(width: 8),
+              jobProvider.detailsModel!.jobDetails!.state! ==
+                      JobStatus.published
+                  ? Container()
+                  : Expanded(
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: Colors.white,
+                        ),
+                        child: ListTile(
+                          horizontalTitleGap: 1,
+                          title: Text(
+                            tr('admin.job_detail.accepted_at'),
+                            style: Theme.of(context).textTheme.headline4,
+                          ),
+                          subtitle: Text(
+                              jobProvider.detailsModel!.jobDetails!.jobDate!),
+                        ),
+                      ),
+                    )
+            ],
           ),
         ),
         const SizedBox(height: 12),
+        jobProvider.detailsModel!.jobDetails!.state! == JobStatus.published &&
+                Provider.of<SignUpProvider>(context, listen: false).userType ==
+                    UserType.client
+            ? Container()
+            : Container(
+                width: double.infinity,
+                margin: const EdgeInsets.only(bottom: 12),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: Colors.white,
+                ),
+                child: ListTile(
+                  horizontalTitleGap: 10,
+                  leading: CircleAvatar(
+                    backgroundColor: Colors.grey.withOpacity(0.2),
+                    radius: 20,
+                    child: jobProvider.detailsModel!.jobDetails!.clientImage !=
+                            null
+                        ? Container(
+                            width: 40,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(
+                                60.0,
+                              ),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(
+                                60.0,
+                              ),
+                              child: Image.network(
+                                Provider.of<GetClientJobListProvider>(context,
+                                        listen: false)
+                                    .detailsModel!
+                                    .jobDetails!
+                                    .clientImage!,
+                                fit: BoxFit.fitWidth,
+                              ),
+                            ),
+                          )
+                        : Text(
+                            "${jobProvider.detailsModel!.jobDetails!.clientName!.substring(0, 1)}${jobProvider.detailsModel!.jobDetails!.clientName!.substring(0, 1)}",
+                            style: const TextStyle(color: black343),
+                          ),
+                  ),
+                  title: Text(
+                    jobProvider.detailsModel!.jobDetails!.clientName!,
+                    style: const TextStyle(
+                      color: black343,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  subtitle: const Text(
+                    "Client",
+                    style: TextStyle(
+                      color: grey807,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  trailing: jobProvider.detailsModel!.jobDetails!.state! !=
+                          JobStatus.published
+                      ? GestureDetector(
+                          behavior: HitTestBehavior.opaque,
+                          onTap: () {
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const ChatScreen()),
+                                (Route<dynamic> route) => true);
+                          },
+                          child: Stack(
+                            alignment: Alignment.topRight,
+                            clipBehavior: Clip.none,
+                            children: [
+                              Image.asset(
+                                "assets/icons/message_chat.png",
+                                height: 30,
+                                width: 45,
+                              ),
+                              Positioned(
+                                top: 3,
+                                right: -2,
+                                child: Container(
+                                  height: 18,
+                                  width: 25,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(24),
+                                    color: yellowF4D,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      '${jobProvider.detailsModel!.jobDetails!.chatCount}',
+                                      style: TextStyle(
+                                        color: splashColor1,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      : const SizedBox.shrink(),
+                ),
+              ),
         jobDetailView("assets/icons/calendar.png",
-            "${Provider.of<GetClientJobListProvider>(context, listen: false).detailsModel!.jobDetails!.jobDate}"),
+            "${jobProvider.detailsModel!.jobDetails!.jobDate}"),
         const SizedBox(height: 12),
         jobDetailView("assets/icons/briefcase.png",
-            "${Provider.of<GetClientJobListProvider>(context, listen: false).detailsModel!.jobDetails!.category}"),
+            "${jobProvider.detailsModel!.jobDetails!.category}"),
         const SizedBox(height: 12),
         jobDetailView("assets/icons/coins_stacked.png",
-            "${Provider.of<GetClientJobListProvider>(context, listen: false).detailsModel!.jobDetails!.budget}"),
+            "${jobProvider.detailsModel!.jobDetails!.budget}"),
         const SizedBox(height: 12),
         Container(
           width: double.infinity,
@@ -373,7 +368,7 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
-                    "${Provider.of<GetClientJobListProvider>(context, listen: false).detailsModel!.jobDetails!.description}",
+                    "${jobProvider.detailsModel!.jobDetails!.description}",
                     style: TextStyle(
                       color: black343,
                       fontSize: 12,
@@ -390,209 +385,205 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
     );
   }
 
-  Widget Gallary() {
-    //  var newData = context.read<GetClientJobListProvider>();
-
-    return Column(
-      children: [
-        Consumer<GetProfessionalJobListProvider>(
-          builder: (context, value, child) {
-            return Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Flexible(
-                  flex: 1,
-                  child: ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    // itemCount: (imagelist.length / 2).toInt(),
-                    itemCount: value.oddList.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Container(
-                            height: MediaQuery.of(context).size.height * 0.2,
-                            width: MediaQuery.of(context).size.width * 0.4,
-                            child: Image.network(
-                              value.oddList[index],
-                              fit: BoxFit.cover,
-                            ),
+  Widget gallery() {
+    return Consumer<GetProfessionalJobListProvider>(
+      builder: (context, value, child) {
+        return value.galleryDetailsModel == null
+            ? const Center(child: CircularProgressIndicator())
+            : value.galleryDetailsModel!.gallery!.isEmpty
+                ? emptyGalleryView()
+                : SingleChildScrollView(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Flexible(
+                          flex: 1,
+                          child: ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            // itemCount: (imagelist.length / 2).toInt(),
+                            itemCount: value.oddList.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: Container(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.2,
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.4,
+                                    child: Image.network(
+                                      value.oddList[index],
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
                           ),
                         ),
-                      );
-                    },
-                  ),
-                ),
-                Flexible(
-                  flex: 1,
-                  child: ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: value.evenList.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(1.0),
-                        child: Container(
-                          height: MediaQuery.of(context).size.height * 0.35,
-                          width: MediaQuery.of(context).size.width * 0.4,
-                          child: Image.network(
-                            value.evenList[index],
-                            fit: BoxFit.cover,
+                        Flexible(
+                          flex: 1,
+                          child: ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: value.evenList.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(1.0),
+                                child: Container(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.35,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.4,
+                                  child: Image.network(
+                                    value.evenList[index],
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              );
+                            },
                           ),
-                        ),
-                      );
-                    },
-                  ),
-                )
-              ],
-            );
-          },
-        ),
-      ],
+                        )
+                      ],
+                    ),
+                  );
+      },
     );
   }
 
   Widget applicationWidgetView() {
     return Consumer<GetClientJobListProvider>(builder: (context, value, child) {
-      return ListView.builder(
-        shrinkWrap: true,
-        itemCount: value.applicationsModel!.applications!.length,
-        padding: EdgeInsets.zero,
-        physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (context, index) {
-          String b =
-              '${value.applicationsModel!.applications![index].chatCount}';
-          double aaa = b.length.toDouble() + 10.0;
-          return InkWell(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ChatScreen(),
-                  ));
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Container(
-                decoration: BoxDecoration(
-                    color: white, borderRadius: BorderRadius.circular(12)),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(children: [
-                    CircleAvatar(
-                        backgroundImage: NetworkImage(
-                            "${value.applicationsModel!.applications![index].professionalImage}")),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "${value.applicationsModel!.applications![index].professionalName}",
-                          style: const TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.w700),
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.euro_symbol,
-                              size: 14.0,
-                            ),
-                            Text(
-                              "${value.applicationsModel!.applications![index].price}",
-                              style: const TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.w500),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    const Spacer(),
-                    Container(
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(top: 5.0, right: aaa),
-                            child: Image.asset(
-                              "assets/icons/message_chat.png",
-                              height: 25,
-                              width: 50,
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: aaa),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: yellowF4D,
-                                  borderRadius: BorderRadius.circular(13)),
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 5.0),
-                                child: Text(
-                                  '${value.applicationsModel!.applications![index].chatCount}',
-                                  style: TextStyle(fontSize: 12),
-                                ),
+      return value.applicationsModel == null
+          ? const Center(child: CircularProgressIndicator())
+          : value.applicationsModel!.applications!.isEmpty
+              ? emptyApplicationsView()
+              : ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: value.applicationsModel!.applications!.length,
+                  padding: EdgeInsets.zero,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    String b =
+                        '${value.applicationsModel!.applications![index].chatCount}';
+                    double aaa = b.length.toDouble() + 10.0;
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ChatScreen(),
+                            ));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: white,
+                              borderRadius: BorderRadius.circular(12)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(children: [
+                              CircleAvatar(
+                                  backgroundImage: NetworkImage(
+                                      "${value.applicationsModel!.applications![index].professionalImage}")),
+                              const SizedBox(
+                                width: 10,
                               ),
-                            ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "${value.applicationsModel!.applications![index].professionalName}",
+                                    style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.euro_symbol,
+                                        size: 14.0,
+                                      ),
+                                      Text(
+                                        "${value.applicationsModel!.applications![index].price}",
+                                        style: const TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              const Spacer(),
+                              Container(
+                                child: Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.only(top: 5.0, right: aaa),
+                                      child: Image.asset(
+                                        "assets/icons/message_chat.png",
+                                        height: 25,
+                                        width: 50,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: aaa),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: yellowF4D,
+                                            borderRadius:
+                                                BorderRadius.circular(13)),
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 5.0),
+                                          child: Text(
+                                            '${value.applicationsModel!.applications![index].chatCount}',
+                                            style: TextStyle(fontSize: 12),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ]),
                           ),
-                        ],
+                        ),
                       ),
-                    )
-                  ]),
-                ),
-              ),
-            ),
-          );
-        },
-      );
+                    );
+                  },
+                );
     });
   }
 
-  Widget appBarView() {
+  Widget appBarView(JobDetails jobDetails) {
+    int userType =
+        Provider.of<SignUpProvider>(context, listen: false).userType!;
     return AppBar(
       backgroundColor: whiteF2F,
-      automaticallyImplyLeading: false,
+      automaticallyImplyLeading: true,
       centerTitle: true,
       elevation: 0,
-      leading: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: () {
-          Navigator.pop(context);
-        },
-        child: const Icon(Icons.arrow_back, color: splashColor1, size: 20),
-      ),
       title: Text(
-        tr('admin.dashboard.${Provider.of<GetClientJobListProvider>(context, listen: false).detailsModel!.jobDetails!.category!.toLowerCase()}'),
-        style: const TextStyle(
-          color: splashColor1,
-          fontSize: 18,
-          fontWeight: FontWeight.w700,
-        ),
+        tr('admin.job_detail.Babysitting'),
       ),
       actions: [
-        Provider.of<SignUpProvider>(context, listen: false).userType == 0
-            ? Padding(
-                padding: const EdgeInsets.only(right: 18),
-                child: Image.asset(
-                  'assets/icons/delete.png',
-                  height: 24,
-                  width: 24,
-                ),
+        userType == UserType.client && jobDetails.state == JobStatus.published
+            ? InkWell(
+                child: Image.asset('assets/icons/delete.png',
+                    height: 20, width: 20, color: Colors.red),
+                onTap: () {},
               )
-            : const SizedBox.shrink(),
+            : Container()
       ],
     );
   }
 
-  Widget statusView() {
-    String state = Provider.of<GetClientJobListProvider>(context, listen: false)
-        .detailsModel!
-        .jobDetails!
-        .applicationState!;
+  Widget statusView(String state) {
     return Chip(
         backgroundColor: state == JobStatus.published
             ? publishedChipColor
@@ -629,14 +620,18 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
     );
   }
 
-  Widget tabViewClient() {
+  Widget tabViewClient(String state, int length) {
+    var tabs = [
+      tr('admin.job_detail.Description'),
+      tr('admin.job_detail.Gallery')
+    ];
+    if (state == JobStatus.published) {
+      tabs.add('${tr('admin.job_detail.Applications')}($length)');
+    }
+
     return singleSelectionButtons(
         context: context,
-        buttons: [
-          tr('admin.job_detail.Description'),
-          tr('admin.job_detail.Gallery'),
-          tr('admin.job_detail.Applications'),
-        ],
+        buttons: tabs,
         padding: 8,
         selected: selectedType,
         onSelectionChange: (value) {
@@ -674,11 +669,7 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
         leading: Image.asset(icon, height: 24, width: 24),
         title: Text(
           text,
-          style: const TextStyle(
-            color: black343,
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-          ),
+          style: Theme.of(context).textTheme.headline4,
         ),
       ),
     );
@@ -747,9 +738,7 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
           behavior: HitTestBehavior.opaque,
           onTap: () {
             setState(() {
-              isReject = true;
               Navigator.pop(context);
-              print("!!!!$isReject");
             });
           },
           child: Row(
@@ -823,7 +812,6 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
         MaterialButton(
           onPressed: () {
             setState(() {
-              isApply = true;
               Navigator.pop(context);
             });
           },
@@ -931,7 +919,6 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
         MaterialButton(
           onPressed: () {
             setState(() {
-              isApply = true;
               Navigator.pop(context);
             });
           },
@@ -987,6 +974,82 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
               const Icon(Icons.close, color: splashColor1, size: 22)
             ],
           ),
+        ),
+      ],
+    );
+  }
+
+  Widget emptyGalleryView() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Image.asset(
+          'assets/images/empty_job.png',
+          height: 180,
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        Container(
+          width: MediaQuery.of(context).size.width,
+          margin: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+              color: Colors.white, borderRadius: BorderRadius.circular(16)),
+          child: Column(
+            children: [
+              Text(tr('admin.gallery.no_gallery'),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.w700)),
+              const SizedBox(height: 4),
+              Text(tr('admin.users.check_letter'),
+                  style: const TextStyle(
+                      fontSize: 12, fontWeight: FontWeight.w500)),
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: 100,
+        ),
+      ],
+    );
+  }
+
+  Widget emptyApplicationsView() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Image.asset(
+          'assets/images/watch-circle.png',
+          height: 180,
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        Container(
+          width: MediaQuery.of(context).size.width,
+          margin: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+              color: Colors.white, borderRadius: BorderRadius.circular(16)),
+          child: Column(
+            children: [
+              Text(tr('admin.users.no_application'),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.w700)),
+              const SizedBox(height: 4),
+              Text(tr('admin.users.check_letter'),
+                  style: const TextStyle(
+                      fontSize: 12, fontWeight: FontWeight.w500)),
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: 100,
         ),
       ],
     );
