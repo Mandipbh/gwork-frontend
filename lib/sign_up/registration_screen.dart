@@ -327,8 +327,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                       cardCvv: value.cvv)
                                   .then((val) {
                                 value.setIsLogging(false);
-                                currentPage = currentPage + 1;
-                                if (currentPage > 5) {
+
+                                if (val!.success!) {
+                                  currentPage = currentPage + 1;
+                                  log("!!${val.success}");
                                   controller.nextPage(
                                       duration:
                                           const Duration(milliseconds: 200),
@@ -508,8 +510,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   .then((v) {
                                 value.setIsLogging(false);
 
-                                currentPage = currentPage + 1;
-                                if (currentPage > 6) {
+                                if (v!.success!) {
+                                  currentPage = currentPage + 1;
+
                                   controller.nextPage(
                                       duration:
                                           const Duration(milliseconds: 200),

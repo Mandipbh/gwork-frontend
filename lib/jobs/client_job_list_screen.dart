@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/jobs/add_new_job_screen.dart';
+import 'package:g_worker_app/jobs/job_details_screen_client.dart';
 import 'package:g_worker_app/jobs/provider/get_client_job_list_provider.dart';
 import 'package:g_worker_app/my_profile/my_profile_widgets/my_profile_screen.dart';
 import 'package:g_worker_app/my_profile/provider/my_profile_provider.dart';
@@ -1006,7 +1007,7 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => JobDetailsScreen(
+                                  builder: (context) => JobDetailsClientScreen(
                                         jobId: value.model!.jobs[index].id,
                                       )),
                             );
@@ -1072,24 +1073,8 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                                         const SizedBox(height: 4),
                                         Row(
                                           children: [
-                                            MaterialButton(
-                                              onPressed: () {},
-                                              height: 30,
-                                              color: redE45,
-                                              elevation: 0,
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          13)),
-                                              child: Text(
-                                                value.model!.jobs[index].state,
-                                                style: const TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w700,
-                                                ),
-                                              ),
-                                            ),
+                                            statusChip(
+                                                value.model!.jobs[index].state),
                                             const SizedBox(width: 4),
                                             Text(
                                               value.model!.jobs[index].jobDate,
@@ -1122,6 +1107,38 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                     );
             },
           );
+  }
+
+  Widget statusChip(String state) {
+    return MaterialButton(
+      onPressed: () {},
+      height: 30,
+      color: state == JobStatus.published
+          ? greenE1F
+          : state == JobStatus.rejected
+              ? redE45
+              : state == JobStatus.pending
+                  ? yellowF4D
+                  : state == JobStatus.completed
+                      ? green26A
+                      : Colors.grey,
+      elevation: 0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
+      child: Text(
+        state.toString(),
+        style: TextStyle(
+          color: state == JobStatus.published
+              ? green26A
+              : state == JobStatus.pending
+                  ? primaryColor
+                  : state == JobStatus.completed
+                      ? Colors.white
+                      : Colors.black,
+          fontSize: 12,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+    );
   }
 
   Widget noMyJobsView() {

@@ -1,10 +1,10 @@
-class GetProfJobDetailsModel {
+class GetClientJobOverviewModel {
   bool? success;
   JobDetails? jobDetails;
 
-  GetProfJobDetailsModel({this.success, this.jobDetails});
+  GetClientJobOverviewModel({this.success, this.jobDetails});
 
-  GetProfJobDetailsModel.fromJson(Map<String, dynamic> json) {
+  GetClientJobOverviewModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     jobDetails = json['jobDetails'] != null
         ? new JobDetails.fromJson(json['jobDetails'])
@@ -32,21 +32,22 @@ class JobDetails {
   String? province;
   String? date;
   String? time;
+  String? dateTime;
   int? budget;
   String? state;
+  int? clientApprove;
+  int? adminApprove;
+  int? invoiceGenerated;
+  Null? invoiceUrl;
+  String? createdAt;
   String? jobDate;
   String? creationDate;
   String? clientName;
   String? clientImage;
   String? role;
-  String? professionalName;
-  String? professionalImage;
-  String? professionalId;
-  String? role2;
-  String? acceptedBudget;
   int? gallery;
+  int? applicationCount;
   String? applicationState;
-  int? chatCount;
 
   JobDetails(
       {this.id,
@@ -59,21 +60,22 @@ class JobDetails {
       this.province,
       this.date,
       this.time,
+      this.dateTime,
       this.budget,
       this.state,
+      this.clientApprove,
+      this.adminApprove,
+      this.invoiceGenerated,
+      this.invoiceUrl,
+      this.createdAt,
       this.jobDate,
       this.creationDate,
       this.clientName,
       this.clientImage,
       this.role,
-      this.professionalName,
-      this.professionalImage,
-      this.professionalId,
-      this.role2,
-      this.acceptedBudget,
       this.gallery,
-      this.applicationState,
-      this.chatCount});
+      this.applicationCount,
+      this.applicationState});
 
   JobDetails.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -86,21 +88,22 @@ class JobDetails {
     province = json['province'];
     date = json['date'];
     time = json['time'];
+    dateTime = json['date_time'];
     budget = json['budget'];
     state = json['state'];
+    clientApprove = json['client_approve'];
+    adminApprove = json['admin_approve'];
+    invoiceGenerated = json['invoice_generated'];
+    invoiceUrl = json['invoice_url'];
+    createdAt = json['created_at'];
     jobDate = json['job_date'];
     creationDate = json['creation_date'];
     clientName = json['client_name'];
-    clientImage = json['client_image'] ?? "";
+    clientImage = json['client_image'];
     role = json['role'];
-    professionalName = json['professional_name'];
-    professionalImage = json['professional_image'];
-    professionalId = json['professional_id'];
-    role2 = json['role2'];
-    acceptedBudget = json['accepted_budget'];
     gallery = json['gallery'];
+    applicationCount = json['application_count'];
     applicationState = json['application_state'];
-    chatCount = json['chat_count'];
   }
 
   Map<String, dynamic> toJson() {
@@ -115,66 +118,22 @@ class JobDetails {
     data['province'] = this.province;
     data['date'] = this.date;
     data['time'] = this.time;
+    data['date_time'] = this.dateTime;
     data['budget'] = this.budget;
     data['state'] = this.state;
+    data['client_approve'] = this.clientApprove;
+    data['admin_approve'] = this.adminApprove;
+    data['invoice_generated'] = this.invoiceGenerated;
+    data['invoice_url'] = this.invoiceUrl;
+    data['created_at'] = this.createdAt;
     data['job_date'] = this.jobDate;
     data['creation_date'] = this.creationDate;
     data['client_name'] = this.clientName;
     data['client_image'] = this.clientImage;
     data['role'] = this.role;
-    data['professional_name'] = this.professionalName;
-    data['professional_image'] = this.professionalImage;
-    data['professional_id'] = this.professionalId;
-    data['role2'] = this.role2;
-    data['accepted_budget'] = this.acceptedBudget;
     data['gallery'] = this.gallery;
+    data['application_count'] = this.applicationCount;
     data['application_state'] = this.applicationState;
-    data['chat_count'] = this.chatCount;
-    return data;
-  }
-}
-
-class GetGalleryDetailsModel {
-  bool? success;
-  List<Gallery>? gallery;
-
-  GetGalleryDetailsModel({this.success, this.gallery});
-
-  GetGalleryDetailsModel.fromJson(Map<String, dynamic> json) {
-    success = json['success'];
-    if (json['gallery'] != null) {
-      gallery = <Gallery>[];
-      json['gallery'].forEach((v) {
-        gallery!.add(new Gallery.fromJson(v));
-      });
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['success'] = this.success;
-    if (this.gallery != null) {
-      data['gallery'] = this.gallery!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
-}
-
-class Gallery {
-  String? mediaUrl;
-  String? mediaName;
-
-  Gallery({this.mediaUrl, this.mediaName});
-
-  Gallery.fromJson(Map<String, dynamic> json) {
-    mediaUrl = json['media_url'];
-    mediaName = json['media_name'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['media_url'] = this.mediaUrl;
-    data['media_name'] = this.mediaName;
     return data;
   }
 }

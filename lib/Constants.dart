@@ -42,6 +42,9 @@ class ApiEndPoints {
   static const String getGalleryDetails = "worker/jobs/job-gallery";
   static const String applyForJobProfessional =
       "/worker/jobs/add-job-application";
+  static const String getClientJobApplications =
+      '/worker/jobs/job-applications';
+  static const String getClientJobDetails = "/worker/jobs/job-overview";
 }
 
 class DashboardFilters {
@@ -97,4 +100,12 @@ class SelectionType {
   static const int signIn = 2;
   static const int searchJobs = 1;
   static const int myJobs = 2;
+}
+
+class JobStatus {
+  static const String published = "Published";
+  static const String rejected = "Rejected";
+  static const String pending = "Pending";
+  static const String completed = "Completed";
+  static const String applied = "Applied";
 }

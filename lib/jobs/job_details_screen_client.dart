@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/chat/chat_screen.dart';
 import 'package:g_worker_app/colors.dart';
+import 'package:g_worker_app/jobs/provider/get_client_job_list_provider.dart';
 import 'package:g_worker_app/jobs/provider/get_professional_job_list_provider.dart';
 import 'package:g_worker_app/server_connection/api_client.dart';
 
@@ -12,26 +13,27 @@ import 'package:provider/provider.dart';
 import '../Constants.dart';
 import '../common/common_buttons.dart';
 
-class JobDetailsScreen extends StatefulWidget {
-  const JobDetailsScreen({
+class JobDetailsClientScreen extends StatefulWidget {
+  const JobDetailsClientScreen({
     Key? key,
     required this.jobId,
   }) : super(key: key);
 
   final String? jobId;
+
   @override
-  State<JobDetailsScreen> createState() => _JobDetailsScreenState();
+  State<JobDetailsClientScreen> createState() => _JobDetailsClientScreenState();
 }
 
-class _JobDetailsScreenState extends State<JobDetailsScreen> {
+class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
   bool isSelected = false;
   bool isApply = false;
   bool isReject = false;
   int selectedType = 1;
 
   getJobDetails() {
-    Provider.of<GetProfessionalJobListProvider>(context, listen: false)
-        .getDetailsProfessional(context, widget.jobId);
+    Provider.of<GetClientJobListProvider>(context, listen: false)
+        .getDetailsClient(context, widget.jobId);
     Provider.of<GetProfessionalJobListProvider>(context, listen: false)
         .getGallery(context, widget.jobId);
   }
@@ -84,8 +86,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    Provider.of<GetProfessionalJobListProvider>(context, listen: false)
-        .clearDataModel();
+    // Provider.of<GetClientJobListProvider>(context, listen: false)
+    //     .clearDataModel(context);
   }
 
   @override
@@ -104,7 +106,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           Column(
             children: [
               const SizedBox(height: 35),
-              Consumer<GetProfessionalJobListProvider>(
+              Consumer<GetClientJobListProvider>(
                 builder: (context, value, child) {
                   return value.detailsModel == null
                       ? const Center(
@@ -120,7 +122,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                   child: Column(
                     children: [
                       const SizedBox(height: 10),
-                      Consumer<GetProfessionalJobListProvider>(
+                      Consumer<GetClientJobListProvider>(
                         builder: (context, value, child) {
                           return value.detailsModel == null
                               ? const Center(
@@ -140,7 +142,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                       const SizedBox(height: 12),
                       selectedType == 1
                           ? Expanded(
-                              child: Consumer<GetProfessionalJobListProvider>(
+                              child: Consumer<GetClientJobListProvider>(
                                 builder: (context, value, child) {
                                   return value.detailsModel == null
                                       ? const Center(
@@ -171,7 +173,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                                   ? Expanded(
                                       child: SingleChildScrollView(
                                           child: applicationWidgetView()),
-                                      // Consumer<GetProfessionalJobListProvider>(
+                                      // Consumer<GetClientJobListProvider>(
                                       //   builder: (context, value, child) {
                                       //     return value.galleryDetailsModel ==
                                       //             null
@@ -192,16 +194,16 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
               )
             ],
           ),
-          Consumer<GetProfessionalJobListProvider>(
-            builder: (context, value, child) {
-              return value.detailsModel == null
-                  ? const SizedBox.shrink()
-                  : value.detailsModel!.jobDetails!.applicationState! ==
-                          JobStatus.published
-                      ? bottomView()
-                      : rejectView();
-            },
-          ),
+          // Consumer<GetClientJobListProvider>(
+          //   builder: (context, value, child) {
+          //     return value.detailsModel == null
+          //         ? const SizedBox.shrink()
+          //         : value.detailsModel!.jobDetails!.applicationState! ==
+          //                 JobStatus.published
+          //             ? bottomView()
+          //             : rejectView();
+          //   },
+          // ),
           // isReject == true
           //     ? const SizedBox.shrink()
           //     : isApply == true
@@ -220,7 +222,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
     return Column(
       children: [
         jobDetailView("assets/icons/marker_location.png",
-            "${Provider.of<GetProfessionalJobListProvider>(context, listen: false).detailsModel!.jobDetails!.street!}, ${Provider.of<GetProfessionalJobListProvider>(context, listen: false).detailsModel!.jobDetails!.province!}"),
+            "${Provider.of<GetClientJobListProvider>(context, listen: false).detailsModel!.jobDetails!.street!}, ${Provider.of<GetClientJobListProvider>(context, listen: false).detailsModel!.jobDetails!.province!}"),
         const SizedBox(height: 12),
         Container(
           width: double.infinity,
@@ -233,42 +235,41 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
             leading: CircleAvatar(
               backgroundColor: Colors.grey.withOpacity(0.2),
               radius: 20,
-              child: Provider.of<GetProfessionalJobListProvider>(context,
-                              listen: false)
-                          .detailsModel!
-                          .jobDetails!
-                          .clientImage !=
-                      null
-                  ? Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(
-                          60.0,
-                        ),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(
-                          60.0,
-                        ),
-                        child: Image.network(
-                          Provider.of<GetProfessionalJobListProvider>(context,
-                                  listen: false)
+              child:
+                  Provider.of<GetClientJobListProvider>(context, listen: false)
                               .detailsModel!
                               .jobDetails!
-                              .clientImage!,
-                          fit: BoxFit.fitWidth,
+                              .clientImage !=
+                          null
+                      ? Container(
+                          width: 40,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(
+                              60.0,
+                            ),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(
+                              60.0,
+                            ),
+                            child: Image.network(
+                              Provider.of<GetClientJobListProvider>(context,
+                                      listen: false)
+                                  .detailsModel!
+                                  .jobDetails!
+                                  .clientImage!,
+                              fit: BoxFit.fitWidth,
+                            ),
+                          ),
+                        )
+                      : Text(
+                          "${Provider.of<GetClientJobListProvider>(context, listen: false).detailsModel!.jobDetails!.clientName!.substring(0, 1)}${Provider.of<GetClientJobListProvider>(context, listen: false).detailsModel!.jobDetails!.clientName!.substring(0, 1)}",
+                          style: const TextStyle(color: black343),
                         ),
-                      ),
-                    )
-                  : Text(
-                      "${Provider.of<GetProfessionalJobListProvider>(context, listen: false).detailsModel!.jobDetails!.clientName!.substring(0, 1)}${Provider.of<GetProfessionalJobListProvider>(context, listen: false).detailsModel!.jobDetails!.clientName!.substring(0, 1)}",
-                      style: const TextStyle(color: black343),
-                    ),
             ),
             title: Text(
-              Provider.of<GetProfessionalJobListProvider>(context,
-                      listen: false)
+              Provider.of<GetClientJobListProvider>(context, listen: false)
                   .detailsModel!
                   .jobDetails!
                   .clientName!,
@@ -335,13 +336,13 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         ),
         const SizedBox(height: 12),
         jobDetailView("assets/icons/calendar.png",
-            "${Provider.of<GetProfessionalJobListProvider>(context, listen: false).detailsModel!.jobDetails!.jobDate}"),
+            "${Provider.of<GetClientJobListProvider>(context, listen: false).detailsModel!.jobDetails!.jobDate}"),
         const SizedBox(height: 12),
         jobDetailView("assets/icons/briefcase.png",
-            "${Provider.of<GetProfessionalJobListProvider>(context, listen: false).detailsModel!.jobDetails!.category}"),
+            "${Provider.of<GetClientJobListProvider>(context, listen: false).detailsModel!.jobDetails!.category}"),
         const SizedBox(height: 12),
         jobDetailView("assets/icons/coins_stacked.png",
-            "${Provider.of<GetProfessionalJobListProvider>(context, listen: false).detailsModel!.jobDetails!.budget}"),
+            "${Provider.of<GetClientJobListProvider>(context, listen: false).detailsModel!.jobDetails!.budget}"),
         const SizedBox(height: 12),
         Container(
           width: double.infinity,
@@ -363,7 +364,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
-                    "${Provider.of<GetProfessionalJobListProvider>(context, listen: false).detailsModel!.jobDetails!.description}",
+                    "${Provider.of<GetClientJobListProvider>(context, listen: false).detailsModel!.jobDetails!.description}",
                     style: TextStyle(
                       color: black343,
                       fontSize: 12,
@@ -381,7 +382,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   }
 
   Widget Gallary() {
-    //  var newData = context.read<GetProfessionalJobListProvider>();
+    //  var newData = context.read<GetClientJobListProvider>();
 
     return Column(
       children: [
@@ -445,90 +446,92 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   }
 
   Widget applicationWidgetView() {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: chatlist.length,
-      padding: EdgeInsets.zero,
-      physics: const NeverScrollableScrollPhysics(),
-      itemBuilder: (context, index) {
-        String b = chatlist[index]["chatpending"].toString();
-        double aaa = b.length.toDouble() + 10.0;
-        return InkWell(
-          onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const ChatScreen(),
-                ));
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Container(
-              decoration: BoxDecoration(
-                  color: white, borderRadius: BorderRadius.circular(12)),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(children: [
-                  CircleAvatar(
-                    child: Image.asset("${chatlist[index]["image"]}"),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "${chatlist[index]["name"]}",
-                        style: const TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.w700),
-                      ),
-                      Text(
-                        "${chatlist[index]["money"]}",
-                        style: const TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.w500),
-                      ),
-                    ],
-                  ),
-                  const Spacer(),
-                  Container(
-                    child: Stack(
-                      alignment: Alignment.center,
+    return Consumer<GetClientJobListProvider>(builder: (context, value, child) {
+      return ListView.builder(
+        shrinkWrap: true,
+        itemCount: chatlist.length,
+        padding: EdgeInsets.zero,
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (context, index) {
+          String b = chatlist[index]["chatpending"].toString();
+          double aaa = b.length.toDouble() + 10.0;
+          return InkWell(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ChatScreen(),
+                  ));
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Container(
+                decoration: BoxDecoration(
+                    color: white, borderRadius: BorderRadius.circular(12)),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(children: [
+                    CircleAvatar(
+                      child: Image.asset("${chatlist[index]["image"]}"),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
-                          padding: EdgeInsets.only(top: 5.0, right: aaa),
-                          child: Image.asset(
-                            "assets/icons/message_chat.png",
-                            height: 25,
-                            width: 50,
-                          ),
+                        Text(
+                          "${chatlist[index]["name"]}",
+                          style: const TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.w700),
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(left: aaa),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: yellowF4D,
-                                borderRadius: BorderRadius.circular(13)),
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 5.0),
-                              child: Text(
-                                "${chatlist[index]["chatpending"]}",
-                                style: TextStyle(fontSize: 12),
-                              ),
-                            ),
-                          ),
+                        Text(
+                          "${chatlist[index]["money"]}",
+                          style: const TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
-                  )
-                ]),
+                    const Spacer(),
+                    Container(
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(top: 5.0, right: aaa),
+                            child: Image.asset(
+                              "assets/icons/message_chat.png",
+                              height: 25,
+                              width: 50,
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: aaa),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: yellowF4D,
+                                  borderRadius: BorderRadius.circular(13)),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 5.0),
+                                child: Text(
+                                  "${chatlist[index]["chatpending"]}",
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ]),
+                ),
               ),
             ),
-          ),
-        );
-      },
-    );
+          );
+        },
+      );
+    });
   }
 
   Widget appBarView() {
@@ -545,7 +548,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         child: const Icon(Icons.arrow_back, color: splashColor1, size: 20),
       ),
       title: Text(
-        tr('admin.dashboard.${Provider.of<GetProfessionalJobListProvider>(context, listen: false).detailsModel!.jobDetails!.category!.toLowerCase()}'),
+        tr('admin.dashboard.${Provider.of<GetClientJobListProvider>(context, listen: false).detailsModel!.jobDetails!.category!.toLowerCase()}'),
         style: const TextStyle(
           color: splashColor1,
           fontSize: 18,
@@ -574,70 +577,64 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         onPressed: () {},
         height: 22,
         minWidth: 73,
-        color:
-            Provider.of<GetProfessionalJobListProvider>(context, listen: false)
+        color: Provider.of<GetClientJobListProvider>(context, listen: false)
+                    .detailsModel!
+                    .jobDetails!
+                    .applicationState ==
+                JobStatus.published
+            ? greenE1F
+            : Provider.of<GetClientJobListProvider>(context, listen: false)
                         .detailsModel!
                         .jobDetails!
                         .applicationState ==
-                    JobStatus.published
-                ? greenE1F
-                : Provider.of<GetProfessionalJobListProvider>(context,
-                                listen: false)
+                    JobStatus.applied
+                ? Color(0xffC1D0E7)
+                : Provider.of<GetClientJobListProvider>(context, listen: false)
                             .detailsModel!
                             .jobDetails!
                             .applicationState ==
-                        JobStatus.applied
-                    ? Color(0xffC1D0E7)
-                    : Provider.of<GetProfessionalJobListProvider>(context,
+                        JobStatus.rejected
+                    ? redE45
+                    : Provider.of<GetClientJobListProvider>(context,
                                     listen: false)
                                 .detailsModel!
                                 .jobDetails!
                                 .applicationState ==
-                            JobStatus.rejected
-                        ? redE45
-                        : Provider.of<GetProfessionalJobListProvider>(context,
+                            JobStatus.pending
+                        ? yellowF4D
+                        : Provider.of<GetClientJobListProvider>(context,
                                         listen: false)
                                     .detailsModel!
                                     .jobDetails!
                                     .applicationState ==
-                                JobStatus.pending
-                            ? yellowF4D
-                            : Provider.of<GetProfessionalJobListProvider>(
-                                            context,
-                                            listen: false)
-                                        .detailsModel!
-                                        .jobDetails!
-                                        .applicationState ==
-                                    JobStatus.completed
-                                ? green26A
-                                : Colors.grey,
+                                JobStatus.completed
+                            ? green26A
+                            : Colors.grey,
         elevation: 0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
         child: Text(
-          '${Provider.of<GetProfessionalJobListProvider>(context, listen: false).detailsModel!.jobDetails!.applicationState}',
+          '${Provider.of<GetClientJobListProvider>(context, listen: false).detailsModel!.jobDetails!.applicationState}',
           style: TextStyle(
-            color: Provider.of<GetProfessionalJobListProvider>(context,
-                            listen: false)
+            color: Provider.of<GetClientJobListProvider>(context, listen: false)
                         .detailsModel!
                         .jobDetails!
                         .applicationState ==
                     JobStatus.published
                 ? green26A
-                : Provider.of<GetProfessionalJobListProvider>(context,
-                                listen: false)
+                : Provider.of<GetClientJobListProvider>(context, listen: false)
                             .detailsModel!
                             .jobDetails!
                             .applicationState ==
                         JobStatus.applied
                     ? Colors.blue
-                    : Provider.of<GetProfessionalJobListProvider>(context,
+                    : Provider.of<GetClientJobListProvider>(context,
                                     listen: false)
                                 .detailsModel!
                                 .jobDetails!
                                 .applicationState ==
                             JobStatus.pending
                         ? primaryColor
-                        : Provider.of<GetProfessionalJobListProvider>(context,
+                        : Provider.of<GetClientJobListProvider>(context,
                                         listen: false)
                                     .detailsModel!
                                     .jobDetails!
@@ -717,281 +714,6 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         ),
       ),
     );
-  }
-
-  Widget bottomView() {
-    return Positioned(
-      bottom: 14,
-      left: 14,
-      right: 14,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: whiteF2F,
-          boxShadow: [
-            BoxShadow(
-              color: green0D3.withOpacity(0.2),
-              blurRadius: 42,
-              offset: const Offset(0, -5),
-            ),
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(12),
-          child: Row(
-            children: [
-              Expanded(
-                child: GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () {},
-                  child: Container(
-                    height: 56,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: Colors.white),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            "assets/icons/coins-stacked-01.png",
-                            height: 24,
-                            width: 24,
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                tr('admin.job_detail.Price'),
-                                style: const TextStyle(
-                                  color: black343,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                              const Text(
-                                "100,00",
-                                style: TextStyle(
-                                  color: black343,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Image.asset("assets/icons/currency-euro.png",
-                              height: 24, width: 24),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () {
-                    askForApply(context);
-                  },
-                  child: Container(
-                    height: 56,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: primaryColor),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          tr('admin.job_detail.Apply').toUpperCase(),
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        const Icon(Icons.arrow_forward,
-                            color: Colors.white, size: 22)
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  void askForApply(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (ctx) => AlertDialog(
-            insetPadding: EdgeInsets.symmetric(horizontal: 13),
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8.0))),
-            content: jobApplyPopPupView()));
-  }
-
-  Widget jobApplyPopPupView() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        CircleAvatar(
-          radius: 30,
-          backgroundColor: whiteEFE,
-          child: Image.asset(
-            "assets/icons/check_circle.png",
-            height: 24,
-            width: 24,
-          ),
-        ),
-        const SizedBox(height: 14),
-        Text(
-          tr('Professional.apply_job_dialogue.are_you_sure_apply'),
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: splashColor1,
-            fontSize: 24,
-            fontFamily: 'Manrope',
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          tr('Professional.apply_job_dialogue.you_can_change'),
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: black343,
-            fontSize: 14,
-            fontFamily: 'Manrope',
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        const SizedBox(height: 24),
-        MaterialButton(
-          onPressed: () {
-            setState(() {
-              ApiClient().applyForJobProfessional(
-                  Provider.of<GetProfessionalJobListProvider>(context,
-                          listen: false)
-                      .detailsModel!
-                      .jobDetails!
-                      .id!,
-                  Provider.of<GetProfessionalJobListProvider>(context,
-                          listen: false)
-                      .detailsModel!
-                      .jobDetails!
-                      .budget!
-                      .toString(),
-                  context);
-              Provider.of<GetProfessionalJobListProvider>(context,
-                      listen: false)
-                  .getDataProfessional(
-                      "All", "All", false, context, "All", "All");
-              isApply = true;
-              Navigator.pop(context);
-            });
-          },
-          height: 48,
-          minWidth: double.infinity,
-          color: splashColor1,
-          elevation: 0,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                tr('Professional.apply_job_dialogue.Apply').toUpperCase(),
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(width: 10),
-              Image.asset(
-                "assets/icons/check_circle.png",
-                color: white,
-                height: 22,
-                width: 22,
-              )
-            ],
-          ),
-        ),
-        const SizedBox(height: 24),
-        GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                tr('Professional.apply_job_dialogue.Cancel').toUpperCase(),
-                style: const TextStyle(
-                  color: splashColor1,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(width: 10),
-              const Icon(Icons.close, color: splashColor1, size: 22)
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget rejectView() {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 15),
-      child: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: () {
-          askForReject(context);
-        },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              tr('admin.job_detail.reject').toUpperCase(),
-              style: const TextStyle(
-                color: redE45,
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            const SizedBox(width: 5),
-            Image.asset("assets/icons/close_square.png",
-                height: 30, width: 30, color: redE45),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void askForReject(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (ctx) => AlertDialog(
-            insetPadding: EdgeInsets.symmetric(horizontal: 13),
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8.0))),
-            content: jobRejectView()));
   }
 
   Widget jobRejectView() {

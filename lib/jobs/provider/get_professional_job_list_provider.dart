@@ -49,20 +49,6 @@ class GetProfessionalJobListProvider extends ChangeNotifier {
             context, category, province, isSelf, state, jobState)
         .then((value) {
       _model = value;
-      // for (var element in _model!.jobs) {
-      //   if (element.category == 'Babysitting') {
-      //     _babySitting!.add(element);
-      //   }
-      //   if (element.category == 'Cleaning') {
-      //     _cleaning!.add(element);
-      //   }
-      //   if (element.category == 'Handyman') {
-      //     _handyMan!.add(element);
-      //   }
-      //   if (element.category == 'Tutoring') {
-      //     _tutoring!.add(element);
-      //   }
-      // }
 
       setIsLogging(false);
       notifyListeners();
