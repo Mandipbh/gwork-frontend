@@ -19,13 +19,13 @@ class GetClientJobListProvider extends ChangeNotifier {
   GetClientApplicationsModel? _applicationsModel;
   GetClientApplicationsModel? get applicationsModel => _applicationsModel;
 
-  bool _isLogging = false;
+  bool _isLogging = true;
 
   bool getIsLogging() => _isLogging;
 
   setIsLogging(bool value) {
     _isLogging = value;
-    //notifyListeners();
+    notifyListeners();
   }
 
   getDetailsClient(BuildContext context, String? jobId) {
@@ -46,7 +46,6 @@ class GetClientJobListProvider extends ChangeNotifier {
     setIsLogging(true);
     ApiClient().getClientJobService(context, state, category).then((value) {
       _model = value;
-
       setIsLogging(false);
       notifyListeners();
     });

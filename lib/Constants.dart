@@ -56,13 +56,13 @@ class DashboardFilters {
 }
 
 class JobsFilters {
-  static const int all = 0;
-  static const int applied = 1;
-  static const int accepted = 2;
-  static const int doing = 3;
-  static const int rejected = 4;
-  static const int completed = 5;
-  static const int expired = 6;
+  static const String all = 'All';
+  static const String applied = 'Applied';
+  static const String accepted = 'Accepted';
+  static const String doing = 'Doing';
+  static const String rejected = 'Rejected';
+  static const String completed = 'Completed';
+  static const String expired = 'Expired';
 }
 
 class JobsType {
