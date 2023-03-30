@@ -17,6 +17,8 @@ import 'package:g_worker_app/sign_up/sign_up_widgets/upload_document_view/upload
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
+import '../Constants.dart';
+
 void base64EncodeFile(List<dynamic> args) {
   final SendPort sendPort = args[0] as SendPort;
   final File file = args[1] as File;
@@ -169,4 +171,38 @@ void editProfilePicture(BuildContext context) {
       ),
     ),
   );
+}
+
+Widget statusChip(String state, BuildContext context) {
+  return Chip(
+      backgroundColor: state == JobStatus.published
+          ? publishedChipColor
+          : state == JobStatus.accepted
+              ? acceptedChipColor
+              : state == JobStatus.doing
+                  ? doingChipColor
+                  : state == JobStatus.pending
+                      ? pendingChipColor
+                      : state == JobStatus.completed
+                          ? completedChipColor
+                          : state == JobStatus.rejected
+                              ? rejectedChipColor
+                              : state == JobStatus.applied
+                                  ? doingChipColor.withOpacity(0.1)
+                                  : state == JobStatus.expired
+                                      ? rejectedChipColor.withOpacity(0.1)
+                                      : Colors.white,
+      label: Text(state,
+          style: Theme.of(context).textTheme.caption!.apply(
+              color: state == JobStatus.published
+                  ? green26A
+                  : state == JobStatus.accepted
+                      ? acceptedTagTextColor
+                      : state == JobStatus.applied
+                          ? doingChipColor
+                          : state == JobStatus.pending
+                              ? primaryColor
+                              : state == JobStatus.expired
+                                  ? rejectedChipColor
+                                  : Colors.white)));
 }

@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 
 import '../Constants.dart';
 import '../common/common_buttons.dart';
+import '../common/common_widgets.dart';
 import 'job_detail_screen.dart';
 
 class ClientJobListScreen extends StatefulWidget {
@@ -1058,12 +1059,9 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                                           ],
                                         ),
                                         Text(
-                                          value.model!.jobs[index].description
-                                                      .length >
-                                                  20
-                                              ? "${value.model!.jobs[index].description.substring(0, 20)}..."
-                                              : value.model!.jobs[index]
-                                                  .description,
+                                          value.model!.jobs[index].description,
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
                                           style: const TextStyle(
                                             color: black343,
                                             fontSize: 14,
@@ -1074,7 +1072,8 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                                         Row(
                                           children: [
                                             statusChip(
-                                                value.model!.jobs[index].state),
+                                                value.model!.jobs[index].state,
+                                                context),
                                             const SizedBox(width: 4),
                                             Text(
                                               value.model!.jobs[index].jobDate,
@@ -1107,32 +1106,6 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                     );
             },
           );
-  }
-
-  Widget statusChip(String state) {
-    return Chip(
-        backgroundColor: state == JobStatus.published
-            ? publishedChipColor
-            : state == JobStatus.accepted
-                ? acceptedChipColor
-                : state == JobStatus.doing
-                    ? doingChipColor
-                    : state == JobStatus.pending
-                        ? pendingChipColor
-                        : state == JobStatus.completed
-                            ? completedChipColor
-                            : state == JobStatus.rejected
-                                ? rejectedChipColor
-                                : Colors.white,
-        label: Text(state,
-            style: Theme.of(context).textTheme.caption!.apply(
-                color: state == JobStatus.published
-                    ? green26A
-                    : state == JobStatus.accepted
-                        ? acceptedTagTextColor
-                        : state == JobStatus.pending
-                            ? primaryColor
-                            : Colors.white)));
   }
 
   Widget noMyJobsView() {

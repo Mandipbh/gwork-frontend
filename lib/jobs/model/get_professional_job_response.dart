@@ -1,13 +1,12 @@
 class GetProfessionalJobListModel {
-  GetProfessionalJobListModel({
-    this.success,
-    this.jobs,
-  });
+  GetProfessionalJobListModel({this.success, this.jobs, this.earning});
   bool? success;
   List<Jobs>? jobs;
+  String? earning;
 
   GetProfessionalJobListModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
+    earning = json['earning'];
     jobs = List.from(json['jobs']).map((e) => Jobs.fromJson(e)).toList();
   }
 
@@ -15,6 +14,7 @@ class GetProfessionalJobListModel {
     final _data = <String, dynamic>{};
     _data['success'] = success;
     _data['jobs'] = jobs;
+    _data['earning'] = earning;
     return _data;
   }
 }

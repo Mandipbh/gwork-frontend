@@ -110,4 +110,5 @@ class JobStatus {
   static const String applied = "Applied";
   static const String accepted = "Accepted";
   static const String doing = "Doing";
+  static const String expired = "Expired";
 }

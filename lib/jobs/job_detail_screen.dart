@@ -11,6 +11,7 @@ import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
 import 'package:provider/provider.dart';
 import '../Constants.dart';
 import '../common/common_buttons.dart';
+import '../common/common_widgets.dart';
 
 class JobDetailsScreen extends StatefulWidget {
   const JobDetailsScreen({
@@ -127,7 +128,14 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                               ? const Center(
                                   child: SizedBox(),
                                 )
-                              : statusView();
+                              : statusChip(
+                                  Provider.of<GetProfessionalJobListProvider>(
+                                          context,
+                                          listen: false)
+                                      .detailsModel!
+                                      .jobDetails!
+                                      .applicationState!,
+                                  context);
                         },
                       ),
                       const SizedBox(height: 12),
@@ -565,92 +573,6 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
               )
             : const SizedBox.shrink(),
       ],
-    );
-  }
-
-  Widget statusView() {
-    //TODO add status
-    return Center(
-      child: MaterialButton(
-        onPressed: () {},
-        height: 22,
-        minWidth: 73,
-        color:
-            Provider.of<GetProfessionalJobListProvider>(context, listen: false)
-                        .detailsModel!
-                        .jobDetails!
-                        .applicationState ==
-                    JobStatus.published
-                ? greenE1F
-                : Provider.of<GetProfessionalJobListProvider>(context,
-                                listen: false)
-                            .detailsModel!
-                            .jobDetails!
-                            .applicationState ==
-                        JobStatus.applied
-                    ? Color(0xffC1D0E7)
-                    : Provider.of<GetProfessionalJobListProvider>(context,
-                                    listen: false)
-                                .detailsModel!
-                                .jobDetails!
-                                .applicationState ==
-                            JobStatus.rejected
-                        ? redE45
-                        : Provider.of<GetProfessionalJobListProvider>(context,
-                                        listen: false)
-                                    .detailsModel!
-                                    .jobDetails!
-                                    .applicationState ==
-                                JobStatus.pending
-                            ? yellowF4D
-                            : Provider.of<GetProfessionalJobListProvider>(
-                                            context,
-                                            listen: false)
-                                        .detailsModel!
-                                        .jobDetails!
-                                        .applicationState ==
-                                    JobStatus.completed
-                                ? green26A
-                                : Colors.grey,
-        elevation: 0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
-        child: Text(
-          '${Provider.of<GetProfessionalJobListProvider>(context, listen: false).detailsModel!.jobDetails!.applicationState}',
-          style: TextStyle(
-            color: Provider.of<GetProfessionalJobListProvider>(context,
-                            listen: false)
-                        .detailsModel!
-                        .jobDetails!
-                        .applicationState ==
-                    JobStatus.published
-                ? green26A
-                : Provider.of<GetProfessionalJobListProvider>(context,
-                                listen: false)
-                            .detailsModel!
-                            .jobDetails!
-                            .applicationState ==
-                        JobStatus.applied
-                    ? Colors.blue
-                    : Provider.of<GetProfessionalJobListProvider>(context,
-                                    listen: false)
-                                .detailsModel!
-                                .jobDetails!
-                                .applicationState ==
-                            JobStatus.pending
-                        ? primaryColor
-                        : Provider.of<GetProfessionalJobListProvider>(context,
-                                        listen: false)
-                                    .detailsModel!
-                                    .jobDetails!
-                                    .applicationState ==
-                                JobStatus.completed
-                            ? Colors.white
-                            : Colors.black,
-            fontSize: 12,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-      ),
     );
   }
 
