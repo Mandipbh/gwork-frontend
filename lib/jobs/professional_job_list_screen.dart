@@ -668,67 +668,69 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Text(
-                                                '${value.model!.jobs![index].category}'
-                                                    .toUpperCase(),
-                                                style: const TextStyle(
-                                                  color: black343,
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w700,
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  '${value.model!.jobs![index].category}'
+                                                      .toUpperCase(),
+                                                  style: const TextStyle(
+                                                    color: black343,
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
                                                 ),
-                                              ),
-                                              const SizedBox(width: 8),
-                                              const Icon(
-                                                  Icons.location_on_outlined,
-                                                  color: Colors.black,
-                                                  size: 22),
-                                              const SizedBox(width: 3),
-                                              Text(
-                                                '${value.model!.jobs![index].street},${value.model!.jobs![index].province},',
-                                                style: TextStyle(
-                                                  color: splashColor1,
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w400,
+                                                const SizedBox(width: 8),
+                                                const Icon(
+                                                    Icons.location_on_outlined,
+                                                    color: Colors.black,
+                                                    size: 22),
+                                                const SizedBox(width: 3),
+                                                Text(
+                                                  '${value.model!.jobs![index].street},${value.model!.jobs![index].province},',
+                                                  style: TextStyle(
+                                                    color: splashColor1,
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                          const SizedBox(height: 4),
-                                          Text(
-                                            '${value.model!.jobs![index].description}, max ${value.model!.jobs![index].budget}\$',
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                            style: TextStyle(
-                                              color: black343,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w700,
+                                              ],
                                             ),
-                                          ),
-                                          const SizedBox(height: 4),
-                                          Row(
-                                            children: [
-                                              statusChip(
-                                                  value.model!.jobs![index]
-                                                      .applicationState!,
-                                                  context),
-                                              const SizedBox(width: 8),
-                                              Text(
-                                                '${value.model!.jobs![index].creationDate}',
-                                                style: TextStyle(
-                                                  color: black343,
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w700,
-                                                ),
+                                            const SizedBox(height: 4),
+                                            Text(
+                                              '${value.model!.jobs![index].description}, max ${value.model!.jobs![index].budget}\$',
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              style: TextStyle(
+                                                color: black343,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w700,
                                               ),
-                                            ],
-                                          ),
-                                        ],
+                                            ),
+                                            const SizedBox(height: 4),
+                                            Row(
+                                              children: [
+                                                statusChip(
+                                                    value.model!.jobs![index]
+                                                        .applicationState!,
+                                                    context),
+                                                const SizedBox(width: 8),
+                                                Text(
+                                                  '${value.model!.jobs![index].creationDate}',
+                                                  style: TextStyle(
+                                                    color: black343,
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                       Row(
                                         children: const [

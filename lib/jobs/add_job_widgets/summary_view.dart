@@ -179,13 +179,14 @@ class _SummaryViewState extends State<SummaryView> {
                     width: 10,
                   ),
                   Text(
-                    value.category == 1
-                        ? "Cleaning"
-                        : value.category == 2
-                            ? "Babysitting"
-                            : value.category == 3
-                                ? "Tutoring"
-                                : "HandyMan",
+                    value.category.toString(),
+                    // value.category == 1
+                    //     ? "Cleaning"
+                    //     : value.category == 2
+                    //         ? "Babysitting"
+                    //         : value.category == 3
+                    //             ? "Tutoring"
+                    //             : "HandyMan",
                     style: const TextStyle(
                         fontSize: 14, fontWeight: FontWeight.w700),
                   )

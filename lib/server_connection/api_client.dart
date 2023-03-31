@@ -702,7 +702,8 @@ class ApiClient {
       print("RequestOtpPhone :: $phoneNumber");
       print("RequestOtpPhone :: ${response.data}");
       return RequestOtpModel.fromJson(response.data);
-    } on DioError {
+    } on DioError catch (e) {
+      log(e.toString());
       ErrorLoader(
           context, "Oops, something is wrong with your data. Try again.");
       Provider.of<RecoverPasswordProvider>(context, listen: false)
@@ -710,6 +711,7 @@ class ApiClient {
       print("----DIO ERROR Request Otp----");
       rethrow;
     } catch (e) {
+      log(e.toString());
       ErrorLoader(
           context, "Oops, something is wrong with your data. Try again.");
       Provider.of<RecoverPasswordProvider>(context, listen: false)

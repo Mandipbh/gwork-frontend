@@ -301,8 +301,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                     onTap: () {
                       Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => const ChatScreen()),
+                          MaterialPageRoute(builder: (context) => ChatScreen()),
                           (Route<dynamic> route) => true);
                     },
                     child: Stack(
@@ -346,7 +345,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         jobDetailView("assets/icons/calendar.png",
             "${Provider.of<GetProfessionalJobListProvider>(context, listen: false).detailsModel!.jobDetails!.jobDate}"),
         const SizedBox(height: 12),
-        jobDetailView("assets/icons/briefcase.png",
+        jobDetailView("assets/images/briefcase.png",
             "${Provider.of<GetProfessionalJobListProvider>(context, listen: false).detailsModel!.jobDetails!.category}"),
         const SizedBox(height: 12),
         jobDetailView("assets/icons/coins_stacked.png",
@@ -467,7 +466,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const ChatScreen(),
+                  builder: (context) => ChatScreen(),
                 ));
           },
           child: Padding(

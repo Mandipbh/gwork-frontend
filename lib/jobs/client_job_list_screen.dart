@@ -730,63 +730,67 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Text(
-                                            value.model!.jobs[index].category
-                                                .toUpperCase(),
-                                            style: const TextStyle(
-                                              color: black343,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w700,
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text(
+                                              value.model!.jobs[index].category
+                                                  .toUpperCase(),
+                                              style: const TextStyle(
+                                                color: black343,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w700,
+                                              ),
                                             ),
-                                          ),
-                                          const SizedBox(width: 8),
-                                          const Icon(Icons.location_on_outlined,
-                                              color: Colors.black, size: 22),
-                                          const SizedBox(width: 3),
-                                          Text(
-                                            '${value.model!.jobs[index].street}, ${value.model!.jobs[index].province}',
-                                            style: const TextStyle(
-                                              color: splashColor1,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w400,
+                                            const SizedBox(width: 8),
+                                            const Icon(
+                                                Icons.location_on_outlined,
+                                                color: Colors.black,
+                                                size: 22),
+                                            const SizedBox(width: 3),
+                                            Text(
+                                              '${value.model!.jobs[index].street}, ${value.model!.jobs[index].province}',
+                                              style: const TextStyle(
+                                                color: splashColor1,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w400,
+                                              ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                      Text(
-                                        value.model!.jobs[index].description,
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 1,
-                                        style: const TextStyle(
-                                          color: black343,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w700,
+                                          ],
                                         ),
-                                      ),
-                                      const SizedBox(height: 4),
-                                      Row(
-                                        children: [
-                                          statusChip(
-                                              value.model!.jobs[index].state,
-                                              context),
-                                          const SizedBox(width: 4),
-                                          Text(
-                                            value.model!.jobs[index].jobDate,
-                                            style: const TextStyle(
-                                              color: black343,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w700,
-                                            ),
+                                        Text(
+                                          value.model!.jobs[index].description,
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                          style: const TextStyle(
+                                            color: black343,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w700,
                                           ),
-                                        ],
-                                      ),
-                                    ],
+                                        ),
+                                        const SizedBox(height: 4),
+                                        Row(
+                                          children: [
+                                            statusChip(
+                                                value.model!.jobs[index].state,
+                                                context),
+                                            const SizedBox(width: 4),
+                                            Text(
+                                              value.model!.jobs[index].jobDate,
+                                              style: const TextStyle(
+                                                color: black343,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   Row(
                                     children: const [
