@@ -69,6 +69,8 @@ class JobsFilters {
   static const String rejected = 'Rejected';
   static const String completed = 'Completed';
   static const String expired = 'Expired';
+  static const String pending = 'Pending';
+  static const String published = 'Published';
 }
 
 class JobsType {

@@ -270,7 +270,7 @@
       "Birth_date": "Data di nascita"
     },
     "Accept_job": {
-      "status_can’t_be_changed":"Una volta completato, lo stato non può essere modificato.",
+      "status_cant_be_changed":"Una volta completato, lo stato non può essere modificato.",
       "Cancel": "CANCELLA"
     },
     "reject_job":{

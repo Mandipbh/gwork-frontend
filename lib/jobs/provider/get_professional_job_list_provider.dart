@@ -150,13 +150,12 @@ class GetProfessionalJobListProvider extends ChangeNotifier {
     //notifyListeners();
   }
 
-  clearProvider() {
-    _model = null;
-  }
-
   clearDataModel() {
     _galleryDetailsModel = null;
     _detailsModel = null;
+    _isOverviewLoading = true;
+    _isGalleryLoading = true;
+    _isApplicationsLoading = true;
     oddList = [];
     evenList = [];
   }

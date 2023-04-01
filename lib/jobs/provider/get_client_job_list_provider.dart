@@ -24,16 +24,40 @@ class GetClientJobListProvider extends ChangeNotifier {
 
   GetClientApplicationsModel? get applicationsModel => _applicationsModel;
 
-  bool _isLoading = true;
+  bool _isListLoading = true;
+  bool _isOverviewLoading = true;
+  bool _isGalleryLoading = true;
+  bool _isApplicationsLoading = true;
   bool _isJobStatusUpdating = true;
 
   String _selectedFilter = JobsFilters.all;
   String _selectedJobType = JobsType.all;
 
-  bool getIsLoading() => _isLoading;
+  bool getIsListLoading() => _isListLoading;
 
-  setIsLoading(bool value) {
-    _isLoading = value;
+  setIsListLoading(bool value) {
+    _isListLoading = value;
+    notifyListeners();
+  }
+
+  bool getIsOverviewLoading() => _isOverviewLoading;
+
+  setIsOverviewLoading(bool value) {
+    _isOverviewLoading = value;
+    notifyListeners();
+  }
+
+  bool getIsGalleryLoading() => _isGalleryLoading;
+
+  setIsGalleryLoading(bool value) {
+    _isGalleryLoading = value;
+    notifyListeners();
+  }
+
+  bool getIsApplicationsLoading() => _isApplicationsLoading;
+
+  setIsApplicationsLoading(bool value) {
+    _isApplicationsLoading = value;
     notifyListeners();
   }
 
@@ -59,37 +83,37 @@ class GetClientJobListProvider extends ChangeNotifier {
   }
 
   getDetailsClient(BuildContext context, String? jobId) {
-    if (!getIsLoading()) {
-      setIsLoading(true);
+    if (!_isOverviewLoading) {
+      setIsOverviewLoading(true);
     }
     ApiClient().getClientJobDetailsService(context, jobId!).then((value) {
       if (value.success!) {
         _detailsModel = value;
-        setIsLoading(false);
+        setIsOverviewLoading(false);
         notifyListeners();
       }
     });
   }
 
-  getData(String state, String category, BuildContext context) {
-    if (!getIsLoading()) {
-      setIsLoading(true);
+  getClientJobList(String state, String category, BuildContext context) {
+    if (!_isListLoading) {
+      setIsListLoading(true);
     }
     ApiClient().getClientJobService(context, state, category).then((value) {
       _model = value;
-      setIsLoading(false);
+      setIsListLoading(false);
       notifyListeners();
     });
   }
 
   getApplicantsForClient(BuildContext context, String? jobId) async {
-    if (!getIsLoading()) {
-      setIsLoading(true);
+    if (!_isApplicationsLoading) {
+      setIsApplicationsLoading(true);
     }
     ApiClient().getClientApplications(context, jobId!).then((value) {
       if (value!.success!) {
         _applicationsModel = value;
-        setIsLoading(false);
+        setIsApplicationsLoading(false);
         notifyListeners();
       }
     });
@@ -98,20 +122,17 @@ class GetClientJobListProvider extends ChangeNotifier {
   clearDataModel(BuildContext context) {
     _detailsModel = null;
     _applicationsModel = null;
+    _isOverviewLoading = true;
+    _isGalleryLoading = true;
+    _isApplicationsLoading = true;
   }
 
-  void updateJobStatus(
+  Future<JobStatusUpdateResponse?> updateJobStatus(
       {required int status,
       required BuildContext context,
       required String jobId}) {
-    setIsJobStatusUpdating(true);
-    ApiClient()
-        .approveOrRejectJob(jobId: jobId, jobState: status, context: context)
-        .then((value) {
-      if (value!.success!) {
-        setIsJobStatusUpdating(false);
-      }
-    });
+    return ApiClient()
+        .approveOrRejectJob(jobId: jobId, jobState: status, context: context);
   }
 
   Future<JobStatusUpdateResponse?> deleteJob(

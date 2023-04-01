@@ -208,48 +208,6 @@ Widget statusChip(String state, BuildContext context) {
                                   : Colors.white)));
 }
 
-void showJobDeleteConfirmation(BuildContext context, String jobId) {
-  bool isJobUpdateLoading = false;
-  showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-          contentPadding: const EdgeInsets.all(12),
-          shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(8.0))),
-          content: StatefulBuilder(builder: (context, newState) {
-            return confirmationDialogueView(
-                context: context,
-                titleIconColor: Colors.red,
-                mainIcon: 'delete.png',
-                title: tr('client.delete_job_dialogue.are_you_sure_delete'),
-                description: tr('client.delete_job_dialogue.once_delete'),
-                button1Name: tr('client.delete_job_dialogue.cancel'),
-                button2Name: tr('client.delete_job_dialogue.delete'),
-                showLoader: isJobUpdateLoading,
-                onButton1Click: () {
-                  Navigator.pop(context);
-                  Navigator.pop(context);
-                },
-                onButton2Click: () {
-                  newState(() {
-                    isJobUpdateLoading = true;
-                  });
-                  var provider = context.read<GetClientJobListProvider>();
-                  provider
-                      .deleteJob(context: context, jobId: jobId)
-                      .then((value) {
-                    provider.getData(provider.getSelectedFilter(),
-                        provider.getSelectedJobType(), context);
-                    Navigator.of(context).pop();
-                    Navigator.of(context).pop();
-                  });
-                },
-                button2TextColor: Colors.red,
-                button2Icon: 'delete.png',
-                button1Icon: 'go_backward.png');
-          })));
-}
-
 Widget confirmationDialogueView(
     {required BuildContext context,
     String? mainIcon,

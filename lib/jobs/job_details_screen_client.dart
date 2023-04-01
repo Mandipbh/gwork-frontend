@@ -34,37 +34,9 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
         .getDetailsClient(context, widget.jobId);
     Provider.of<GetProfessionalJobListProvider>(context, listen: false)
         .getGallery(context, widget.jobId);
-
     Provider.of<GetClientJobListProvider>(context, listen: false)
         .getApplicantsForClient(context, widget.jobId);
   }
-
-  List chatlist = [
-    {
-      "image": "assets/images/Ellipse.png",
-      "name": "Devon Lane",
-      "money": "€30,00",
-      "chatpending": "1"
-    },
-    {
-      "image": "assets/images/Ellipse.png",
-      "name": "Devon Lane",
-      "money": "€30,00",
-      "chatpending": "44"
-    },
-    {
-      "image": "assets/images/Ellipse.png",
-      "name": "Devon Lane",
-      "money": "€30,00",
-      "chatpending": "144"
-    },
-    {
-      "image": "assets/images/Ellipse.png",
-      "name": "Devon Lane",
-      "money": "€30,00",
-      "chatpending": "1566"
-    },
-  ];
 
   @override
   void initState() {
@@ -89,7 +61,7 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
         },
         child: Scaffold(
           backgroundColor: whiteF2F,
-          body: jobProvider.detailsModel == null
+          body: jobProvider.getIsOverviewLoading()
               ? const Center(child: CircularProgressIndicator())
               : Stack(
                   children: [
@@ -105,14 +77,11 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                           const SizedBox(height: 12),
                           textView(),
                           const SizedBox(height: 12),
-                          Provider.of<SignUpProvider>(context, listen: false)
-                                      .userType ==
-                                  0
-                              ? tabViewClient(
-                                  jobProvider.detailsModel!.jobDetails!.state!,
-                                  jobProvider.detailsModel!.jobDetails!
-                                      .applicationCount!)
-                              : tabViewProfessional(),
+                          tabViewClient(
+                              jobProvider.detailsModel!.jobDetails!.state!,
+                              jobProvider.detailsModel!.jobDetails!
+                                      .applicationCount ??
+                                  0),
                           const SizedBox(height: 12),
                           selectedType == 1
                               ? Expanded(
@@ -128,6 +97,70 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                         ],
                       ),
                     ),
+                    Positioned(
+                      bottom: 1,
+                      left: 1,
+                      right: 1,
+                      child: jobProvider.detailsModel!.jobDetails!.state! ==
+                              JobStatus.completed
+                          ? Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(16)),
+                              width: MediaQuery.of(context).size.width - 20,
+                              padding: const EdgeInsets.all(8),
+                              margin: const EdgeInsets.all(8),
+                              child: submitButton(
+                                onButtonTap: () {},
+                                context: context,
+                                backgroundColor: primaryColor,
+                                buttonName: tr('admin.job_detail.View_invoice'),
+                                iconAsset: 'file.png',
+                              ),
+                            )
+                          : jobProvider.detailsModel!.jobDetails!.state! ==
+                                  JobStatus.pending
+                              ? Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(16)),
+                                  width: MediaQuery.of(context).size.width - 20,
+                                  padding: const EdgeInsets.all(8),
+                                  margin: const EdgeInsets.all(8),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: submitButton(
+                                          onButtonTap: () {
+                                            showJobRejectConfirmation(
+                                                context, '');
+                                          },
+                                          context: context,
+                                          backgroundColor: redE45,
+                                          buttonName: tr(
+                                              'client.reject_job.Reject_job'),
+                                          iconAsset: 'close_square.png',
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Expanded(
+                                        child: submitButton(
+                                          onButtonTap: () {
+                                            showJobApproveConfirmation(
+                                                context, '');
+                                          },
+                                          context: context,
+                                          backgroundColor: primaryColor,
+                                          buttonName: tr(
+                                              'client.Accept_job.accept_job'),
+                                          iconAsset: 'check_circle.png',
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : Container(),
+                    )
                   ],
                 ),
         ),
@@ -211,115 +244,6 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
           ),
         ),
         const SizedBox(height: 12),
-        jobProvider.detailsModel!.jobDetails!.state! == JobStatus.published &&
-                Provider.of<SignUpProvider>(context, listen: false).userType ==
-                    UserType.client
-            ? Container()
-            : Container(
-                width: double.infinity,
-                margin: const EdgeInsets.only(bottom: 12),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: Colors.white,
-                ),
-                child: ListTile(
-                  horizontalTitleGap: 10,
-                  leading: CircleAvatar(
-                    backgroundColor: Colors.grey.withOpacity(0.2),
-                    radius: 20,
-                    child: jobProvider.detailsModel!.jobDetails!.clientImage !=
-                            null
-                        ? Container(
-                            width: 40,
-                            height: 40,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(
-                                60.0,
-                              ),
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(
-                                60.0,
-                              ),
-                              child: Image.network(
-                                Provider.of<GetClientJobListProvider>(context,
-                                        listen: false)
-                                    .detailsModel!
-                                    .jobDetails!
-                                    .clientImage!,
-                                fit: BoxFit.fitWidth,
-                              ),
-                            ),
-                          )
-                        : Text(
-                            "${jobProvider.detailsModel!.jobDetails!.clientName!.substring(0, 1)}${jobProvider.detailsModel!.jobDetails!.clientName!.substring(0, 1)}",
-                            style: const TextStyle(color: black343),
-                          ),
-                  ),
-                  title: Text(
-                    jobProvider.detailsModel!.jobDetails!.clientName!,
-                    style: const TextStyle(
-                      color: black343,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  subtitle: const Text(
-                    "Client",
-                    style: TextStyle(
-                      color: grey807,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  trailing: jobProvider.detailsModel!.jobDetails!.state! !=
-                          JobStatus.published
-                      ? GestureDetector(
-                          behavior: HitTestBehavior.opaque,
-                          onTap: () {
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ChatScreen()),
-                                (Route<dynamic> route) => true);
-                          },
-                          child: Stack(
-                            alignment: Alignment.topRight,
-                            clipBehavior: Clip.none,
-                            children: [
-                              Image.asset(
-                                "assets/icons/message_chat.png",
-                                height: 30,
-                                width: 45,
-                              ),
-                              Positioned(
-                                top: 3,
-                                right: -2,
-                                child: Container(
-                                  height: 18,
-                                  width: 25,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(24),
-                                    color: yellowF4D,
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      '${jobProvider.detailsModel!.jobDetails!.chatCount}',
-                                      style: TextStyle(
-                                        color: splashColor1,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
-                      : const SizedBox.shrink(),
-                ),
-              ),
         jobDetailView("assets/icons/calendar.png",
             "${jobProvider.detailsModel!.jobDetails!.jobDate}"),
         const SizedBox(height: 12),
@@ -501,38 +425,36 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                                 ],
                               ),
                               const Spacer(),
-                              Container(
-                                child: Stack(
-                                  alignment: Alignment.center,
-                                  children: [
-                                    Padding(
-                                      padding:
-                                          EdgeInsets.only(top: 5.0, right: aaa),
-                                      child: Image.asset(
-                                        "assets/icons/message_chat.png",
-                                        height: 25,
-                                        width: 50,
-                                      ),
+                              Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.only(top: 5.0, right: aaa),
+                                    child: Image.asset(
+                                      "assets/icons/message_chat.png",
+                                      height: 25,
+                                      width: 50,
                                     ),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: aaa),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            color: yellowF4D,
-                                            borderRadius:
-                                                BorderRadius.circular(13)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 5.0),
-                                          child: Text(
-                                            '${value.applicationsModel!.applications![index].chatCount}',
-                                            style: TextStyle(fontSize: 12),
-                                          ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: aaa),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: yellowF4D,
+                                          borderRadius:
+                                              BorderRadius.circular(13)),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 5.0),
+                                        child: Text(
+                                          '${value.applicationsModel!.applications![index].chatCount}',
+                                          style: const TextStyle(fontSize: 12),
                                         ),
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               )
                             ]),
                           ),
@@ -545,8 +467,6 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
   }
 
   Widget appBarView(JobDetails jobDetails) {
-    int userType =
-        Provider.of<SignUpProvider>(context, listen: false).userType!;
     return AppBar(
       backgroundColor: whiteF2F,
       automaticallyImplyLeading: true,
@@ -556,7 +476,7 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
         jobDetails.category!,
       ),
       actions: [
-        userType == UserType.client && jobDetails.state == JobStatus.published
+        jobDetails.state == JobStatus.published
             ? InkWell(
                 child: Image.asset('assets/icons/delete.png',
                     height: 20, width: 20, color: Colors.red),
@@ -618,22 +538,6 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
     return singleSelectionButtons(
         context: context,
         buttons: tabs,
-        padding: 8,
-        selected: selectedType,
-        onSelectionChange: (value) {
-          setState(() {
-            selectedType = value;
-          });
-        });
-  }
-
-  Widget tabViewProfessional() {
-    return singleSelectionButtons(
-        context: context,
-        buttons: [
-          tr('admin.job_detail.Description'),
-          tr('admin.job_detail.Gallery'),
-        ],
         padding: 8,
         selected: selectedType,
         onSelectionChange: (value) {
@@ -750,220 +654,220 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
     );
   }
 
-  void askForStartJob(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (ctx) => AlertDialog(
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8.0))),
-            content: jobStartPopPupView()));
-  }
-
-  Widget jobStartPopPupView() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        CircleAvatar(
-          radius: 30,
-          backgroundColor: whiteEFE,
-          child: Image.asset(
-            "assets/icons/flag.png",
-            height: 24,
-            width: 24,
-          ),
-        ),
-        const SizedBox(height: 14),
-        Text(
-          tr('Professional.start_job_dialogue.are_you_sure_start'),
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: splashColor1,
-            fontSize: 24,
-            fontFamily: 'Manrope',
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          tr('Professional.start_job_dialogue.press_start'),
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: black343,
-            fontSize: 14,
-            fontFamily: 'Manrope',
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        const SizedBox(height: 24),
-        MaterialButton(
-          onPressed: () {
-            setState(() {
-              Navigator.pop(context);
-            });
-          },
-          height: 48,
-          minWidth: double.infinity,
-          color: splashColor1,
-          elevation: 0,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                tr('Professional.start_job_dialogue.Start_job').toUpperCase(),
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(width: 10),
-              Image.asset(
-                "assets/icons/flag.png",
-                height: 24,
-                width: 24,
-                color: white,
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 24),
-        GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                tr('Professional.start_job_dialogue.Cancel').toUpperCase(),
-                style: const TextStyle(
-                  color: splashColor1,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(width: 10),
-              const Icon(Icons.close, color: splashColor1, size: 22)
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  void askForCompleteJob(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (ctx) => AlertDialog(
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8.0))),
-            content: jobCompletePopPupView()));
-  }
-
-  Widget jobCompletePopPupView() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        CircleAvatar(
-          radius: 30,
-          backgroundColor: whiteEFE,
-          child: Image.asset(
-            "assets/icons/check-circle-broken.png",
-            height: 24,
-            width: 24,
-          ),
-        ),
-        const SizedBox(height: 14),
-        Text(
-          tr('Professional.complete_job_dialogue.are_you_sure_complete'),
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: splashColor1,
-            fontSize: 24,
-            fontFamily: 'Manrope',
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          tr('Professional.complete_job_dialogue.once_complete'),
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: black343,
-            fontSize: 14,
-            fontFamily: 'Manrope',
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        const SizedBox(height: 24),
-        MaterialButton(
-          onPressed: () {
-            setState(() {
-              Navigator.pop(context);
-            });
-          },
-          height: 48,
-          minWidth: double.infinity,
-          color: splashColor1,
-          elevation: 0,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                tr('Professional.complete_job_dialogue.Complete_job')
-                    .toUpperCase(),
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(width: 10),
-              Image.asset(
-                "assets/icons/check-circle-broken.png",
-                height: 24,
-                width: 24,
-                color: white,
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 24),
-        GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                tr('Professional.complete_job_dialogue.Cancel').toUpperCase(),
-                style: const TextStyle(
-                  color: splashColor1,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(width: 10),
-              const Icon(Icons.close, color: splashColor1, size: 22)
-            ],
-          ),
-        ),
-      ],
-    );
-  }
+  // void askForStartJob(BuildContext context) {
+  //   showDialog(
+  //       context: context,
+  //       builder: (ctx) => AlertDialog(
+  //           shape: const RoundedRectangleBorder(
+  //               borderRadius: BorderRadius.all(Radius.circular(8.0))),
+  //           content: jobStartPopPupView()));
+  // }
+  //
+  // Widget jobStartPopPupView() {
+  //   return Column(
+  //     mainAxisSize: MainAxisSize.min,
+  //     children: [
+  //       CircleAvatar(
+  //         radius: 30,
+  //         backgroundColor: whiteEFE,
+  //         child: Image.asset(
+  //           "assets/icons/flag.png",
+  //           height: 24,
+  //           width: 24,
+  //         ),
+  //       ),
+  //       const SizedBox(height: 14),
+  //       Text(
+  //         tr('Professional.start_job_dialogue.are_you_sure_start'),
+  //         textAlign: TextAlign.center,
+  //         style: const TextStyle(
+  //           color: splashColor1,
+  //           fontSize: 24,
+  //           fontFamily: 'Manrope',
+  //           fontWeight: FontWeight.w700,
+  //         ),
+  //       ),
+  //       const SizedBox(height: 8),
+  //       Text(
+  //         tr('Professional.start_job_dialogue.press_start'),
+  //         textAlign: TextAlign.center,
+  //         style: const TextStyle(
+  //           color: black343,
+  //           fontSize: 14,
+  //           fontFamily: 'Manrope',
+  //           fontWeight: FontWeight.w500,
+  //         ),
+  //       ),
+  //       const SizedBox(height: 24),
+  //       MaterialButton(
+  //         onPressed: () {
+  //           setState(() {
+  //             Navigator.pop(context);
+  //           });
+  //         },
+  //         height: 48,
+  //         minWidth: double.infinity,
+  //         color: splashColor1,
+  //         elevation: 0,
+  //         shape:
+  //             RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
+  //         child: Row(
+  //           mainAxisAlignment: MainAxisAlignment.center,
+  //           crossAxisAlignment: CrossAxisAlignment.center,
+  //           children: [
+  //             Text(
+  //               tr('Professional.start_job_dialogue.Start_job').toUpperCase(),
+  //               style: const TextStyle(
+  //                 color: Colors.white,
+  //                 fontSize: 16,
+  //                 fontWeight: FontWeight.w700,
+  //               ),
+  //             ),
+  //             const SizedBox(width: 10),
+  //             Image.asset(
+  //               "assets/icons/flag.png",
+  //               height: 24,
+  //               width: 24,
+  //               color: white,
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //       const SizedBox(height: 24),
+  //       GestureDetector(
+  //         behavior: HitTestBehavior.opaque,
+  //         onTap: () {
+  //           Navigator.pop(context);
+  //         },
+  //         child: Row(
+  //           mainAxisAlignment: MainAxisAlignment.center,
+  //           crossAxisAlignment: CrossAxisAlignment.center,
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: [
+  //             Text(
+  //               tr('Professional.start_job_dialogue.Cancel').toUpperCase(),
+  //               style: const TextStyle(
+  //                 color: splashColor1,
+  //                 fontSize: 16,
+  //                 fontWeight: FontWeight.w700,
+  //               ),
+  //             ),
+  //             const SizedBox(width: 10),
+  //             const Icon(Icons.close, color: splashColor1, size: 22)
+  //           ],
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
+  //
+  // void askForCompleteJob(BuildContext context) {
+  //   showDialog(
+  //       context: context,
+  //       builder: (ctx) => AlertDialog(
+  //           shape: const RoundedRectangleBorder(
+  //               borderRadius: BorderRadius.all(Radius.circular(8.0))),
+  //           content: jobCompletePopPupView()));
+  // }
+  //
+  // Widget jobCompletePopPupView() {
+  //   return Column(
+  //     mainAxisSize: MainAxisSize.min,
+  //     children: [
+  //       CircleAvatar(
+  //         radius: 30,
+  //         backgroundColor: whiteEFE,
+  //         child: Image.asset(
+  //           "assets/icons/check-circle-broken.png",
+  //           height: 24,
+  //           width: 24,
+  //         ),
+  //       ),
+  //       const SizedBox(height: 14),
+  //       Text(
+  //         tr('Professional.complete_job_dialogue.are_you_sure_complete'),
+  //         textAlign: TextAlign.center,
+  //         style: const TextStyle(
+  //           color: splashColor1,
+  //           fontSize: 24,
+  //           fontFamily: 'Manrope',
+  //           fontWeight: FontWeight.w700,
+  //         ),
+  //       ),
+  //       const SizedBox(height: 8),
+  //       Text(
+  //         tr('Professional.complete_job_dialogue.once_complete'),
+  //         textAlign: TextAlign.center,
+  //         style: const TextStyle(
+  //           color: black343,
+  //           fontSize: 14,
+  //           fontFamily: 'Manrope',
+  //           fontWeight: FontWeight.w500,
+  //         ),
+  //       ),
+  //       const SizedBox(height: 24),
+  //       MaterialButton(
+  //         onPressed: () {
+  //           setState(() {
+  //             Navigator.pop(context);
+  //           });
+  //         },
+  //         height: 48,
+  //         minWidth: double.infinity,
+  //         color: splashColor1,
+  //         elevation: 0,
+  //         shape:
+  //             RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
+  //         child: Row(
+  //           mainAxisAlignment: MainAxisAlignment.center,
+  //           crossAxisAlignment: CrossAxisAlignment.center,
+  //           children: [
+  //             Text(
+  //               tr('Professional.complete_job_dialogue.Complete_job')
+  //                   .toUpperCase(),
+  //               style: const TextStyle(
+  //                 color: Colors.white,
+  //                 fontSize: 16,
+  //                 fontWeight: FontWeight.w700,
+  //               ),
+  //             ),
+  //             const SizedBox(width: 10),
+  //             Image.asset(
+  //               "assets/icons/check-circle-broken.png",
+  //               height: 24,
+  //               width: 24,
+  //               color: white,
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //       const SizedBox(height: 24),
+  //       GestureDetector(
+  //         behavior: HitTestBehavior.opaque,
+  //         onTap: () {
+  //           Navigator.pop(context);
+  //         },
+  //         child: Row(
+  //           mainAxisAlignment: MainAxisAlignment.center,
+  //           crossAxisAlignment: CrossAxisAlignment.center,
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: [
+  //             Text(
+  //               tr('Professional.complete_job_dialogue.Cancel').toUpperCase(),
+  //               style: const TextStyle(
+  //                 color: splashColor1,
+  //                 fontSize: 16,
+  //                 fontWeight: FontWeight.w700,
+  //               ),
+  //             ),
+  //             const SizedBox(width: 10),
+  //             const Icon(Icons.close, color: splashColor1, size: 22)
+  //           ],
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Widget emptyGalleryView() {
     return Column(
@@ -1039,5 +943,137 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
         ),
       ],
     );
+  }
+
+  void showJobDeleteConfirmation(BuildContext context, String jobId) {
+    bool isJobUpdateLoading = false;
+    showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+            contentPadding: const EdgeInsets.all(12),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8.0))),
+            content: StatefulBuilder(builder: (context, newState) {
+              return confirmationDialogueView(
+                  context: context,
+                  titleIconColor: Colors.red,
+                  mainIcon: 'delete.png',
+                  title: tr('client.delete_job_dialogue.are_you_sure_delete'),
+                  description: tr('client.delete_job_dialogue.once_delete'),
+                  button1Name: tr('client.delete_job_dialogue.cancel'),
+                  button2Name: tr('client.delete_job_dialogue.delete'),
+                  showLoader: isJobUpdateLoading,
+                  onButton1Click: () {
+                    Navigator.pop(context);
+                  },
+                  onButton2Click: () {
+                    newState(() {
+                      isJobUpdateLoading = true;
+                    });
+                    var provider = context.read<GetClientJobListProvider>();
+                    provider
+                        .deleteJob(context: context, jobId: jobId)
+                        .then((value) {
+                      provider.getClientJobList(provider.getSelectedFilter(),
+                          provider.getSelectedJobType(), context);
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pop();
+                    });
+                  },
+                  button2TextColor: Colors.red,
+                  button2Icon: 'delete.png',
+                  button1Icon: 'go_backward.png');
+            })));
+  }
+
+  void showJobRejectConfirmation(BuildContext context, String jobId) {
+    bool isJobUpdateLoading = false;
+    showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+            contentPadding: const EdgeInsets.all(12),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8.0))),
+            content: StatefulBuilder(builder: (context, newState) {
+              return confirmationDialogueView(
+                  context: context,
+                  titleIconColor: Colors.red,
+                  mainIcon: 'close_square.png',
+                  title: tr('client.reject_job.are_you_sure_reject'),
+                  description:
+                      tr('client.reject_job.rejected_action_can_not_be_undone'),
+                  button1Name: tr('client.Accept_job.Cancel'),
+                  button2Name: tr('client.reject_job.Reject_job'),
+                  showLoader: isJobUpdateLoading,
+                  onButton1Click: () {
+                    Navigator.pop(context);
+                  },
+                  onButton2Click: () {
+                    newState(() {
+                      isJobUpdateLoading = true;
+                    });
+                    var provider = context.read<GetClientJobListProvider>();
+                    provider
+                        .updateJobStatus(
+                            status: 2, context: context, jobId: jobId)
+                        .then((value) {
+                      if (value!.success!) {
+                        provider.getDetailsClient(context, jobId);
+                        provider.getClientJobList(provider.getSelectedFilter(),
+                            provider.getSelectedJobType(), context);
+                        Navigator.of(context).pop();
+                      }
+                      newState(() {
+                        isJobUpdateLoading = false;
+                      });
+                    });
+                  },
+                  button2TextColor: Colors.red,
+                  button2Icon: 'close_square.png',
+                  button1Icon: 'go_backward.png');
+            })));
+  }
+
+  void showJobApproveConfirmation(BuildContext context, String jobId) {
+    bool isJobUpdateLoading = false;
+    showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+            contentPadding: const EdgeInsets.all(12),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8.0))),
+            content: StatefulBuilder(builder: (context, newState) {
+              return confirmationDialogueView(
+                  context: context,
+                  titleIconColor: Colors.red,
+                  mainIcon: 'check_circle.png',
+                  title: tr('client.Accept_job.are_you_sure_accept'),
+                  description: tr('client.Accept_job.status_cant_be_changed'),
+                  button1Name: tr('client.Accept_job.accept_job'),
+                  button2Name: tr('client.Accept_job.Cancel'),
+                  showLoader: isJobUpdateLoading,
+                  onButton1Click: () {
+                    var provider = context.read<GetClientJobListProvider>();
+                    provider
+                        .updateJobStatus(
+                            status: 1, context: context, jobId: jobId)
+                        .then((value) {
+                      if (value!.success!) {
+                        provider.getDetailsClient(context, jobId);
+                        provider.getClientJobList(provider.getSelectedFilter(),
+                            provider.getSelectedJobType(), context);
+                        Navigator.of(context).pop();
+                      }
+                      newState(() {
+                        isJobUpdateLoading = false;
+                      });
+                    });
+                  },
+                  onButton2Click: () {
+                    Navigator.pop(context);
+                  },
+                  button2Icon: 'go_backward.png',
+                  button1Icon: 'check_circle.png');
+            })));
   }
 }

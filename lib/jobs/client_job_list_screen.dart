@@ -27,7 +27,7 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
   getClientJobs() {
     var provider =
         Provider.of<GetClientJobListProvider>(context, listen: false);
-    provider.getData(
+    provider.getClientJobList(
         provider.getSelectedFilter(), provider.getSelectedJobType(), context);
   }
 
@@ -67,7 +67,7 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        tr('Professional.logIn.Jobs.Jobs'),
+                        tr('client.jobs'),
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 32,
@@ -279,7 +279,7 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
             children: [
               FilterChip(
                 label: Text(
-                  tr('Professional.logIn.Jobs.All_Jobs'),
+                  tr('client.job_status.all'),
                 ),
                 labelStyle: TextStyle(
                   color:
@@ -304,23 +304,23 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
               ),
               FilterChip(
                 label: Text(
-                  tr('Professional.logIn.Jobs.Applied'),
+                  tr('client.job_status.published'),
                 ),
                 labelStyle: TextStyle(
                   color: clientJobProvider.getSelectedFilter() !=
-                          JobsFilters.applied
+                          JobsFilters.published
                       ? Colors.white
                       : Colors.black,
                   fontSize: 14,
                   fontWeight: FontWeight.w700,
                 ),
                 selected: clientJobProvider.getSelectedFilter() ==
-                    JobsFilters.applied,
+                    JobsFilters.published,
                 backgroundColor: black343,
                 selectedColor: Colors.white,
                 showCheckmark: false,
                 onSelected: (bool value) {
-                  clientJobProvider.setSelectedFilter(JobsFilters.applied);
+                  clientJobProvider.setSelectedFilter(JobsFilters.published);
                   getClientJobs();
                 },
                 shape: RoundedRectangleBorder(
@@ -329,32 +329,7 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
               ),
               FilterChip(
                 label: Text(
-                  tr('Professional.logIn.Jobs.Accepted'),
-                ),
-                labelStyle: TextStyle(
-                  color: clientJobProvider.getSelectedFilter() !=
-                          JobsFilters.accepted
-                      ? Colors.white
-                      : Colors.black,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                ),
-                selected: clientJobProvider.getSelectedFilter() ==
-                    JobsFilters.accepted,
-                backgroundColor: black343,
-                selectedColor: Colors.white,
-                showCheckmark: false,
-                onSelected: (bool value) {
-                  clientJobProvider.setSelectedFilter(JobsFilters.accepted);
-                  getClientJobs();
-                },
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              FilterChip(
-                label: Text(
-                  tr('Professional.logIn.Jobs.Doing'),
+                  tr('client.job_status.doing'),
                 ),
                 labelStyle: TextStyle(
                   color:
@@ -379,7 +354,32 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
               ),
               FilterChip(
                 label: Text(
-                  tr('Professional.logIn.Jobs.Rejected'),
+                  tr('client.job_status.pending'),
+                ),
+                labelStyle: TextStyle(
+                  color: clientJobProvider.getSelectedFilter() !=
+                          JobsFilters.pending
+                      ? Colors.white
+                      : Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                ),
+                selected: clientJobProvider.getSelectedFilter() ==
+                    JobsFilters.pending,
+                backgroundColor: black343,
+                selectedColor: Colors.white,
+                showCheckmark: false,
+                onSelected: (bool value) {
+                  clientJobProvider.setSelectedFilter(JobsFilters.pending);
+                  getClientJobs();
+                },
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              FilterChip(
+                label: Text(
+                  tr('client.job_status.rejected'),
                 ),
                 labelStyle: TextStyle(
                   color: clientJobProvider.getSelectedFilter() !=
@@ -404,7 +404,32 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
               ),
               FilterChip(
                 label: Text(
-                  tr('Professional.logIn.Jobs.Completed'),
+                  tr('client.job_status.accepted'),
+                ),
+                labelStyle: TextStyle(
+                  color: clientJobProvider.getSelectedFilter() !=
+                          JobsFilters.accepted
+                      ? Colors.white
+                      : Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                ),
+                selected: clientJobProvider.getSelectedFilter() ==
+                    JobsFilters.accepted,
+                backgroundColor: black343,
+                selectedColor: Colors.white,
+                showCheckmark: false,
+                onSelected: (bool value) {
+                  clientJobProvider.setSelectedFilter(JobsFilters.accepted);
+                  getClientJobs();
+                },
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              FilterChip(
+                label: Text(
+                  tr('client.job_status.completed'),
                 ),
                 labelStyle: TextStyle(
                   color: clientJobProvider.getSelectedFilter() !=
@@ -437,7 +462,7 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
             children: [
               FilterChip(
                 label: Text(
-                  tr('Professional.logIn.Jobs.All_types'),
+                  tr('client.job_category.all'),
                 ),
                 labelStyle: TextStyle(
                   color: clientJobProvider.getSelectedJobType() != JobsType.all
@@ -461,7 +486,7 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
               ),
               FilterChip(
                 label: Text(
-                  tr('admin.dashboard.Cleaning'),
+                  tr('client.job_category.cleaning'),
                 ),
                 labelStyle: TextStyle(
                   color: clientJobProvider.getSelectedJobType() !=
@@ -486,7 +511,7 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
               ),
               FilterChip(
                 label: Text(
-                  tr('admin.job_detail.Babysitting'),
+                  tr('client.job_category.babysitting'),
                 ),
                 labelStyle: TextStyle(
                   color: clientJobProvider.getSelectedJobType() !=
@@ -511,7 +536,7 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
               ),
               FilterChip(
                 label: Text(
-                  tr('client.type_picker.Handyman'),
+                  tr('client.job_category.handyman'),
                 ),
                 labelStyle: TextStyle(
                   color: clientJobProvider.getSelectedJobType() !=
@@ -536,7 +561,7 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
               ),
               FilterChip(
                 label: Text(
-                  tr('admin.dashboard.tutoring'),
+                  tr('client.job_category.tutoring'),
                 ),
                 labelStyle: TextStyle(
                   color: clientJobProvider.getSelectedJobType() !=
@@ -567,7 +592,7 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
   }
 
   Widget myJobsView(GetClientJobListProvider clientJobProvider) {
-    return clientJobProvider.getIsLoading()
+    return clientJobProvider.getIsListLoading()
         ? const Center(child: CircularProgressIndicator())
         : clientJobProvider.model!.jobs.isEmpty
             ? noMyJobsView()

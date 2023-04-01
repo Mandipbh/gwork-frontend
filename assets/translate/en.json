@@ -1,6 +1,7 @@
 {
   "app_name.title": "GWork",
   "debug.device_info": "Device Info",
+
   "admin": {
     "sign_in": {
       "Welcome": "Welcome!",
@@ -198,7 +199,6 @@
   "client": {
     "log_in": {
       "Welcome!": "Welcome!",
-
       "sign_in": {
         "phone_number": "phone number",
         "password": "password",
@@ -245,7 +245,6 @@
         "Upload_Docs": "Upload\nDocs",
         "Upload_document": "Upload documents"
       }
-
     },
     "privacy_policy": {
       "Accept": "Accept"
@@ -272,10 +271,13 @@
       "Birth_date": "Birth date"
     },
     "Accept_job": {
-      "status_can’t_be_changed":"Once complete it, the status can’t be changed",
-      "Cancel": "Cancel"
+      "are_you_sure_accept": "Are you sure you want to accept the job?",
+      "status_cant_be_changed":"Once complete it, the status can’t be changed",
+      "Cancel": "Cancel",
+      "accept_job": "Accept Job"
     },
     "reject_job":{
+      "are_you_sure_reject": "Are you sure you want to reject job?",
       "rejected_action_can_not_be_undone": "Once rejected the action can not be undone",
       "Reject_job": "Reject job"
     },
@@ -351,7 +353,24 @@
       "once_delete": "Once delete the action can not be undone",
       "delete": "Delete Job",
       "cancel": "Cancel"
-    }
+    },
+    "job_status": {
+      "all": "All",
+      "published": "Published",
+      "doing": "Doing",
+      "pending": "Pending",
+      "rejected": "Rejected",
+      "accepted": "Accepted",
+      "completed": "Completed"
+    },
+    "job_category": {
+      "all": "All Types",
+      "cleaning": "Cleaning",
+      "babysitting": "Babysitting",
+      "handyman": "HandyMan",
+      "tutoring": "Tutoring"
+    },
+    "jobs": "Jobs"
   },
 
   "Professional": {

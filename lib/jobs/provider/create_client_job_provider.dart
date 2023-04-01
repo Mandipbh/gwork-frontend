@@ -102,9 +102,8 @@ class CreateClientJobProvider extends ChangeNotifier {
             description!, budget!, context)
         .then((updateCreateClientJobSuccessResponse) {
       if (updateCreateClientJobSuccessResponse.success!) {
-        //TODO refresh list
         Provider.of<GetClientJobListProvider>(context, listen: false)
-            .getData("All", "All", context);
+            .getClientJobList("All", "All", context);
         clearCreateJobProvider(context);
         setIsLoading(false);
         ProgressLoader(context, "Job Create SuccessFully");
