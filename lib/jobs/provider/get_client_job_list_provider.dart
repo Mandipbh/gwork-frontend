@@ -28,7 +28,6 @@ class GetClientJobListProvider extends ChangeNotifier {
   bool _isOverviewLoading = true;
   bool _isGalleryLoading = true;
   bool _isApplicationsLoading = true;
-  bool _isJobStatusUpdating = true;
 
   String _selectedFilter = JobsFilters.all;
   String _selectedJobType = JobsType.all;
@@ -72,13 +71,6 @@ class GetClientJobListProvider extends ChangeNotifier {
 
   setSelectedJobType(String value) {
     _selectedJobType = value;
-    notifyListeners();
-  }
-
-  bool getIsJobStatusUpdating() => _isJobStatusUpdating;
-
-  setIsJobStatusUpdating(bool value) {
-    _isJobStatusUpdating = value;
     notifyListeners();
   }
 
@@ -138,37 +130,5 @@ class GetClientJobListProvider extends ChangeNotifier {
   Future<JobStatusUpdateResponse?> deleteJob(
       {required BuildContext context, required String jobId}) {
     return ApiClient().deleteJobAPI(jobId: jobId, context: context);
-  }
-
-  void startJob({required BuildContext context, required String jobId}) {
-    setIsJobStatusUpdating(true);
-    ApiClient().startJobAPI(jobId: jobId, context: context).then((value) {
-      if (value!.success!) {
-        setIsJobStatusUpdating(false);
-      }
-    });
-  }
-
-  void completeJob({required BuildContext context, required String jobId}) {
-    setIsJobStatusUpdating(true);
-    ApiClient().completeJobAPI(jobId: jobId, context: context).then((value) {
-      if (value!.success!) {
-        setIsJobStatusUpdating(false);
-      }
-    });
-  }
-
-  void acceptJob(
-      {required String userId,
-      required BuildContext context,
-      required String jobId}) {
-    setIsJobStatusUpdating(true);
-    ApiClient()
-        .acceptJobAPI(jobId: jobId, userId: userId, context: context)
-        .then((value) {
-      if (value!.success!) {
-        setIsJobStatusUpdating(false);
-      }
-    });
   }
 }

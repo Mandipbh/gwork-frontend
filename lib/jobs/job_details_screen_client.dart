@@ -133,7 +133,9 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                                         child: submitButton(
                                           onButtonTap: () {
                                             showJobRejectConfirmation(
-                                                context, '');
+                                                context,
+                                                jobProvider.detailsModel!
+                                                    .jobDetails!.id!);
                                           },
                                           context: context,
                                           backgroundColor: redE45,
@@ -147,7 +149,9 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                                         child: submitButton(
                                           onButtonTap: () {
                                             showJobApproveConfirmation(
-                                                context, '');
+                                                context,
+                                                jobProvider.detailsModel!
+                                                    .jobDetails!.id!);
                                           },
                                           context: context,
                                           backgroundColor: primaryColor,
@@ -653,221 +657,6 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
       ],
     );
   }
-
-  // void askForStartJob(BuildContext context) {
-  //   showDialog(
-  //       context: context,
-  //       builder: (ctx) => AlertDialog(
-  //           shape: const RoundedRectangleBorder(
-  //               borderRadius: BorderRadius.all(Radius.circular(8.0))),
-  //           content: jobStartPopPupView()));
-  // }
-  //
-  // Widget jobStartPopPupView() {
-  //   return Column(
-  //     mainAxisSize: MainAxisSize.min,
-  //     children: [
-  //       CircleAvatar(
-  //         radius: 30,
-  //         backgroundColor: whiteEFE,
-  //         child: Image.asset(
-  //           "assets/icons/flag.png",
-  //           height: 24,
-  //           width: 24,
-  //         ),
-  //       ),
-  //       const SizedBox(height: 14),
-  //       Text(
-  //         tr('Professional.start_job_dialogue.are_you_sure_start'),
-  //         textAlign: TextAlign.center,
-  //         style: const TextStyle(
-  //           color: splashColor1,
-  //           fontSize: 24,
-  //           fontFamily: 'Manrope',
-  //           fontWeight: FontWeight.w700,
-  //         ),
-  //       ),
-  //       const SizedBox(height: 8),
-  //       Text(
-  //         tr('Professional.start_job_dialogue.press_start'),
-  //         textAlign: TextAlign.center,
-  //         style: const TextStyle(
-  //           color: black343,
-  //           fontSize: 14,
-  //           fontFamily: 'Manrope',
-  //           fontWeight: FontWeight.w500,
-  //         ),
-  //       ),
-  //       const SizedBox(height: 24),
-  //       MaterialButton(
-  //         onPressed: () {
-  //           setState(() {
-  //             Navigator.pop(context);
-  //           });
-  //         },
-  //         height: 48,
-  //         minWidth: double.infinity,
-  //         color: splashColor1,
-  //         elevation: 0,
-  //         shape:
-  //             RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
-  //         child: Row(
-  //           mainAxisAlignment: MainAxisAlignment.center,
-  //           crossAxisAlignment: CrossAxisAlignment.center,
-  //           children: [
-  //             Text(
-  //               tr('Professional.start_job_dialogue.Start_job').toUpperCase(),
-  //               style: const TextStyle(
-  //                 color: Colors.white,
-  //                 fontSize: 16,
-  //                 fontWeight: FontWeight.w700,
-  //               ),
-  //             ),
-  //             const SizedBox(width: 10),
-  //             Image.asset(
-  //               "assets/icons/flag.png",
-  //               height: 24,
-  //               width: 24,
-  //               color: white,
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //       const SizedBox(height: 24),
-  //       GestureDetector(
-  //         behavior: HitTestBehavior.opaque,
-  //         onTap: () {
-  //           Navigator.pop(context);
-  //         },
-  //         child: Row(
-  //           mainAxisAlignment: MainAxisAlignment.center,
-  //           crossAxisAlignment: CrossAxisAlignment.center,
-  //           mainAxisSize: MainAxisSize.min,
-  //           children: [
-  //             Text(
-  //               tr('Professional.start_job_dialogue.Cancel').toUpperCase(),
-  //               style: const TextStyle(
-  //                 color: splashColor1,
-  //                 fontSize: 16,
-  //                 fontWeight: FontWeight.w700,
-  //               ),
-  //             ),
-  //             const SizedBox(width: 10),
-  //             const Icon(Icons.close, color: splashColor1, size: 22)
-  //           ],
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
-  //
-  // void askForCompleteJob(BuildContext context) {
-  //   showDialog(
-  //       context: context,
-  //       builder: (ctx) => AlertDialog(
-  //           shape: const RoundedRectangleBorder(
-  //               borderRadius: BorderRadius.all(Radius.circular(8.0))),
-  //           content: jobCompletePopPupView()));
-  // }
-  //
-  // Widget jobCompletePopPupView() {
-  //   return Column(
-  //     mainAxisSize: MainAxisSize.min,
-  //     children: [
-  //       CircleAvatar(
-  //         radius: 30,
-  //         backgroundColor: whiteEFE,
-  //         child: Image.asset(
-  //           "assets/icons/check-circle-broken.png",
-  //           height: 24,
-  //           width: 24,
-  //         ),
-  //       ),
-  //       const SizedBox(height: 14),
-  //       Text(
-  //         tr('Professional.complete_job_dialogue.are_you_sure_complete'),
-  //         textAlign: TextAlign.center,
-  //         style: const TextStyle(
-  //           color: splashColor1,
-  //           fontSize: 24,
-  //           fontFamily: 'Manrope',
-  //           fontWeight: FontWeight.w700,
-  //         ),
-  //       ),
-  //       const SizedBox(height: 8),
-  //       Text(
-  //         tr('Professional.complete_job_dialogue.once_complete'),
-  //         textAlign: TextAlign.center,
-  //         style: const TextStyle(
-  //           color: black343,
-  //           fontSize: 14,
-  //           fontFamily: 'Manrope',
-  //           fontWeight: FontWeight.w500,
-  //         ),
-  //       ),
-  //       const SizedBox(height: 24),
-  //       MaterialButton(
-  //         onPressed: () {
-  //           setState(() {
-  //             Navigator.pop(context);
-  //           });
-  //         },
-  //         height: 48,
-  //         minWidth: double.infinity,
-  //         color: splashColor1,
-  //         elevation: 0,
-  //         shape:
-  //             RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
-  //         child: Row(
-  //           mainAxisAlignment: MainAxisAlignment.center,
-  //           crossAxisAlignment: CrossAxisAlignment.center,
-  //           children: [
-  //             Text(
-  //               tr('Professional.complete_job_dialogue.Complete_job')
-  //                   .toUpperCase(),
-  //               style: const TextStyle(
-  //                 color: Colors.white,
-  //                 fontSize: 16,
-  //                 fontWeight: FontWeight.w700,
-  //               ),
-  //             ),
-  //             const SizedBox(width: 10),
-  //             Image.asset(
-  //               "assets/icons/check-circle-broken.png",
-  //               height: 24,
-  //               width: 24,
-  //               color: white,
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //       const SizedBox(height: 24),
-  //       GestureDetector(
-  //         behavior: HitTestBehavior.opaque,
-  //         onTap: () {
-  //           Navigator.pop(context);
-  //         },
-  //         child: Row(
-  //           mainAxisAlignment: MainAxisAlignment.center,
-  //           crossAxisAlignment: CrossAxisAlignment.center,
-  //           mainAxisSize: MainAxisSize.min,
-  //           children: [
-  //             Text(
-  //               tr('Professional.complete_job_dialogue.Cancel').toUpperCase(),
-  //               style: const TextStyle(
-  //                 color: splashColor1,
-  //                 fontSize: 16,
-  //                 fontWeight: FontWeight.w700,
-  //               ),
-  //             ),
-  //             const SizedBox(width: 10),
-  //             const Icon(Icons.close, color: splashColor1, size: 22)
-  //           ],
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
 
   Widget emptyGalleryView() {
     return Column(

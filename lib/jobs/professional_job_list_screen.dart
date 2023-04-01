@@ -493,7 +493,7 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
                       ),
                     ),
                     FilterChip(
-                      label: Text(
+                      label: const Text(
                         "Expired",
                       ),
                       labelStyle: TextStyle(
@@ -563,7 +563,7 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
                                     label: tr('client.Job_info.Province'),
                                     asset: 'marker_location.png',
                                     items: value.proviceModel!.provice,
-                                    value: provider.getSelectedProvince(),
+                                    value: value.selectedProvince!,
                                     onChange: (val) {
                                       value.updateProvinceValue(val);
                                       provider
@@ -611,7 +611,7 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
           const SizedBox(width: 20),
           Text(
             '$earning€/5000€',
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.black,
               fontSize: 12,
               fontWeight: FontWeight.w700,

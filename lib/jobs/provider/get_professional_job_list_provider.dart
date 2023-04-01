@@ -5,8 +5,10 @@ import 'package:g_worker_app/jobs/model/get_client_job_list_response.dart';
 import 'package:g_worker_app/jobs/model/get_prof_job_details_model.dart';
 import 'package:g_worker_app/jobs/model/get_professional_job_response.dart';
 import 'package:g_worker_app/server_connection/api_client.dart';
+import 'package:g_worker_app/success_model/success_model_response.dart';
 
 import '../../Constants.dart';
+import '../model/job_status_update_response.dart';
 
 class GetProfessionalJobListProvider extends ChangeNotifier {
   GetProfessionalJobListModel? _model;
@@ -158,5 +160,36 @@ class GetProfessionalJobListProvider extends ChangeNotifier {
     _isApplicationsLoading = true;
     oddList = [];
     evenList = [];
+  }
+
+  Future<JobStatusUpdateResponse?> startJob(
+      {required BuildContext context, required String jobId}) {
+    return ApiClient().startJobAPI(jobId: jobId, context: context);
+  }
+
+  Future<JobStatusUpdateResponse?> completeJob(
+      {required BuildContext context, required String jobId}) {
+    return ApiClient().completeJobAPI(jobId: jobId, context: context);
+  }
+
+  Future<JobStatusUpdateResponse?> acceptJob(
+      {required String userId,
+      required BuildContext context,
+      required String jobId}) {
+    return ApiClient()
+        .acceptJobAPI(jobId: jobId, userId: userId, context: context);
+  }
+
+  Future<JobStatusUpdateResponse?> rejectJobs(
+      {required BuildContext context, required String jobId}) {
+    return ApiClient()
+        .approveOrRejectJob(jobId: jobId, jobState: 2, context: context);
+  }
+
+  Future<SuccessDataModel?> applyJob(
+      {required BuildContext context,
+      required int price,
+      required String jobId}) {
+    return ApiClient().applyForJobProfessional(jobId, price, context);
   }
 }

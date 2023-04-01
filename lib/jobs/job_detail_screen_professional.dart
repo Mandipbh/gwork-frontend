@@ -1,15 +1,12 @@
-import 'dart:ffi';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:g_worker_app/chat/chat_screen.dart';
 import 'package:g_worker_app/colors.dart';
+import 'package:g_worker_app/jobs/add_offer_screen.dart';
 import 'package:g_worker_app/jobs/provider/get_professional_job_list_provider.dart';
-import 'package:g_worker_app/server_connection/api_client.dart';
 
-import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
 import 'package:provider/provider.dart';
 import '../Constants.dart';
+import '../chat/chat_screen.dart';
 import '../common/common_buttons.dart';
 import '../common/common_widgets.dart';
 
@@ -28,12 +25,13 @@ class JobDetailsScreenProfessional extends StatefulWidget {
 class _JobDetailsScreenState extends State<JobDetailsScreenProfessional> {
   bool isSelected = false;
   int selectedType = 1;
+  String state = '';
 
   getJobDetails() {
-    Provider.of<GetProfessionalJobListProvider>(context, listen: false)
-        .getDetailsProfessional(context, widget.jobId);
-    Provider.of<GetProfessionalJobListProvider>(context, listen: false)
-        .getGallery(context, widget.jobId);
+    var provider =
+        Provider.of<GetProfessionalJobListProvider>(context, listen: false);
+    provider.getDetailsProfessional(context, widget.jobId);
+    provider.getGallery(context, widget.jobId);
   }
 
   @override
@@ -43,244 +41,418 @@ class _JobDetailsScreenState extends State<JobDetailsScreenProfessional> {
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    Provider.of<GetProfessionalJobListProvider>(context, listen: false)
-        .clearDataModel();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: whiteF2F,
-      body: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          Column(
-            children: [
-              const SizedBox(height: 35),
-              Consumer<GetProfessionalJobListProvider>(
-                builder: (context, value, child) {
-                  return value.detailsModel == null
-                      ? const Center(
-                          child: CircularProgressIndicator(),
+    return Consumer<GetProfessionalJobListProvider>(
+        builder: (context, provider, child) {
+      state = provider.getIsOverviewLoading()
+          ? provider.detailsModel!.jobDetails!.applicationState!
+          : '';
+      return WillPopScope(
+        onWillPop: () async {
+          context.read<GetProfessionalJobListProvider>().clearDataModel();
+          return true;
+        },
+        child: Scaffold(
+          backgroundColor: whiteF2F,
+          body: provider.getIsOverviewLoading()
+              ? const Center(child: CircularProgressIndicator())
+              : Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: [
+                    Column(
+                      children: [
+                        provider.detailsModel == null
+                            ? const Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : appBarView(provider),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 0.0),
+                            child: Column(
+                              children: [
+                                const SizedBox(height: 10),
+                                provider.detailsModel == null
+                                    ? const Center(
+                                        child: SizedBox(),
+                                      )
+                                    : statusChip(
+                                        provider.detailsModel!.jobDetails!
+                                            .applicationState!,
+                                        context),
+                                const SizedBox(height: 12),
+                                textView(),
+                                const SizedBox(height: 12),
+                                tabViewProfessional(),
+                                const SizedBox(height: 12),
+                                selectedType == 1
+                                    ? Expanded(
+                                        child: provider.detailsModel == null
+                                            ? const Center(
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              )
+                                            : SingleChildScrollView(
+                                                child: description(provider),
+                                              ),
+                                      )
+                                    : selectedType == 2
+                                        ? Expanded(
+                                            child:
+                                                provider.galleryDetailsModel ==
+                                                        null
+                                                    ? const Center(
+                                                        child:
+                                                            CircularProgressIndicator(),
+                                                      )
+                                                    : SingleChildScrollView(
+                                                        child: galleryView()))
+                                        : const SizedBox.shrink(),
+                              ],
+                            ),
+                          ),
                         )
-                      : appBarView();
-                },
-              ),
-              Expanded(
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 0.0),
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 10),
-                      Consumer<GetProfessionalJobListProvider>(
-                        builder: (context, value, child) {
-                          return value.detailsModel == null
-                              ? const Center(
-                                  child: SizedBox(),
-                                )
-                              : statusChip(
-                                  Provider.of<GetProfessionalJobListProvider>(
-                                          context,
-                                          listen: false)
-                                      .detailsModel!
-                                      .jobDetails!
-                                      .applicationState!,
-                                  context);
-                        },
-                      ),
-                      const SizedBox(height: 12),
-                      textView(),
-                      const SizedBox(height: 12),
-                      Provider.of<SignUpProvider>(context, listen: false)
-                                  .userType ==
-                              0
-                          ? tabViewClient()
-                          : tabViewProfessional(),
-                      const SizedBox(height: 12),
-                      selectedType == 1
-                          ? Expanded(
-                              child: Consumer<GetProfessionalJobListProvider>(
-                                builder: (context, value, child) {
-                                  return value.detailsModel == null
-                                      ? const Center(
-                                          child: CircularProgressIndicator(),
-                                        )
-                                      : SingleChildScrollView(
-                                          child: description(),
-                                        );
+                      ],
+                    ),
+                    Positioned(
+                      bottom: 1,
+                      left: 1,
+                      right: 1,
+                      child: state == JobStatus.accepted
+                          ? Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(16)),
+                              width: MediaQuery.of(context).size.width - 20,
+                              padding: const EdgeInsets.all(8),
+                              margin: const EdgeInsets.all(8),
+                              child: submitButton(
+                                onButtonTap: () {
+                                  showStartJobConfirmation(context,
+                                      provider.detailsModel!.jobDetails!.id!);
                                 },
+                                context: context,
+                                backgroundColor: primaryColor,
+                                buttonName: tr(
+                                    'Professional.start_job_dialogue.Start_job'),
+                                iconAsset: 'flag.png',
                               ),
                             )
-                          : selectedType == 2
-                              ? Expanded(child:
-                                  Consumer<GetProfessionalJobListProvider>(
-                                  builder: (context, value, child) {
-                                    return value.galleryDetailsModel == null
-                                        ? const Center(
-                                            child: CircularProgressIndicator(),
-                                          )
-                                        : SingleChildScrollView(
-                                            child: galleryView());
-                                  },
-                                ))
-                              // : Provider.of<SignUpProvider>(context,
-                              //                 listen: false)
-                              //             .userType ==
-                              //         0
-                              //     ? Expanded(
-                              //         child: SingleChildScrollView(
-                              //             child: applicationWidgetView()),
-                              //       )
-                              : const SizedBox.shrink(),
-                    ],
-                  ),
+                          : state == JobStatus.doing
+                              ? Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(16)),
+                                  width: MediaQuery.of(context).size.width - 20,
+                                  padding: const EdgeInsets.all(8),
+                                  margin: const EdgeInsets.all(8),
+                                  child: submitButton(
+                                    onButtonTap: () {
+                                      showCompleteJobConfirmation(
+                                          context,
+                                          provider
+                                              .detailsModel!.jobDetails!.id!);
+                                    },
+                                    context: context,
+                                    backgroundColor: primaryColor,
+                                    buttonName: tr(
+                                        'Professional.complete_job_dialogue.Complete_job'),
+                                    iconAsset: 'check_circle.png',
+                                  ),
+                                )
+                              : state == JobStatus.completed
+                                  ? Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(16)),
+                                      width: MediaQuery.of(context).size.width -
+                                          20,
+                                      padding: const EdgeInsets.all(8),
+                                      margin: const EdgeInsets.all(8),
+                                      child: submitButton(
+                                        onButtonTap: () {},
+                                        context: context,
+                                        backgroundColor: primaryColor,
+                                        buttonName:
+                                            tr('admin.job_detail.View_invoice'),
+                                        iconAsset: 'file.png',
+                                      ),
+                                    )
+                                  : state == JobStatus.applied ||
+                                          state == JobStatus.expired
+                                      ? rejectView(provider)
+                                      : state == JobStatus.published
+                                          ? Container(
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white54,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          16)),
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width -
+                                                  20,
+                                              padding: const EdgeInsets.all(8),
+                                              margin: const EdgeInsets.all(8),
+                                              child: Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: GestureDetector(
+                                                      behavior: HitTestBehavior
+                                                          .opaque,
+                                                      onTap: () {
+                                                        openPriceEditOption();
+                                                      },
+                                                      child: Container(
+                                                        height: 60,
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        16),
+                                                            color:
+                                                                Colors.white),
+                                                        child: Center(
+                                                            child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          children: [
+                                                            Image.asset(
+                                                              'assets/icons/coins-stacked-01.png',
+                                                              width: 20,
+                                                            ),
+                                                            const SizedBox(
+                                                              width: 4,
+                                                            ),
+                                                            Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .min,
+                                                              children: [
+                                                                Text(
+                                                                  'Price'
+                                                                      .toUpperCase(),
+                                                                  style: Theme.of(
+                                                                          context)
+                                                                      .textTheme
+                                                                      .button!
+                                                                      .apply(
+                                                                          color:
+                                                                              primaryColor),
+                                                                ),
+                                                                Text(
+                                                                  '${provider.detailsModel!.jobDetails!.budget}'
+                                                                      .toUpperCase(),
+                                                                  style: Theme.of(
+                                                                          context)
+                                                                      .textTheme
+                                                                      .button!
+                                                                      .apply(
+                                                                          color:
+                                                                              primaryColor),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            const SizedBox(
+                                                              width: 4,
+                                                            ),
+                                                            const Icon(
+                                                                Icons
+                                                                    .arrow_forward,
+                                                                color: Colors
+                                                                    .white,
+                                                                size: 20),
+                                                            const SizedBox(
+                                                              width: 8,
+                                                            ),
+                                                          ],
+                                                        )),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(width: 8),
+                                                  Expanded(
+                                                    child: GestureDetector(
+                                                      behavior: HitTestBehavior
+                                                          .opaque,
+                                                      onTap: () {
+                                                        showJobApplyConfirmation(
+                                                            context,
+                                                            provider
+                                                                .detailsModel!
+                                                                .jobDetails!
+                                                                .id!,
+                                                            provider
+                                                                .detailsModel!
+                                                                .jobDetails!
+                                                                .budget!);
+                                                      },
+                                                      child: Container(
+                                                        height: 60,
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        16),
+                                                            color:
+                                                                primaryColor),
+                                                        child: Center(
+                                                            child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          children: [
+                                                            Text(
+                                                              'Apply'
+                                                                  .toUpperCase(),
+                                                              style: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .button!
+                                                                  .apply(
+                                                                      color: Colors
+                                                                          .white),
+                                                            ),
+                                                            const SizedBox(
+                                                              width: 8,
+                                                            ),
+                                                            const Icon(
+                                                                Icons
+                                                                    .arrow_forward,
+                                                                color: Colors
+                                                                    .white,
+                                                                size: 20)
+                                                          ],
+                                                        )),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            )
+                                          : Container(),
+                    )
+                  ],
                 ),
-              )
-            ],
-          ),
-          Consumer<GetProfessionalJobListProvider>(
-            builder: (context, value, child) {
-              return value.detailsModel == null
-                  ? const SizedBox.shrink()
-                  : value.detailsModel!.jobDetails!.applicationState! ==
-                          JobStatus.published
-                      ? bottomView()
-                      : rejectView();
-            },
-          ),
-        ],
-      ),
-    );
+        ),
+      );
+    });
   }
 
-  Widget description() {
+  Widget description(GetProfessionalJobListProvider provider) {
     return Column(
       children: [
         jobDetailView("assets/icons/marker_location.png",
-            "${Provider.of<GetProfessionalJobListProvider>(context, listen: false).detailsModel!.jobDetails!.street!}, ${Provider.of<GetProfessionalJobListProvider>(context, listen: false).detailsModel!.jobDetails!.province!}"),
+            "${provider.detailsModel!.jobDetails!.street!}, ${provider.detailsModel!.jobDetails!.province!}"),
         const SizedBox(height: 12),
-        // Container(
-        //   width: double.infinity,
-        //   decoration: BoxDecoration(
-        //     borderRadius: BorderRadius.circular(12),
-        //     color: Colors.white,
-        //   ),
-        //   child: ListTile(
-        //     horizontalTitleGap: 10,
-        //     leading: CircleAvatar(
-        //       backgroundColor: Colors.grey.withOpacity(0.2),
-        //       radius: 20,
-        //       child: Provider.of<GetProfessionalJobListProvider>(context,
-        //                       listen: false)
-        //                   .detailsModel!
-        //                   .jobDetails!
-        //                   .clientImage !=
-        //               null
-        //           ? Container(
-        //               width: 40,
-        //               height: 40,
-        //               decoration: BoxDecoration(
-        //                 borderRadius: BorderRadius.circular(
-        //                   60.0,
-        //                 ),
-        //               ),
-        //               child: ClipRRect(
-        //                 borderRadius: BorderRadius.circular(
-        //                   60.0,
-        //                 ),
-        //                 child: Image.network(
-        //                   Provider.of<GetProfessionalJobListProvider>(context,
-        //                           listen: false)
-        //                       .detailsModel!
-        //                       .jobDetails!
-        //                       .clientImage!,
-        //                   fit: BoxFit.fitWidth,
-        //                 ),
-        //               ),
-        //             )
-        //           : Text(
-        //               "${Provider.of<GetProfessionalJobListProvider>(context, listen: false).detailsModel!.jobDetails!.clientName!.substring(0, 1)}${Provider.of<GetProfessionalJobListProvider>(context, listen: false).detailsModel!.jobDetails!.clientName!.substring(0, 1)}",
-        //               style: const TextStyle(color: black343),
-        //             ),
-        //     ),
-        //     title: Text(
-        //       Provider.of<GetProfessionalJobListProvider>(context,
-        //               listen: false)
-        //           .detailsModel!
-        //           .jobDetails!
-        //           .clientName!,
-        //       style: const TextStyle(
-        //         color: black343,
-        //         fontSize: 14,
-        //         fontWeight: FontWeight.w500,
-        //       ),
-        //     ),
-        //     subtitle: const Text(
-        //       "Client",
-        //       style: TextStyle(
-        //         color: grey807,
-        //         fontSize: 14,
-        //         fontWeight: FontWeight.w500,
-        //       ),
-        //     ),
-        //     trailing: isApply == true
-        //         ? GestureDetector(
-        //             behavior: HitTestBehavior.opaque,
-        //             onTap: () {
-        //               Navigator.pushAndRemoveUntil(
-        //                   context,
-        //                   MaterialPageRoute(builder: (context) => ChatScreen()),
-        //                   (Route<dynamic> route) => true);
-        //             },
-        //             child: Stack(
-        //               alignment: Alignment.topRight,
-        //               clipBehavior: Clip.none,
-        //               children: [
-        //                 Image.asset(
-        //                   "assets/icons/message_chat.png",
-        //                   height: 30,
-        //                   width: 45,
-        //                 ),
-        //                 Positioned(
-        //                   top: 3,
-        //                   right: -2,
-        //                   child: Container(
-        //                     height: 18,
-        //                     width: 25,
-        //                     decoration: BoxDecoration(
-        //                       borderRadius: BorderRadius.circular(24),
-        //                       color: yellowF4D,
-        //                     ),
-        //                     child: const Center(
-        //                       child: Text(
-        //                         '12',
-        //                         style: TextStyle(
-        //                           color: splashColor1,
-        //                           fontSize: 12,
-        //                           fontWeight: FontWeight.w700,
-        //                         ),
-        //                       ),
-        //                     ),
-        //                   ),
-        //                 ),
-        //               ],
-        //             ),
-        //           )
-        //         : const SizedBox.shrink(),
-        //   ),
-        // ),
+        Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: Colors.white,
+          ),
+          child: ListTile(
+            horizontalTitleGap: 10,
+            leading: CircleAvatar(
+              backgroundColor: Colors.grey.withOpacity(0.2),
+              radius: 20,
+              child: provider.detailsModel!.jobDetails!.clientImage != null
+                  ? Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(
+                          60.0,
+                        ),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(
+                          60.0,
+                        ),
+                        child: Image.network(
+                          provider.detailsModel!.jobDetails!.clientImage!,
+                          fit: BoxFit.fitWidth,
+                        ),
+                      ),
+                    )
+                  : Text(
+                      "${provider.detailsModel!.jobDetails!.clientName!.substring(0, 1)}${provider.detailsModel!.jobDetails!.clientName!.substring(0, 1)}",
+                      style: const TextStyle(color: black343),
+                    ),
+            ),
+            title: Text(
+              provider.detailsModel!.jobDetails!.clientName!,
+              style: const TextStyle(
+                color: black343,
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            subtitle: const Text(
+              "Client",
+              style: TextStyle(
+                color: grey807,
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            trailing: provider.detailsModel!.jobDetails!.state ==
+                    JobStatus.published
+                ? GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => ChatScreen()),
+                          (Route<dynamic> route) => true);
+                    },
+                    child: Stack(
+                      alignment: Alignment.topRight,
+                      clipBehavior: Clip.none,
+                      children: [
+                        Image.asset(
+                          "assets/icons/message_chat.png",
+                          height: 30,
+                          width: 45,
+                        ),
+                        Positioned(
+                          top: 3,
+                          right: -2,
+                          child: Container(
+                            height: 18,
+                            width: 25,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(24),
+                              color: yellowF4D,
+                            ),
+                            child: const Center(
+                              child: Text(
+                                '12',
+                                style: TextStyle(
+                                  color: splashColor1,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : const SizedBox.shrink(),
+          ),
+        ),
         const SizedBox(height: 12),
         jobDetailView("assets/icons/calendar.png",
-            "${Provider.of<GetProfessionalJobListProvider>(context, listen: false).detailsModel!.jobDetails!.jobDate}"),
+            "${provider.detailsModel!.jobDetails!.jobDate}"),
         const SizedBox(height: 12),
         jobDetailView("assets/images/briefcase.png",
-            "${Provider.of<GetProfessionalJobListProvider>(context, listen: false).detailsModel!.jobDetails!.category}"),
+            "${provider.detailsModel!.jobDetails!.category}"),
         const SizedBox(height: 12),
         jobDetailView("assets/icons/coins_stacked.png",
-            "${Provider.of<GetProfessionalJobListProvider>(context, listen: false).detailsModel!.jobDetails!.budget}"),
+            "${provider.detailsModel!.jobDetails!.budget}"),
         const SizedBox(height: 12),
         Container(
           width: double.infinity,
@@ -302,7 +474,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreenProfessional> {
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
-                    "${Provider.of<GetProfessionalJobListProvider>(context, listen: false).detailsModel!.jobDetails!.description}",
+                    "${provider.detailsModel!.jobDetails!.description}",
                     style: TextStyle(
                       color: black343,
                       fontSize: 12,
@@ -381,94 +553,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreenProfessional> {
     );
   }
 
-  // Widget applicationWidgetView() {
-  //   return ListView.builder(
-  //     shrinkWrap: true,
-  //     itemCount: chatlist.length,
-  //     padding: EdgeInsets.zero,
-  //     physics: const NeverScrollableScrollPhysics(),
-  //     itemBuilder: (context, index) {
-  //       String b = chatlist[index]["chatpending"].toString();
-  //       double aaa = b.length.toDouble() + 10.0;
-  //       return InkWell(
-  //         onTap: () {
-  //           Navigator.push(
-  //               context,
-  //               MaterialPageRoute(
-  //                 builder: (context) => ChatScreen(),
-  //               ));
-  //         },
-  //         child: Padding(
-  //           padding: const EdgeInsets.all(5.0),
-  //           child: Container(
-  //             decoration: BoxDecoration(
-  //                 color: white, borderRadius: BorderRadius.circular(12)),
-  //             child: Padding(
-  //               padding: const EdgeInsets.all(10.0),
-  //               child: Row(children: [
-  //                 CircleAvatar(
-  //                   child: Image.asset("${chatlist[index]["image"]}"),
-  //                 ),
-  //                 const SizedBox(
-  //                   width: 10,
-  //                 ),
-  //                 Column(
-  //                   crossAxisAlignment: CrossAxisAlignment.start,
-  //                   children: [
-  //                     Text(
-  //                       "${chatlist[index]["name"]}",
-  //                       style: const TextStyle(
-  //                           fontSize: 14, fontWeight: FontWeight.w700),
-  //                     ),
-  //                     Text(
-  //                       "${chatlist[index]["money"]}",
-  //                       style: const TextStyle(
-  //                           fontSize: 14, fontWeight: FontWeight.w500),
-  //                     ),
-  //                   ],
-  //                 ),
-  //                 const Spacer(),
-  //                 Container(
-  //                   child: Stack(
-  //                     alignment: Alignment.center,
-  //                     children: [
-  //                       Padding(
-  //                         padding: EdgeInsets.only(top: 5.0, right: aaa),
-  //                         child: Image.asset(
-  //                           "assets/icons/message_chat.png",
-  //                           height: 25,
-  //                           width: 50,
-  //                         ),
-  //                       ),
-  //                       Padding(
-  //                         padding: EdgeInsets.only(left: aaa),
-  //                         child: Container(
-  //                           decoration: BoxDecoration(
-  //                               color: yellowF4D,
-  //                               borderRadius: BorderRadius.circular(13)),
-  //                           child: Padding(
-  //                             padding:
-  //                                 const EdgeInsets.symmetric(horizontal: 5.0),
-  //                             child: Text(
-  //                               "${chatlist[index]["chatpending"]}",
-  //                               style: TextStyle(fontSize: 12),
-  //                             ),
-  //                           ),
-  //                         ),
-  //                       ),
-  //                     ],
-  //                   ),
-  //                 )
-  //               ]),
-  //             ),
-  //           ),
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
-
-  Widget appBarView() {
+  Widget appBarView(GetProfessionalJobListProvider provider) {
     return AppBar(
       backgroundColor: whiteF2F,
       automaticallyImplyLeading: false,
@@ -482,11 +567,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreenProfessional> {
         child: const Icon(Icons.arrow_back, color: splashColor1, size: 20),
       ),
       title: Text(
-        // tr('admin.type_picker.${Provider.of<GetProfessionalJobListProvider>(context, listen: false).detailsModel!.jobDetails!.category!}'),
-        Provider.of<GetProfessionalJobListProvider>(context, listen: false)
-            .detailsModel!
-            .jobDetails!
-            .category!,
+        // tr('admin.type_picker.${provider.detailsModel!.jobDetails!.category!}'),
+        provider.detailsModel!.jobDetails!.category!,
         style: const TextStyle(
           color: splashColor1,
           fontSize: 18,
@@ -505,23 +587,6 @@ class _JobDetailsScreenState extends State<JobDetailsScreenProfessional> {
         fontWeight: FontWeight.w800,
       ),
     );
-  }
-
-  Widget tabViewClient() {
-    return singleSelectionButtons(
-        context: context,
-        buttons: [
-          tr('admin.job_detail.Description'),
-          tr('admin.job_detail.Gallery'),
-          tr('admin.job_detail.Applications'),
-        ],
-        padding: 8,
-        selected: selectedType,
-        onSelectionChange: (value) {
-          setState(() {
-            selectedType = value;
-          });
-        });
   }
 
   Widget tabViewProfessional() {
@@ -562,244 +627,14 @@ class _JobDetailsScreenState extends State<JobDetailsScreenProfessional> {
     );
   }
 
-  Widget bottomView() {
-    return Positioned(
-      bottom: 14,
-      left: 14,
-      right: 14,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: whiteF2F,
-          boxShadow: [
-            BoxShadow(
-              color: green0D3.withOpacity(0.2),
-              blurRadius: 42,
-              offset: const Offset(0, -5),
-            ),
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(12),
-          child: Row(
-            children: [
-              Expanded(
-                child: GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () {},
-                  child: Container(
-                    height: 56,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: Colors.white),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            "assets/icons/coins-stacked-01.png",
-                            height: 24,
-                            width: 24,
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                tr('admin.job_detail.Price'),
-                                style: const TextStyle(
-                                  color: black343,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                              const Text(
-                                "100,00",
-                                style: TextStyle(
-                                  color: black343,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Image.asset("assets/icons/currency-euro.png",
-                              height: 24, width: 24),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () {
-                    askForApply(context);
-                  },
-                  child: Container(
-                    height: 56,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: primaryColor),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          tr('admin.job_detail.Apply').toUpperCase(),
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        const Icon(Icons.arrow_forward,
-                            color: Colors.white, size: 22)
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  void askForApply(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (ctx) => AlertDialog(
-            insetPadding: EdgeInsets.symmetric(horizontal: 13),
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8.0))),
-            content: jobApplyPopPupView()));
-  }
-
-  Widget jobApplyPopPupView() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        CircleAvatar(
-          radius: 30,
-          backgroundColor: whiteEFE,
-          child: Image.asset(
-            "assets/icons/check_circle.png",
-            height: 24,
-            width: 24,
-          ),
-        ),
-        const SizedBox(height: 14),
-        Text(
-          tr('Professional.apply_job_dialogue.are_you_sure_apply'),
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: splashColor1,
-            fontSize: 24,
-            fontFamily: 'Manrope',
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          tr('Professional.apply_job_dialogue.you_can_change'),
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: black343,
-            fontSize: 14,
-            fontFamily: 'Manrope',
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        const SizedBox(height: 24),
-        MaterialButton(
-          onPressed: () {
-            setState(() {
-              // ApiClient().applyForJobProfessional(
-              //     Provider.of<GetProfessionalJobListProvider>(context,
-              //             listen: false)
-              //         .detailsModel!
-              //         .jobDetails!
-              //         .id!,
-              //     Provider.of<GetProfessionalJobListProvider>(context,
-              //             listen: false)
-              //         .detailsModel!
-              //         .jobDetails!
-              //         .budget!
-              //         .toString(),
-              //     context);
-
-              Navigator.pop(context);
-            });
-          },
-          height: 48,
-          minWidth: double.infinity,
-          color: splashColor1,
-          elevation: 0,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                tr('Professional.apply_job_dialogue.Apply').toUpperCase(),
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(width: 10),
-              Image.asset(
-                "assets/icons/check_circle.png",
-                color: white,
-                height: 22,
-                width: 22,
-              )
-            ],
-          ),
-        ),
-        const SizedBox(height: 24),
-        GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                tr('Professional.apply_job_dialogue.Cancel').toUpperCase(),
-                style: const TextStyle(
-                  color: splashColor1,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(width: 10),
-              const Icon(Icons.close, color: splashColor1, size: 22)
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget rejectView() {
+  Widget rejectView(GetProfessionalJobListProvider provider) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15),
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () {
-          askForReject(context);
+          showJobRejectConfirmation(
+              context, provider.detailsModel!.jobDetails!.id!);
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -823,311 +658,192 @@ class _JobDetailsScreenState extends State<JobDetailsScreenProfessional> {
     );
   }
 
-  void askForReject(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (ctx) => AlertDialog(
-            insetPadding: EdgeInsets.symmetric(horizontal: 13),
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8.0))),
-            content: jobRejectView()));
-  }
-
-  Widget jobRejectView() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        CircleAvatar(
-          radius: 30,
-          backgroundColor: redF8D,
-          child: Image.asset("assets/icons/close_square.png",
-              height: 24, width: 24, color: redE45),
-        ),
-        const SizedBox(height: 14),
-        Text(
-          tr('Professional.reject_job_dialogue.are_you_sure_reject'),
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: splashColor1,
-            fontSize: 24,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          tr('Professional.reject_job_dialogue.once_reject'),
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: black343,
-            fontSize: 12,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        const SizedBox(height: 24),
-        MaterialButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          height: 48,
-          minWidth: double.infinity,
-          color: splashColor1,
-          elevation: 0,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                tr('Professional.reject_job_dialogue.Cancel').toUpperCase(),
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(width: 10),
-              const Icon(Icons.close, color: Colors.white, size: 22)
-            ],
-          ),
-        ),
-        const SizedBox(height: 24),
-        GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                tr('Professional.reject_job_dialogue.reject').toUpperCase(),
-                style: const TextStyle(
-                  color: redE45,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(width: 5),
-              Image.asset("assets/icons/close_square.png",
-                  height: 24, width: 24, color: redE45),
-            ],
-          ),
-        ),
-      ],
+  void openPriceEditOption() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const AddOfferScreen()),
     );
   }
 
-  void askForStartJob(BuildContext context) {
+  void showJobApplyConfirmation(BuildContext context, String jobId, int price) {
+    bool isJobUpdateLoading = false;
     showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
+            contentPadding: const EdgeInsets.all(12),
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8.0))),
-            content: jobStartPopPupView()));
+            content: StatefulBuilder(builder: (context, newState) {
+              return confirmationDialogueView(
+                  context: context,
+                  mainIcon: 'coins-stacked-01.png',
+                  title:
+                      tr('Professional.apply_job_dialogue.are_you_sure_apply'),
+                  description:
+                      tr('Professional.apply_job_dialogue.you_can_change'),
+                  button1Name: tr('Professional.apply_job_dialogue.Apply'),
+                  button2Name: tr('Professional.apply_job_dialogue.Cancel'),
+                  showLoader: isJobUpdateLoading,
+                  onButton1Click: () {
+                    newState(() {
+                      isJobUpdateLoading = true;
+                    });
+                    var provider =
+                        context.read<GetProfessionalJobListProvider>();
+                    provider
+                        .applyJob(context: context, price: price, jobId: jobId)
+                        .then((value) {
+                      if (value!.success!) {
+                        Navigator.pop(context);
+                        provider.getDetailsProfessional(context, jobId);
+                      }
+                      newState(() {
+                        isJobUpdateLoading = false;
+                      });
+                    });
+                  },
+                  onButton2Click: () {
+                    Navigator.pop(context);
+                  },
+                  button2Icon: 'go_backward.png',
+                  button1Icon: 'check_circle.png');
+            })));
   }
 
-  Widget jobStartPopPupView() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        CircleAvatar(
-          radius: 30,
-          backgroundColor: whiteEFE,
-          child: Image.asset(
-            "assets/icons/flag.png",
-            height: 24,
-            width: 24,
-          ),
-        ),
-        const SizedBox(height: 14),
-        Text(
-          tr('Professional.start_job_dialogue.are_you_sure_start'),
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: splashColor1,
-            fontSize: 24,
-            fontFamily: 'Manrope',
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          tr('Professional.start_job_dialogue.press_start'),
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: black343,
-            fontSize: 14,
-            fontFamily: 'Manrope',
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        const SizedBox(height: 24),
-        MaterialButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          height: 48,
-          minWidth: double.infinity,
-          color: splashColor1,
-          elevation: 0,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                tr('Professional.start_job_dialogue.Start_job').toUpperCase(),
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(width: 10),
-              Image.asset(
-                "assets/icons/flag.png",
-                height: 24,
-                width: 24,
-                color: white,
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 24),
-        GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                tr('Professional.start_job_dialogue.Cancel').toUpperCase(),
-                style: const TextStyle(
-                  color: splashColor1,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(width: 10),
-              const Icon(Icons.close, color: splashColor1, size: 22)
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  void askForCompleteJob(BuildContext context) {
+  void showJobRejectConfirmation(BuildContext context, String jobId) {
+    bool isJobUpdateLoading = false;
     showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
+            contentPadding: const EdgeInsets.all(12),
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8.0))),
-            content: jobCompletePopPupView()));
+            content: StatefulBuilder(builder: (context, newState) {
+              return confirmationDialogueView(
+                  context: context,
+                  titleIconColor: Colors.red,
+                  mainIcon: 'close_square.png',
+                  title: tr('client.reject_job.are_you_sure_reject'),
+                  description:
+                      tr('client.reject_job.rejected_action_can_not_be_undone'),
+                  button1Name: tr('client.Accept_job.Cancel'),
+                  button2Name: tr('client.reject_job.Reject_job'),
+                  showLoader: isJobUpdateLoading,
+                  onButton1Click: () {
+                    Navigator.pop(context);
+                  },
+                  onButton2Click: () {
+                    newState(() {
+                      isJobUpdateLoading = true;
+                    });
+                    var provider =
+                        context.read<GetProfessionalJobListProvider>();
+                    provider
+                        .rejectJobs(context: context, jobId: jobId)
+                        .then((value) {
+                      if (value!.success!) {
+                        Navigator.pop(context);
+                        provider.getDetailsProfessional(context, jobId);
+                      }
+                      newState(() {
+                        isJobUpdateLoading = false;
+                      });
+                    });
+                  },
+                  button2TextColor: Colors.red,
+                  button2Icon: 'close_square.png',
+                  button1Icon: 'go_backward.png');
+            })));
   }
 
-  Widget jobCompletePopPupView() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        CircleAvatar(
-          radius: 30,
-          backgroundColor: whiteEFE,
-          child: Image.asset(
-            "assets/icons/check-circle-broken.png",
-            height: 24,
-            width: 24,
-          ),
-        ),
-        const SizedBox(height: 14),
-        Text(
-          tr('Professional.complete_job_dialogue.are_you_sure_complete'),
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: splashColor1,
-            fontSize: 24,
-            fontFamily: 'Manrope',
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          tr('Professional.complete_job_dialogue.once_complete'),
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: black343,
-            fontSize: 14,
-            fontFamily: 'Manrope',
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        const SizedBox(height: 24),
-        MaterialButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          height: 48,
-          minWidth: double.infinity,
-          color: splashColor1,
-          elevation: 0,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                tr('Professional.complete_job_dialogue.Complete_job')
-                    .toUpperCase(),
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(width: 10),
-              Image.asset(
-                "assets/icons/check-circle-broken.png",
-                height: 24,
-                width: 24,
-                color: white,
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 24),
-        GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                tr('Professional.complete_job_dialogue.Cancel').toUpperCase(),
-                style: const TextStyle(
-                  color: splashColor1,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(width: 10),
-              const Icon(Icons.close, color: splashColor1, size: 22)
-            ],
-          ),
-        ),
-      ],
-    );
+  void showStartJobConfirmation(BuildContext context, String jobId) {
+    bool isJobUpdateLoading = false;
+    showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+            contentPadding: const EdgeInsets.all(12),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8.0))),
+            content: StatefulBuilder(builder: (context, newState) {
+              return confirmationDialogueView(
+                  context: context,
+                  mainIcon: 'flag.png',
+                  title:
+                      tr('Professional.start_job_dialogue.are_you_sure_start'),
+                  description:
+                      tr('Professional.start_job_dialogue.press_start'),
+                  button1Name: tr('Professional.start_job_dialogue.Start_job'),
+                  button2Name: tr('Professional.start_job_dialogue.Cancel'),
+                  showLoader: isJobUpdateLoading,
+                  onButton1Click: () {
+                    newState(() {
+                      isJobUpdateLoading = true;
+                    });
+                    var provider =
+                        context.read<GetProfessionalJobListProvider>();
+                    provider
+                        .startJob(context: context, jobId: jobId)
+                        .then((value) {
+                      if (value!.success!) {
+                        Navigator.pop(context);
+                        provider.getDetailsProfessional(context, jobId);
+                      }
+                      newState(() {
+                        isJobUpdateLoading = false;
+                      });
+                    });
+                  },
+                  onButton2Click: () {
+                    Navigator.pop(context);
+                  },
+                  button2Icon: 'go_backward.png',
+                  button1Icon: 'flag.png');
+            })));
+  }
+
+  void showCompleteJobConfirmation(BuildContext context, String jobId) {
+    bool isJobUpdateLoading = false;
+    showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+            contentPadding: const EdgeInsets.all(12),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8.0))),
+            content: StatefulBuilder(builder: (context, newState) {
+              return confirmationDialogueView(
+                  context: context,
+                  mainIcon: 'check_circle.png',
+                  title: tr(
+                      'Professional.complete_job_dialogue.are_you_sure_complete'),
+                  description:
+                      tr('Professional.complete_job_dialogue.once_complete'),
+                  button1Name:
+                      tr('Professional.complete_job_dialogue.Complete_job'),
+                  button2Name: tr('Professional.complete_job_dialogue.Cancel'),
+                  showLoader: isJobUpdateLoading,
+                  onButton1Click: () {
+                    newState(() {
+                      isJobUpdateLoading = true;
+                    });
+                    var provider =
+                        context.read<GetProfessionalJobListProvider>();
+                    provider
+                        .completeJob(context: context, jobId: jobId)
+                        .then((value) {
+                      if (value!.success!) {
+                        Navigator.pop(context);
+                        provider.getDetailsProfessional(context, jobId);
+                      }
+                      newState(() {
+                        isJobUpdateLoading = false;
+                      });
+                    });
+                  },
+                  onButton2Click: () {
+                    Navigator.pop(context);
+                  },
+                  button2Icon: 'go_backward.png',
+                  button1Icon: 'check_circle.png');
+            })));
   }
 }

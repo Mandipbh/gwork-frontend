@@ -805,7 +805,6 @@ class ApiClient {
       "job_state": jobState
     };
     try {
-      print('params :: $params');
       var response =
           await dio.get('${API.baseUrl}${ApiEndPoints.getProfessionalJobList}',
               queryParameters: params,
@@ -1018,13 +1017,11 @@ class ApiClient {
   //Apply for job Professional
 
   Future<SuccessDataModel?> applyForJobProfessional(
-      String jobId, String price, BuildContext context) async {
+      String jobId, int price, BuildContext context) async {
     try {
-      var request = json.encode({"job_id": jobId, "price": price});
-      print("NAME :: $jobId");
       var response = await dio.post(
           '${API.baseUrl}${ApiEndPoints.applyForJobProfessional}',
-          data: request,
+          data: {"job_id": jobId, "price": price},
           options: Options(headers: {
             'Content-Type': 'application/json',
             "Authorization": "Bearer ${await SharedPreferenceData().getToken()}"
@@ -1049,6 +1046,7 @@ class ApiClient {
       print('ApiClient.UpdateName Error :: \n$e');
       SuccessDataModel();
     }
+    return null;
   }
 
   //getClient applications

@@ -279,7 +279,7 @@
     "reject_job":{
       "are_you_sure_reject": "Are you sure you want to reject job?",
       "rejected_action_can_not_be_undone": "Once rejected the action can not be undone",
-      "Reject_job": "Reject job"
+      "Reject_job": "Reject"
     },
     "chat":{
       "Babysitting": "Babysitting",
