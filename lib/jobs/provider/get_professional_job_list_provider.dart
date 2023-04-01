@@ -6,6 +6,8 @@ import 'package:g_worker_app/jobs/model/get_prof_job_details_model.dart';
 import 'package:g_worker_app/jobs/model/get_professional_job_response.dart';
 import 'package:g_worker_app/server_connection/api_client.dart';
 
+import '../../Constants.dart';
+
 class GetProfessionalJobListProvider extends ChangeNotifier {
   GetProfessionalJobListModel? _model;
 
@@ -22,26 +24,82 @@ class GetProfessionalJobListProvider extends ChangeNotifier {
   List<String> oddList = [];
   List<String> evenList = [];
 
-  bool _isLogging = true;
+  bool _isListLoading = true;
+  bool _isOverviewLoading = true;
+  bool _isGalleryLoading = true;
+  bool _isApplicationsLoading = true;
 
-  bool getIsLogging() => _isLogging;
+  bool _isSelf = false;
+  String _selectedProvince = "All";
+  String _selectedState = JobsFilters.all;
+  String _selectedCategory = JobsType.all;
 
-  setIsLogging(bool value) {
-    _isLogging = value;
+  bool getIsListLoading() => _isListLoading;
+
+  setIsListLoading(bool value) {
+    _isListLoading = value;
     notifyListeners();
   }
 
-  getDataProfessional(
+  bool getIsOverviewLoading() => _isOverviewLoading;
+
+  setIsOverviewLoading(bool value) {
+    _isOverviewLoading = value;
+    notifyListeners();
+  }
+
+  bool getIsGalleryLoading() => _isGalleryLoading;
+
+  setIsGalleryLoading(bool value) {
+    _isGalleryLoading = value;
+    notifyListeners();
+  }
+
+  bool getIsApplicationsLoading() => _isApplicationsLoading;
+
+  setIsApplicationsLoading(bool value) {
+    _isApplicationsLoading = value;
+    notifyListeners();
+  }
+
+  bool getIsSelf() => _isSelf;
+
+  setIsSelf(bool value) {
+    _isSelf = value;
+    notifyListeners();
+  }
+
+  String getSelectedProvince() => _selectedProvince;
+
+  setSelectedProvince(String value) {
+    _selectedProvince = value;
+    notifyListeners();
+  }
+
+  String getSelectedState() => _selectedState;
+
+  setSelectedState(String value) {
+    _selectedState = value;
+    notifyListeners();
+  }
+
+  String getSelectedCategory() => _selectedCategory;
+
+  setSelectedCategory(String value) {
+    _selectedCategory = value;
+    notifyListeners();
+  }
+
+  getProfessionalJobList(
       {required String category,
       required String province,
       required bool isSelf,
       required BuildContext context,
       required String state,
       required String jobState}) {
-    if (!_isLogging) {
-      setIsLogging(true);
+    if (!_isListLoading) {
+      setIsListLoading(true);
     }
-    _model = null;
     ApiClient()
         .getProfessionalJobListService(
             context: context,
@@ -52,30 +110,26 @@ class GetProfessionalJobListProvider extends ChangeNotifier {
             jobState: jobState)
         .then((value) {
       _model = value;
-
-      setIsLogging(false);
-      notifyListeners();
+      setIsListLoading(false);
     });
-    //notifyListeners();
   }
 
   getDetailsProfessional(BuildContext context, String? jobId) {
-    setIsLogging(true);
-
+    if (!_isOverviewLoading) {
+      setIsOverviewLoading(true);
+    }
     ApiClient().getProfessionalJobDetailsService(context, jobId!).then((value) {
       if (value.success!) {
         _detailsModel = value;
-
-        setIsLogging(false);
-        notifyListeners();
+        setIsOverviewLoading(false);
       }
     });
-    //notifyListeners();
   }
 
   getGallery(BuildContext context, String? jobId) {
-    setIsLogging(true);
-
+    if (!_isGalleryLoading) {
+      setIsGalleryLoading(true);
+    }
     ApiClient().getGalleryDetailsService(context, jobId!).then((value) {
       if (value.success!) {
         _galleryDetailsModel = value;
@@ -90,9 +144,7 @@ class GetProfessionalJobListProvider extends ChangeNotifier {
             evenList.add(value.gallery![i].mediaUrl!);
           }
         }
-
-        setIsLogging(false);
-        notifyListeners();
+        setIsGalleryLoading(false);
       }
     });
     //notifyListeners();

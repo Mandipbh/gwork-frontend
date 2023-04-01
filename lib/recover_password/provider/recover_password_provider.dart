@@ -7,12 +7,12 @@ import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
 import 'package:provider/provider.dart';
 
 class RecoverPasswordProvider extends ChangeNotifier {
-  bool _isLogging = false;
+  bool _isLoading = false;
 
-  bool getIsLogging() => _isLogging;
+  bool getIsLoading() => _isLoading;
 
-  setIsLogging(bool value) {
-    _isLogging = value;
+  setIsLoading(bool value) {
+    _isLoading = value;
     notifyListeners();
   }
 
@@ -25,13 +25,13 @@ class RecoverPasswordProvider extends ChangeNotifier {
       ErrorLoader(context, "PhoneNumber cannot be empty");
       notifyListeners();
     } else {
-      setIsLogging(true);
+      setIsLoading(true);
       ApiClient()
           .requestOtp(recoverPasswordPhoneController.text, context)
           .then((requestOtpResponse) {
         if (requestOtpResponse.success!) {
           print("AAAAA${requestOtpResponse.success}");
-          setIsLogging(false);
+          setIsLoading(false);
           ProgressLoader(context,
               "Phone Number Registered  And Request Otp SuccessFully ${requestOtpResponse.otp}");
           Navigator.push(
@@ -58,7 +58,7 @@ class RecoverPasswordProvider extends ChangeNotifier {
       ErrorLoader(context, "Password do not match");
       notifyListeners();
     } else {
-      setIsLogging(true);
+      setIsLoading(true);
       ApiClient()
           .changePassword(token, newPasswordController.text, context)
           .then((changePasswordResponse) {
@@ -66,7 +66,7 @@ class RecoverPasswordProvider extends ChangeNotifier {
         if (changePasswordResponse.success!) {
           print("AAAAA${changePasswordResponse.success}");
           clearRecoverPasswordProvider(context);
-          setIsLogging(false);
+          setIsLoading(false);
           ProgressLoader(context, "Password Change SuccessFully");
           Navigator.pushAndRemoveUntil(
             context,

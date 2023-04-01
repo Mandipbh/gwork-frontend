@@ -22,13 +22,13 @@ class SignUpProvider extends ChangeNotifier {
   int? _userType = 0;
   int? get userType => _userType;
   var phoneController = TextEditingController();
-  bool _isLogging = false;
+  bool _isLoading = false;
   SharedPreferenceData preferenceData = SharedPreferenceData();
   ProviceModel? _proviceModel;
   ProviceModel? get proviceModel => _proviceModel;
   String? _selectedProvince;
   String? get selectedProvince => _selectedProvince;
-  bool getIsLogging() => _isLogging;
+  bool getIsLoading() => _isLoading;
   // getPhone(val) {
   //   _phoneNo = val;
   //   notifyListeners();
@@ -52,18 +52,18 @@ class SignUpProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  setIsLogging(bool value) {
-    _isLogging = value;
+  setIsLoading(bool value) {
+    _isLoading = value;
     notifyListeners();
   }
 
   checkPhoneNo(BuildContext context) {
-    setIsLogging(true);
+    setIsLoading(true);
     ApiClient()
         .checkMobileNumber(phoneController.text, context)
         .then((checkPhoneResponse) {
       if (checkPhoneResponse.success!) {
-        setIsLogging(false);
+        setIsLoading(false);
         ApiClient()
             .getOtp(phoneController.text, context)
             .then((checkGetOtpResponse) {

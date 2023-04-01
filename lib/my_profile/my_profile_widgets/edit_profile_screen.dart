@@ -358,7 +358,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 ),
                 Positioned.fill(
                     child: Center(
-                        child: myProfileProvider.getIsLogging()
+                        child: myProfileProvider.getIsLoading()
                             ? const CircularProgressIndicator()
                             : const SizedBox(
                                 height: 0,

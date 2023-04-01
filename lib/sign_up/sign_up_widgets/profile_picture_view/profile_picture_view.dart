@@ -108,7 +108,7 @@ class _ProfilePictureViewState extends State<ProfilePictureView> {
             ),
             Positioned.fill(
                 child: Center(
-                    child: signUpProvider.getIsLogging()
+                    child: signUpProvider.getIsLoading()
                         ? const CircularProgressIndicator()
                         : const SizedBox(
                             height: 0,

@@ -45,6 +45,12 @@ class ApiEndPoints {
   static const String getClientJobApplications =
       '/worker/jobs/job-applications';
   static const String getClientJobDetails = "/worker/jobs/job-overview";
+
+  static const String deleteJob = '/worker/jobs/remove-job-applications';
+  static const String acceptJob = '/worker/jobs/accpet-job-applications';
+  static const String rejectApproveJob = '/worker/jobs/change-job-approval';
+  static const String startJob = '/worker/jobs/start-job-professional';
+  static const String completeJob = '/worker/jobs/complete-job-professional';
 }
 
 class DashboardFilters {

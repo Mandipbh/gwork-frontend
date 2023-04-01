@@ -4,10 +4,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/chat/chat_screen.dart';
 import 'package:g_worker_app/colors.dart';
+import 'package:g_worker_app/common/common_widgets.dart';
 import 'package:g_worker_app/jobs/model/get_job_details_client_model.dart';
 import 'package:g_worker_app/jobs/provider/get_client_job_list_provider.dart';
 import 'package:g_worker_app/jobs/provider/get_professional_job_list_provider.dart';
-import 'package:g_worker_app/server_connection/api_client.dart';
 
 import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
 import 'package:provider/provider.dart';
@@ -110,8 +110,8 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                                   0
                               ? tabViewClient(
                                   jobProvider.detailsModel!.jobDetails!.state!,
-                                  jobProvider
-                                      .applicationsModel!.applications!.length)
+                                  jobProvider.detailsModel!.jobDetails!
+                                      .applicationCount!)
                               : tabViewProfessional(),
                           const SizedBox(height: 12),
                           selectedType == 1
@@ -125,25 +125,6 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                                   : Expanded(
                                       child: applicationWidgetView(),
                                     ),
-                          // Consumer<GetClientJobListProvider>(
-                          //   builder: (context, value, child) {
-                          //     return value.detailsModel == null
-                          //         ? const SizedBox.shrink()
-                          //         : value.detailsModel!.jobDetails!.applicationState! ==
-                          //                 JobStatus.published
-                          //             ? bottomView()
-                          //             : rejectView();
-                          //   },
-                          // ),
-                          // isReject == true
-                          //     ? const SizedBox.shrink()
-                          //     : isApply == true
-                          //         ? rejectView()
-                          //         : Provider.of<SignUpProvider>(context, listen: false)
-                          //                     .userType ==
-                          //                 0
-                          //             ? const SizedBox.shrink()
-                          //             : bottomView(),
                         ],
                       ),
                     ),
@@ -579,7 +560,9 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
             ? InkWell(
                 child: Image.asset('assets/icons/delete.png',
                     height: 20, width: 20, color: Colors.red),
-                onTap: () {},
+                onTap: () {
+                  showJobDeleteConfirmation(context, jobDetails.id!);
+                },
               )
             : Container()
       ],

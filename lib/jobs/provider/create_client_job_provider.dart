@@ -27,10 +27,10 @@ class CreateClientJobProvider extends ChangeNotifier {
   String? get description => _description;
   String? get budget => _budget;
 
-  bool _isLogging = false;
-  bool getIsLogging() => _isLogging;
-  setIsLogging(bool value) {
-    _isLogging = value;
+  bool _isLoading = false;
+  bool getIsLoading() => _isLoading;
+  setIsLoading(bool value) {
+    _isLoading = value;
     notifyListeners();
   }
 
@@ -96,7 +96,7 @@ class CreateClientJobProvider extends ChangeNotifier {
   }
 
   createJobClient(BuildContext context) {
-    setIsLogging(true);
+    setIsLoading(true);
     ApiClient()
         .createClientJob('$category', title!, street!, comune!, date!, time!,
             description!, budget!, context)
@@ -106,7 +106,7 @@ class CreateClientJobProvider extends ChangeNotifier {
         Provider.of<GetClientJobListProvider>(context, listen: false)
             .getData("All", "All", context);
         clearCreateJobProvider(context);
-        setIsLogging(false);
+        setIsLoading(false);
         ProgressLoader(context, "Job Create SuccessFully");
         Navigator.of(context).pop();
         notifyListeners();

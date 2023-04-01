@@ -18,6 +18,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 import '../Constants.dart';
+import '../jobs/provider/get_client_job_list_provider.dart';
 
 void base64EncodeFile(List<dynamic> args) {
   final SendPort sendPort = args[0] as SendPort;
@@ -205,4 +206,145 @@ Widget statusChip(String state, BuildContext context) {
                               : state == JobStatus.expired
                                   ? rejectedChipColor
                                   : Colors.white)));
+}
+
+void showJobDeleteConfirmation(BuildContext context, String jobId) {
+  bool isJobUpdateLoading = false;
+  showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+          contentPadding: const EdgeInsets.all(12),
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8.0))),
+          content: StatefulBuilder(builder: (context, newState) {
+            return confirmationDialogueView(
+                context: context,
+                titleIconColor: Colors.red,
+                mainIcon: 'delete.png',
+                title: tr('client.delete_job_dialogue.are_you_sure_delete'),
+                description: tr('client.delete_job_dialogue.once_delete'),
+                button1Name: tr('client.delete_job_dialogue.cancel'),
+                button2Name: tr('client.delete_job_dialogue.delete'),
+                showLoader: isJobUpdateLoading,
+                onButton1Click: () {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                },
+                onButton2Click: () {
+                  newState(() {
+                    isJobUpdateLoading = true;
+                  });
+                  var provider = context.read<GetClientJobListProvider>();
+                  provider
+                      .deleteJob(context: context, jobId: jobId)
+                      .then((value) {
+                    provider.getData(provider.getSelectedFilter(),
+                        provider.getSelectedJobType(), context);
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                  });
+                },
+                button2TextColor: Colors.red,
+                button2Icon: 'delete.png',
+                button1Icon: 'go_backward.png');
+          })));
+}
+
+Widget confirmationDialogueView(
+    {required BuildContext context,
+    String? mainIcon,
+    button1Name,
+    button2Name,
+    required String title,
+    required String description,
+    String button1Icon = 'arrow_circle_down.png',
+    String button2Icon = 'go_backward.png',
+    Color titleIconColor = Colors.red,
+    Color titleIconBgColor = redF8D,
+    Color button2TextColor = primaryColor,
+    Color button1BgColor = primaryColor,
+    bool showLoader = false,
+    required Function onButton1Click,
+    required Function onButton2Click}) {
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Stack(
+        children: [
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 12),
+              CircleAvatar(
+                radius: 40,
+                backgroundColor: titleIconBgColor,
+                child: Center(
+                    child: mainIcon == null
+                        ? Icon(
+                            Icons.warning_amber_outlined,
+                            size: 36,
+                            color: titleIconColor,
+                          )
+                        : Image.asset(
+                            'assets/icons/$mainIcon',
+                            height: 36,
+                            width: 36,
+                            color: titleIconColor,
+                          )),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                title,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline2,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 8, bottom: 16),
+                child: Text(description,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodyText2),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              submitButton(
+                onButtonTap: () {
+                  if (!showLoader) {
+                    onButton1Click();
+                  }
+                },
+                context: context,
+                backgroundColor: button1BgColor,
+                buttonName:
+                    button1Name ?? tr('admin.go_back_dialogue.stay_here'),
+                iconAsset: button1Icon,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              submitButton(
+                  onButtonTap: () {
+                    if (!showLoader) {
+                      onButton2Click();
+                    }
+                  },
+                  context: context,
+                  backgroundColor: Colors.transparent,
+                  buttonName:
+                      button2Name ?? tr('admin.go_back_dialogue.Go_back'),
+                  textColor: button2TextColor,
+                  iconAsset: button2Icon,
+                  iconColor: button2TextColor),
+            ],
+          ),
+          showLoader
+              ? Positioned.fill(
+                  child: Container(
+                      color: Colors.white24,
+                      child: const Center(child: CircularProgressIndicator())))
+              : Container()
+        ],
+      ),
+    ],
+  );
 }

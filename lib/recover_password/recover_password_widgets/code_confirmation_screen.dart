@@ -226,7 +226,7 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
             ),
             Positioned.fill(
                 child: Center(
-                    child: signUpProvider.getIsLogging()
+                    child: signUpProvider.getIsLoading()
                         ? const CircularProgressIndicator()
                         : const SizedBox(
                             height: 0,

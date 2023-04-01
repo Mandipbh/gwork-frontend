@@ -8,26 +8,26 @@ import '../../server_connection/api_client.dart';
 class MyProfileProvider extends ChangeNotifier {
   GetProfileModel? _model;
   GetProfileModel? get model => _model;
-  bool _isLogging = false;
-  bool getIsLogging() => _isLogging;
+  bool _isLoading = false;
+  bool getIsLoading() => _isLoading;
 
-  setIsLogging(bool value) {
-    _isLogging = value;
+  setIsLoading(bool value) {
+    _isLoading = value;
     notifyListeners();
   }
 
-  bool _isProfileDataLogging = true;
+  bool _isProfileDataLoading = true;
 
-  bool getIsLoggingProfile() => _isProfileDataLogging;
+  bool getIsLoadingProfile() => _isProfileDataLoading;
 
-  setIsLoggingProfile(bool value) {
-    _isProfileDataLogging = value;
+  setIsLoadingProfile(bool value) {
+    _isProfileDataLoading = value;
     notifyListeners();
   }
 
   getUserProfile(BuildContext context) async {
     _model = await ApiClient().getProfile(context);
-    setIsLoggingProfile(false);
+    setIsLoadingProfile(false);
   }
 
   clearProfileProvider() {
@@ -40,12 +40,12 @@ class MyProfileProvider extends ChangeNotifier {
       ErrorLoader(context, "Name Can Not Be Empty");
       notifyListeners();
     } else {
-      setIsLogging(true);
+      setIsLoading(true);
       ApiClient()
           .updateName(nameController.text, context)
           .then((updateNameSuccessResponse) {
         if (updateNameSuccessResponse.success!) {
-          setIsLogging(false);
+          setIsLoading(false);
           _model!.user!.name = nameController.text;
           print("!!${_model!.user!.name}");
           ProgressLoader(context, "your Name Update SuccessFully");
@@ -62,12 +62,12 @@ class MyProfileProvider extends ChangeNotifier {
       ErrorLoader(context, "LastName Can Not Be Empty");
       notifyListeners();
     } else {
-      setIsLogging(true);
+      setIsLoading(true);
       ApiClient()
           .updateLastName(lastNameController.text, context)
           .then((updateLastNameSuccessResponse) {
         if (updateLastNameSuccessResponse.success!) {
-          setIsLogging(false);
+          setIsLoading(false);
           _model!.user!.surname = lastNameController.text;
           print("!!${_model!.user!.surname}");
           ProgressLoader(context, "your LastName Update SuccessFully");
@@ -84,12 +84,12 @@ class MyProfileProvider extends ChangeNotifier {
       ErrorLoader(context, "Email Can Not Be Empty");
       notifyListeners();
     } else {
-      setIsLogging(true);
+      setIsLoading(true);
       ApiClient()
           .updateEmail(emailController.text, context)
           .then((updateEmailSuccessResponse) {
         if (updateEmailSuccessResponse.success!) {
-          setIsLogging(false);
+          setIsLoading(false);
           _model!.user!.email = emailController.text;
           print("!!${_model!.user!.email}");
           ProgressLoader(context, "your Email Update SuccessFully");
@@ -106,12 +106,12 @@ class MyProfileProvider extends ChangeNotifier {
       ErrorLoader(context, "Phone Number Can Not Be Empty");
       notifyListeners();
     } else {
-      setIsLogging(true);
+      setIsLoading(true);
       ApiClient()
           .requestChangePhoneNumber(phoneController.text, context)
           .then((requestChangePhoneSuccessResponse) {
         if (requestChangePhoneSuccessResponse.success!) {
-          setIsLogging(false);
+          setIsLoading(false);
           _model!.user!.phoneNumber = phoneController.text;
           print("!!${_model!.user!.phoneNumber}");
           ProgressLoader(context,
@@ -135,12 +135,12 @@ class MyProfileProvider extends ChangeNotifier {
       ErrorLoader(context, "Birthdate Can Not Be Empty");
       notifyListeners();
     } else {
-      setIsLogging(true);
+      setIsLoading(true);
       ApiClient()
           .updateBirthDate(birthDateController.text, context)
           .then((updateEmailSuccessResponse) {
         if (updateEmailSuccessResponse.success!) {
-          setIsLogging(false);
+          setIsLoading(false);
           _model!.user!.birthDate = birthDateController.text;
           print("!!${_model!.user!.birthDate}");
           ProgressLoader(context, "your Birthdate Update SuccessFully");
@@ -157,12 +157,12 @@ class MyProfileProvider extends ChangeNotifier {
       ErrorLoader(context, "VatNumber Can Not Be Empty");
       notifyListeners();
     } else {
-      setIsLogging(true);
+      setIsLoading(true);
       ApiClient()
           .updateVatNumber(vatNumberController.text, context)
           .then((updateVatNumberSuccessResponse) {
         if (updateVatNumberSuccessResponse.success!) {
-          setIsLogging(false);
+          setIsLoading(false);
           _model!.user!.vatNumber = vatNumberController.text;
           print("!!${_model!.user!.vatNumber}");
           ProgressLoader(context, "your VatNumber Update SuccessFully");
@@ -175,12 +175,12 @@ class MyProfileProvider extends ChangeNotifier {
   }
 
   updateProfileImage(profileImage, BuildContext context) {
-    setIsLogging(true);
+    setIsLoading(true);
     ApiClient()
         .updateProfileImage(profileImage, context)
         .then((updateProfileImageSuccessResponse) {
       if (updateProfileImageSuccessResponse.success!) {
-        setIsLogging(false);
+        setIsLoading(false);
         _model!.user!.image = profileImage;
         ProgressLoader(context, "your ProfilePicture Update SuccessFully");
         getUserProfile(context);
@@ -191,14 +191,14 @@ class MyProfileProvider extends ChangeNotifier {
   }
 
   deleteProfileImage(BuildContext context) {
-    setIsLogging(true);
+    setIsLoading(true);
     ApiClient()
         .removeProfileImage(context)
         .then((updateProfileImageSuccessResponse) {
       if (updateProfileImageSuccessResponse.success!) {
         print("DELETE IMAGE ==> ${updateProfileImageSuccessResponse.success}");
         //
-        setIsLogging(false);
+        setIsLoading(false);
         ProgressLoader(context, "your ProfilePicture delete SuccessFully");
         getUserProfile(context);
         notifyListeners();
@@ -222,12 +222,12 @@ class MyProfileProvider extends ChangeNotifier {
       ErrorLoader(context, "Password do not match");
       notifyListeners();
     } else {
-      setIsLogging(true);
+      setIsLoading(true);
       ApiClient()
           .updatePassword(currentPassword, newPassword, context)
           .then((updatePasswordSuccessResponse) {
         if (updatePasswordSuccessResponse.success!) {
-          setIsLogging(false);
+          setIsLoading(false);
           currentPassword;
           newPassword;
           print("CurrentPassword $currentPassword");

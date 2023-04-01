@@ -173,7 +173,7 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
           Positioned.fill(
               child: Center(
                   child:
-                      provider.getIsLogging() || signUpProvider.getIsLogging()
+                      provider.getIsLogging() || signUpProvider.getIsLoading()
                           ? const CircularProgressIndicator()
                           : const SizedBox(
                               height: 0,

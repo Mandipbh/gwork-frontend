@@ -29,7 +29,7 @@
     "set_new_password": "Set new password",
     "set_password_dialogue": {
       "set_password": "Set password",
-      "set_new_password": "Set a new password to use it for logging in.",
+      "set_new_password": "Set a new password to use it for Loading in.",
       "main_button": "main button",
       "Secondary button": "Secondary button"
     },
@@ -345,6 +345,12 @@
       "Accepted_budget": "Accepted budget",
       "Publish": "Publish"
 
+    },
+    "delete_job_dialogue": {
+      "are_you_sure_delete": "Are you sure you want to delete the job? ",
+      "once_delete": "Once delete the action can not be undone",
+      "delete": "Delete Job",
+      "cancel": "Cancel"
     }
   },
 

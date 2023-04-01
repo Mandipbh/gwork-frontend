@@ -103,7 +103,7 @@ class _SetNewPasswordScreenState extends State<SetNewPasswordScreen> {
             ),
             Positioned.fill(
               child: Center(
-                child: recoverPasswordProvider.getIsLogging()
+                child: recoverPasswordProvider.getIsLoading()
                     ? const CircularProgressIndicator()
                     : const SizedBox(
                         height: 0,

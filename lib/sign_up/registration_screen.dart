@@ -305,7 +305,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               ErrorLoader(
                                   context, "Please select profile picture");
                             } else {
-                              value.setIsLogging(true);
+                              value.setIsLoading(true);
                               print(currentPage);
                               ApiClient()
                                   .userRegister(context,
@@ -326,7 +326,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                           .imagePath,
                                       cardCvv: value.cvv)
                                   .then((val) {
-                                value.setIsLogging(false);
+                                value.setIsLoading(false);
 
                                 if (val!.success!) {
                                   currentPage = currentPage + 1;
@@ -488,7 +488,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               ErrorLoader(
                                   context, "Please select profile picture");
                             } else {
-                              value.setIsLogging(true);
+                              value.setIsLoading(true);
                               ApiClient()
                                   .userRegister(context,
                                       firstName: value.name,
@@ -508,7 +508,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                           .imagePath,
                                       cardCvv: value.cvv)
                                   .then((v) {
-                                value.setIsLogging(false);
+                                value.setIsLoading(false);
 
                                 if (v!.success!) {
                                   currentPage = currentPage + 1;
