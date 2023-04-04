@@ -44,7 +44,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreenProfessional> {
   Widget build(BuildContext context) {
     return Consumer<GetProfessionalJobListProvider>(
         builder: (context, provider, child) {
-      state = provider.getIsOverviewLoading()
+      state = !provider.getIsOverviewLoading()
           ? provider.detailsModel!.jobDetails!.applicationState!
           : '';
       return WillPopScope(
@@ -406,11 +406,16 @@ class _JobDetailsScreenState extends State<JobDetailsScreenProfessional> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => ChatScreen(
-                                    jobId: provider.detailsModel!.jobDetails!.id
-                                        .toString(),
+                                    jobId:
+                                        provider.detailsModel!.jobDetails!.id!,
                                     userId: provider
-                                        .detailsModel!.jobDetails!.userId
-                                        .toString(),
+                                        .detailsModel!.jobDetails!.userId!,
+                                    userName: provider
+                                        .detailsModel!.jobDetails!.clientName!,
+                                    userImage: provider
+                                        .detailsModel!.jobDetails!.clientImage!,
+                                    jobCategory: provider
+                                        .detailsModel!.jobDetails!.category!,
                                   )),
                           (Route<dynamic> route) => true);
                     },

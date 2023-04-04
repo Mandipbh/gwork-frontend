@@ -383,13 +383,23 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => ChatScreen(
-                                applications: value
-                                    .applicationsModel!.applications![index],
                                 jobId: value.detailsModel!.jobDetails!.id
                                     .toString(),
                                 userId: value.applicationsModel!
                                     .applications![index].professionalId
                                     .toString(),
+                                userName: value
+                                        .applicationsModel!
+                                        .applications![index]
+                                        .professionalName ??
+                                    '',
+                                userImage: value
+                                        .applicationsModel!
+                                        .applications![index]
+                                        .professionalImage ??
+                                    '',
+                                jobCategory:
+                                    value.detailsModel!.jobDetails!.category!,
                               ),
                             ));
                       },

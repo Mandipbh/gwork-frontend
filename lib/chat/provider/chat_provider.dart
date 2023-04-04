@@ -72,6 +72,7 @@ class ChatProvider extends ChangeNotifier {
 
   void disconnectSocket() {
     if (!socket!.disconnected) {
+      socket!.clearListeners();
       socket!.disconnect();
     }
     _pageCount = 1;

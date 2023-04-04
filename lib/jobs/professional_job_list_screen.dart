@@ -315,7 +315,7 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
                   topLeft: Radius.circular(20),
                 ),
                 child: Consumer<GetProfessionalJobListProvider>(
-                  builder: (context, value, child) => value.model == null
+                  builder: (context, value, child) => value.getIsListLoading()
                       ? const Center(
                           child: CircularProgressIndicator(),
                         )

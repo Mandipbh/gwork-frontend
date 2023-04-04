@@ -13,13 +13,20 @@ import 'package:provider/provider.dart';
 import '../model/message_model.dart';
 
 class ChatScreen extends StatefulWidget {
-  ChatScreen(
-      {Key? key, this.applications, required this.jobId, required this.userId})
-      : super(key: key);
+  ChatScreen({
+    Key? key,
+    required this.jobId,
+    required this.userId,
+    required this.userName,
+    required this.userImage,
+    required this.jobCategory,
+  }) : super(key: key);
 
-  final Applications? applications;
   final String jobId;
   final String userId;
+  final String userName;
+  final String userImage;
+  final String jobCategory;
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -29,6 +36,7 @@ final TextEditingController messageController = TextEditingController();
 
 class _ChatScreenState extends State<ChatScreen> {
   ScrollController scrollController = ScrollController();
+  bool isFromMessage = false;
 
   @override
   void initState() {
@@ -97,7 +105,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     Column(
                       children: [
                         Text(
-                          '${widget.applications!.professionalName}',
+                          widget.userName,
                           style: const TextStyle(
                             color: splashColor1,
                             fontSize: 18,
@@ -105,7 +113,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           ),
                         ),
                         Text(
-                          tr('client.chat.Babysitting'),
+                          widget.jobCategory,
                           style: const TextStyle(
                             color: black343,
                             fontSize: 12,
@@ -117,64 +125,55 @@ class _ChatScreenState extends State<ChatScreen> {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(50),
                       child: Container(
-                        height: 42,
-                        width: 42,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: whiteF2F,
-                        ),
-                        child: widget.applications != null
-                            ? widget.applications!.professionalImage != null
-                                ? Image.network(
-                                    widget.applications!.professionalImage!,
-                                    fit: BoxFit.cover,
-                                    loadingBuilder: (BuildContext context,
-                                        Widget child,
-                                        ImageChunkEvent? loadingProgress) {
-                                      if (loadingProgress == null) {
-                                        return child;
-                                      }
-                                      return Center(
-                                        child: CircularProgressIndicator(
-                                          value: loadingProgress
-                                                      .expectedTotalBytes !=
-                                                  null
-                                              ? loadingProgress
-                                                      .cumulativeBytesLoaded /
-                                                  loadingProgress
-                                                      .expectedTotalBytes!
-                                              : null,
-                                        ),
-                                      );
-                                    },
-                                    errorBuilder: (context, error, stackTrace) {
-                                      return const CircleAvatar(
-                                          radius: 75,
-                                          backgroundColor: Colors.white,
-                                          child: Center(
-                                            child: Icon(
-                                              Icons.person,
-                                              size: 22,
-                                              color: grey9EA,
-                                            ),
-                                          ));
-                                    },
-                                  )
-                                : Center(
-                                    child: Text(
-                                        widget
-                                            .applications!.professionalName![0],
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline3),
-                                  )
-                            : Center(
-                                child: Text(
-                                    widget.applications!.professionalName![0],
-                                    style:
-                                        Theme.of(context).textTheme.headline3),
-                              ),
-                      ),
+                          height: 42,
+                          width: 42,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: whiteF2F,
+                          ),
+                          child: widget.userImage.isNotEmpty
+                              ? Image.network(
+                                  widget.userImage,
+                                  fit: BoxFit.cover,
+                                  loadingBuilder: (BuildContext context,
+                                      Widget child,
+                                      ImageChunkEvent? loadingProgress) {
+                                    if (loadingProgress == null) {
+                                      return child;
+                                    }
+                                    return Center(
+                                      child: CircularProgressIndicator(
+                                        value: loadingProgress
+                                                    .expectedTotalBytes !=
+                                                null
+                                            ? loadingProgress
+                                                    .cumulativeBytesLoaded /
+                                                loadingProgress
+                                                    .expectedTotalBytes!
+                                            : null,
+                                      ),
+                                    );
+                                  },
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return const CircleAvatar(
+                                        radius: 75,
+                                        backgroundColor: Colors.white,
+                                        child: Center(
+                                          child: Icon(
+                                            Icons.person,
+                                            size: 22,
+                                            color: grey9EA,
+                                          ),
+                                        ));
+                                  },
+                                )
+                              : Center(
+                                  child: Text(
+                                      '${widget.userName.split(' ')[0][0].toUpperCase()}${widget.userName.split(' ')[1][0].toUpperCase()}',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline3),
+                                )),
                     ),
                   ],
                 ),
@@ -292,135 +291,107 @@ class _ChatScreenState extends State<ChatScreen> {
             )
           : provider.getChatData().isEmpty
               ? noMessageView()
-              : Container(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    controller: scrollController,
-                    padding: const EdgeInsets.only(left: 25, right: 25),
-                    itemCount: provider.getChatData().length,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        crossAxisAlignment:
-                            provider.getChatData()[index].isSelf! ==
-                                    ChatType.toUser
-                                ? CrossAxisAlignment.start
-                                : CrossAxisAlignment.end,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(
-                                left: provider.getChatData()[index].isSelf! ==
-                                        ChatType.toUser
-                                    ? 0
-                                    : MediaQuery.of(context).size.width * 0.1,
-                                right: provider.getChatData()[index].isSelf! ==
-                                        ChatType.toUser
-                                    ? MediaQuery.of(context).size.width * 0.11
-                                    : 0),
-                            child: Stack(
-                              clipBehavior: Clip.none,
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.all(12),
-                                  margin: const EdgeInsets.only(right: 10),
-                                  decoration: BoxDecoration(
-                                    color:
-                                        provider.getChatData()[index].isSelf! ==
-                                                ChatType.toUser
-                                            ? white
-                                            : primaryColor,
-                                    borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(provider
-                                                  .getChatData()[index]
-                                                  .isSelf! ==
-                                              ChatType.toUser
-                                          ? 24
-                                          : 14),
-                                      bottomRight: Radius.circular(provider
-                                                  .getChatData()[index]
-                                                  .isSelf! ==
-                                              ChatType.toUser
-                                          ? 24
-                                          : 14),
-                                      topLeft: Radius.circular(provider
-                                                  .getChatData()[index]
-                                                  .isSelf! ==
-                                              ChatType.toUser
-                                          ? 14
-                                          : 24),
-                                      bottomLeft: Radius.circular(provider
-                                                  .getChatData()[index]
-                                                  .isSelf! ==
-                                              ChatType.toUser
-                                          ? 14
-                                          : 24),
-                                    ),
-                                  ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Flexible(
-                                        child: Text(
-                                          provider.getChatData()[index].chat!,
-                                          softWrap: true,
-                                          overflow: TextOverflow.visible,
-                                          style: TextStyle(
-                                              color: provider
-                                                          .getChatData()[index]
-                                                          .isSelf! ==
-                                                      ChatType.toUser
-                                                  ? primaryColor
-                                                  : white,
-                                              fontFamily: 'Manrope',
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                      ),
-                                      const SizedBox(width: 8),
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 5),
-                                        child: Text(
-                                          DateFormat('hh:mm').format(
-                                              DateTime.parse(provider
-                                                  .getChatData()[index]
-                                                  .createdAt!)),
-                                          style: const TextStyle(
-                                              color: grey9EA,
-                                              fontFamily: 'Satoshi',
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 14),
-                                        ),
-                                      ),
-                                    ],
+              : ListView.builder(
+                  shrinkWrap: true,
+                  controller: scrollController,
+                  padding: const EdgeInsets.only(left: 25, right: 25),
+                  itemCount: provider.getChatData().length,
+                  itemBuilder: (context, index) {
+                    isFromMessage =
+                        widget.userId == provider.getChatData()[index].toUserId;
+                    return Column(
+                      crossAxisAlignment: !isFromMessage
+                          ? CrossAxisAlignment.start
+                          : CrossAxisAlignment.end,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(
+                              left: !isFromMessage
+                                  ? 0
+                                  : MediaQuery.of(context).size.width * 0.1,
+                              right: !isFromMessage
+                                  ? MediaQuery.of(context).size.width * 0.11
+                                  : 0),
+                          child: Stack(
+                            clipBehavior: Clip.none,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(12),
+                                margin: const EdgeInsets.only(right: 10),
+                                decoration: BoxDecoration(
+                                  color: !isFromMessage ? white : primaryColor,
+                                  borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(
+                                        !isFromMessage ? 24 : 14),
+                                    bottomRight: Radius.circular(
+                                        !isFromMessage ? 24 : 14),
+                                    topLeft: Radius.circular(
+                                        !isFromMessage ? 14 : 24),
+                                    bottomLeft: Radius.circular(
+                                        !isFromMessage ? 14 : 24),
                                   ),
                                 ),
-                                provider.getChatData()[index].isSelf ==
-                                        ChatType.toUser
-                                    ? Positioned(
-                                        left: -4,
-                                        bottom: 0,
-                                        child: Image.asset(
-                                          "assets/images/whiteChatBg.png",
-                                          height: 10,
-                                        ),
-                                      )
-                                    : Positioned(
-                                        right: 4,
-                                        bottom: 0,
-                                        child: Image.asset(
-                                          "assets/images/blackChatBg.png",
-                                          height: 45,
-                                        ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Flexible(
+                                      child: Text(
+                                        provider.getChatData()[index].chat!,
+                                        softWrap: true,
+                                        overflow: TextOverflow.visible,
+                                        style: TextStyle(
+                                            color: !isFromMessage
+                                                ? primaryColor
+                                                : white,
+                                            fontFamily: 'Manrope',
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500),
                                       ),
-                              ],
-                            ),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 5),
+                                      child: Text(
+                                        DateFormat('hh:mm').format(
+                                            DateTime.parse(provider
+                                                    .getChatData()[index]
+                                                    .createdAt!)
+                                                .toUtc()),
+                                        style: const TextStyle(
+                                            color: grey9EA,
+                                            fontFamily: 'Satoshi',
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 14),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              !isFromMessage
+                                  ? Positioned(
+                                      left: -4,
+                                      bottom: 0,
+                                      child: Image.asset(
+                                        "assets/images/whiteChatBg.png",
+                                        height: 10,
+                                      ),
+                                    )
+                                  : Positioned(
+                                      right: 4,
+                                      bottom: 0,
+                                      child: Image.asset(
+                                        "assets/images/blackChatBg.png",
+                                        height: 45,
+                                      ),
+                                    ),
+                            ],
                           ),
-                          const SizedBox(height: 16),
-                        ],
-                      );
-                    },
-                  ),
+                        ),
+                        const SizedBox(height: 16),
+                      ],
+                    );
+                  },
                 );
     });
   }
