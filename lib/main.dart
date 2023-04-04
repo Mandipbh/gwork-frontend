@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:g_worker_app/Constants.dart';
+import 'package:g_worker_app/chat/chat_widget_view/chat_screen.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/home_page/provider/home_page_provider.dart';
 import 'package:g_worker_app/jobs/provider/create_client_job_provider.dart';
@@ -20,6 +21,7 @@ import 'package:month_year_picker/month_year_picker.dart';
 
 import 'package:provider/provider.dart';
 
+import 'chat/provider/chat_provider.dart';
 import 'jobs/add_job_widgets/upload_images_view.dart';
 import 'sign_in/provider/sign_in_provider.dart';
 
@@ -85,6 +87,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => GetProfessionalJobListProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ChatProvider(),
         ),
       ],
       child: MaterialApp(

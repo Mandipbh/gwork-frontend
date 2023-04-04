@@ -1,33 +1,63 @@
+import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/Constants.dart';
-import 'package:g_worker_app/chat/edit_offer_screen.dart';
+import 'package:g_worker_app/chat/chat_widget_view/edit_offer_screen.dart';
+import 'package:g_worker_app/chat/provider/chat_provider.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/jobs/model/get_client_job_applications_model.dart';
 import 'package:g_worker_app/jobs/provider/get_client_job_list_provider.dart';
 import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../model/message_model.dart';
+
 class ChatScreen extends StatefulWidget {
-  ChatScreen({Key? key, this.applications}) : super(key: key);
+  ChatScreen(
+      {Key? key, this.applications, required this.jobId, required this.userId})
+      : super(key: key);
 
   final Applications? applications;
+  final String jobId;
+  final String userId;
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
 }
 
+final TextEditingController messageController = TextEditingController();
+
 class _ChatScreenState extends State<ChatScreen> {
+  ScrollController scrollController = ScrollController();
+
+  @override
+  void initState() {
+    context.read<ChatProvider>().connectAndListen(widget.jobId, widget.userId);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      if (scrollController.hasClients) {
+        scrollController.jumpTo(scrollController.position.maxScrollExtent);
+      }
+    });
+    scrollController.addListener(() {
+      if (scrollController.offset == 0) {
+        context.read<ChatProvider>().getMoreMessages();
+      }
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: whiteF2F,
-      body: Stack(
-        children: [
-          topView(),
-          centerView(),
-          bottomView(),
-        ],
+    return WillPopScope(
+      onWillPop: () async {
+        context.read<ChatProvider>().disconnectSocket();
+        return true;
+      },
+      child: Scaffold(
+        backgroundColor: whiteF2F,
+        body: Column(
+          children: [topView(), Expanded(child: messageView()), bottomView()],
+        ),
       ),
     );
   }
@@ -68,7 +98,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       children: [
                         Text(
                           '${widget.applications!.professionalName}',
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: splashColor1,
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
@@ -91,7 +121,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         width: 42,
                         decoration: const BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.white,
+                          color: whiteF2F,
                         ),
                         child: widget.applications != null
                             ? widget.applications!.professionalImage != null
@@ -146,18 +176,6 @@ class _ChatScreenState extends State<ChatScreen> {
                               ),
                       ),
                     ),
-                    // CircleAvatar(
-                    //   backgroundColor: whiteF2F,
-                    //   radius: 25,
-                    //   child: Text(
-                    //     "ST",
-                    //     style: TextStyle(
-                    //         fontWeight: FontWeight.w700,
-                    //         color: black343,
-                    //         fontSize: 20,
-                    //         fontFamily: 'Satoshi'),
-                    //   ),
-                    // ),
                   ],
                 ),
               ),
@@ -266,13 +284,154 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  Widget centerView() {
+  Widget messageView() {
+    return Consumer<ChatProvider>(builder: (context, provider, child) {
+      return provider.getIsLoading()
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : provider.getChatData().isEmpty
+              ? noMessageView()
+              : Container(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    controller: scrollController,
+                    padding: const EdgeInsets.only(left: 25, right: 25),
+                    itemCount: provider.getChatData().length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        crossAxisAlignment:
+                            provider.getChatData()[index].isSelf! ==
+                                    ChatType.toUser
+                                ? CrossAxisAlignment.start
+                                : CrossAxisAlignment.end,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(
+                                left: provider.getChatData()[index].isSelf! ==
+                                        ChatType.toUser
+                                    ? 0
+                                    : MediaQuery.of(context).size.width * 0.1,
+                                right: provider.getChatData()[index].isSelf! ==
+                                        ChatType.toUser
+                                    ? MediaQuery.of(context).size.width * 0.11
+                                    : 0),
+                            child: Stack(
+                              clipBehavior: Clip.none,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(12),
+                                  margin: const EdgeInsets.only(right: 10),
+                                  decoration: BoxDecoration(
+                                    color:
+                                        provider.getChatData()[index].isSelf! ==
+                                                ChatType.toUser
+                                            ? white
+                                            : primaryColor,
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(provider
+                                                  .getChatData()[index]
+                                                  .isSelf! ==
+                                              ChatType.toUser
+                                          ? 24
+                                          : 14),
+                                      bottomRight: Radius.circular(provider
+                                                  .getChatData()[index]
+                                                  .isSelf! ==
+                                              ChatType.toUser
+                                          ? 24
+                                          : 14),
+                                      topLeft: Radius.circular(provider
+                                                  .getChatData()[index]
+                                                  .isSelf! ==
+                                              ChatType.toUser
+                                          ? 14
+                                          : 24),
+                                      bottomLeft: Radius.circular(provider
+                                                  .getChatData()[index]
+                                                  .isSelf! ==
+                                              ChatType.toUser
+                                          ? 14
+                                          : 24),
+                                    ),
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Flexible(
+                                        child: Text(
+                                          provider.getChatData()[index].chat!,
+                                          softWrap: true,
+                                          overflow: TextOverflow.visible,
+                                          style: TextStyle(
+                                              color: provider
+                                                          .getChatData()[index]
+                                                          .isSelf! ==
+                                                      ChatType.toUser
+                                                  ? primaryColor
+                                                  : white,
+                                              fontFamily: 'Manrope',
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 5),
+                                        child: Text(
+                                          DateFormat('hh:mm').format(
+                                              DateTime.parse(provider
+                                                  .getChatData()[index]
+                                                  .createdAt!)),
+                                          style: const TextStyle(
+                                              color: grey9EA,
+                                              fontFamily: 'Satoshi',
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                provider.getChatData()[index].isSelf ==
+                                        ChatType.toUser
+                                    ? Positioned(
+                                        left: -4,
+                                        bottom: 0,
+                                        child: Image.asset(
+                                          "assets/images/whiteChatBg.png",
+                                          height: 10,
+                                        ),
+                                      )
+                                    : Positioned(
+                                        right: 4,
+                                        bottom: 0,
+                                        child: Image.asset(
+                                          "assets/images/blackChatBg.png",
+                                          height: 45,
+                                        ),
+                                      ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                        ],
+                      );
+                    },
+                  ),
+                );
+    });
+  }
+
+  Widget noMessageView() {
     return Center(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // SvgPicture.asset("assets/images/nomessage.svg"),
+          Image.asset("assets/icons/chat.png", height: 142, width: 142),
           const SizedBox(height: 22),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 35),
@@ -334,6 +493,7 @@ class _ChatScreenState extends State<ChatScreen> {
             ],
           ),
           child: TextFormField(
+            controller: messageController,
             cursorColor: Colors.black,
             decoration: InputDecoration(
               hintText: tr('client.chat.Start_typing'),
@@ -342,8 +502,17 @@ class _ChatScreenState extends State<ChatScreen> {
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
               ),
-              suffixIcon:
-                  Image.asset('assets/images/send.png', height: 15, width: 15),
+              suffixIcon: GestureDetector(
+                onTap: () {
+                  scrollController
+                      .jumpTo(scrollController.position.maxScrollExtent);
+                  Provider.of<ChatProvider>(context, listen: false)
+                      .sendMessage(messageController.text);
+                  messageController.text = '';
+                },
+                child: Image.asset('assets/images/send.png',
+                    height: 15, width: 15),
+              ),
               filled: true,
               fillColor: Colors.white,
               focusedBorder: OutlineInputBorder(

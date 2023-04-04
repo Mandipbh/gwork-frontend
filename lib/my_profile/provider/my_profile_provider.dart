@@ -115,7 +115,7 @@ class MyProfileProvider extends ChangeNotifier {
           _model!.user!.phoneNumber = phoneController.text;
           print("!!${_model!.user!.phoneNumber}");
           ProgressLoader(context,
-              "your Phone Number Update SuccessFully ${requestChangePhoneSuccessResponse.otp}");
+              "Otp Send SuccessFully ${requestChangePhoneSuccessResponse.otp}");
           Navigator.push(
             context,
             MaterialPageRoute(

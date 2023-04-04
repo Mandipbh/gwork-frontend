@@ -6,7 +6,7 @@ import 'package:g_worker_app/jobs/provider/get_professional_job_list_provider.da
 
 import 'package:provider/provider.dart';
 import '../Constants.dart';
-import '../chat/chat_screen.dart';
+import '../chat/chat_widget_view/chat_screen.dart';
 import '../common/common_buttons.dart';
 import '../common/common_widgets.dart';
 
@@ -404,7 +404,14 @@ class _JobDetailsScreenState extends State<JobDetailsScreenProfessional> {
                     onTap: () {
                       Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(builder: (context) => ChatScreen()),
+                          MaterialPageRoute(
+                              builder: (context) => ChatScreen(
+                                    jobId: provider.detailsModel!.jobDetails!.id
+                                        .toString(),
+                                    userId: provider
+                                        .detailsModel!.jobDetails!.userId
+                                        .toString(),
+                                  )),
                           (Route<dynamic> route) => true);
                     },
                     child: Stack(

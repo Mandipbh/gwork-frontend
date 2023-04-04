@@ -6,6 +6,7 @@ import 'package:g_worker_app/common/common_buttons.dart';
 import 'package:g_worker_app/common/common_loader.dart';
 import 'package:g_worker_app/common/common_widgets.dart';
 import 'package:g_worker_app/my_profile/my_profile_widgets/my_profile_screen.dart';
+import 'package:g_worker_app/my_profile/provider/my_profile_provider.dart';
 import 'package:g_worker_app/recover_password/recover_password_widgets/set_new_password_screen.dart';
 import 'package:g_worker_app/server_connection/api_client.dart';
 import 'package:g_worker_app/sign_in/view/sign_in_sign_up_screen.dart';
@@ -185,13 +186,29 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                                         ProgressLoader(
                                             context, "OTP Verify SuccessFully");
                                         timer.cancel();
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                const MyProfileScreen(),
-                                          ),
-                                        );
+                                        ApiClient()
+                                            .updatePhoneNumber(
+                                                verifyOtpPhoneResponse.token
+                                                    .toString(),
+                                                widget.phoneNumber.toString(),
+                                                context)
+                                            .then((updatePhoneResponse) {
+                                          if (updatePhoneResponse.success!) {
+                                            Provider.of<MyProfileProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .getUserProfile(context);
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const MyProfileScreen(),
+                                              ),
+                                            );
+                                            ProgressLoader(context,
+                                                "OTP Verify SuccessFully");
+                                          }
+                                        });
                                       }
                                     });
                                     break;

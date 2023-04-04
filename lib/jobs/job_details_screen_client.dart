@@ -2,7 +2,7 @@ import 'dart:ffi';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:g_worker_app/chat/chat_screen.dart';
+import 'package:g_worker_app/chat/chat_widget_view/chat_screen.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/common/common_widgets.dart';
 import 'package:g_worker_app/jobs/model/get_job_details_client_model.dart';
@@ -385,6 +385,11 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                               builder: (context) => ChatScreen(
                                 applications: value
                                     .applicationsModel!.applications![index],
+                                jobId: value.detailsModel!.jobDetails!.id
+                                    .toString(),
+                                userId: value.applicationsModel!
+                                    .applications![index].professionalId
+                                    .toString(),
                               ),
                             ));
                       },
