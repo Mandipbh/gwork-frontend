@@ -23,78 +23,85 @@ class _SummaryViewState extends State<SummaryView> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: MediaQuery.of(context).size.height,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Text(
-              tr('client.summary.Summary'),
-              style: Theme.of(context).textTheme.headline1,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Text(
+                tr('client.summary.Summary'),
+                style: Theme.of(context).textTheme.headline1,
+              ),
             ),
-          ),
-          Text(tr('client.summary.Building_restructuring'),
-              style: Theme.of(context).textTheme.headline3),
-          const SizedBox(height: 24),
-          Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16), color: Colors.white),
-            padding: const EdgeInsets.all(8),
-            child: Row(children: [
-              Expanded(
-                child: GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () {
-                    setState(() {
-                      isDescriptionSelected = !isDescriptionSelected;
-                    });
-                  },
-                  child: Container(
-                      height: 34,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color:
-                              isDescriptionSelected ? primaryColor : whiteF2F),
-                      child: Center(
-                          child: Text(
-                        tr('client.summary.Description'),
-                        style: Theme.of(context).textTheme.subtitle1!.apply(
+            Text(tr('client.summary.Building_restructuring'),
+                style: Theme.of(context).textTheme.headline3),
+            const SizedBox(height: 24),
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16), color: Colors.white),
+              padding: const EdgeInsets.all(8),
+              child: Row(children: [
+                Expanded(
+                  child: GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () {
+                      setState(() {
+                        isDescriptionSelected = !isDescriptionSelected;
+                      });
+                    },
+                    child: Container(
+                        height: 34,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
                             color: isDescriptionSelected
-                                ? whiteF2F
-                                : primaryColor),
-                      ))),
+                                ? primaryColor
+                                : whiteF2F),
+                        child: Center(
+                            child: Text(
+                          tr('client.summary.Description'),
+                          style: Theme.of(context).textTheme.subtitle1!.apply(
+                              color: isDescriptionSelected
+                                  ? whiteF2F
+                                  : primaryColor),
+                        ))),
+                  ),
                 ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () {
-                    setState(() {
-                      isDescriptionSelected = !isDescriptionSelected;
-                    });
-                  },
-                  child: Container(
-                      height: 34,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color:
-                              !isDescriptionSelected ? primaryColor : whiteF2F),
-                      child: Center(
-                        child: Text(tr('client.summary.Gallery'),
-                            style: Theme.of(context).textTheme.subtitle1!.apply(
-                                color: !isDescriptionSelected
-                                    ? Colors.white
-                                    : primaryColor)),
-                      )),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () {
+                      setState(() {
+                        isDescriptionSelected = !isDescriptionSelected;
+                      });
+                    },
+                    child: Container(
+                        height: 34,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: !isDescriptionSelected
+                                ? primaryColor
+                                : whiteF2F),
+                        child: Center(
+                          child: Text(tr('client.summary.Gallery'),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .subtitle1!
+                                  .apply(
+                                      color: !isDescriptionSelected
+                                          ? Colors.white
+                                          : primaryColor)),
+                        )),
+                  ),
                 ),
-              ),
-            ]),
-          ),
-          const SizedBox(height: 24),
-          isDescriptionSelected ? descriptionView() : galleryView(),
-          const SizedBox(height: 20),
-        ],
+              ]),
+            ),
+            const SizedBox(height: 24),
+            isDescriptionSelected ? descriptionView() : galleryView(),
+            const SizedBox(height: 20),
+          ],
+        ),
       ),
     );
   }

@@ -6,7 +6,7 @@ import 'package:g_worker_app/jobs/provider/get_professional_job_list_provider.da
 
 import 'package:provider/provider.dart';
 import '../Constants.dart';
-import '../chat/chat_screen.dart';
+import '../chat/chat_widget_view/chat_screen.dart';
 import '../common/common_buttons.dart';
 import '../common/common_widgets.dart';
 
@@ -44,7 +44,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreenProfessional> {
   Widget build(BuildContext context) {
     return Consumer<GetProfessionalJobListProvider>(
         builder: (context, provider, child) {
-      state = provider.getIsOverviewLoading()
+      state = !provider.getIsOverviewLoading()
           ? provider.detailsModel!.jobDetails!.applicationState!
           : '';
       return WillPopScope(
@@ -404,7 +404,19 @@ class _JobDetailsScreenState extends State<JobDetailsScreenProfessional> {
                     onTap: () {
                       Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(builder: (context) => ChatScreen()),
+                          MaterialPageRoute(
+                              builder: (context) => ChatScreen(
+                                    jobId:
+                                        provider.detailsModel!.jobDetails!.id!,
+                                    userId: provider
+                                        .detailsModel!.jobDetails!.userId!,
+                                    userName: provider
+                                        .detailsModel!.jobDetails!.clientName!,
+                                    userImage: provider
+                                        .detailsModel!.jobDetails!.clientImage!,
+                                    jobCategory: provider
+                                        .detailsModel!.jobDetails!.category!,
+                                  )),
                           (Route<dynamic> route) => true);
                     },
                     child: Stack(
@@ -426,10 +438,10 @@ class _JobDetailsScreenState extends State<JobDetailsScreenProfessional> {
                               borderRadius: BorderRadius.circular(24),
                               color: yellowF4D,
                             ),
-                            child: const Center(
+                            child: Center(
                               child: Text(
-                                '12',
-                                style: TextStyle(
+                                "${provider.detailsModel!.jobDetails!.chatCount}",
+                                style: const TextStyle(
                                   color: splashColor1,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w700,

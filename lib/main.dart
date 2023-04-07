@@ -1,8 +1,10 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:g_worker_app/Constants.dart';
+import 'package:g_worker_app/chat/chat_widget_view/chat_screen.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/home_page/provider/home_page_provider.dart';
 import 'package:g_worker_app/jobs/provider/create_client_job_provider.dart';
@@ -18,6 +20,7 @@ import 'package:month_year_picker/month_year_picker.dart';
 
 import 'package:provider/provider.dart';
 
+import 'chat/provider/chat_provider.dart';
 import 'jobs/add_job_widgets/upload_images_view.dart';
 import 'sign_in/provider/sign_in_provider.dart';
 
@@ -29,11 +32,14 @@ void main() async {
     statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
     statusBarBrightness: Brightness.light,
   ));
-  runApp(EasyLocalization(
-      supportedLocales: const [Locale('en'), Locale('it')],
-      fallbackLocale: const Locale('en'),
-      path: 'assets/translate',
-      child: const MyApp()));
+  runApp(DevicePreview(
+          enabled: !kReleaseMode,
+          builder: (context) => EasyLocalization(
+              supportedLocales: const [Locale('en'), Locale('it')],
+              fallbackLocale: const Locale('en'),
+              path: 'assets/translate',
+              child: const MyApp())) // Wrap your app
+      );
 }
 
 class MyApp extends StatefulWidget {
@@ -85,9 +91,14 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(
           create: (context) => GetProfessionalJobListProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => ChatProvider(),
+        ),
       ],
       child: MaterialApp(
         title: 'g.work',
+        useInheritedMediaQuery: true,
+        builder: DevicePreview.appBuilder,
         localizationsDelegates: localization,
         supportedLocales: context.supportedLocales,
         locale: context.locale,

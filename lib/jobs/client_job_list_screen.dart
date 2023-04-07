@@ -91,6 +91,97 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                           ),
                         ),
                       ),
+                      // Consumer<MyProfileProvider>(
+                      //   builder: (context, myProfileProvider, child) {
+                      //     return myProfileProvider.getIsLoadingProfile()
+                      //         ? const Center(child: CircularProgressIndicator())
+                      //         : GestureDetector(
+                      //             child: CircleAvatar(
+                      //                 backgroundColor: Colors.white,
+                      //                 radius: 24,
+                      //                 child: Container(
+                      //                   height: 50,
+                      //                   width: 50,
+                      //                   decoration: BoxDecoration(
+                      //                       borderRadius:
+                      //                           BorderRadius.circular(24)),
+                      //                   child: myProfileProvider
+                      //                               .model!.user!.image !=
+                      //                           null
+                      //                       ? ClipRRect(
+                      //                           borderRadius:
+                      //                               BorderRadius.circular(60.0),
+                      //                           child: myProfileProvider.model!
+                      //                                       .user!.image !=
+                      //                                   null
+                      //                               ? Image.network(
+                      //                                   myProfileProvider.model!
+                      //                                       .user!.image!,
+                      //                                   fit: BoxFit.fill,
+                      //                                   loadingBuilder:
+                      //                                       (BuildContext
+                      //                                               context,
+                      //                                           Widget child,
+                      //                                           ImageChunkEvent?
+                      //                                               loadingProgress) {
+                      //                                     if (loadingProgress ==
+                      //                                         null)
+                      //                                       return child;
+                      //                                     return Center(
+                      //                                       child:
+                      //                                           CircularProgressIndicator(
+                      //                                         value: loadingProgress
+                      //                                                     .expectedTotalBytes !=
+                      //                                                 null
+                      //                                             ? loadingProgress
+                      //                                                     .cumulativeBytesLoaded /
+                      //                                                 loadingProgress
+                      //                                                     .expectedTotalBytes!
+                      //                                             : null,
+                      //                                       ),
+                      //                                     );
+                      //                                   },
+                      //                                   errorBuilder: (context,
+                      //                                       error, stackTrace) {
+                      //                                     return const CircleAvatar(
+                      //                                         radius: 75,
+                      //                                         backgroundColor:
+                      //                                             Color(
+                      //                                                 0xff6DCF82),
+                      //                                         child: Center(
+                      //                                           child: Icon(Icons
+                      //                                               .person),
+                      //                                         ));
+                      //                                   },
+                      //                                 )
+                      //                               : Center(
+                      //                                   child: Text(
+                      //                                       "${(myProfileProvider.model!.user!.name![0])}${(myProfileProvider.model!.user!.surname![0])}",
+                      //                                       style: Theme.of(
+                      //                                               context)
+                      //                                           .textTheme
+                      //                                           .headline3),
+                      //                                 ),
+                      //                         )
+                      //                       : Center(
+                      //                           child: Text(
+                      //                               "${(myProfileProvider.model!.user!.name![0])}${(myProfileProvider.model!.user!.surname![0])}",
+                      //                               style: Theme.of(context)
+                      //                                   .textTheme
+                      //                                   .headline3),
+                      //                         ),
+                      //                 )),
+                      //             onTap: () {
+                      //               Navigator.push(
+                      //                 context,
+                      //                 MaterialPageRoute(
+                      //                     builder: (context) =>
+                      //                         const MyProfileScreen()),
+                      //               );
+                      //             },
+                      //           );
+                      //   },
+                      // ),
                       Consumer<MyProfileProvider>(
                         builder: (context, myProfileProvider, child) {
                           return myProfileProvider.model == null

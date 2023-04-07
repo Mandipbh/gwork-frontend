@@ -101,6 +101,9 @@ class SignUpProvider extends ChangeNotifier {
     } else if (password1 != confirmPassword) {
       ErrorLoader(context, "Password do not match");
       notifyListeners();
+    } else if (password1.length <= 7) {
+      ErrorLoader(context, "Password Must be 8 or more characters");
+      notifyListeners();
     } else {
       _password = confirmPassword;
       print("password ==> $_password");
@@ -133,7 +136,12 @@ class SignUpProvider extends ChangeNotifier {
         email.isEmpty ||
         textCode.isEmpty ||
         birthDate.isEmpty) {
-      ErrorLoader(context, "Please fill all the details");
+      ErrorLoader(context, "Please fill all the details..!");
+      notifyListeners();
+    } else if (!RegExp(
+            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+        .hasMatch(email)) {
+      ErrorLoader(context, "Please enter valid email..!");
       notifyListeners();
     } else {
       _name = name;

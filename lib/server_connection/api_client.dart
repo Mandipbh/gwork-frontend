@@ -610,28 +610,32 @@ class ApiClient {
     }
   }
 
-  // Future<UpdatePhoneNumberModel> updatePhoneNumber({
-  //   required String credentialToken,
-  //   required String phoneNumber,
-  // }) async {
-  //   try {
-  //     var request = json.encode({
-  //       "credentials_token": "6cbjyU79cwDIesoJ99nGGjZjGtIXoVAp",
-  //       "phone_number": "+919033834715"
-  //     });
-  //     var response = await dio.put(
-  //         '${API.baseUrl}${ApiEndPoints.updatePhoneNumber}',
-  //         data: request,
-  //         options: Options(headers: {'Content-Type': 'application/json'}));
-  //
-  //     return UpdatePhoneNumberModel.fromJson(response.data);
-  //   } on DioError {
-  //     rethrow;
-  //   } catch (e) {
-  //     print('ApiClient.getOtp Error :: \ne');
-  //     rethrow;
-  //   }
-  // }
+  Future<SuccessDataModel> updatePhoneNumber(
+      String token, String phoneNumber, BuildContext context) async {
+    try {
+      var request = json.encode(
+          {"credentials_token": token, "phone_number": "+39$phoneNumber"});
+      var response =
+          await dio.put('${API.baseUrl}${ApiEndPoints.updatePhoneNumber}',
+              data: request,
+              options: Options(headers: {
+                'Content-Type': 'application/json',
+                "Authorization":
+                    "Bearer ${await SharedPreferenceData().getToken()}"
+              }));
+      return SuccessDataModel.fromJson(response.data);
+    } on DioError catch (e) {
+      ErrorLoader(context, "oops,something went wrong");
+      Provider.of<MyProfileProvider>(context, listen: false)
+          .setIsLoading(false);
+      rethrow;
+    } catch (e) {
+      ErrorLoader(context, "oops,something went wrong");
+      Provider.of<MyProfileProvider>(context, listen: false)
+          .setIsLoading(false);
+      rethrow;
+    }
+  }
 
   Future<SuccessDataModel> removeProfileImage(BuildContext context) async {
     try {
@@ -1064,7 +1068,7 @@ class ApiClient {
 
       print("GetGallery==> ${response.data}");
       _model = GetClientApplicationsModel.fromJson(response.data);
-      return _model!;
+      return _model;
     } on DioError catch (e) {
       log(e.toString());
       ErrorLoader(
@@ -1125,6 +1129,29 @@ class ApiClient {
     return null;
   }
 
+  Future<JobStatusUpdateResponse?> rejectJobProf(
+      {required String jobId, required BuildContext context}) async {
+    try {
+      var response = await dio.delete(
+          '${API.baseUrl}${ApiEndPoints.rejectJobProf}?job_id=$jobId',
+          data: {"job_id": jobId},
+          options: Options(headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer ${await SharedPreferenceData().getToken()}"
+          }));
+      log("REJECT JOB :: ${response.data}");
+      return JobStatusUpdateResponse.fromJson(response.data);
+    } on DioError catch (e) {
+      log(e.toString());
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+    } catch (e) {
+      ErrorLoader(
+          context, "Oops, something is wrong with your data. Try again.");
+    }
+    return null;
+  }
+
   Future<JobStatusUpdateResponse?> acceptJobAPI(
       {required String jobId,
       required String userId,
@@ -1136,6 +1163,7 @@ class ApiClient {
             'Content-Type': 'application/json',
             "Authorization": "Bearer ${await SharedPreferenceData().getToken()}"
           }));
+      log(response.data.toString());
 
       return JobStatusUpdateResponse.fromJson(response.data);
     } on DioError catch (e) {

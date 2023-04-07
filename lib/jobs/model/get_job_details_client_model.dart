@@ -44,6 +44,8 @@ class JobDetails {
   String? creationDate;
   String? clientName;
   String? clientImage;
+  String? professionalName;
+  String? professionalImage;
   String? role;
   int? gallery;
   int? applicationCount;
@@ -73,6 +75,8 @@ class JobDetails {
       this.creationDate,
       this.clientName,
       this.clientImage,
+      this.professionalName,
+      this.professionalImage,
       this.role,
       this.gallery,
       this.applicationCount,
@@ -102,6 +106,8 @@ class JobDetails {
     creationDate = json['creation_date'];
     clientName = json['client_name'];
     clientImage = json['client_image'];
+    professionalName = json['professional_name'];
+    professionalImage = json['professional_image'];
     role = json['role'];
     gallery = json['gallery'];
     applicationCount = json['application_count'];
@@ -133,6 +139,8 @@ class JobDetails {
     data['creation_date'] = this.creationDate;
     data['client_name'] = this.clientName;
     data['client_image'] = this.clientImage;
+    data['professional_name'] = this.professionalName;
+    data['professional_image'] = this.professionalImage;
     data['role'] = this.role;
     data['gallery'] = this.gallery;
     data['application_count'] = this.applicationCount;

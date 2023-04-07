@@ -176,7 +176,7 @@ Widget singleSelectionButtons(
                         : '$buttonName (${Provider.of<GetClientJobListProvider>(context).applicationsModel!.applications!.length})'
                     : buttonName,
                 style: TextStyle(
-                    fontSize: 14,
+                    fontSize: MediaQuery.of(context).size.width * 0.035,
                     color: selected == index + 1 ? white : primaryColor),
               ))),
         ),

@@ -20,7 +20,7 @@ class ApiEndPoints {
   static const String requestChangePhoneNumber =
       "/worker/auth/request-phone-change";
   static const String verifyPhoneNumberOtp = "/worker/auth/verify-phone-otp";
-  static const String updatePhoneNumber = "/worker/auth/phone-number";
+  static const String updatePhoneNumber = "/worker/profile/phone-number";
   static const String otpVerifyPhone = "/worker/auth/otp-verify";
   static const String requestOtp = "/worker/auth/request-reset";
   static const String changePassword = "/worker/auth/change-password";
@@ -48,6 +48,7 @@ class ApiEndPoints {
 
   static const String deleteJob = '/worker/jobs/remove-job-applications';
   static const String acceptJob = '/worker/jobs/accpet-job-applications';
+  static const String rejectJobProf = '/worker/jobs/remove-job-applications';
   static const String rejectApproveJob = '/worker/jobs/change-job-approval';
   static const String startJob = '/worker/jobs/start-job-professional';
   static const String completeJob = '/worker/jobs/complete-job-professional';
@@ -119,4 +120,9 @@ class JobStatus {
   static const String accepted = "Accepted";
   static const String doing = "Doing";
   static const String expired = "Expired";
+}
+
+class ChatType {
+  static const int fromUser = 1;
+  static const int toUser = 2;
 }

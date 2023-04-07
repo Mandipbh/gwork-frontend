@@ -614,6 +614,18 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "socket_io_client",
+      "rootUri": "file:///Users/user/.pub-cache/hosted/pub.dev/socket_io_client-2.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "socket_io_common",
+      "rootUri": "file:///Users/user/.pub-cache/hosted/pub.dev/socket_io_common-2.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "source_gen",
       "rootUri": "file:///Users/user/.pub-cache/hosted/pub.dev/source_gen-1.2.7",
       "packageUri": "lib/",
@@ -728,7 +740,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2023-03-30T13:40:25.168524Z",
+  "generated": "2023-04-03T12:56:00.273467Z",
   "generator": "pub",
   "generatorVersion": "2.19.4"
 }

@@ -45,8 +45,8 @@ class ScheduleView extends StatelessWidget {
                       },
                       initialDate: DateTime.now(),
                       firstDate:
-                          DateTime.now().subtract(Duration(days: 355000)),
-                      lastDate: DateTime.now());
+                          DateTime.now().subtract(const Duration(days: 355000)),
+                      lastDate: DateTime.now().add(const Duration(days: 365)));
                   value.dateController.text =
                       '${date!.day}/${date.month}/${date.year}';
                 },
