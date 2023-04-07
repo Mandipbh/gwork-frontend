@@ -9,6 +9,7 @@ import 'package:g_worker_app/common/common_loader.dart';
 import 'package:g_worker_app/main.dart';
 import 'package:g_worker_app/my_profile/my_profile_widgets/my_profile_screen.dart';
 import 'package:g_worker_app/pending_reject_application_screen/pending_application_screen.dart';
+import 'package:g_worker_app/pending_reject_application_screen/rejected_application_screen.dart';
 import 'package:g_worker_app/recover_password/recover_password_widgets/recover_password_screen.dart';
 import 'package:g_worker_app/sign_in/provider/sign_in_provider.dart';
 import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
@@ -123,6 +124,13 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               const HomeScreen()),
+                                    );
+                                  } else if (event.isVerified == 3) {
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const RejectedApplicationScreen()),
                                     );
                                   } else {
                                     Navigator.pushReplacement(

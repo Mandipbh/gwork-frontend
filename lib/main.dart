@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -33,11 +34,14 @@ void main() async {
     statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
     statusBarBrightness: Brightness.light,
   ));
-  runApp(EasyLocalization(
-      supportedLocales: const [Locale('en'), Locale('it')],
-      fallbackLocale: const Locale('en'),
-      path: 'assets/translate',
-      child: const MyApp()));
+  runApp(DevicePreview(
+          enabled: !kReleaseMode,
+          builder: (context) => EasyLocalization(
+              supportedLocales: const [Locale('en'), Locale('it')],
+              fallbackLocale: const Locale('en'),
+              path: 'assets/translate',
+              child: const MyApp())) // Wrap your app
+      );
 }
 
 class MyApp extends StatelessWidget {
@@ -94,6 +98,8 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'g.work',
+        useInheritedMediaQuery: true,
+        builder: DevicePreview.appBuilder,
         localizationsDelegates: localization,
         supportedLocales: context.supportedLocales,
         locale: context.locale,

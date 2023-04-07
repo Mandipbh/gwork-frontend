@@ -48,6 +48,7 @@ class ApiEndPoints {
 
   static const String deleteJob = '/worker/jobs/remove-job-applications';
   static const String acceptJob = '/worker/jobs/accpet-job-applications';
+  static const String rejectJobProf = '/worker/jobs/remove-job-applications';
   static const String rejectApproveJob = '/worker/jobs/change-job-approval';
   static const String startJob = '/worker/jobs/start-job-professional';
   static const String completeJob = '/worker/jobs/complete-job-professional';

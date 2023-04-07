@@ -20,6 +20,7 @@ class ChatScreen extends StatefulWidget {
     required this.userName,
     required this.userImage,
     required this.jobCategory,
+    this.state,
   }) : super(key: key);
 
   final String jobId;
@@ -27,6 +28,7 @@ class ChatScreen extends StatefulWidget {
   final String userName;
   final String userImage;
   final String jobCategory;
+  final String? state;
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -208,43 +210,69 @@ class _ChatScreenState extends State<ChatScreen> {
                     ),
                     Provider.of<SignUpProvider>(context).userType ==
                             UserType.client
-                        ? GestureDetector(
-                            behavior: HitTestBehavior.opaque,
-                            onTap: () {
-                              Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const EditOfferScreen()),
-                                  (Route<dynamic> route) => true);
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color: primaryColor,
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 12),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      tr('client.chat.Accept').toUpperCase(),
-                                      style: const TextStyle(
-                                          color: white,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w700,
-                                          fontFamily: "Satoshi"),
+                        ? widget.state == JobStatus.published
+                            ? Consumer<GetClientJobListProvider>(
+                                builder:
+                                    (context, getClientJobProvider, child) {
+                                  return GestureDetector(
+                                    behavior: HitTestBehavior.opaque,
+                                    onTap: () {
+                                      getClientJobProvider
+                                          .acceptJob(widget.jobId,
+                                              widget.userId, context)
+                                          .then((acceptJobSuccess) {
+                                        if (acceptJobSuccess!.success!) {
+                                          getClientJobProvider
+                                              .setIsAccepted(true);
+                                          var provider = context
+                                              .read<GetClientJobListProvider>();
+                                          provider.getDetailsClient(
+                                              context, widget.jobId);
+                                          provider.getClientJobList(
+                                              provider.getSelectedFilter(),
+                                              provider.getSelectedJobType(),
+                                              context);
+                                        }
+                                      });
+                                      // Navigator.pushAndRemoveUntil(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //         builder: (context) =>
+                                      //             const EditOfferScreen()),
+                                      //     (Route<dynamic> route) => true);
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        color: primaryColor,
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10, vertical: 12),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text(
+                                              tr('client.chat.Accept')
+                                                  .toUpperCase(),
+                                              style: const TextStyle(
+                                                  color: white,
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w700,
+                                                  fontFamily: "Satoshi"),
+                                            ),
+                                            const SizedBox(width: 8),
+                                            const Icon(Icons.check,
+                                                color: white, size: 30),
+                                          ],
+                                        ),
+                                      ),
                                     ),
-                                    const SizedBox(width: 8),
-                                    const Icon(Icons.check,
-                                        color: white, size: 30),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          )
+                                  );
+                                },
+                              )
+                            : const Icon(Icons.check,
+                                color: primaryColor, size: 30)
                         : GestureDetector(
                             behavior: HitTestBehavior.opaque,
                             onTap: () {
@@ -292,9 +320,8 @@ class _ChatScreenState extends State<ChatScreen> {
           : provider.getChatData().isEmpty
               ? noMessageView()
               : ListView.builder(
-                  shrinkWrap: true,
                   controller: scrollController,
-                  padding: const EdgeInsets.only(left: 25, right: 25),
+                  padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
                   itemCount: provider.getChatData().length,
                   itemBuilder: (context, index) {
                     isFromMessage =
@@ -312,7 +339,16 @@ class _ChatScreenState extends State<ChatScreen> {
                               right: !isFromMessage
                                   ? MediaQuery.of(context).size.width * 0.11
                                   : 0),
-                          child: Stack(
+                          child:
+                              // DateTime.parse(provider
+                              //                 .getChatData()[index]
+                              //                 .createdAt
+                              //                 .toString())
+                              //             .day ==
+                              //         DateTime.now().day
+                              //     ? Text("Today")
+                              //     :
+                              Stack(
                             clipBehavior: Clip.none,
                             children: [
                               Container(
@@ -398,50 +434,52 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Widget noMessageView() {
     return Center(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset("assets/icons/chat.png", height: 142, width: 142),
-          const SizedBox(height: 22),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 35),
-            child: Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: Colors.white,
-              ),
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 20, horizontal: 22),
-                child: Column(
-                  children: [
-                    Text(
-                      tr('client.chat.no_messages'),
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        color: splashColor1,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset("assets/icons/chat.png", height: 142, width: 142),
+            const SizedBox(height: 22),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 35),
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: Colors.white,
+                ),
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 22),
+                  child: Column(
+                    children: [
+                      Text(
+                        tr('client.chat.no_messages'),
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          color: splashColor1,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 5),
-                    Text(
-                      tr('client.chat.start_conversattion'),
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        color: black343,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
+                      const SizedBox(height: 5),
+                      Text(
+                        tr('client.chat.start_conversattion'),
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          color: black343,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -475,10 +513,9 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
               suffixIcon: GestureDetector(
                 onTap: () {
-                  scrollController
-                      .jumpTo(scrollController.position.maxScrollExtent);
                   Provider.of<ChatProvider>(context, listen: false)
                       .sendMessage(messageController.text);
+                  scrollToBottom(scrollController);
                   messageController.text = '';
                 },
                 child: Image.asset('assets/images/send.png',
@@ -504,4 +541,14 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
     );
   }
+}
+
+void scrollToBottom(ScrollController scrollController) {
+  Future.delayed(Duration(seconds: 1), () {
+    scrollController.animateTo(
+      scrollController.position.maxScrollExtent,
+      duration: Duration(milliseconds: 300),
+      curve: Curves.easeOut,
+    );
+  });
 }

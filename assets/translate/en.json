@@ -227,7 +227,7 @@
         "Name": "Name",
         "Last_name": "Last name",
         "Email_id": "Email",
-        "Text_Code": "Text Code",
+        "Tax_Code": "Tax Code",
         "Birth_date": "Birth date",
         "03": "03",
         "Paymen_method":"Payment method",

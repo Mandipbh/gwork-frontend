@@ -248,6 +248,118 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
           ),
         ),
         const SizedBox(height: 12),
+        jobProvider.detailsModel!.jobDetails!.state != JobStatus.published
+            ? Container(
+                width: double.infinity,
+                margin: EdgeInsets.only(bottom: 12),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: Colors.white,
+                ),
+                child: ListTile(
+                    horizontalTitleGap: 10,
+                    leading: CircleAvatar(
+                      backgroundColor: Colors.grey.withOpacity(0.2),
+                      radius: 20,
+                      child:
+                          jobProvider.detailsModel!.jobDetails!.clientImage !=
+                                  null
+                              ? Container(
+                                  width: 40,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(
+                                      60.0,
+                                    ),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(
+                                      60.0,
+                                    ),
+                                    child: Image.network(
+                                      jobProvider.detailsModel!.jobDetails!
+                                          .clientImage!,
+                                      fit: BoxFit.fitWidth,
+                                    ),
+                                  ),
+                                )
+                              : Text(
+                                  "${jobProvider.detailsModel!.jobDetails!.clientName!.substring(0, 1)}${jobProvider.detailsModel!.jobDetails!.clientName!.substring(0, 1)}",
+                                  style: const TextStyle(color: black343),
+                                ),
+                    ),
+                    title: Text(
+                      jobProvider.detailsModel!.jobDetails!.clientName!,
+                      style: const TextStyle(
+                        color: black343,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    subtitle: const Text(
+                      "Client",
+                      style: TextStyle(
+                        color: grey807,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    trailing: GestureDetector(
+                      behavior: HitTestBehavior.opaque,
+                      onTap: () {
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ChatScreen(
+                                      jobId: jobProvider
+                                          .detailsModel!.jobDetails!.id!,
+                                      userId: jobProvider
+                                          .detailsModel!.jobDetails!.userId!,
+                                      userName: jobProvider.detailsModel!
+                                          .jobDetails!.clientName!,
+                                      userImage: jobProvider.detailsModel!
+                                          .jobDetails!.clientImage!,
+                                      jobCategory: jobProvider
+                                          .detailsModel!.jobDetails!.category!,
+                                    )),
+                            (Route<dynamic> route) => true);
+                      },
+                      child: Stack(
+                        alignment: Alignment.topRight,
+                        clipBehavior: Clip.none,
+                        children: [
+                          Image.asset(
+                            "assets/icons/message_chat.png",
+                            height: 30,
+                            width: 45,
+                          ),
+                          Positioned(
+                            top: 3,
+                            right: -2,
+                            child: Container(
+                              height: 18,
+                              width: 25,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(24),
+                                color: yellowF4D,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  "${jobProvider.detailsModel!.jobDetails!.chatCount!}",
+                                  style: const TextStyle(
+                                    color: splashColor1,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )),
+              )
+            : Container(),
         jobDetailView("assets/icons/calendar.png",
             "${jobProvider.detailsModel!.jobDetails!.jobDate}"),
         const SizedBox(height: 12),
@@ -400,6 +512,7 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                                     '',
                                 jobCategory:
                                     value.detailsModel!.jobDetails!.category!,
+                                state: value.detailsModel!.jobDetails!.state!,
                               ),
                             ));
                       },
@@ -693,7 +806,7 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
               color: Colors.white, borderRadius: BorderRadius.circular(16)),
           child: Column(
             children: [
-              Text(tr('admin.gallery.no_gallery'),
+              Text(tr('admin.users.no_application'),
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.w700)),
@@ -705,7 +818,7 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
           ),
         ),
         const SizedBox(
-          height: 100,
+          height: 20,
         ),
       ],
     );

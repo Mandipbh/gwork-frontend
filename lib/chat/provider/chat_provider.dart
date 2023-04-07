@@ -37,7 +37,6 @@ class ChatProvider extends ChangeNotifier {
             .build());
 
     socket!.onConnect((_) {
-      setIsLoading(false);
       socket!.emit("load message", {
         'page_number': 1,
         'page_size': 10,
@@ -50,11 +49,13 @@ class ChatProvider extends ChangeNotifier {
           _pageCount = _pageCount + 1;
         }
       });
+      setIsLoading(false);
     });
 
     socket!.on('chat message', (data) {
       print('chat data:: $data');
       ClassGetChat chat = ClassGetChat.fromJson(data);
+
       addMessages(chat.message ?? [], false);
     });
 
