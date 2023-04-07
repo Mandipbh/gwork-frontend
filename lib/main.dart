@@ -9,11 +9,9 @@ import 'package:g_worker_app/home_page/provider/home_page_provider.dart';
 import 'package:g_worker_app/jobs/provider/create_client_job_provider.dart';
 import 'package:g_worker_app/jobs/provider/get_client_job_list_provider.dart';
 import 'package:g_worker_app/jobs/provider/get_professional_job_list_provider.dart';
-import 'package:g_worker_app/language_screen/language_provider/language_provider.dart';
 import 'package:g_worker_app/my_profile/provider/my_profile_provider.dart';
 import 'package:g_worker_app/recover_password/provider/recover_password_provider.dart';
 import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
-import 'package:g_worker_app/sign_up/registration_screen.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/profile_picture_view/image_provider/image_provider.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/upload_document_view/document_provider/document_provider.dart';
 import 'package:g_worker_app/splash_screen.dart';
@@ -40,12 +38,16 @@ void main() async {
       child: const MyApp()));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
   static int apkType = UserType.professional;
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
   @override
   Widget build(BuildContext context) {
     var localization = context.localizationDelegates;
@@ -54,9 +56,6 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => ProfilePicProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => LanguageProvider(),
         ),
         ChangeNotifierProvider(
           create: (context) => DocumentPicProvider(),
@@ -102,7 +101,7 @@ class MyApp extends StatelessWidget {
             scaffoldBackgroundColor: whiteF2F,
             primaryColor: primaryColor,
             bottomSheetTheme:
-                const BottomSheetThemeData(backgroundColor: Colors.transparent),
+            const BottomSheetThemeData(backgroundColor: Colors.transparent),
             inputDecorationTheme: const InputDecorationTheme(
               border: InputBorder.none,
               floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -202,9 +201,10 @@ class MyApp extends StatelessWidget {
                   color: Colors.white),
             ),
             dividerTheme:
-                const DividerThemeData(color: Color(0xffD3DCD7), thickness: 1)),
+            const DividerThemeData(color: Color(0xffD3DCD7), thickness: 1)),
         home: const SplashScreen(),
       ),
     );
   }
 }
+

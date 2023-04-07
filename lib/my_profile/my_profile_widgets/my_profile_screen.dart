@@ -522,7 +522,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                           .textTheme
                                           .headline6),
                                   const SizedBox(height: 6),
-                                  Text('English',
+                                  Text(context.locale.languageCode == 'it' ? tr('admin.language.italian'): tr('admin.language.english'),
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyText2),
