@@ -58,7 +58,7 @@ class PersonalInfoView extends StatelessWidget {
                         height: 24, width: 24),
                     counterText: "",
                     labelText:
-                        tr('client.log_in.sign_up.Text_Code').toUpperCase())),
+                        tr('client.log_in.sign_up.Tax_Code').toUpperCase())),
           ),
           const SizedBox(height: 20),
           GestureDetector(

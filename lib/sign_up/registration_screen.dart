@@ -265,6 +265,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 context);
                             if (isValid) {
                               FocusManager.instance.primaryFocus?.unfocus();
+
                               controller.nextPage(
                                   duration: const Duration(milliseconds: 200),
                                   curve: Curves.easeIn);

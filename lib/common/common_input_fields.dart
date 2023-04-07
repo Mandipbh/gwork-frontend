@@ -240,11 +240,13 @@ Widget nameTextField(
     padding: const EdgeInsets.symmetric(horizontal: 8),
     decoration: BoxDecoration(
         color: Colors.white, borderRadius: BorderRadius.circular(16)),
-    child: TextField(
+    child: TextFormField(
+        maxLength: 20,
         controller: controller,
         style: const TextStyle(fontSize: 18),
         keyboardType: TextInputType.name,
         decoration: InputDecoration(
+            counterText: '',
             icon: Image.asset('assets/icons/$asset', height: 24, width: 24),
             labelText: label.toUpperCase())),
   );

@@ -28,6 +28,7 @@ class GetClientJobListProvider extends ChangeNotifier {
   bool _isOverviewLoading = true;
   bool _isGalleryLoading = true;
   bool _isApplicationsLoading = true;
+  bool _isAccepted = false;
 
   String _selectedFilter = JobsFilters.all;
   String _selectedJobType = JobsType.all;
@@ -57,6 +58,13 @@ class GetClientJobListProvider extends ChangeNotifier {
 
   setIsApplicationsLoading(bool value) {
     _isApplicationsLoading = value;
+    notifyListeners();
+  }
+
+  bool getIsAccepted() => _isAccepted;
+
+  setIsAccepted(bool value) {
+    _isAccepted = value;
     notifyListeners();
   }
 
@@ -130,5 +138,14 @@ class GetClientJobListProvider extends ChangeNotifier {
   Future<JobStatusUpdateResponse?> deleteJob(
       {required BuildContext context, required String jobId}) {
     return ApiClient().deleteJobAPI(jobId: jobId, context: context);
+  }
+
+  Future<JobStatusUpdateResponse?> acceptJob(
+    String jobId,
+    String userId,
+    BuildContext context,
+  ) {
+    return ApiClient()
+        .acceptJobAPI(jobId: jobId, userId: userId, context: context);
   }
 }

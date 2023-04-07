@@ -53,3 +53,32 @@ ErrorLoader(BuildContext context, String data) {
         toastDuration: Duration(seconds: 5),
       );
 }
+
+void openLoadingDialog(BuildContext context) {
+  showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (BuildContext context) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const DefaultTextStyle(
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+              child: Text(
+                'Loading...',
+              )),
+          Container(
+            height: 10,
+          ),
+          Container(
+            height: 25,
+            width: 25,
+            child: const CircularProgressIndicator(
+              color: Colors.white,
+            ),
+          )
+        ],
+      );
+    },
+  );
+}

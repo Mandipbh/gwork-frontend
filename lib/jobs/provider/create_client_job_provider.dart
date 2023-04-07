@@ -105,7 +105,7 @@ class CreateClientJobProvider extends ChangeNotifier {
         Provider.of<GetClientJobListProvider>(context, listen: false)
             .getClientJobList("All", "All", context);
         clearCreateJobProvider(context);
-        setIsLoading(false);
+        Navigator.of(context).pop();
         ProgressLoader(context, "Job Create SuccessFully");
         Navigator.of(context).pop();
         notifyListeners();

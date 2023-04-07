@@ -172,18 +172,9 @@ class GetProfessionalJobListProvider extends ChangeNotifier {
     return ApiClient().completeJobAPI(jobId: jobId, context: context);
   }
 
-  Future<JobStatusUpdateResponse?> acceptJob(
-      {required String userId,
-      required BuildContext context,
-      required String jobId}) {
-    return ApiClient()
-        .acceptJobAPI(jobId: jobId, userId: userId, context: context);
-  }
-
   Future<JobStatusUpdateResponse?> rejectJobs(
       {required BuildContext context, required String jobId}) {
-    return ApiClient()
-        .approveOrRejectJob(jobId: jobId, jobState: 2, context: context);
+    return ApiClient().rejectJobProf(jobId: jobId, context: context);
   }
 
   Future<SuccessDataModel?> applyJob(

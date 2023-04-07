@@ -438,10 +438,10 @@ class _JobDetailsScreenState extends State<JobDetailsScreenProfessional> {
                               borderRadius: BorderRadius.circular(24),
                               color: yellowF4D,
                             ),
-                            child: const Center(
+                            child: Center(
                               child: Text(
-                                '12',
-                                style: TextStyle(
+                                "${provider.detailsModel!.jobDetails!.chatCount}",
+                                style: const TextStyle(
                                   color: splashColor1,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w700,

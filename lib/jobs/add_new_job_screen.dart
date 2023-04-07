@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:g_worker_app/common/common_loader.dart';
 import 'package:g_worker_app/home_page/view/home_screen.dart';
 
 import 'package:g_worker_app/jobs/add_job_widgets/job_info_view.dart';
@@ -256,6 +257,7 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                         curve: Curves.easeIn);
                     break;
                   case 6:
+                    openLoadingDialog(context);
                     createJobProvider.createJobClient(context);
                     break;
                   case 7:
@@ -274,13 +276,6 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                     // Navigator.of(context).pop();
                     break;
                 }
-                // if (currentPage > 5) {
-                //   Navigator.of(context).pop();
-                // } else {
-                //   controller.nextPage(
-                //       duration: const Duration(milliseconds: 200),
-                //       curve: Curves.easeIn);
-                // }
               },
               nextButtonName: currentPage > 5
                   ? 'Publish'
