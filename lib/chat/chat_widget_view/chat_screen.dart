@@ -21,6 +21,8 @@ class ChatScreen extends StatefulWidget {
     required this.userImage,
     required this.jobCategory,
     this.state,
+    this.budget,
+    this.description,
   }) : super(key: key);
 
   final String jobId;
@@ -29,6 +31,8 @@ class ChatScreen extends StatefulWidget {
   final String userImage;
   final String jobCategory;
   final String? state;
+  final String? budget;
+  final String? description;
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -198,9 +202,9 @@ class _ChatScreenState extends State<ChatScreen> {
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        const Text(
-                          '5.000,00 €',
-                          style: TextStyle(
+                        Text(
+                          '${widget.budget} €',
+                          style: const TextStyle(
                             color: splashColor1,
                             fontSize: 14,
                             fontWeight: FontWeight.w700,
@@ -234,12 +238,6 @@ class _ChatScreenState extends State<ChatScreen> {
                                               context);
                                         }
                                       });
-                                      // Navigator.pushAndRemoveUntil(
-                                      //     context,
-                                      //     MaterialPageRoute(
-                                      //         builder: (context) =>
-                                      //             const EditOfferScreen()),
-                                      //     (Route<dynamic> route) => true);
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(
@@ -279,8 +277,10 @@ class _ChatScreenState extends State<ChatScreen> {
                               Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          const EditOfferScreen()),
+                                      builder: (context) => EditOfferScreen(
+                                            budget: widget.budget,
+                                            description: widget.description,
+                                          )),
                                   (Route<dynamic> route) => true);
                             },
                             child: Row(

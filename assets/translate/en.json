@@ -15,7 +15,7 @@
       "recover_password_enter_phone_no": "Enter your phone number and we will send you an OTP code to reset your account password.",
       "Code_confirmation": "Code Confirmation",
       "enter_digit": "Enter below the 4-digit code we just sent to",
-      "Request_new_code": "Request a new code (00:12)"
+      "Request_new_code": "Request a new code (00:00)"
     },
     "exit_dialogue": {
       "are_you_sure": "Are you sure you want to go back",
@@ -539,5 +539,24 @@
       "Offer_price": "Offer price",
       "Once_an_offer_is_accepted": "Once an offer is accepted and confirmed, it becomes a binding agreement."
     }
+  },
+
+  "error_message": {
+    "oops_wrong": "Oops, something is wrong with your data.Try again.",
+    "fill_all_data" : "Please,Fill All The Data",
+    "pass_or_phone_not_match": "Your password or phone number is not correct, try again.",
+    "otp_not_correct": "Oops, the OTP code you inserted is not correct, try again.",
+    "pass_doNot_coincide": "Oops, your passwords do not coincide, try again.",
+    "phone_already_taken": "Oops, this phone number is already taken. Try a new one.",
+    "try_with_new_pass": "Your password doesn’t meet the requirements, try with a new one."
+  },
+  "success_message": {
+    "pass_recover_cancel": "Password recovery canceled.",
+    "otp_send": "An OTP code has been sent to",
+    "otp_resend": "An OTP code has been ReSend to",
+    "otp_send_success": "An OTP code has been sent successfully",
+    "pass_updated": "Your password has been correctly updated.",
+    "setting_update": "Your settings have been correctly updated.",
+    "resend_otp_success": "Otp Resend SuccessFully"
   }
 }

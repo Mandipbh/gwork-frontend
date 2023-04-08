@@ -310,18 +310,25 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                         Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ChatScreen(
-                                      jobId: jobProvider
-                                          .detailsModel!.jobDetails!.id!,
-                                      userId: jobProvider
-                                          .detailsModel!.jobDetails!.userId!,
-                                      userName: jobProvider.detailsModel!
-                                          .jobDetails!.clientName!,
-                                      userImage: jobProvider.detailsModel!
-                                          .jobDetails!.clientImage!,
-                                      jobCategory: jobProvider
-                                          .detailsModel!.jobDetails!.category!,
-                                    )),
+                              builder: (context) => ChatScreen(
+                                jobId:
+                                    jobProvider.detailsModel!.jobDetails!.id!,
+                                userId: jobProvider
+                                    .detailsModel!.jobDetails!.userId!,
+                                userName: jobProvider
+                                    .detailsModel!.jobDetails!.clientName!,
+                                userImage: jobProvider
+                                    .detailsModel!.jobDetails!.clientImage!,
+                                jobCategory: jobProvider
+                                    .detailsModel!.jobDetails!.category!,
+                                state: jobProvider
+                                    .detailsModel!.jobDetails!.state!,
+                                budget:
+                                    "${jobProvider.detailsModel!.jobDetails!.budget!}",
+                                description: jobProvider
+                                    .detailsModel!.jobDetails!.description,
+                              ),
+                            ),
                             (Route<dynamic> route) => true);
                       },
                       child: Stack(
@@ -513,6 +520,10 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                                 jobCategory:
                                     value.detailsModel!.jobDetails!.category!,
                                 state: value.detailsModel!.jobDetails!.state!,
+                                budget:
+                                    "${value.detailsModel!.jobDetails!.budget!}",
+                                description: value
+                                    .detailsModel!.jobDetails!.description!,
                               ),
                             ));
                       },

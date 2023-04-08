@@ -749,7 +749,7 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                                     ),
                                     Text(
                                       clientJobProvider
-                                          .model!.jobs[index].description,
+                                          .model!.jobs[index].title,
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 1,
                                       style: const TextStyle(

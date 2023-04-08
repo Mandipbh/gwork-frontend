@@ -4,7 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:g_worker_app/colors.dart';
 
 class EditOfferScreen extends StatefulWidget {
-  const EditOfferScreen({Key? key}) : super(key: key);
+  const EditOfferScreen({Key? key, this.budget, this.description})
+      : super(key: key);
+
+  final String? budget;
+  final String? description;
 
   @override
   State<EditOfferScreen> createState() => _EditOfferScreenState();
@@ -86,10 +90,10 @@ class _EditOfferScreenState extends State<EditOfferScreen> {
                         width: 24,
                       ),
                       const SizedBox(width: 12),
-                      const Expanded(
+                      Expanded(
                         child: Text(
-                          "Babysitters perform general caregiving duties that ensure children’s needs are met while their parents or guardians are away. Their duties include providing transportation to and from a child’s extracurricular activities, preparing basic meals and keeping the child company with games and other entertainment.",
-                          style: TextStyle(
+                          "${widget.description}",
+                          style: const TextStyle(
                             color: black343,
                             fontSize: 12,
                             fontWeight: FontWeight.w300,
@@ -111,9 +115,9 @@ class _EditOfferScreenState extends State<EditOfferScreen> {
                   horizontalTitleGap: 1,
                   leading: Image.asset("assets/icons/coins_stacked.png",
                       height: 24, width: 24),
-                  title: const Text(
-                    "€60,00",
-                    style: TextStyle(
+                  title: Text(
+                    "€ ${widget.budget}",
+                    style: const TextStyle(
                       color: black343,
                       fontSize: 14,
                       fontWeight: FontWeight.w500,

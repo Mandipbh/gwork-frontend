@@ -1,19 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:g_worker_app/Constants.dart';
 
 import 'package:g_worker_app/colors.dart';
-import 'package:g_worker_app/common/common_loader.dart';
 import 'package:g_worker_app/main.dart';
-import 'package:g_worker_app/my_profile/my_profile_widgets/my_profile_screen.dart';
 import 'package:g_worker_app/pending_reject_application_screen/pending_application_screen.dart';
 import 'package:g_worker_app/pending_reject_application_screen/rejected_application_screen.dart';
 import 'package:g_worker_app/recover_password/recover_password_widgets/recover_password_screen.dart';
 import 'package:g_worker_app/sign_in/provider/sign_in_provider.dart';
 import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
-import 'package:g_worker_app/sign_up/registration_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../common/common_buttons.dart';

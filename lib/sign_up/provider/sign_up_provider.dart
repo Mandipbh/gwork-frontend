@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -58,31 +59,35 @@ class SignUpProvider extends ChangeNotifier {
   }
 
   checkPhoneNo(BuildContext context) {
-    setIsLoading(true);
-    ApiClient()
-        .checkMobileNumber(phoneController.text, context)
-        .then((checkPhoneResponse) {
-      if (checkPhoneResponse.success!) {
-        setIsLoading(false);
-        ApiClient()
-            .getOtp(phoneController.text, context)
-            .then((checkGetOtpResponse) {
-          if (checkGetOtpResponse.success!) {
-            ProgressLoader(context,
-                "Phone Number Registered  And Get Otp SuccessFully ${checkGetOtpResponse.otp}");
-            print("AA");
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => CodeConfirmationScreen(
-                      comingFrom: 1, phoneNumber: phoneController.text)),
-            );
-            notifyListeners();
-          }
-        });
-        notifyListeners();
-      }
-    });
+    if (phoneController.text.isEmpty) {
+      ErrorLoader(context, tr("error_message.fill_all_data"));
+      notifyListeners();
+    } else {
+      setIsLoading(true);
+      ApiClient()
+          .checkMobileNumber(phoneController.text, context)
+          .then((checkPhoneResponse) {
+        if (checkPhoneResponse.success!) {
+          setIsLoading(false);
+          ApiClient()
+              .getOtp(phoneController.text, context)
+              .then((checkGetOtpResponse) {
+            if (checkGetOtpResponse.success!) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CodeConfirmationScreen(
+                        comingFrom: 1, phoneNumber: phoneController.text)),
+              );
+              ProgressLoader(context,
+                  "${tr("success_message.otp_send")} \n+39 ${phoneController.text}");
+              notifyListeners();
+            }
+          });
+          notifyListeners();
+        }
+      });
+    }
   }
 
   //register data
@@ -96,13 +101,13 @@ class SignUpProvider extends ChangeNotifier {
 
   setPassword(String password1, String confirmPassword, BuildContext context) {
     if (password1.isEmpty || confirmPassword.isEmpty) {
-      ErrorLoader(context, "Password cannot be empty");
+      ErrorLoader(context, tr("error_message.fill_all_data"));
       notifyListeners();
     } else if (password1 != confirmPassword) {
-      ErrorLoader(context, "Password do not match");
+      ErrorLoader(context, tr("error_message.pass_doNot_coincide"));
       notifyListeners();
     } else if (password1.length <= 7) {
-      ErrorLoader(context, "Password Must be 8 or more characters");
+      ErrorLoader(context, tr("error_message.try_with_new_pass"));
       notifyListeners();
     } else {
       _password = confirmPassword;

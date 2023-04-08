@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -142,8 +143,6 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                                             context)
                                         .then((checkVerifyOtp) {
                                       if (checkVerifyOtp.success!) {
-                                        ProgressLoader(
-                                            context, "OTP Verify SuccessFully");
                                         timer.cancel();
                                         Navigator.push(
                                           context,
@@ -151,6 +150,8 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                                               builder: (context) =>
                                                   const RegistrationScreen()),
                                         );
+                                        ProgressLoader(context,
+                                            tr("success_message.otp_send_success"));
                                       }
                                     });
                                     break;
@@ -260,6 +261,13 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
       secondsRemaining = 60;
     });
     startTimer();
-    ApiClient().getOtp(widget.phoneNumber.toString(), context);
+    ApiClient()
+        .requestOtp(widget.phoneNumber.toString(), context)
+        .then((requestResentOtpSuccessResponse) {
+      if (requestResentOtpSuccessResponse.success!) {
+        ProgressLoader(context,
+            "${tr("success_message.otp_send")} \n+39 ${widget.phoneNumber}");
+      }
+    });
   }
 }

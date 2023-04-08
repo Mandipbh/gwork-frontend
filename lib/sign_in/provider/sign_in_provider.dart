@@ -41,14 +41,14 @@ class SignInProvider extends ChangeNotifier {
   }
 
   login(BuildContext context) {
-    setIsLogging(true);
     SignInRequest request = SignInRequest(
         phoneNumber: '+39${phoneController.text.trim()}',
         password: passwordController.text.trim());
+    setIsLogging(true);
     ApiClient().login(request, context).then((loginResponse) {
       if (loginResponse.success) {
-        ProgressLoader(context, "LogIn Successfully");
         setIsLogging(false);
+        ProgressLoader(context, "LogIn Successfully");
         preferenceData.setToken(loginResponse.token!);
         preferenceData.setUserRole(loginResponse.role!);
       }

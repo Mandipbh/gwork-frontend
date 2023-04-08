@@ -416,6 +416,12 @@ class _JobDetailsScreenState extends State<JobDetailsScreenProfessional> {
                                         .detailsModel!.jobDetails!.clientImage!,
                                     jobCategory: provider
                                         .detailsModel!.jobDetails!.category!,
+                                    state: provider
+                                        .detailsModel!.jobDetails!.state!,
+                                    budget:
+                                        "${provider.detailsModel!.jobDetails!.budget!}",
+                                    description: provider
+                                        .detailsModel!.jobDetails!.description!,
                                   )),
                           (Route<dynamic> route) => true);
                     },

@@ -50,7 +50,7 @@ dependencies:
   json_annotation: ^4.8.0
   dio: ^5.0.1
   shared_preferences: ^2.0.18
-  fluttertoast: ^8.2.1
+  flutter_flushbar: ^0.0.2
   draggable_home: ^1.0.4
   month_year_picker: ^0.2.0+3
   socket_io_client: ^2.0.1

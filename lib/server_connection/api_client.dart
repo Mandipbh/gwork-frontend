@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/Constants.dart';
 import 'package:g_worker_app/common/common_loader.dart';
@@ -49,13 +50,11 @@ class ApiClient {
       return SignInResponse.fromJson(response.data);
     } on DioError {
       log("https1");
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<SignInProvider>(context, listen: false).setIsLogging(false);
       rethrow;
     } catch (e) {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<SignInProvider>(context, listen: false).setIsLogging(false);
       log("https2");
       print('ApiClient.adminLogin Error :: \ne');
@@ -177,6 +176,31 @@ class ApiClient {
     }
   }
 
+  Future<CheckMobileNumberModel> checkMobileNumber(
+      String phoneNumber, BuildContext context) async {
+    try {
+      var request = json.encode({"phone_number": '+39$phoneNumber'});
+      var response = await dio.post(
+          '${API.baseUrl}${ApiEndPoints.checkMobileNumber}',
+          data: request,
+          options: Options(headers: {'Content-Type': 'application/json'}));
+      print('ApiClient.checkMobileNo  :: \ne${response.data}');
+      print('ApiClient.checkMobileNo  :: \ne$phoneNumber');
+      return CheckMobileNumberModel.fromJson(response.data);
+    } on DioError {
+      ErrorLoader(context, tr("error_message.oops_wrong"));
+      Provider.of<SignUpProvider>(context, listen: false).setIsLoading(false);
+      print("----DIO ERROR CHECK MOBILENUMBER----");
+      rethrow;
+    } catch (e) {
+      ErrorLoader(context, tr("error_message.oops_wrong"));
+      Provider.of<SignUpProvider>(context, listen: false).setIsLoading(false);
+      print("----CATCH ERROR CHECK MOBILENUMBER----");
+      print('ApiClient.CheckMobileNumber Error :: \n$e');
+      rethrow;
+    }
+  }
+
   Future<OtpModel> getOtp(
     String phoneNumber,
     BuildContext context,
@@ -190,62 +214,15 @@ class ApiClient {
       print('ApiClient.GET OTP  :: \ne$phoneNumber');
       return OtpModel.fromJson(response.data);
     } on DioError {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<SignUpProvider>(context, listen: false).setIsLoading(false);
       print("----DIO ERROR GET OTP----");
       rethrow;
     } catch (e) {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<SignUpProvider>(context, listen: false).setIsLoading(false);
       print("----CATCH ERROR GET OTP----");
       print('ApiClient.GetOtp Error :: \n$e');
-      rethrow;
-    }
-  }
-
-  Future<CheckMobileNumberModel> checkMobileNumber(
-      String phoneNumber, BuildContext context) async {
-    try {
-      var request = json.encode({"phone_number": '+39$phoneNumber'});
-      var response = await dio.post(
-          '${API.baseUrl}${ApiEndPoints.checkMobileNumber}',
-          data: request,
-          options: Options(headers: {'Content-Type': 'application/json'}));
-      print('ApiClient.checkMobileNo  :: \ne${response.data}');
-      print('ApiClient.checkMobileNo  :: \ne$phoneNumber');
-      return CheckMobileNumberModel.fromJson(response.data);
-    } on DioError {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
-      Provider.of<SignUpProvider>(context, listen: false).setIsLoading(false);
-      print("----DIO ERROR CHECK MOBILENUMBER----");
-      rethrow;
-    } catch (e) {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
-      Provider.of<SignUpProvider>(context, listen: false).setIsLoading(false);
-      print("----CATCH ERROR CHECK MOBILENUMBER----");
-      print('ApiClient.CheckMobileNumber Error :: \n$e');
-      rethrow;
-    }
-  }
-
-  Future<CheckEmailModel> checkEmail({
-    required String email,
-  }) async {
-    try {
-      var request = json.encode({"email": "jaynikpatel119977.jp@gmail.com"});
-      var response = await dio.post('${API.baseUrl}${ApiEndPoints.checkEmail}',
-          data: request,
-          options: Options(headers: {'Content-Type': 'application/json'}));
-
-      return CheckEmailModel.fromJson(response.data);
-    } on DioError {
-      rethrow;
-    } catch (e) {
-      print('ApiClient.getOtp Error :: \ne');
       rethrow;
     }
   }
@@ -264,14 +241,12 @@ class ApiClient {
       print('ApiClient.verify Otp  :: \ne${response.data}');
       return VerifyOtpModel.fromJson(response.data);
     } on DioError {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.otp_not_correct"));
       Provider.of<SignUpProvider>(context, listen: false).setIsLoading(false);
       print("----DIO ERROR Verify Otp----");
       rethrow;
     } catch (e) {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.otp_not_correct"));
       Provider.of<SignUpProvider>(context, listen: false).setIsLoading(false);
       print("----CATCH ERROR Verify Otp----");
       print('ApiClient.getOtp Error :: \n$e');

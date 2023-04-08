@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_flushbar/flutter_flushbar.dart';
 
-// ignore: non_constant_identifier_names
 ProgressLoader(BuildContext context, data) {
-  fToast = FToast();
-  fToast!.init(context).showToast(
-        child: ErrorWidget(context, data, false),
-        gravity: ToastGravity.TOP,
-        toastDuration: Duration(seconds: 5),
-      );
+  Flushbar(
+    flushbarPosition: FlushbarPosition.TOP,
+    backgroundColor: Colors.transparent,
+    duration: const Duration(seconds: 5),
+    messageText: ErrorWidget(context, data, false),
+  ).show(context);
 }
-
-FToast? fToast;
 
 ErrorWidget(BuildContext context, String data, bool isError) {
   return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 12.0),
+    padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 16.0),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(16.0),
-      color: isError ? Color(0xffE45E5E) : Color(0xff343734),
+      color: isError ? const Color(0xffE45E5E) : const Color(0xff545855),
     ),
     child: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -27,11 +24,11 @@ ErrorWidget(BuildContext context, String data, bool isError) {
           Expanded(
             child: Text(
               data,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
           ),
           Container(
-            margin: EdgeInsets.only(left: 16.0),
+            margin: const EdgeInsets.only(left: 16.0),
             width: 24,
             height: 24,
             child: CircularProgressIndicator(
@@ -46,12 +43,12 @@ ErrorWidget(BuildContext context, String data, bool isError) {
 }
 
 ErrorLoader(BuildContext context, String data) {
-  fToast = FToast();
-  fToast!.init(context).showToast(
-        child: ErrorWidget(context, data, true),
-        gravity: ToastGravity.TOP,
-        toastDuration: Duration(seconds: 5),
-      );
+  Flushbar(
+    flushbarPosition: FlushbarPosition.TOP,
+    backgroundColor: Colors.transparent,
+    duration: const Duration(seconds: 5),
+    messageText: ErrorWidget(context, data, true),
+  ).show(context);
 }
 
 void openLoadingDialog(BuildContext context) {
