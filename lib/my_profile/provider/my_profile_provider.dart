@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/common/common_loader.dart';
 import 'package:g_worker_app/my_profile/model/get_profile_response.dart';
@@ -128,7 +129,8 @@ class MyProfileProvider extends ChangeNotifier {
           setIsLoading(false);
           _model!.user!.phoneNumber = phoneController.text;
           print("!!${_model!.user!.phoneNumber}");
-          ProgressLoader(context, "Otp Send SuccessFully ${requestChangePhoneSuccessResponse.otp}");
+          ProgressLoader(context,
+              "Otp Send SuccessFully ${requestChangePhoneSuccessResponse.otp}");
           Navigator.push(
             context,
             MaterialPageRoute(
