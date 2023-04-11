@@ -322,27 +322,20 @@ class ApiClient {
 
   Future<GetProfileModel> getProfile(BuildContext context) async {
     try {
-      // var request = json.encode();
       var response = await dio.get('${API.baseUrl}${ApiEndPoints.getProfile}',
-          // data: request,
           options: Options(headers: {
             'Content-Type': 'application/json',
             "Authorization": "Bearer ${await SharedPreferenceData().getToken()}"
           }));
-      print("GET PROFILE :: ${response.data}");
       return GetProfileModel.fromJson(response.data);
-    } on DioError {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
-      Provider.of<MyProfileProvider>(context, listen: false)
-          .setIsLoading(false);
+    } on DioError catch(e) {
+      ErrorLoader(context, "Oops, something is wrong with your data. Try again.");
+      context.read<MyProfileProvider>().setIsLoading(false);
       print("----DIO ERROR Get Profile----");
       rethrow;
     } catch (e) {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
-      Provider.of<MyProfileProvider>(context, listen: false)
-          .setIsLoading(false);
+      ErrorLoader(context, "Oops, something is wrong with your data. Try again.");
+      context.read<MyProfileProvider>().setIsLoading(false);
       print("----CATCH ERROR Get Profile----");
       print('ApiClient.GetProfile Error :: \n$e');
       rethrow;

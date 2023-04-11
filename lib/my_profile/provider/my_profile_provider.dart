@@ -112,10 +112,7 @@ class MyProfileProvider extends ChangeNotifier {
           .then((requestChangePhoneSuccessResponse) {
         if (requestChangePhoneSuccessResponse.success!) {
           setIsLoading(false);
-          _model!.user!.phoneNumber = phoneController.text;
-          print("!!${_model!.user!.phoneNumber}");
-          ProgressLoader(context,
-              "Otp Send SuccessFully ${requestChangePhoneSuccessResponse.otp}");
+          ProgressLoader(context, "Otp Send SuccessFully ${requestChangePhoneSuccessResponse.otp}");
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -123,7 +120,6 @@ class MyProfileProvider extends ChangeNotifier {
                   comingFrom: 3, phoneNumber: phoneController.text),
             ),
           );
-          notifyListeners();
           return true;
         }
       });

@@ -23,20 +23,14 @@ class MyProfileScreen extends StatefulWidget {
 class _MyProfileScreenState extends State<MyProfileScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    Provider.of<MyProfileProvider>(context, listen: false)
-        .getUserProfile(context);
+    Provider.of<MyProfileProvider>(context, listen: false).getUserProfile(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => const HomeScreen()),
-            (Route<dynamic> route) => false);
         return true;
       },
       child: Scaffold(
@@ -132,11 +126,6 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                       right: -8,
                                       child: GestureDetector(
                                         onTap: () {
-                                          print(
-                                              "img1==>${Provider.of<ProfilePicProvider>(context, listen: false).getImageString}");
-                                          print(
-                                              "img2==>${Provider.of<MyProfileProvider>(context, listen: false).model!.user!.image}");
-
                                           editProfilePicture(context);
                                         },
                                         child: CircleAvatar(
@@ -326,10 +315,8 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               EditProfileScreen(
-                                                type: ProfileFieldType
-                                                    .phoneNumber,
-                                                value: myProfileProvider
-                                                    .model!.user!.phoneNumber!,
+                                                type: ProfileFieldType.phoneNumber,
+                                                value: myProfileProvider.model!.user!.phoneNumber!,
                                               )),
                                     );
                                   }),
@@ -522,7 +509,10 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                           .textTheme
                                           .headline6),
                                   const SizedBox(height: 6),
-                                  Text(context.locale.languageCode == 'it' ? tr('admin.language.italian'): tr('admin.language.english'),
+                                  Text(
+                                      context.locale.languageCode == 'it'
+                                          ? tr('admin.language.italian')
+                                          : tr('admin.language.english'),
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyText2),

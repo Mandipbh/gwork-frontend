@@ -346,6 +346,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreenProfessional> {
         jobDetailView("assets/icons/marker_location.png",
             "${provider.detailsModel!.jobDetails!.street!}, ${provider.detailsModel!.jobDetails!.province!}"),
         const SizedBox(height: 12),
+
         Container(
           width: double.infinity,
           decoration: BoxDecoration(

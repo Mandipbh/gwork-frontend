@@ -72,12 +72,7 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                     builder: (context) => const SignInSignUpScreen()),
                 (Route<dynamic> route) => false);
           } else {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const MyProfileScreen(),
-              ),
-            );
+            Navigator.of(context)..pop()..pop()..pop()..pop();
           }
         },
         title: tr('admin.exit_dialogue.are_you_sure'),
@@ -184,30 +179,16 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                                         .verifyPhoneNumberOtp(pin, context)
                                         .then((verifyOtpPhoneResponse) {
                                       if (verifyOtpPhoneResponse.success!) {
-                                        ProgressLoader(
-                                            context, "OTP Verify SuccessFully");
+                                        ProgressLoader(context, "OTP Verify SuccessFully");
                                         timer.cancel();
                                         ApiClient()
-                                            .updatePhoneNumber(
-                                                verifyOtpPhoneResponse.token
-                                                    .toString(),
-                                                widget.phoneNumber.toString(),
-                                                context)
+                                            .updatePhoneNumber(verifyOtpPhoneResponse.token.toString(), widget.phoneNumber.toString(), context)
                                             .then((updatePhoneResponse) {
                                           if (updatePhoneResponse.success!) {
-                                            Provider.of<MyProfileProvider>(
-                                                    context,
-                                                    listen: false)
-                                                .getUserProfile(context);
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const MyProfileScreen(),
-                                              ),
-                                            );
-                                            ProgressLoader(context,
-                                                "OTP Verify SuccessFully");
+                                            var provider = Provider.of<MyProfileProvider>(context, listen: false);
+                                            provider.model!.user!.phoneNumber = '+39${widget.phoneNumber.toString()}';
+                                            Navigator.of(context)..pop()..pop()..pop();
+                                            ProgressLoader(context, "Mobile number updated SuccessFully");
                                           }
                                         });
                                       }

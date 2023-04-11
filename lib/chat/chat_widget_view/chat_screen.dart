@@ -324,13 +324,21 @@ class _ChatScreenState extends State<ChatScreen> {
                   padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
                   itemCount: provider.getChatData().length,
                   itemBuilder: (context, index) {
-                    isFromMessage =
-                        widget.userId == provider.getChatData()[index].toUserId;
+                    isFromMessage = widget.userId == provider.getChatData()[index].toUserId;
+
+
                     return Column(
                       crossAxisAlignment: !isFromMessage
                           ? CrossAxisAlignment.start
                           : CrossAxisAlignment.end,
                       children: [
+                        provider.getChatData()[index].createdAt.toString().split("T").first==DateTime.now().toString().split(" ").first?
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text("Today"),
+                        ):Text(provider.getChatData()[index].createdAt.toString().split("T").first),
+
+
                         Container(
                           margin: EdgeInsets.only(
                               left: !isFromMessage
