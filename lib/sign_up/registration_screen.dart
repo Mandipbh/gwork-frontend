@@ -10,6 +10,7 @@ import 'package:g_worker_app/main.dart';
 import 'package:g_worker_app/pending_reject_application_screen/pending_application_screen.dart';
 import 'package:g_worker_app/server_connection/api_client.dart';
 import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
+import 'package:g_worker_app/sign_up/sign_up_widgets/bank_info_view.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/payment_info_view.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/personal_info_view.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/privacy_policy_view.dart';
@@ -133,7 +134,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       const SelectServiceView(),
       const SetPasswordView(),
       const PersonalInfoView(),
-      PaymentInfoView(),
+      const BankInfoView(),
       const UploadDocumentView(),
       const ProfilePictureView(),
       const PrivacyPolicyView()
@@ -192,7 +193,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               : currentPage == 3
                   ? tr('client.log_in.sign_up.personal_info')
                   : currentPage == 4
-                      ? tr('client.log_in.sign_up.Paymen_method')
+                      ? tr('client.log_in.sign_up.bank_detail')
                       : currentPage == 5
                           ? tr('client.log_in.sign_up.Upload_Docs')
                           : currentPage == 6
@@ -303,8 +304,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           if (currentPage == 5) {
                             var pImage = context.read<ProfilePicProvider>();
                             if (pImage.imagePath == "") {
-                              ErrorLoader(
-                                  context, "Please select profile picture");
+                              ErrorLoader(context,
+                                  tr("error_message.select_profile_pic"));
                             } else {
                               value.setIsLoading(true);
                               print(currentPage);
@@ -475,7 +476,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                       listen: false)
                                   .docList);
                               ErrorLoader(
-                                  context, "Please select atleast 1 document");
+                                  context, tr("error_message.select_document"));
                             } else {
                               controller.nextPage(
                                   duration: const Duration(milliseconds: 200),
@@ -486,8 +487,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           if (currentPage == 6) {
                             var pImage = context.read<ProfilePicProvider>();
                             if (pImage.imagePath == "") {
-                              ErrorLoader(
-                                  context, "Please select profile picture");
+                              ErrorLoader(context,
+                                  tr("error_message.select_profile_pic"));
                             } else {
                               value.setIsLoading(true);
                               ApiClient()
@@ -513,7 +514,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
                                 if (v!.success!) {
                                   currentPage = currentPage + 1;
-
                                   controller.nextPage(
                                       duration:
                                           const Duration(milliseconds: 200),

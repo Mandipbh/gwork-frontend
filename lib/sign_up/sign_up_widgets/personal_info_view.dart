@@ -26,18 +26,21 @@ class PersonalInfoView extends StatelessWidget {
           nameTextField(
               controller: Provider.of<SignUpProvider>(context, listen: false)
                   .nameController,
+              maxLength: 20,
               label: tr('client.log_in.sign_up.Name'),
               asset: 'user_first_name.png'),
           const SizedBox(height: 20),
           nameTextField(
               controller: Provider.of<SignUpProvider>(context, listen: false)
                   .lastNameController,
+              maxLength: 20,
               label: tr('client.log_in.sign_up.Last_name'),
               asset: 'user.png'),
           const SizedBox(height: 20),
           nameTextField(
               controller: Provider.of<SignUpProvider>(context, listen: false)
                   .emailController,
+              maxLength: 30,
               label: tr('client.log_in.sign_up.Email_id'),
               asset: 'mail.png',
               keyboardType: TextInputType.emailAddress),

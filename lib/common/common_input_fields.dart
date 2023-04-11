@@ -220,10 +220,12 @@ Widget budgetTextField(
     decoration: BoxDecoration(
         color: Colors.white, borderRadius: BorderRadius.circular(16)),
     child: TextField(
+        maxLength: 25,
         controller: controller,
         style: const TextStyle(fontSize: 18),
         keyboardType: keyboardType,
         decoration: InputDecoration(
+            counterText: '',
             icon: Image.asset('assets/icons/$asset', height: 24, width: 24),
             labelText: label.toUpperCase())),
   );
@@ -232,6 +234,7 @@ Widget budgetTextField(
 Widget nameTextField(
     {required String label,
     required String asset,
+    int? maxLength,
     TextEditingController? controller,
     keyboardType = TextInputType.name}) {
   controller ??= TextEditingController();
@@ -241,7 +244,7 @@ Widget nameTextField(
     decoration: BoxDecoration(
         color: Colors.white, borderRadius: BorderRadius.circular(16)),
     child: TextFormField(
-        maxLength: 20,
+        maxLength: maxLength,
         controller: controller,
         style: const TextStyle(fontSize: 18),
         keyboardType: TextInputType.name,

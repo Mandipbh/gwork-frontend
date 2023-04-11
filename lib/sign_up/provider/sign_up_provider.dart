@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -61,6 +63,9 @@ class SignUpProvider extends ChangeNotifier {
   checkPhoneNo(BuildContext context) {
     if (phoneController.text.isEmpty) {
       ErrorLoader(context, tr("error_message.fill_all_data"));
+      notifyListeners();
+    } else if (phoneController.text.length < 10) {
+      ErrorLoader(context, tr("error_message.valid_phone"));
       notifyListeners();
     } else {
       setIsLoading(true);
@@ -141,12 +146,18 @@ class SignUpProvider extends ChangeNotifier {
         email.isEmpty ||
         textCode.isEmpty ||
         birthDate.isEmpty) {
-      ErrorLoader(context, "Please fill all the details..!");
+      ErrorLoader(context, tr("error_message.fill_all_data"));
+      notifyListeners();
+    } else if (name.length < 3) {
+      ErrorLoader(context, tr("error_message.valid_name"));
+      notifyListeners();
+    } else if (lastName.length < 3) {
+      ErrorLoader(context, tr("error_message.valid_last_name"));
       notifyListeners();
     } else if (!RegExp(
             r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
         .hasMatch(email)) {
-      ErrorLoader(context, "Please enter valid email..!");
+      ErrorLoader(context, tr("error_message.valid_email"));
       notifyListeners();
     } else {
       _name = name;
@@ -225,7 +236,20 @@ class SignUpProvider extends ChangeNotifier {
         cardNumber.isEmpty ||
         expireDate.isEmpty ||
         cvv.isEmpty) {
-      ErrorLoader(context, "Please fill all the details");
+      ErrorLoader(context, tr("error_message.fill_all_data"));
+      notifyListeners();
+      return false;
+    }
+    if (int.parse(expireDate.split("/")[0]) > 12) {
+      ErrorLoader(context, tr("error_message.expire_month"));
+      notifyListeners();
+      return false;
+    }
+    log(DateTime.now().year.toString().substring(2, 4));
+    if (int.parse(expireDate.split("/")[1]) >
+        int.parse(DateTime.now().year.toString().substring(1, 2))) {
+      log(DateTime.now().year.toString().substring(1, 2));
+      ErrorLoader(context, tr("error_message.expire_year"));
       notifyListeners();
       return false;
     }
@@ -252,11 +276,31 @@ class SignUpProvider extends ChangeNotifier {
     //   notifyListeners();
     //   return false;
     // }
-    else {
+    else if (cardHolder.length < 3) {
+      ErrorLoader(context, tr("error_message.valid_card_holder"));
+      notifyListeners();
+    } else {
       _cardHolder = cardHolder;
       _cardNumber = cardNumber;
       _expireDate = expireDate;
       _cvv = cvv;
+      notifyListeners();
+      return true;
+    }
+  }
+
+  String? _bankAccountNumber;
+  String? get bankAccountNumber => _bankAccountNumber;
+
+  var bankAccountController = TextEditingController();
+
+  setBankDetail(String bankAccountNumber, BuildContext context) {
+    if (bankAccountNumber.isEmpty) {
+      ErrorLoader(context, tr("error_message.fill_all_data"));
+      notifyListeners();
+      return false;
+    } else {
+      _bankAccountNumber = bankAccountNumber;
       notifyListeners();
       return true;
     }
@@ -275,6 +319,7 @@ class SignUpProvider extends ChangeNotifier {
     cardNumberController.clear();
     expireDateController.clear();
     cvvController.clear();
+    bankAccountController.clear();
     Provider.of<ProfilePicProvider>(context, listen: false).clearImage();
     notifyListeners();
   }

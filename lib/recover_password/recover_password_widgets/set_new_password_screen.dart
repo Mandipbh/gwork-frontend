@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:g_worker_app/common/common_loader.dart';
 import 'package:g_worker_app/home_page/view/home_screen.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/recover_password/provider/recover_password_provider.dart';
@@ -31,6 +32,8 @@ class _SetNewPasswordScreenState extends State<SetNewPasswordScreen> {
                 MaterialPageRoute(
                     builder: (context) => const SignInSignUpScreen()),
                 (Route<dynamic> route) => false);
+            FocusManager.instance.primaryFocus?.unfocus();
+            ProgressLoader(context, tr("success_message.pass_recover_cancel"));
           },
           title: tr('admin.exit_dialogue.are_you_sure'),
           description: tr('admin.exit_dialogue.need_to_ask'),

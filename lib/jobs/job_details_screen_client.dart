@@ -397,7 +397,7 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                 Expanded(
                   child: Text(
                     "${jobProvider.detailsModel!.jobDetails!.description}",
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: black343,
                       fontSize: 12,
                       fontWeight: FontWeight.w300,

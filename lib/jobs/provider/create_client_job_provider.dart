@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:g_worker_app/Constants.dart';
 import 'package:g_worker_app/common/common_loader.dart';
@@ -48,7 +49,7 @@ class CreateClientJobProvider extends ChangeNotifier {
     if (titleController.text.isEmpty ||
         streetController.text.isEmpty ||
         comuneController.text.isEmpty) {
-      ErrorLoader(context, "Please fill all the details");
+      ErrorLoader(context, tr("error_message.fill_all_data"));
       notifyListeners();
       return false;
     } else {
@@ -66,7 +67,7 @@ class CreateClientJobProvider extends ChangeNotifier {
 
   setSchedule(BuildContext context) {
     if (dateController.text.isEmpty || timeController.text.isEmpty) {
-      ErrorLoader(context, "Please fill all the details");
+      ErrorLoader(context, tr("error_message.fill_all_data"));
       notifyListeners();
       return false;
     } else {
@@ -84,7 +85,7 @@ class CreateClientJobProvider extends ChangeNotifier {
 
   setMoreInfo(BuildContext context) {
     if (describeController.text.isEmpty || budgetController.text.isEmpty) {
-      ErrorLoader(context, "Please fill all the details");
+      ErrorLoader(context, tr("error_message.fill_all_data"));
       notifyListeners();
       return false;
     } else {
@@ -106,7 +107,7 @@ class CreateClientJobProvider extends ChangeNotifier {
             .getClientJobList("All", "All", context);
         clearCreateJobProvider(context);
         Navigator.of(context).pop();
-        ProgressLoader(context, "Job Create SuccessFully");
+        ProgressLoader(context, tr("success_message.job_create_success"));
         Navigator.of(context).pop();
         notifyListeners();
         return true;

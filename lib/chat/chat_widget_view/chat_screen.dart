@@ -203,7 +203,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           ),
                         ),
                         Text(
-                          '${widget.budget} €',
+                          '€ ${widget.budget}',
                           style: const TextStyle(
                             color: splashColor1,
                             fontSize: 14,

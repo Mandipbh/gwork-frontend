@@ -56,6 +56,7 @@ class JobInfoView extends StatelessWidget {
                 label: tr('client.Job_info.Comune'),
                 controller: value.comuneController,
                 asset: 'marker_location.png',
+                maxLength: 25,
               ),
               const SizedBox(height: 20),
             ],

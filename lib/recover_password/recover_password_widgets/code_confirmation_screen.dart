@@ -71,6 +71,8 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                 MaterialPageRoute(
                     builder: (context) => const SignInSignUpScreen()),
                 (Route<dynamic> route) => false);
+            FocusManager.instance.primaryFocus?.unfocus();
+            ProgressLoader(context, tr("success_message.pass_recover_cancel"));
           } else {
             Navigator.push(
               context,
@@ -114,7 +116,7 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                             ),
                           ),
                           Text(
-                              "${tr('admin.sign_in.enter_digit')} ${widget.phoneNumber}",
+                              "${tr('admin.sign_in.enter_digit')} \n+39 ${widget.phoneNumber}",
                               style: Theme.of(context).textTheme.bodyText2),
                           const SizedBox(height: 20),
                           OTPTextField(
@@ -151,7 +153,7 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                                                   const RegistrationScreen()),
                                         );
                                         ProgressLoader(context,
-                                            tr("success_message.otp_send_success"));
+                                            tr("success_message.otp_verify_success"));
                                       }
                                     });
                                     break;
@@ -163,8 +165,6 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                                             context)
                                         .then((otpVerify) {
                                       if (otpVerify.success!) {
-                                        ProgressLoader(
-                                            context, "OTP Verify SuccessFully");
                                         timer.cancel();
                                         print("TOKEN CC :: ${otpVerify.token}");
                                         Navigator.push(
@@ -176,6 +176,8 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                                             ),
                                           ),
                                         );
+                                        ProgressLoader(context,
+                                            tr("success_message.otp_verify_success"));
                                       }
                                     });
                                     break;
@@ -184,8 +186,6 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                                         .verifyPhoneNumberOtp(pin, context)
                                         .then((verifyOtpPhoneResponse) {
                                       if (verifyOtpPhoneResponse.success!) {
-                                        ProgressLoader(
-                                            context, "OTP Verify SuccessFully");
                                         timer.cancel();
                                         ApiClient()
                                             .updatePhoneNumber(
@@ -207,7 +207,7 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                                               ),
                                             );
                                             ProgressLoader(context,
-                                                "OTP Verify SuccessFully");
+                                                tr("success_message.otp_verify_success"));
                                           }
                                         });
                                       }
@@ -261,13 +261,24 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
       secondsRemaining = 60;
     });
     startTimer();
-    ApiClient()
-        .requestOtp(widget.phoneNumber.toString(), context)
-        .then((requestResentOtpSuccessResponse) {
-      if (requestResentOtpSuccessResponse.success!) {
-        ProgressLoader(context,
-            "${tr("success_message.otp_send")} \n+39 ${widget.phoneNumber}");
-      }
-    });
+    if (widget.comingFrom == 1) {
+      ApiClient()
+          .getOtp(widget.phoneNumber.toString(), context)
+          .then((requestResentOtpSuccessResponse) {
+        if (requestResentOtpSuccessResponse.success!) {
+          ProgressLoader(context,
+              "${tr("success_message.otp_resend")} \n+39 ${widget.phoneNumber}");
+        }
+      });
+    } else {
+      ApiClient()
+          .requestOtp(widget.phoneNumber.toString(), context)
+          .then((requestResentOtpSuccessResponse) {
+        if (requestResentOtpSuccessResponse.success!) {
+          ProgressLoader(context,
+              "${tr("success_message.otp_resend")} \n+39 ${widget.phoneNumber}");
+        }
+      });
+    }
   }
 }
