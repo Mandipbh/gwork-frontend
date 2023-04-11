@@ -71,10 +71,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
-    print("@@@@${Provider.of<MyProfileProvider>(
-      context,
-      listen: false,
-    ).clearEditProfileProvider()}");
     Provider.of<MyProfileProvider>(
       context,
       listen: false,
@@ -96,7 +92,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       ),
       body: SingleChildScrollView(
         child: Consumer<MyProfileProvider>(
-          builder: (context, myProfileProvider, child) {
+          builder: (buildContext, myProfileProvider, child) {
             return Stack(
               children: [
                 Container(

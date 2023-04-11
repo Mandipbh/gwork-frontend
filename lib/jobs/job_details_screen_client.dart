@@ -262,7 +262,7 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                       backgroundColor: Colors.grey.withOpacity(0.2),
                       radius: 20,
                       child:
-                          jobProvider.detailsModel!.jobDetails!.clientImage !=
+                          jobProvider.detailsModel!.jobDetails!.professionalImage !=
                                   null
                               ? Container(
                                   width: 40,
@@ -278,18 +278,18 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                                     ),
                                     child: Image.network(
                                       jobProvider.detailsModel!.jobDetails!
-                                          .clientImage!,
+                                          .professionalImage!,
                                       fit: BoxFit.fitWidth,
                                     ),
                                   ),
                                 )
                               : Text(
-                                  "${jobProvider.detailsModel!.jobDetails!.clientName!.substring(0, 1)}${jobProvider.detailsModel!.jobDetails!.clientName!.substring(0, 1)}",
+                                  "${jobProvider.detailsModel!.jobDetails!.professionalName!.substring(0, 1)}${jobProvider.detailsModel!.jobDetails!.professionalName!.substring(0, 1)}",
                                   style: const TextStyle(color: black343),
                                 ),
                     ),
                     title: Text(
-                      jobProvider.detailsModel!.jobDetails!.clientName!,
+                      jobProvider.detailsModel!.jobDetails!.professionalName!,
                       style: const TextStyle(
                         color: black343,
                         fontSize: 14,
@@ -297,7 +297,7 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                       ),
                     ),
                     subtitle: const Text(
-                      "Client",
+                      "Worker",
                       style: TextStyle(
                         color: grey807,
                         fontSize: 14,
@@ -374,7 +374,7 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
             "${jobProvider.detailsModel!.jobDetails!.category}"),
         const SizedBox(height: 12),
         jobDetailView("assets/icons/coins_stacked.png",
-            "${jobProvider.detailsModel!.jobDetails!.budget}"),
+            "€${jobProvider.detailsModel!.jobDetails!.budget}"),
         const SizedBox(height: 12),
         Container(
           width: double.infinity,
@@ -545,6 +545,7 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+
                                   Text(
                                     "${value.applicationsModel!.applications![index].professionalName}",
                                     style: const TextStyle(
@@ -879,6 +880,7 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
         context: context,
         builder: (ctx) => AlertDialog(
             contentPadding: const EdgeInsets.all(12),
+            insetPadding: EdgeInsets.symmetric(horizontal: 28),
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8.0))),
             content: StatefulBuilder(builder: (context, newState) {
@@ -919,6 +921,7 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
     showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
+            insetPadding: EdgeInsets.symmetric(horizontal: 28),
             contentPadding: const EdgeInsets.all(12),
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8.0))),
@@ -967,6 +970,7 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
     showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
+            insetPadding: EdgeInsets.symmetric(horizontal: 28),
             contentPadding: const EdgeInsets.all(12),
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8.0))),
