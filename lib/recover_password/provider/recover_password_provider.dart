@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/common/common_loader.dart';
 import 'package:g_worker_app/recover_password/recover_password_widgets/code_confirmation_screen.dart';
@@ -22,7 +23,7 @@ class RecoverPasswordProvider extends ChangeNotifier {
 
   requestOtp(BuildContext context) {
     if (recoverPasswordPhoneController.text.isEmpty) {
-      ErrorLoader(context, "PhoneNumber cannot be empty");
+      ErrorLoader(context, tr("error_message.fill_all_data"));
       notifyListeners();
     } else {
       setIsLoading(true);
@@ -32,8 +33,6 @@ class RecoverPasswordProvider extends ChangeNotifier {
         if (requestOtpResponse.success!) {
           print("AAAAA${requestOtpResponse.success}");
           setIsLoading(false);
-          ProgressLoader(context,
-              "Phone Number Registered  And Request Otp SuccessFully ${requestOtpResponse.otp}");
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -42,6 +41,8 @@ class RecoverPasswordProvider extends ChangeNotifier {
                   phoneNumber: recoverPasswordPhoneController.text),
             ),
           );
+          ProgressLoader(context,
+              "${tr("success_message.otp_send")} \n+39 ${recoverPasswordPhoneController.text}");
           notifyListeners();
         }
       });
@@ -51,11 +52,14 @@ class RecoverPasswordProvider extends ChangeNotifier {
   changePassword(token, BuildContext context) {
     if (newPasswordController.text.isEmpty ||
         confirmNewPasswordController.text.isEmpty) {
-      ErrorLoader(context, "Password cannot be empty");
+      ErrorLoader(context, tr("error_message.fill_all_data"));
       notifyListeners();
     } else if (newPasswordController.text !=
         confirmNewPasswordController.text) {
-      ErrorLoader(context, "Password do not match");
+      ErrorLoader(context, tr("error_message.pass_doNot_coincide"));
+      notifyListeners();
+    } else if (newPasswordController.text.length <= 7) {
+      ErrorLoader(context, tr("error_message.try_with_new_pass"));
       notifyListeners();
     } else {
       setIsLoading(true);
@@ -67,7 +71,6 @@ class RecoverPasswordProvider extends ChangeNotifier {
           print("AAAAA${changePasswordResponse.success}");
           clearRecoverPasswordProvider(context);
           setIsLoading(false);
-          ProgressLoader(context, "Password Change SuccessFully");
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
@@ -75,6 +78,7 @@ class RecoverPasswordProvider extends ChangeNotifier {
             ),
             (route) => true, //if you want to disable back feature set to false
           );
+          ProgressLoader(context, tr("success_message.pass_updated"));
           notifyListeners();
         }
         notifyListeners();

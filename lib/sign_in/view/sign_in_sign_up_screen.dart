@@ -140,6 +140,7 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                               if (MyApp.apkType == UserType.admin) {
                                 provider.adminLogin();
                               } else {
+                                FocusManager.instance.primaryFocus?.unfocus();
                                 provider.login(context);
                               }
                             }

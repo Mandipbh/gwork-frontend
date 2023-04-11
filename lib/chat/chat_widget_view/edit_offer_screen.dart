@@ -141,8 +141,8 @@ class _EditOfferScreenState extends State<EditOfferScreen> {
                       scale: 2,
                     ),
                     labelText: tr('Professional.edit_offer.Offer_price'),
-                    hintText: "60",
-                    contentPadding: EdgeInsets.only(left: 16, top: 8),
+                    hintText: widget.budget,
+                    contentPadding: const EdgeInsets.only(left: 16, top: 8),
                     hintStyle: const TextStyle(
                       color: grey9EA,
                       fontSize: 14,

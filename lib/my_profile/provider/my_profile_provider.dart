@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/common/common_loader.dart';
 import 'package:g_worker_app/my_profile/model/get_profile_response.dart';
@@ -37,7 +38,10 @@ class MyProfileProvider extends ChangeNotifier {
 
   updateName(nameController, BuildContext context) {
     if (nameController.text.isEmpty) {
-      ErrorLoader(context, "Name Can Not Be Empty");
+      ErrorLoader(context, tr("error_message.fill_all_data"));
+      notifyListeners();
+    } else if (nameController.text.length < 3) {
+      ErrorLoader(context, tr("error_message.valid_name"));
       notifyListeners();
     } else {
       setIsLoading(true);
@@ -48,7 +52,7 @@ class MyProfileProvider extends ChangeNotifier {
           setIsLoading(false);
           _model!.user!.name = nameController.text;
           print("!!${_model!.user!.name}");
-          ProgressLoader(context, "your Name Update SuccessFully");
+          ProgressLoader(context, tr("success_message.setting_update"));
           Navigator.of(context).pop();
           notifyListeners();
           return true;
@@ -59,7 +63,10 @@ class MyProfileProvider extends ChangeNotifier {
 
   updateLastName(lastNameController, BuildContext context) {
     if (lastNameController.text.isEmpty) {
-      ErrorLoader(context, "LastName Can Not Be Empty");
+      ErrorLoader(context, tr("error_message.fill_all_data"));
+      notifyListeners();
+    } else if (lastNameController.text.length < 3) {
+      ErrorLoader(context, tr("error_message.valid_last_name"));
       notifyListeners();
     } else {
       setIsLoading(true);
@@ -70,7 +77,7 @@ class MyProfileProvider extends ChangeNotifier {
           setIsLoading(false);
           _model!.user!.surname = lastNameController.text;
           print("!!${_model!.user!.surname}");
-          ProgressLoader(context, "your LastName Update SuccessFully");
+          ProgressLoader(context, tr("success_message.setting_update"));
           Navigator.of(context).pop();
           notifyListeners();
           return true;
@@ -81,7 +88,12 @@ class MyProfileProvider extends ChangeNotifier {
 
   updateEmail(emailController, BuildContext context) {
     if (emailController.text.isEmpty) {
-      ErrorLoader(context, "Email Can Not Be Empty");
+      ErrorLoader(context, tr("error_message.fill_all_data"));
+      notifyListeners();
+    } else if (!RegExp(
+            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+        .hasMatch(emailController)) {
+      ErrorLoader(context, tr("error_message.valid_email"));
       notifyListeners();
     } else {
       setIsLoading(true);
@@ -92,7 +104,7 @@ class MyProfileProvider extends ChangeNotifier {
           setIsLoading(false);
           _model!.user!.email = emailController.text;
           print("!!${_model!.user!.email}");
-          ProgressLoader(context, "your Email Update SuccessFully");
+          ProgressLoader(context, tr("success_message.setting_update"));
           Navigator.of(context).pop();
           notifyListeners();
           return true;
@@ -103,7 +115,10 @@ class MyProfileProvider extends ChangeNotifier {
 
   updatePhone(phoneController, BuildContext context) {
     if (phoneController.text.isEmpty) {
-      ErrorLoader(context, "Phone Number Can Not Be Empty");
+      ErrorLoader(context, tr("error_message.fill_all_data"));
+      notifyListeners();
+    } else if (phoneController.text.length < 10) {
+      ErrorLoader(context, tr("error_message.valid_phone"));
       notifyListeners();
     } else {
       setIsLoading(true);
@@ -112,7 +127,10 @@ class MyProfileProvider extends ChangeNotifier {
           .then((requestChangePhoneSuccessResponse) {
         if (requestChangePhoneSuccessResponse.success!) {
           setIsLoading(false);
-          ProgressLoader(context, "Otp Send SuccessFully ${requestChangePhoneSuccessResponse.otp}");
+          _model!.user!.phoneNumber = phoneController.text;
+          print("!!${_model!.user!.phoneNumber}");
+          ProgressLoader(context,
+              "Otp Send SuccessFully ${requestChangePhoneSuccessResponse.otp}");
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -120,6 +138,9 @@ class MyProfileProvider extends ChangeNotifier {
                   comingFrom: 3, phoneNumber: phoneController.text),
             ),
           );
+          ProgressLoader(context,
+              "${tr("success_message.otp_send")} \n+39 ${phoneController.text}");
+          notifyListeners();
           return true;
         }
       });
@@ -128,7 +149,7 @@ class MyProfileProvider extends ChangeNotifier {
 
   updateBirthDate(birthDateController, BuildContext context) {
     if (birthDateController.text.isEmpty) {
-      ErrorLoader(context, "Birthdate Can Not Be Empty");
+      ErrorLoader(context, tr("error_message.fill_all_data"));
       notifyListeners();
     } else {
       setIsLoading(true);
@@ -139,7 +160,7 @@ class MyProfileProvider extends ChangeNotifier {
           setIsLoading(false);
           _model!.user!.birthDate = birthDateController.text;
           print("!!${_model!.user!.birthDate}");
-          ProgressLoader(context, "your Birthdate Update SuccessFully");
+          ProgressLoader(context, tr("success_message.setting_update"));
           Navigator.of(context).pop();
           notifyListeners();
           return true;
@@ -150,7 +171,7 @@ class MyProfileProvider extends ChangeNotifier {
 
   updateVatNumber(vatNumberController, BuildContext context) {
     if (vatNumberController.text.isEmpty) {
-      ErrorLoader(context, "VatNumber Can Not Be Empty");
+      ErrorLoader(context, tr("error_message.fill_all_data"));
       notifyListeners();
     } else {
       setIsLoading(true);
@@ -161,7 +182,7 @@ class MyProfileProvider extends ChangeNotifier {
           setIsLoading(false);
           _model!.user!.vatNumber = vatNumberController.text;
           print("!!${_model!.user!.vatNumber}");
-          ProgressLoader(context, "your VatNumber Update SuccessFully");
+          ProgressLoader(context, tr("success_message.setting_update"));
           Navigator.of(context).pop();
           notifyListeners();
           return true;
@@ -178,7 +199,7 @@ class MyProfileProvider extends ChangeNotifier {
       if (updateProfileImageSuccessResponse.success!) {
         setIsLoading(false);
         _model!.user!.image = profileImage;
-        ProgressLoader(context, "your ProfilePicture Update SuccessFully");
+        ProgressLoader(context, tr("success_message.setting_update"));
         getUserProfile(context);
         notifyListeners();
         return true;
@@ -195,7 +216,8 @@ class MyProfileProvider extends ChangeNotifier {
         print("DELETE IMAGE ==> ${updateProfileImageSuccessResponse.success}");
         //
         setIsLoading(false);
-        ProgressLoader(context, "your ProfilePicture delete SuccessFully");
+        ProgressLoader(
+            context, tr("success_message.delete_profile_pic_success"));
         getUserProfile(context);
         notifyListeners();
         return true;
@@ -212,10 +234,13 @@ class MyProfileProvider extends ChangeNotifier {
     if (currentPassword.isEmpty ||
         newPassword.isEmpty ||
         confirmPassword.isEmpty) {
-      ErrorLoader(context, "Please Fill All The Field");
+      ErrorLoader(context, tr("error_message.fill_all_data"));
       notifyListeners();
     } else if (newPassword != confirmPassword) {
-      ErrorLoader(context, "Password do not match");
+      ErrorLoader(context, tr("error_message.pass_doNot_coincide"));
+      notifyListeners();
+    } else if (newPassword.length <= 7) {
+      ErrorLoader(context, tr("error_message.try_with_new_pass"));
       notifyListeners();
     } else {
       setIsLoading(true);
@@ -229,8 +254,8 @@ class MyProfileProvider extends ChangeNotifier {
           print("CurrentPassword $currentPassword");
           print("NewPassword $newPassword");
           print("ConfirmNewPassword $newPassword");
-          ProgressLoader(context, "your Password Update SuccessFully");
           Navigator.of(context).pop();
+          ProgressLoader(context, tr("success_message.setting_update"));
           notifyListeners();
           return true;
         }

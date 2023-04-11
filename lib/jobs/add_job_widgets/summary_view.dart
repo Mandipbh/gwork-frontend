@@ -53,9 +53,8 @@ class _SummaryViewState extends State<SummaryView> {
                       height: 34,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
-                          color: isDescriptionSelected
-                              ? primaryColor
-                              : whiteF2F),
+                          color:
+                              isDescriptionSelected ? primaryColor : whiteF2F),
                       child: Center(
                           child: Text(
                         tr('client.summary.Description'),
@@ -79,18 +78,14 @@ class _SummaryViewState extends State<SummaryView> {
                       height: 34,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
-                          color: !isDescriptionSelected
-                              ? primaryColor
-                              : whiteF2F),
+                          color:
+                              !isDescriptionSelected ? primaryColor : whiteF2F),
                       child: Center(
                         child: Text(tr('client.summary.Gallery'),
-                            style: Theme.of(context)
-                                .textTheme
-                                .subtitle1!
-                                .apply(
-                                    color: !isDescriptionSelected
-                                        ? Colors.white
-                                        : primaryColor)),
+                            style: Theme.of(context).textTheme.subtitle1!.apply(
+                                color: !isDescriptionSelected
+                                    ? Colors.white
+                                    : primaryColor)),
                       )),
                 ),
               ),
@@ -230,7 +225,7 @@ class _SummaryViewState extends State<SummaryView> {
                                 fontSize: 12, fontWeight: FontWeight.w500),
                           ),
                           Text(
-                            "${value.budgetController.text}",
+                            value.budgetController.text,
                             style: const TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.w700),
                           ),

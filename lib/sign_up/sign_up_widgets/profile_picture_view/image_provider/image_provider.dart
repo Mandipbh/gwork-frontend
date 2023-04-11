@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/common/common_loader.dart';
 import 'package:image_picker/image_picker.dart';
@@ -25,7 +26,7 @@ class ProfilePicProvider extends ChangeNotifier {
       notifyListeners();
       return true;
     } catch (e) {
-      ErrorLoader(context, "No Image selected");
+      ErrorLoader(context, tr("error_message.no_image_selected"));
       notifyListeners();
       return false;
     }

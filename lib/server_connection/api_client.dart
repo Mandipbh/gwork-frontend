@@ -165,11 +165,11 @@ class ApiClient {
       print('REGISTER API :: ${response.data}');
       return CreateClientJobModel.fromJson(response.data);
     } on DioError catch (e) {
-      ErrorLoader(context, "Error in registration");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<SignUpProvider>(context, listen: false).setIsLoading(false);
       CreateClientJobModel();
     } catch (e) {
-      ErrorLoader(context, "Error in registration");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<SignUpProvider>(context, listen: false).setIsLoading(false);
       print('ApiClient.adminLogin Error :: \n$e');
       CreateClientJobModel();
@@ -268,15 +268,13 @@ class ApiClient {
       print("UPDATENAME :: ${response.data}");
       return SuccessDataModel.fromJson(response.data);
     } on DioError {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<MyProfileProvider>(context, listen: false)
           .setIsLoading(false);
       print("----DIO ERROR Update Name----");
       rethrow;
     } catch (e) {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<MyProfileProvider>(context, listen: false)
           .setIsLoading(false);
       print("----CATCH ERROR Update Name----");
@@ -303,15 +301,13 @@ class ApiClient {
       print("@@$lastName");
       return SuccessDataModel.fromJson(response.data);
     } on DioError {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<MyProfileProvider>(context, listen: false)
           .setIsLoading(false);
       print("----DIO ERROR Update Last Name----");
       rethrow;
     } catch (e) {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<MyProfileProvider>(context, listen: false)
           .setIsLoading(false);
       print("----DIO ERROR Update Last Name----");
@@ -322,20 +318,25 @@ class ApiClient {
 
   Future<GetProfileModel> getProfile(BuildContext context) async {
     try {
+      // var request = json.encode();
       var response = await dio.get('${API.baseUrl}${ApiEndPoints.getProfile}',
+          // data: request,
           options: Options(headers: {
             'Content-Type': 'application/json',
             "Authorization": "Bearer ${await SharedPreferenceData().getToken()}"
           }));
+      print("GET PROFILE :: ${response.data}");
       return GetProfileModel.fromJson(response.data);
-    } on DioError catch(e) {
-      ErrorLoader(context, "Oops, something is wrong with your data. Try again.");
-      context.read<MyProfileProvider>().setIsLoading(false);
+    } on DioError {
+      ErrorLoader(context, tr("error_message.oops_wrong"));
+      Provider.of<MyProfileProvider>(context, listen: false)
+          .setIsLoading(false);
       print("----DIO ERROR Get Profile----");
       rethrow;
     } catch (e) {
-      ErrorLoader(context, "Oops, something is wrong with your data. Try again.");
-      context.read<MyProfileProvider>().setIsLoading(false);
+      ErrorLoader(context, tr("error_message.oops_wrong"));
+      Provider.of<MyProfileProvider>(context, listen: false)
+          .setIsLoading(false);
       print("----CATCH ERROR Get Profile----");
       print('ApiClient.GetProfile Error :: \n$e');
       rethrow;
@@ -358,15 +359,13 @@ class ApiClient {
 
       return SuccessDataModel.fromJson(response.data);
     } on DioError {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<MyProfileProvider>(context, listen: false)
           .setIsLoading(false);
       print("----DIO ERROR Update Password----");
       rethrow;
     } catch (e) {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<MyProfileProvider>(context, listen: false)
           .setIsLoading(false);
       print("----DIO ERROR Update Password----");
@@ -390,15 +389,13 @@ class ApiClient {
 
       return SuccessDataModel.fromJson(response.data);
     } on DioError {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<MyProfileProvider>(context, listen: false)
           .setIsLoading(false);
       print("----DIO ERROR Update Email----");
       rethrow;
     } catch (e) {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<MyProfileProvider>(context, listen: false)
           .setIsLoading(false);
       print("----DIO ERROR Update Email----");
@@ -431,17 +428,15 @@ class ApiClient {
 
       return SuccessDataModel.fromJson(response.data);
     } on DioError {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<MyProfileProvider>(context, listen: false)
           .setIsLoading(false);
       print("----DIO ERROR Update Image----");
       rethrow;
     } catch (e) {
-      // ErrorLoader(
-      //     context, "Oops, something is wrong with your data. Try again.");
-      // Provider.of<MyProfileProvider>(context, listen: false)
-      //     .setIsLoading(false);
+      ErrorLoader(context, tr("error_message.oops_wrong"));
+      Provider.of<MyProfileProvider>(context, listen: false)
+          .setIsLoading(false);
       print("----DIO ERROR Update Email----");
       print('ApiClient.upDateImage Error :: $e');
       rethrow;
@@ -462,15 +457,13 @@ class ApiClient {
               }));
       return SuccessDataModel.fromJson(response.data);
     } on DioError {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<MyProfileProvider>(context, listen: false)
           .setIsLoading(false);
       print("----DIO ERROR Update Birthdate----");
       rethrow;
     } catch (e) {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<MyProfileProvider>(context, listen: false)
           .setIsLoading(false);
       print("----DIO ERROR Update birthdate----");
@@ -494,15 +487,13 @@ class ApiClient {
 
       return SuccessDataModel.fromJson(response.data);
     } on DioError {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<MyProfileProvider>(context, listen: false)
           .setIsLoading(false);
       print("----DIO ERROR Update VatNumber----");
       rethrow;
     } catch (e) {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<MyProfileProvider>(context, listen: false)
           .setIsLoading(false);
       print("----DIO ERROR Update VatNumber----");
@@ -527,15 +518,13 @@ class ApiClient {
       print("RequestChangePhone==> ${response.data}");
       return RequestChangePhoneModel.fromJson(response.data);
     } on DioError {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<MyProfileProvider>(context, listen: false)
           .setIsLoading(false);
       print("----DIO ERROR Update requestChangePhone----");
       rethrow;
     } catch (e) {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<MyProfileProvider>(context, listen: false)
           .setIsLoading(false);
       print("----DIO ERROR Update requestChangePhone----");
@@ -561,15 +550,13 @@ class ApiClient {
       print("VerifyPhoneOtp==> ${response.data}");
       return VerifyPhoneNumberOtpModel.fromJson(response.data);
     } on DioError {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<MyProfileProvider>(context, listen: false)
           .setIsLoading(false);
       print("----DIO ERROR verifyPhoneOtp----");
       rethrow;
     } catch (e) {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<MyProfileProvider>(context, listen: false)
           .setIsLoading(false);
       print("----DIO ERROR verifyPhoneOtp----");
@@ -593,12 +580,12 @@ class ApiClient {
               }));
       return SuccessDataModel.fromJson(response.data);
     } on DioError catch (e) {
-      ErrorLoader(context, "oops,something went wrong");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<MyProfileProvider>(context, listen: false)
           .setIsLoading(false);
       rethrow;
     } catch (e) {
-      ErrorLoader(context, "oops,something went wrong");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<MyProfileProvider>(context, listen: false)
           .setIsLoading(false);
       rethrow;
@@ -617,8 +604,10 @@ class ApiClient {
 
       return SuccessDataModel.fromJson(response.data);
     } on DioError {
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       rethrow;
     } catch (e) {
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       print('ApiClient.getOtp Error :: $e');
       rethrow;
     }
@@ -643,15 +632,13 @@ class ApiClient {
       print("OtpVerify :: ${response.data}");
       return OtpVerifyModel.fromJson(response.data);
     } on DioError {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<RecoverPasswordProvider>(context, listen: false)
           .setIsLoading(false);
       print("----DIO ERROR  Otp Verify----");
       rethrow;
     } catch (e) {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<RecoverPasswordProvider>(context, listen: false)
           .setIsLoading(false);
       print("----DIO ERROR  Otp Verify----");
@@ -677,16 +664,14 @@ class ApiClient {
       return RequestOtpModel.fromJson(response.data);
     } on DioError catch (e) {
       log(e.toString());
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<RecoverPasswordProvider>(context, listen: false)
           .setIsLoading(false);
       print("----DIO ERROR Request Otp----");
       rethrow;
     } catch (e) {
       log(e.toString());
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<RecoverPasswordProvider>(context, listen: false)
           .setIsLoading(false);
       print("----DIO ERROR Request Otp----");
@@ -718,15 +703,13 @@ class ApiClient {
       print("ChangePassword :: ${response.data}");
       return SuccessDataModel.fromJson(response.data);
     } on DioError {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<RecoverPasswordProvider>(context, listen: false)
           .setIsLoading(false);
       print("----DIO ERROR Change Password----");
       rethrow;
     } catch (e) {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<RecoverPasswordProvider>(context, listen: false)
           .setIsLoading(false);
       print("----DIO ERROR Change Password----");
@@ -751,11 +734,9 @@ class ApiClient {
       _model = GetClientJobListModel.fromJson(response.data);
       return _model;
     } on DioError catch (e) {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
     } catch (e) {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
     }
     return _model!;
   }
@@ -789,12 +770,10 @@ class ApiClient {
       return _model;
     } on DioError catch (e) {
       log(e.toString());
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       GetProfessionalJobListModel();
     } catch (e) {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       GetProfessionalJobListModel();
     }
     return _model!;
@@ -815,11 +794,9 @@ class ApiClient {
       _model = ProviceModel.fromJson(response.data);
       return _model;
     } on DioError catch (e) {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
     } catch (e) {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
     }
     return _model!;
   }
@@ -884,15 +861,13 @@ class ApiClient {
       return CreateClientJobModel.fromJson(response.data);
     } on DioError catch (e) {
       log(e.response!.statusCode.toString());
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<CreateClientJobProvider>(context, listen: false)
           .setIsLoading(false);
       print("----DIO ERROR CreateClientJob----");
       return CreateClientJobModel();
     } catch (e) {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<CreateClientJobProvider>(context, listen: false)
           .setIsLoading(false);
       print("----DIO ERROR Change Password----");
@@ -919,12 +894,10 @@ class ApiClient {
       return _model;
     } on DioError catch (e) {
       log(e.toString());
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       GetClientJobOverviewModel();
     } catch (e) {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       GetClientJobOverviewModel();
     }
     return _model!;
@@ -948,12 +921,10 @@ class ApiClient {
       return _model;
     } on DioError catch (e) {
       log(e.toString());
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       GetProfJobDetailsModel();
     } catch (e) {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       GetProfJobDetailsModel();
     }
     return _model!;
@@ -975,12 +946,10 @@ class ApiClient {
       return _model;
     } on DioError catch (e) {
       log(e.toString());
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       GetGalleryDetailsModel();
     } catch (e) {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       GetGalleryDetailsModel();
     }
     return _model!;
@@ -1003,15 +972,13 @@ class ApiClient {
 
       return SuccessDataModel.fromJson(response.data);
     } on DioError catch (e) {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<MyProfileProvider>(context, listen: false)
           .setIsLoading(false);
       print("----DIO ERROR Update Name----");
       SuccessDataModel();
     } catch (e) {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       Provider.of<MyProfileProvider>(context, listen: false)
           .setIsLoading(false);
       print("----CATCH ERROR Update Name----");
@@ -1039,12 +1006,10 @@ class ApiClient {
       return _model;
     } on DioError catch (e) {
       log(e.toString());
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       GetClientApplicationsModel();
     } catch (e) {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
       GetClientApplicationsModel();
     }
   }
@@ -1062,11 +1027,9 @@ class ApiClient {
       return JobStatusUpdateResponse.fromJson(response.data);
     } on DioError catch (e) {
       log(e.toString());
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
     } catch (e) {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
     }
     return null;
   }
@@ -1088,11 +1051,9 @@ class ApiClient {
       return JobStatusUpdateResponse.fromJson(response.data);
     } on DioError catch (e) {
       log(e.toString());
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
     } catch (e) {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
     }
     return null;
   }
@@ -1111,11 +1072,9 @@ class ApiClient {
       return JobStatusUpdateResponse.fromJson(response.data);
     } on DioError catch (e) {
       log(e.toString());
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
     } catch (e) {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
     }
     return null;
   }
@@ -1136,11 +1095,9 @@ class ApiClient {
       return JobStatusUpdateResponse.fromJson(response.data);
     } on DioError catch (e) {
       log(e.toString());
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
     } catch (e) {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
     }
     return null;
   }
@@ -1158,11 +1115,9 @@ class ApiClient {
       return JobStatusUpdateResponse.fromJson(response.data);
     } on DioError catch (e) {
       log(e.toString());
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
     } catch (e) {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
     }
     return null;
   }
@@ -1180,11 +1135,31 @@ class ApiClient {
       return JobStatusUpdateResponse.fromJson(response.data);
     } on DioError catch (e) {
       log(e.toString());
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
     } catch (e) {
-      ErrorLoader(
-          context, "Oops, something is wrong with your data. Try again.");
+      ErrorLoader(context, tr("error_message.oops_wrong"));
+    }
+    return null;
+  }
+
+  Future<JobStatusUpdateResponse?> editJobOffer(
+      {required String jobId,
+      required String budget,
+      required BuildContext context}) async {
+    try {
+      var response = await dio.put('${API.baseUrl}${ApiEndPoints.completeJob}',
+          data: {"job_id": jobId, "": budget},
+          options: Options(headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer ${await SharedPreferenceData().getToken()}"
+          }));
+
+      return JobStatusUpdateResponse.fromJson(response.data);
+    } on DioError catch (e) {
+      log(e.toString());
+      ErrorLoader(context, tr("error_message.oops_wrong"));
+    } catch (e) {
+      ErrorLoader(context, tr("error_message.oops_wrong"));
     }
     return null;
   }

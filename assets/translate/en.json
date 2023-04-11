@@ -236,6 +236,10 @@
         "Card_number": "Card number",
         "Expire_date": "Expire date",
         "CVV": "CVV",
+        "bank_detail" : "Bank details",
+        "to_receive" : "To receive payouts, please add valid banking information to your account.",
+        "bank": "Bank",
+        "alpha_numeric" : "27 alphanumeric characters. The first two characters are alphabetic, followed by two numbers and a letter.",
         "04": "04",
         "Profile_picture": "Profile \npicture",
         "Upload_profile_picture": "Upload a picture for your profile",
@@ -548,15 +552,28 @@
     "otp_not_correct": "Oops, the OTP code you inserted is not correct, try again.",
     "pass_doNot_coincide": "Oops, your passwords do not coincide, try again.",
     "phone_already_taken": "Oops, this phone number is already taken. Try a new one.",
-    "try_with_new_pass": "Your password doesn’t meet the requirements, try with a new one."
+    "try_with_new_pass": "Your password doesn’t meet the requirements, try with a new one.",
+    "valid_name" : "Please Enter More Than 3 Character Name",
+    "valid_last_name" : "Please Enter More Than 3 Character Last Name",
+    "valid_email" : "Please Enter Valid Email",
+    "valid_card_holder" : "Please Enter More Than 3 Character Card Holder Name",
+    "no_image_selected": "No Image selected",
+    "select_profile_pic" : "Please select profile picture",
+    "select_document" : "Please Select AtLeast 1 Document",
+    "valid_phone" : "Please Enter Valid Phone Number",
+    "expire_month" : "Expire date Month must be less than 12.",
+    "expire_year" : "Expire Date Year Must Be More Than Current Year."
   },
   "success_message": {
     "pass_recover_cancel": "Password recovery canceled.",
     "otp_send": "An OTP code has been sent to",
     "otp_resend": "An OTP code has been ReSend to",
     "otp_send_success": "An OTP code has been sent successfully",
+    "otp_verify_success": "An OTP code has been verify successfully",
     "pass_updated": "Your password has been correctly updated.",
     "setting_update": "Your settings have been correctly updated.",
-    "resend_otp_success": "Otp Resend SuccessFully"
+    "resend_otp_success": "Otp Resend SuccessFully",
+    "job_create_success": "Job Create SuccessFully",
+    "delete_profile_pic_success" : "your ProfilePicture delete SuccessFully"
   }
 }

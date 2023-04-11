@@ -1,11 +1,8 @@
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:g_worker_app/common/common_input_fields.dart';
 import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
-import 'package:month_year_picker/month_year_picker.dart';
 import 'package:provider/provider.dart';
 
 class PaymentInfoView extends StatelessWidget {
@@ -30,6 +27,7 @@ class PaymentInfoView extends StatelessWidget {
           nameTextField(
               controller:
                   Provider.of<SignUpProvider>(context).cardHolderController,
+              maxLength: 25,
               label: tr('client.log_in.sign_up.card_holder'),
               asset: 'user_first_name.png'),
           const SizedBox(height: 20),
