@@ -325,8 +325,8 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                                     .detailsModel!.jobDetails!.category!,
                                 state: jobProvider
                                     .detailsModel!.jobDetails!.state!,
-                                budget: format.format(jobProvider
-                                    .detailsModel!.jobDetails!.budget!),
+                                budget: jobProvider
+                                    .detailsModel!.jobDetails!.budget!,
                                 description: jobProvider
                                     .detailsModel!.jobDetails!.description,
                               ),
@@ -522,8 +522,7 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                                 jobCategory:
                                     value.detailsModel!.jobDetails!.category!,
                                 state: value.detailsModel!.jobDetails!.state!,
-                                budget:
-                                    "${value.detailsModel!.jobDetails!.budget!}",
+                                budget: value.detailsModel!.jobDetails!.budget!,
                                 description: value
                                     .detailsModel!.jobDetails!.description!,
                               ),

@@ -32,7 +32,7 @@ class ChatScreen extends StatefulWidget {
   final String userImage;
   final String jobCategory;
   final String? state;
-  final String? budget;
+  final int? budget;
   final String? description;
 
   @override
@@ -275,7 +275,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => EditOfferScreen(
-                                            budget: widget.budget,
+                                            budget: widget.budget.toString(),
                                             description: widget.description,
                                             jobId: widget.jobId,
                                           )),
