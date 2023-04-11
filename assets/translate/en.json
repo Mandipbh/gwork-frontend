@@ -135,7 +135,7 @@
     },
     "accept_job_dialogue": {
       "are_you_sure_accept": "Are you sure you want to accept the job?",
-      "once_accept": "Once accepted, the money will be transfered to the professional.",
+      "once_accept": "Once accepted, the money will be transferred to the professional.",
       "Accept_job": "Accept job",
       "Go_back": "Go back"
     },
@@ -279,6 +279,12 @@
       "status_cant_be_changed":"Once complete it, the status can’t be changed",
       "Cancel": "Cancel",
       "accept_job": "Accept Job"
+    },
+    "accept_worker_chat": {
+      "are_you_sure_accept": "Are you sure you want to accept candidate?",
+      "status_cant_be_changed":"All the other candidates will be rejected and you’ll be able to proceed only with this one",
+      "cancel": "Cancel",
+      "accept_worker": "Accept worker"
     },
     "reject_job":{
       "are_you_sure_reject": "Are you sure you want to reject job?",

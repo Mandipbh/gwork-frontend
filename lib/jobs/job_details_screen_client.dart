@@ -29,6 +29,8 @@ class JobDetailsClientScreen extends StatefulWidget {
 class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
   int selectedType = 1;
 
+  NumberFormat format = NumberFormat('#.00');
+
   getJobDetails() {
     Provider.of<GetClientJobListProvider>(context, listen: false)
         .getDetailsClient(context, widget.jobId);
@@ -261,32 +263,32 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                     leading: CircleAvatar(
                       backgroundColor: Colors.grey.withOpacity(0.2),
                       radius: 20,
-                      child:
-                          jobProvider.detailsModel!.jobDetails!.professionalImage !=
-                                  null
-                              ? Container(
-                                  width: 40,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(
-                                      60.0,
-                                    ),
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(
-                                      60.0,
-                                    ),
-                                    child: Image.network(
-                                      jobProvider.detailsModel!.jobDetails!
-                                          .professionalImage!,
-                                      fit: BoxFit.fitWidth,
-                                    ),
-                                  ),
-                                )
-                              : Text(
-                                  "${jobProvider.detailsModel!.jobDetails!.professionalName!.substring(0, 1)}${jobProvider.detailsModel!.jobDetails!.professionalName!.substring(0, 1)}",
-                                  style: const TextStyle(color: black343),
+                      child: jobProvider.detailsModel!.jobDetails!
+                                  .professionalImage !=
+                              null
+                          ? Container(
+                              width: 40,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(
+                                  60.0,
                                 ),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(
+                                  60.0,
+                                ),
+                                child: Image.network(
+                                  jobProvider.detailsModel!.jobDetails!
+                                      .professionalImage!,
+                                  fit: BoxFit.fitWidth,
+                                ),
+                              ),
+                            )
+                          : Text(
+                              "${jobProvider.detailsModel!.jobDetails!.professionalName!.substring(0, 1)}${jobProvider.detailsModel!.jobDetails!.professionalName!.substring(0, 1)}",
+                              style: const TextStyle(color: black343),
+                            ),
                     ),
                     title: Text(
                       jobProvider.detailsModel!.jobDetails!.professionalName!,
@@ -323,8 +325,8 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                                     .detailsModel!.jobDetails!.category!,
                                 state: jobProvider
                                     .detailsModel!.jobDetails!.state!,
-                                budget:
-                                    "${jobProvider.detailsModel!.jobDetails!.budget!}",
+                                budget: format.format(jobProvider
+                                    .detailsModel!.jobDetails!.budget!),
                                 description: jobProvider
                                     .detailsModel!.jobDetails!.description,
                               ),
@@ -374,7 +376,7 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
             "${jobProvider.detailsModel!.jobDetails!.category}"),
         const SizedBox(height: 12),
         jobDetailView("assets/icons/coins_stacked.png",
-            "€${jobProvider.detailsModel!.jobDetails!.budget}"),
+            "€${format.format(jobProvider.detailsModel!.jobDetails!.budget)}"),
         const SizedBox(height: 12),
         Container(
           width: double.infinity,
@@ -542,33 +544,35 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                               const SizedBox(
                                 width: 10,
                               ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-
-                                  Text(
-                                    "${value.applicationsModel!.applications![index].professionalName}",
-                                    style: const TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w700),
-                                  ),
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons.euro_symbol,
-                                        size: 14.0,
-                                      ),
-                                      Text(
-                                        "${value.applicationsModel!.applications![index].price}",
-                                        style: const TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "${value.applicationsModel!.applications![index].professionalName}",
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                    Row(
+                                      children: [
+                                        const Icon(
+                                          Icons.euro_symbol,
+                                          size: 14.0,
+                                        ),
+                                        Text(
+                                          "${value.applicationsModel!.applications![index].price}",
+                                          style: const TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
-                              const Spacer(),
+                              const SizedBox(width: 10),
                               Stack(
                                 alignment: Alignment.center,
                                 children: [
@@ -706,95 +710,6 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
           style: Theme.of(context).textTheme.headline4,
         ),
       ),
-    );
-  }
-
-  Widget jobRejectView() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        CircleAvatar(
-          radius: 30,
-          backgroundColor: redF8D,
-          child: Image.asset("assets/icons/close_square.png",
-              height: 24, width: 24, color: redE45),
-        ),
-        const SizedBox(height: 14),
-        Text(
-          tr('Professional.reject_job_dialogue.are_you_sure_reject'),
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: splashColor1,
-            fontSize: 24,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          tr('Professional.reject_job_dialogue.once_reject'),
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: black343,
-            fontSize: 12,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        const SizedBox(height: 24),
-        MaterialButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          height: 48,
-          minWidth: double.infinity,
-          color: splashColor1,
-          elevation: 0,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                tr('Professional.reject_job_dialogue.Cancel').toUpperCase(),
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(width: 10),
-              const Icon(Icons.close, color: Colors.white, size: 22)
-            ],
-          ),
-        ),
-        const SizedBox(height: 24),
-        GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () {
-            setState(() {
-              Navigator.pop(context);
-            });
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                tr('Professional.reject_job_dialogue.reject').toUpperCase(),
-                style: const TextStyle(
-                  color: redE45,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(width: 5),
-              Image.asset("assets/icons/close_square.png",
-                  height: 24, width: 24, color: redE45),
-            ],
-          ),
-        ),
-      ],
     );
   }
 

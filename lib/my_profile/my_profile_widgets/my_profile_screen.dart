@@ -24,7 +24,8 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
   @override
   void initState() {
     super.initState();
-    Provider.of<MyProfileProvider>(context, listen: false).getUserProfile(context);
+    Provider.of<MyProfileProvider>(context, listen: false)
+        .getUserProfile(context);
   }
 
   @override
@@ -142,37 +143,38 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                               ),
                             ),
                           ),
-                          InkWell(
-                            onTap: () {
-                              // ProgressLoader(context);
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              child: Text(
-                                  '${myProfileProvider.model!.user!.name!} ${myProfileProvider.model!.user!.surname!}',
-                                  style: Theme.of(context).textTheme.headline2),
-                            ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 16, horizontal: 24),
+                            child: Text(
+                                '${myProfileProvider.model!.user!.name!} ${myProfileProvider.model!.user!.surname!}',
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context).textTheme.headline2),
                           ),
                           Row(
                             children: [
                               Image.asset('assets/icons/user_first_name.png',
                                   height: 24, width: 24),
                               const SizedBox(width: 16),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(tr('admin.Profile.First_name'),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline6),
-                                  const SizedBox(height: 6),
-                                  Text(myProfileProvider.model!.user!.name!,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText2),
-                                ],
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(tr('admin.Profile.First_name'),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline6),
+                                    const SizedBox(height: 6),
+                                    Text(myProfileProvider.model!.user!.name!,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2),
+                                  ],
+                                ),
                               ),
-                              const Spacer(),
+                              const SizedBox(width: 10),
                               GestureDetector(
                                   behavior: HitTestBehavior.opaque,
                                   child: Padding(
@@ -201,21 +203,25 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                               Image.asset('assets/icons/user.png',
                                   height: 24, width: 24),
                               const SizedBox(width: 16),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(tr('admin.Profile.Last_name'),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline6),
-                                  const SizedBox(height: 6),
-                                  Text(myProfileProvider.model!.user!.surname!,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText2),
-                                ],
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(tr('admin.Profile.Last_name'),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline6),
+                                    const SizedBox(height: 6),
+                                    Text(
+                                        myProfileProvider.model!.user!.surname!,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2),
+                                  ],
+                                ),
                               ),
-                              const Spacer(),
+                              const SizedBox(width: 10),
                               GestureDetector(
                                   behavior: HitTestBehavior.opaque,
                                   child: Padding(
@@ -243,21 +249,24 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                               Image.asset('assets/icons/mail.png',
                                   height: 24, width: 24),
                               const SizedBox(width: 16),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(tr('admin.Profile.Email'),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline6),
-                                  const SizedBox(height: 6),
-                                  Text(myProfileProvider.model!.user!.email!,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText2),
-                                ],
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(tr('admin.Profile.Email'),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline6),
+                                    const SizedBox(height: 6),
+                                    Text(myProfileProvider.model!.user!.email!,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2),
+                                  ],
+                                ),
                               ),
-                              const Spacer(),
+                              const SizedBox(width: 10),
                               GestureDetector(
                                   behavior: HitTestBehavior.opaque,
                                   child: Padding(
@@ -315,8 +324,10 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               EditProfileScreen(
-                                                type: ProfileFieldType.phoneNumber,
-                                                value: myProfileProvider.model!.user!.phoneNumber!,
+                                                type: ProfileFieldType
+                                                    .phoneNumber,
+                                                value: myProfileProvider
+                                                    .model!.user!.phoneNumber!,
                                               )),
                                     );
                                   }),

@@ -5,6 +5,7 @@ import 'package:g_worker_app/Constants.dart';
 import 'package:g_worker_app/chat/chat_widget_view/edit_offer_screen.dart';
 import 'package:g_worker_app/chat/provider/chat_provider.dart';
 import 'package:g_worker_app/colors.dart';
+import 'package:g_worker_app/common/common_widgets.dart';
 import 'package:g_worker_app/jobs/model/get_client_job_applications_model.dart';
 import 'package:g_worker_app/jobs/provider/get_client_job_list_provider.dart';
 import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
@@ -70,7 +71,12 @@ class _ChatScreenState extends State<ChatScreen> {
       child: Scaffold(
         backgroundColor: whiteF2F,
         body: Column(
-          children: [topView(), Expanded(child: messageView()), bottomView()],
+          children: [
+            topView(),
+            const SizedBox(height: 10),
+            Expanded(child: messageView()),
+            bottomView()
+          ],
         ),
       ),
     );
@@ -103,31 +109,37 @@ class _ChatScreenState extends State<ChatScreen> {
                     GestureDetector(
                       behavior: HitTestBehavior.opaque,
                       onTap: () {
+                        context.read<ChatProvider>().disconnectSocket();
                         Navigator.pop(context);
                       },
                       child: const Icon(Icons.arrow_back,
                           color: splashColor1, size: 20),
                     ),
-                    Column(
-                      children: [
-                        Text(
-                          widget.userName,
-                          style: const TextStyle(
-                            color: splashColor1,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
+                    const SizedBox(width: 15),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Text(
+                            widget.userName,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              color: splashColor1,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
-                        ),
-                        Text(
-                          widget.jobCategory,
-                          style: const TextStyle(
-                            color: black343,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
+                          Text(
+                            widget.jobCategory,
+                            style: const TextStyle(
+                              color: black343,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
+                    const SizedBox(width: 15),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(50),
                       child: Container(
@@ -203,7 +215,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           ),
                         ),
                         Text(
-                          '€ ${widget.budget}',
+                          '€ ${NumberFormat('#.00').format(widget.budget)}',
                           style: const TextStyle(
                             color: splashColor1,
                             fontSize: 14,
@@ -221,23 +233,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                   return GestureDetector(
                                     behavior: HitTestBehavior.opaque,
                                     onTap: () {
-                                      getClientJobProvider
-                                          .acceptJob(widget.jobId,
-                                              widget.userId, context)
-                                          .then((acceptJobSuccess) {
-                                        if (acceptJobSuccess!.success!) {
-                                          getClientJobProvider
-                                              .setIsAccepted(true);
-                                          var provider = context
-                                              .read<GetClientJobListProvider>();
-                                          provider.getDetailsClient(
-                                              context, widget.jobId);
-                                          provider.getClientJobList(
-                                              provider.getSelectedFilter(),
-                                              provider.getSelectedJobType(),
-                                              context);
-                                        }
-                                      });
+                                      showJobApproveConfirmation(
+                                          context, widget.jobId);
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(
@@ -280,8 +277,10 @@ class _ChatScreenState extends State<ChatScreen> {
                                       builder: (context) => EditOfferScreen(
                                             budget: widget.budget,
                                             description: widget.description,
+                                            jobId: widget.jobId,
                                           )),
                                   (Route<dynamic> route) => true);
+                              log("ChatSJobId :: ${widget.jobId}");
                             },
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
@@ -321,24 +320,34 @@ class _ChatScreenState extends State<ChatScreen> {
               ? noMessageView()
               : ListView.builder(
                   controller: scrollController,
-                  padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
+                  padding: const EdgeInsets.only(left: 25, right: 25, top: 10),
                   itemCount: provider.getChatData().length,
                   itemBuilder: (context, index) {
-                    isFromMessage = widget.userId == provider.getChatData()[index].toUserId;
-
+                    isFromMessage =
+                        widget.userId == provider.getChatData()[index].toUserId;
 
                     return Column(
                       crossAxisAlignment: !isFromMessage
                           ? CrossAxisAlignment.start
                           : CrossAxisAlignment.end,
                       children: [
-                        provider.getChatData()[index].createdAt.toString().split("T").first==DateTime.now().toString().split(" ").first?
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("Today"),
-                        ):Text(provider.getChatData()[index].createdAt.toString().split("T").first),
-
-
+                        provider
+                                    .getChatData()[index]
+                                    .createdAt
+                                    .toString()
+                                    .split("T")
+                                    .first ==
+                                DateTime.now().toString().split(" ").first
+                            ? Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text("Today"),
+                              )
+                            : Text(provider
+                                .getChatData()[index]
+                                .createdAt
+                                .toString()
+                                .split("T")
+                                .first),
                         Container(
                           margin: EdgeInsets.only(
                               left: !isFromMessage
@@ -548,6 +557,55 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
       ),
     );
+  }
+
+  void showJobApproveConfirmation(BuildContext context, String jobId) {
+    bool isJobUpdateLoading = false;
+    showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+            insetPadding: EdgeInsets.symmetric(horizontal: 28),
+            contentPadding: const EdgeInsets.all(12),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8.0))),
+            content: StatefulBuilder(builder: (context, newState) {
+              return confirmationDialogueView(
+                  context: context,
+                  titleIconColor: primaryColor,
+                  mainIcon: 'check_circle.png',
+                  title: tr('client.accept_worker_chat.are_you_sure_accept'),
+                  description:
+                      tr('client.accept_worker_chat.status_cant_be_changed'),
+                  button1Name: tr('client.accept_worker_chat.accept_worker'),
+                  button2Name: tr('client.accept_worker_chat.cancel'),
+                  showLoader: isJobUpdateLoading,
+                  onButton1Click: () {
+                    var getClientJobProvider =
+                        context.read<GetClientJobListProvider>();
+                    getClientJobProvider
+                        .acceptJob(widget.jobId, widget.userId, context)
+                        .then((acceptJobSuccess) {
+                      if (acceptJobSuccess!.success!) {
+                        getClientJobProvider.setIsAccepted(true);
+                        getClientJobProvider.getDetailsClient(
+                            context, widget.jobId);
+                        getClientJobProvider.getClientJobList(
+                            getClientJobProvider.getSelectedFilter(),
+                            getClientJobProvider.getSelectedJobType(),
+                            context);
+                        Navigator.of(context).pop();
+                      }
+                      newState(() {
+                        isJobUpdateLoading = false;
+                      });
+                    });
+                  },
+                  onButton2Click: () {
+                    Navigator.pop(context);
+                  },
+                  button2Icon: 'go_backward.png',
+                  button1Icon: 'check_circle.png');
+            })));
   }
 }
 

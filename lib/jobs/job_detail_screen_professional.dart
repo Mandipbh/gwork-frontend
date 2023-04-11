@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
@@ -180,8 +182,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreenProfessional> {
                                         iconAsset: 'file.png',
                                       ),
                                     )
-                                  : state == JobStatus.applied ||
-                                          state == JobStatus.expired
+                                  : state == JobStatus.applied
                                       ? rejectView(provider)
                                       : state == JobStatus.published
                                           ? Container(
@@ -243,8 +244,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreenProfessional> {
                                                                               primaryColor),
                                                                 ),
                                                                 Text(
-                                                                  '${provider.detailsModel!.jobDetails!.budget}'
-                                                                      .toUpperCase(),
+                                                                  '€ ${NumberFormat('#.00').format(provider.detailsModel!.jobDetails!.budget)}',
                                                                   style: Theme.of(
                                                                           context)
                                                                       .textTheme
@@ -346,7 +346,6 @@ class _JobDetailsScreenState extends State<JobDetailsScreenProfessional> {
         jobDetailView("assets/icons/marker_location.png",
             "${provider.detailsModel!.jobDetails!.street!}, ${provider.detailsModel!.jobDetails!.province!}"),
         const SizedBox(height: 12),
-
         Container(
           width: double.infinity,
           decoration: BoxDecoration(
@@ -398,8 +397,10 @@ class _JobDetailsScreenState extends State<JobDetailsScreenProfessional> {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            trailing: provider.detailsModel!.jobDetails!.state ==
-                    JobStatus.published
+            trailing: provider.detailsModel!.jobDetails!.applicationState !=
+                        JobStatus.published &&
+                    provider.detailsModel!.jobDetails!.applicationState !=
+                        JobStatus.expired
                 ? GestureDetector(
                     behavior: HitTestBehavior.opaque,
                     onTap: () {
@@ -471,7 +472,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreenProfessional> {
             "${provider.detailsModel!.jobDetails!.category}"),
         const SizedBox(height: 12),
         jobDetailView("assets/icons/coins_stacked.png",
-            "${provider.detailsModel!.jobDetails!.budget}"),
+            '€ ${NumberFormat('#.00').format(provider.detailsModel!.jobDetails!.budget)}'),
         const SizedBox(height: 12),
         Container(
           width: double.infinity,
@@ -494,7 +495,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreenProfessional> {
                 Expanded(
                   child: Text(
                     "${provider.detailsModel!.jobDetails!.description}",
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: black343,
                       fontSize: 12,
                       fontWeight: FontWeight.w300,

@@ -52,6 +52,7 @@ class ApiEndPoints {
   static const String rejectApproveJob = '/worker/jobs/change-job-approval';
   static const String startJob = '/worker/jobs/start-job-professional';
   static const String completeJob = '/worker/jobs/complete-job-professional';
+  static const String editOffer = '/worker/jobs/update-job-application';
 }
 
 class DashboardFilters {

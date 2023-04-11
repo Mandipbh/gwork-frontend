@@ -52,8 +52,8 @@ class MyProfileProvider extends ChangeNotifier {
           setIsLoading(false);
           _model!.user!.name = nameController.text;
           print("!!${_model!.user!.name}");
-          ProgressLoader(context, tr("success_message.setting_update"));
           Navigator.of(context).pop();
+          ProgressLoader(context, tr("success_message.setting_update"));
           notifyListeners();
           return true;
         }
@@ -77,8 +77,8 @@ class MyProfileProvider extends ChangeNotifier {
           setIsLoading(false);
           _model!.user!.surname = lastNameController.text;
           print("!!${_model!.user!.surname}");
-          ProgressLoader(context, tr("success_message.setting_update"));
           Navigator.of(context).pop();
+          ProgressLoader(context, tr("success_message.setting_update"));
           notifyListeners();
           return true;
         }
@@ -92,7 +92,7 @@ class MyProfileProvider extends ChangeNotifier {
       notifyListeners();
     } else if (!RegExp(
             r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
-        .hasMatch(emailController)) {
+        .hasMatch(emailController.text)) {
       ErrorLoader(context, tr("error_message.valid_email"));
       notifyListeners();
     } else {
@@ -104,8 +104,8 @@ class MyProfileProvider extends ChangeNotifier {
           setIsLoading(false);
           _model!.user!.email = emailController.text;
           print("!!${_model!.user!.email}");
-          ProgressLoader(context, tr("success_message.setting_update"));
           Navigator.of(context).pop();
+          ProgressLoader(context, tr("success_message.setting_update"));
           notifyListeners();
           return true;
         }
@@ -160,8 +160,8 @@ class MyProfileProvider extends ChangeNotifier {
           setIsLoading(false);
           _model!.user!.birthDate = birthDateController.text;
           print("!!${_model!.user!.birthDate}");
-          ProgressLoader(context, tr("success_message.setting_update"));
           Navigator.of(context).pop();
+          ProgressLoader(context, tr("success_message.setting_update"));
           notifyListeners();
           return true;
         }
@@ -182,8 +182,8 @@ class MyProfileProvider extends ChangeNotifier {
           setIsLoading(false);
           _model!.user!.vatNumber = vatNumberController.text;
           print("!!${_model!.user!.vatNumber}");
-          ProgressLoader(context, tr("success_message.setting_update"));
           Navigator.of(context).pop();
+          ProgressLoader(context, tr("success_message.setting_update"));
           notifyListeners();
           return true;
         }

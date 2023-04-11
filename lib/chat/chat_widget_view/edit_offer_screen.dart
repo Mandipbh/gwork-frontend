@@ -1,14 +1,20 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:g_worker_app/colors.dart';
+import 'package:g_worker_app/jobs/provider/get_professional_job_list_provider.dart';
+import 'package:g_worker_app/server_connection/api_client.dart';
+import 'package:provider/provider.dart';
 
 class EditOfferScreen extends StatefulWidget {
-  const EditOfferScreen({Key? key, this.budget, this.description})
+  const EditOfferScreen({Key? key, this.budget, this.description, this.jobId})
       : super(key: key);
 
   final String? budget;
   final String? description;
+  final String? jobId;
 
   @override
   State<EditOfferScreen> createState() => _EditOfferScreenState();
@@ -116,7 +122,7 @@ class _EditOfferScreenState extends State<EditOfferScreen> {
                   leading: Image.asset("assets/icons/coins_stacked.png",
                       height: 24, width: 24),
                   title: Text(
-                    "€ ${widget.budget}",
+                    '€ ${NumberFormat('#.00').format(widget.budget)}',
                     style: const TextStyle(
                       color: black343,
                       fontSize: 14,
@@ -141,7 +147,7 @@ class _EditOfferScreenState extends State<EditOfferScreen> {
                       scale: 2,
                     ),
                     labelText: tr('Professional.edit_offer.Offer_price'),
-                    hintText: widget.budget,
+                    hintText: '€ ${NumberFormat('#.00').format(widget.budget)}',
                     contentPadding: const EdgeInsets.only(left: 16, top: 8),
                     hintStyle: const TextStyle(
                       color: grey9EA,
@@ -163,7 +169,22 @@ class _EditOfferScreenState extends State<EditOfferScreen> {
               ),
               const SizedBox(height: 16),
               MaterialButton(
-                onPressed: () {},
+                onPressed: () {
+                  ApiClient()
+                      .editJobOffer(
+                          jobId: widget.jobId!,
+                          budget: editOfferController.text,
+                          context: context)
+                      .then((editOfferSuccessResponse) {
+                    if (editOfferSuccessResponse!.success!) {
+                      log("EditOfferJobId :: ${widget.jobId}");
+                      var provider =
+                          Provider.of<GetProfessionalJobListProvider>(context,
+                              listen: false);
+                      provider.getDetailsProfessional(context, widget.jobId);
+                    }
+                  });
+                },
                 height: 48,
                 minWidth: double.infinity,
                 color: splashColor1,

@@ -745,7 +745,7 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
                                             const SizedBox(width: 3),
                                             Text(
                                               '${provider.model!.jobs![index].street},${provider.model!.jobs![index].province},',
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 color: splashColor1,
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.w400,
@@ -755,10 +755,11 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
                                         ),
                                         const SizedBox(height: 4),
                                         Text(
-                                          '${provider.model!.jobs![index].description}, max ${provider.model!.jobs![index].budget}\$',
+                                          '${provider.model!.jobs![index].description}, max '
+                                          '€ ${NumberFormat('#.00').format(provider.model!.jobs![index].budget)}\$',
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 1,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: black343,
                                             fontSize: 14,
                                             fontWeight: FontWeight.w700,
@@ -774,7 +775,7 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
                                             const SizedBox(width: 8),
                                             Text(
                                               '${provider.model!.jobs![index].creationDate}',
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 color: black343,
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.w700,
@@ -907,10 +908,11 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
                                     ],
                                   ),
                                   Text(
-                                    '${provider.model!.jobs![index].description.toString()}, max ${provider.model!.jobs![index].budget.toString()}\$',
+                                    '${provider.model!.jobs![index].description.toString()}, max '
+                                    '€ ${NumberFormat('#.00').format(provider.model!.jobs![index].budget.toString())}\$',
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: black343,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w700,
@@ -918,8 +920,9 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
                                   ),
                                   const SizedBox(height: 4),
                                   Text(
-                                    '${provider.model!.jobs![index].creationDate.toString()}',
-                                    style: TextStyle(
+                                    provider.model!.jobs![index].creationDate
+                                        .toString(),
+                                    style: const TextStyle(
                                       color: black343,
                                       fontSize: 12,
                                       fontWeight: FontWeight.w700,

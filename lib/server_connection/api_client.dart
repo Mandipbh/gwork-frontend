@@ -1142,23 +1142,24 @@ class ApiClient {
     return null;
   }
 
-  Future<JobStatusUpdateResponse?> editJobOffer(
+  Future<SuccessDataModel?> editJobOffer(
       {required String jobId,
       required String budget,
       required BuildContext context}) async {
     try {
-      var response = await dio.put('${API.baseUrl}${ApiEndPoints.completeJob}',
-          data: {"job_id": jobId, "": budget},
+      var response = await dio.put('${API.baseUrl}${ApiEndPoints.editOffer}',
+          data: {"job_id": jobId, "price": budget},
           options: Options(headers: {
             'Content-Type': 'application/json',
             "Authorization": "Bearer ${await SharedPreferenceData().getToken()}"
           }));
 
-      return JobStatusUpdateResponse.fromJson(response.data);
+      return SuccessDataModel.fromJson(response.data);
     } on DioError catch (e) {
       log(e.toString());
       ErrorLoader(context, tr("error_message.oops_wrong"));
     } catch (e) {
+      log(e.toString());
       ErrorLoader(context, tr("error_message.oops_wrong"));
     }
     return null;
