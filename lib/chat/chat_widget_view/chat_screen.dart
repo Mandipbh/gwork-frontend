@@ -318,132 +318,179 @@ class _ChatScreenState extends State<ChatScreen> {
             )
           : provider.getChatData().isEmpty
               ? noMessageView()
-              : ListView.builder(
+              : ListView.separated(
                   controller: scrollController,
                   padding: const EdgeInsets.only(left: 25, right: 25, top: 10),
                   itemCount: provider.getChatData().length,
                   itemBuilder: (context, index) {
                     isFromMessage =
                         widget.userId == provider.getChatData()[index].toUserId;
-
-                    return Column(
-                      crossAxisAlignment: !isFromMessage
-                          ? CrossAxisAlignment.start
-                          : CrossAxisAlignment.end,
-                      children: [
-                        provider
-                                    .getChatData()[index]
-                                    .createdAt
-                                    .toString()
-                                    .split("T")
-                                    .first ==
-                                DateTime.now().toString().split(" ").first
-                            ? Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text("Today"),
+                    Widget timeLineWidget = const SizedBox();
+                    if (index > 0) {
+                      DateTime previousCreatedAtDate = DateTime.parse(
+                              provider.getChatData()[index - 1].createdAt!)
+                          .toLocal();
+                      DateTime createdAtDate = DateTime.parse(
+                              provider.getChatData()[index].createdAt!)
+                          .toLocal();
+                      DateTime now = DateTime.now();
+                      if (previousCreatedAtDate.day != createdAtDate.day ||
+                          previousCreatedAtDate.month != createdAtDate.month ||
+                          previousCreatedAtDate.year != createdAtDate.year) {
+                        timeLineWidget = createdAtDate.year == now.year &&
+                                createdAtDate.month == now.month &&
+                                createdAtDate.day == now.day
+                            ? Row(
+                                children: const [
+                                  Expanded(child: Divider()),
+                                  Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text('Today'),
+                                  ),
+                                  Expanded(child: Divider())
+                                ],
                               )
-                            : Text(provider
-                                .getChatData()[index]
-                                .createdAt
-                                .toString()
-                                .split("T")
-                                .first),
-                        Container(
-                          margin: EdgeInsets.only(
-                              left: !isFromMessage
-                                  ? 0
-                                  : MediaQuery.of(context).size.width * 0.1,
-                              right: !isFromMessage
-                                  ? MediaQuery.of(context).size.width * 0.11
-                                  : 0),
-                          child:
-                              // DateTime.parse(provider
-                              //                 .getChatData()[index]
-                              //                 .createdAt
-                              //                 .toString())
-                              //             .day ==
-                              //         DateTime.now().day
-                              //     ? Text("Today")
-                              //     :
-                              Stack(
-                            clipBehavior: Clip.none,
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(12),
-                                margin: const EdgeInsets.only(right: 10),
-                                decoration: BoxDecoration(
-                                  color: !isFromMessage ? white : primaryColor,
-                                  borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(
-                                        !isFromMessage ? 24 : 14),
-                                    bottomRight: Radius.circular(
-                                        !isFromMessage ? 24 : 14),
-                                    topLeft: Radius.circular(
-                                        !isFromMessage ? 14 : 24),
-                                    bottomLeft: Radius.circular(
-                                        !isFromMessage ? 14 : 24),
+                            : Row(
+                                children: [
+                                  const Expanded(child: Divider()),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(DateFormat('dd MMM')
+                                        .format(createdAtDate)),
+                                  ),
+                                  const Expanded(child: Divider())
+                                ],
+                              );
+                      }
+                    } else if (index == 0) {
+                      DateTime createdAtDate = DateTime.parse(
+                              provider.getChatData()[index].createdAt!)
+                          .toLocal();
+                      DateTime now = DateTime.now();
+                      timeLineWidget = createdAtDate.year == now.year &&
+                              createdAtDate.month == now.month &&
+                              createdAtDate.day == now.day
+                          ? Row(
+                              children: const [
+                                Expanded(child: Divider()),
+                                Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Text('Today'),
+                                ),
+                                Expanded(child: Divider())
+                              ],
+                            )
+                          : Row(
+                              children: [
+                                const Expanded(child: Divider()),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(DateFormat('dd MMM')
+                                      .format(createdAtDate)),
+                                ),
+                                const Expanded(child: Divider())
+                              ],
+                            );
+                    }
+                    return Column(
+                      children: [
+                        timeLineWidget,
+                        Align(
+                          alignment: !isFromMessage
+                              ? Alignment.topLeft
+                              : Alignment.topRight,
+                          child: Container(
+                            margin: EdgeInsets.only(
+                                left: !isFromMessage
+                                    ? 0
+                                    : MediaQuery.of(context).size.width * 0.1,
+                                right: !isFromMessage
+                                    ? MediaQuery.of(context).size.width * 0.11
+                                    : 0),
+                            child: Stack(
+                              clipBehavior: Clip.none,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(12),
+                                  margin: const EdgeInsets.only(right: 10),
+                                  decoration: BoxDecoration(
+                                    color:
+                                        !isFromMessage ? white : primaryColor,
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(
+                                          !isFromMessage ? 24 : 14),
+                                      bottomRight: Radius.circular(
+                                          !isFromMessage ? 24 : 14),
+                                      topLeft: Radius.circular(
+                                          !isFromMessage ? 14 : 24),
+                                      bottomLeft: Radius.circular(
+                                          !isFromMessage ? 14 : 24),
+                                    ),
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Flexible(
+                                        child: Text(
+                                          provider.getChatData()[index].chat!,
+                                          softWrap: true,
+                                          overflow: TextOverflow.visible,
+                                          style: TextStyle(
+                                              color: !isFromMessage
+                                                  ? primaryColor
+                                                  : white,
+                                              fontFamily: 'Manrope',
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 5),
+                                        child: Text(
+                                          DateFormat('hh:mm').format(
+                                              DateTime.parse(provider
+                                                      .getChatData()[index]
+                                                      .createdAt!)
+                                                  .toLocal()),
+                                          style: const TextStyle(
+                                              color: grey9EA,
+                                              fontFamily: 'Satoshi',
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Flexible(
-                                      child: Text(
-                                        provider.getChatData()[index].chat!,
-                                        softWrap: true,
-                                        overflow: TextOverflow.visible,
-                                        style: TextStyle(
-                                            color: !isFromMessage
-                                                ? primaryColor
-                                                : white,
-                                            fontFamily: 'Manrope',
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500),
+                                !isFromMessage
+                                    ? Positioned(
+                                        left: -4,
+                                        bottom: 0,
+                                        child: Image.asset(
+                                          "assets/images/whiteChatBg.png",
+                                          height: 10,
+                                        ),
+                                      )
+                                    : Positioned(
+                                        right: 4,
+                                        bottom: 0,
+                                        child: Image.asset(
+                                          "assets/images/blackChatBg.png",
+                                          height: 45,
+                                        ),
                                       ),
-                                    ),
-                                    const SizedBox(width: 8),
-                                    Padding(
-                                      padding: const EdgeInsets.only(right: 5),
-                                      child: Text(
-                                        DateFormat('hh:mm').format(
-                                            DateTime.parse(provider
-                                                    .getChatData()[index]
-                                                    .createdAt!)
-                                                .toUtc()),
-                                        style: const TextStyle(
-                                            color: grey9EA,
-                                            fontFamily: 'Satoshi',
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 14),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              !isFromMessage
-                                  ? Positioned(
-                                      left: -4,
-                                      bottom: 0,
-                                      child: Image.asset(
-                                        "assets/images/whiteChatBg.png",
-                                        height: 10,
-                                      ),
-                                    )
-                                  : Positioned(
-                                      right: 4,
-                                      bottom: 0,
-                                      child: Image.asset(
-                                        "assets/images/blackChatBg.png",
-                                        height: 45,
-                                      ),
-                                    ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                        const SizedBox(height: 16),
                       ],
                     );
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return const SizedBox(height: 16);
                   },
                 );
     });
@@ -530,10 +577,12 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
               suffixIcon: GestureDetector(
                 onTap: () {
-                  Provider.of<ChatProvider>(context, listen: false)
-                      .sendMessage(messageController.text);
-                  scrollToBottom(scrollController);
-                  messageController.text = '';
+                  if (messageController.text.isNotEmpty) {
+                    Provider.of<ChatProvider>(context, listen: false)
+                        .sendMessage(messageController.text);
+                    scrollToBottom(scrollController);
+                    messageController.text = '';
+                  }
                 },
                 child: Image.asset('assets/images/send.png',
                     height: 15, width: 15),
@@ -610,11 +659,13 @@ class _ChatScreenState extends State<ChatScreen> {
 }
 
 void scrollToBottom(ScrollController scrollController) {
-  Future.delayed(Duration(seconds: 1), () {
-    scrollController.animateTo(
-      scrollController.position.maxScrollExtent,
-      duration: Duration(milliseconds: 300),
-      curve: Curves.easeOut,
-    );
-  });
+  if (scrollController.hasClients) {
+    Future.delayed(Duration(seconds: 1), () {
+      scrollController.animateTo(
+        scrollController.position.maxScrollExtent,
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
+    });
+  }
 }

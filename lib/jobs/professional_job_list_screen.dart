@@ -909,7 +909,7 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
                                   ),
                                   Text(
                                     '${provider.model!.jobs![index].description.toString()}, max '
-                                    '€ ${NumberFormat('#.00').format(provider.model!.jobs![index].budget.toString())}\$',
+                                    '€ ${NumberFormat('#.00').format(provider.model!.jobs![index].budget)}\$',
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
                                     style: const TextStyle(
