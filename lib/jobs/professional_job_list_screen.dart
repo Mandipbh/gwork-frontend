@@ -113,7 +113,7 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               const MyProfileScreen(),
-                                        ));
+                                        )).then((value) => setState(() {}));
                                   },
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(50),
