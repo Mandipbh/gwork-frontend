@@ -303,7 +303,7 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                       ),
                     ),
                     subtitle: const Text(
-                      "Worker",
+                      "Professional",
                       style: TextStyle(
                         color: grey807,
                         fontSize: 14,
