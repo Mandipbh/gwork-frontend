@@ -28,6 +28,7 @@ class PaymentInfoView extends StatelessWidget {
               controller:
                   Provider.of<SignUpProvider>(context).cardHolderController,
               maxLength: 25,
+              context: context,
               label: tr('client.log_in.sign_up.card_holder'),
               asset: 'user_first_name.png'),
           const SizedBox(height: 20),
@@ -88,66 +89,27 @@ class PaymentInfoView extends StatelessWidget {
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(16)),
-                      child: Form(
-                        key: _formKey,
-                        child: TextFormField(
-                            // enabled: false,
-                            controller: value.expireDateController,
-                            keyboardType: TextInputType.number,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly,
-                              LengthLimitingTextInputFormatter(4),
-                              CardMonthInputFormatter(),
-                            ],
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return "This field is required";
-                              }
-                              int year;
-                              int month;
-                              if (value.contains(RegExp(r'(/)'))) {
-                                var split = value.split(RegExp(r'(/)'));
-
-                                month = int.parse(split[0]);
-                                year = int.parse(split[1]);
-                              } else {
-                                month = int.parse(
-                                    value.substring(0, (value.length)));
-                                year =
-                                    -1; // Lets use an invalid year intentionally
-                              }
-                              if ((month < 1) || (month > 12)) {
-                                // A valid month is between 1 (January) and 12 (December)
-                                return 'Expiry month is invalid';
-                              }
-                              var fourDigitsYear = convertYearTo4Digits(year);
-                              if ((fourDigitsYear < 1) ||
-                                  (fourDigitsYear > 2099)) {
-                                // We are assuming a valid should be between 1 and 2099.
-                                // Note that, it's valid doesn't mean that it has not expired.
-                                return 'Expiry year is invalid';
-                              }
-                              if (!hasDateExpired(month, year)) {
-                                return "Card has expired";
-                              }
-                              return null;
-                            },
-                            style: const TextStyle(fontSize: 18),
-                            maxLength: 5,
-                            decoration: InputDecoration(
-                                counterText: "",
-                                border: InputBorder.none,
-                                hintText: 'mm/yy',
-                                hintStyle: const TextStyle(
-                                    fontSize: 18, color: Colors.black12),
-                                icon: Image.asset(
-                                    'assets/icons/calendar_expiry_date.png',
-                                    height: 24,
-                                    width: 24),
-                                labelText:
-                                    tr('client.log_in.sign_up.Expire_date')
-                                        .toUpperCase())),
-                      ),
+                      child: TextFormField(
+                          inputFormatters: [ExpiryTextInputFormatter()],
+                          cursorColor: Colors.black,
+                          textInputAction: TextInputAction.next,
+                          textAlign: TextAlign.left,
+                          maxLength: 5,
+                          keyboardType: TextInputType.number,
+                          controller: value.expireDateController,
+                          style: const TextStyle(fontSize: 18),
+                          decoration: InputDecoration(
+                              counterText: "",
+                              border: InputBorder.none,
+                              hintText: 'mm/yy',
+                              hintStyle: const TextStyle(
+                                  fontSize: 18, color: Colors.black12),
+                              icon: Image.asset(
+                                  'assets/icons/calendar_expiry_date.png',
+                                  height: 24,
+                                  width: 24),
+                              labelText: tr('client.log_in.sign_up.Expire_date')
+                                  .toUpperCase())),
                     ),
                   ),
                 ),
@@ -280,5 +242,43 @@ class CardMonthInputFormatter extends TextInputFormatter {
     return newValue.copyWith(
         text: string,
         selection: new TextSelection.collapsed(offset: string.length));
+  }
+}
+
+class ExpiryTextInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    if (oldValue.text.length >= newValue.text.length) {
+      return newValue;
+    }
+    var dateText = _addSeparator(newValue.text, '/');
+    return newValue.copyWith(
+        text: dateText, selection: updateCursorPosition(dateText));
+  }
+
+  String _addSeparator(String value, String separator) {
+    DateTime now = DateTime.now();
+    String year = DateFormat('yy').format(now);
+    value = value.replaceAll('/', '');
+    var newString = '';
+    for (int i = 0; i < value.length; i++) {
+      newString += value[i];
+      if (i == 1) {
+        newString += separator;
+      }
+    }
+    if (newString.length > 2 && int.parse(newString.split('/').first) > 12) {
+      newString = newString.substring(0, 1);
+    }
+    if (newString.length > 4 &&
+        int.parse(newString.split('/').last) <= int.parse(year)) {
+      newString = newString.substring(0, 4);
+    }
+    return newString;
+  }
+
+  TextSelection updateCursorPosition(String text) {
+    return TextSelection.fromPosition(TextPosition(offset: text.length));
   }
 }

@@ -44,9 +44,12 @@ final TextEditingController messageController = TextEditingController();
 class _ChatScreenState extends State<ChatScreen> {
   ScrollController scrollController = ScrollController();
   bool isFromMessage = false;
+  String? state;
+  bool accept = true;
 
   @override
   void initState() {
+    state = widget.state;
     context.read<ChatProvider>().connectAndListen(widget.jobId, widget.userId);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if (scrollController.hasClients) {
@@ -225,80 +228,129 @@ class _ChatScreenState extends State<ChatScreen> {
                       ],
                     ),
                     Provider.of<SignUpProvider>(context).userType ==
-                            UserType.client
-                        ? widget.state == JobStatus.published
-                            ? Consumer<GetClientJobListProvider>(
-                                builder:
-                                    (context, getClientJobProvider, child) {
-                                  return GestureDetector(
-                                    behavior: HitTestBehavior.opaque,
-                                    onTap: () {
-                                      showJobApproveConfirmation(
-                                          context, widget.jobId);
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
-                                        color: primaryColor,
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 10, vertical: 12),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Text(
-                                              tr('client.chat.Accept')
-                                                  .toUpperCase(),
-                                              style: const TextStyle(
-                                                  color: white,
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w700,
-                                                  fontFamily: "Satoshi"),
-                                            ),
-                                            const SizedBox(width: 8),
-                                            const Icon(Icons.check,
-                                                color: white, size: 30),
-                                          ],
+                                UserType.client &&
+                            state == JobStatus.published
+                        ? Consumer<GetClientJobListProvider>(
+                            builder: (context, getClientJobProvider, child) {
+                              return accept
+                                  ? GestureDetector(
+                                      behavior: HitTestBehavior.opaque,
+                                      onTap: () {
+                                        showJobApproveConfirmation(
+                                            context, widget.jobId);
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          color: primaryColor,
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10, vertical: 12),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text(
+                                                tr('client.chat.Accept')
+                                                    .toUpperCase(),
+                                                style: const TextStyle(
+                                                    color: white,
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w700,
+                                                    fontFamily: "Satoshi"),
+                                              ),
+                                              const SizedBox(width: 8),
+                                              const Icon(Icons.check,
+                                                  color: white, size: 30),
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  );
-                                },
-                              )
-                            : const Icon(Icons.check,
-                                color: primaryColor, size: 30)
-                        : GestureDetector(
-                            behavior: HitTestBehavior.opaque,
-                            onTap: () {
-                              Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => EditOfferScreen(
-                                            budget: widget.budget.toString(),
-                                            description: widget.description,
-                                            jobId: widget.jobId,
-                                          )),
-                                  (Route<dynamic> route) => true);
-                              log("ChatSJobId :: ${widget.jobId}");
+                                    )
+                                  : Icon(Icons.check,
+                                      color: primaryColor, size: 30);
                             },
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  tr('client.chat.Edit').toUpperCase(),
-                                  style: const TextStyle(
-                                    color: splashColor1,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                Image.asset('assets/icons/edit_profile.png',
-                                    height: 24, width: 24),
-                              ],
-                            ),
-                          ),
+                          )
+                        : const Icon(Icons.check,
+                            color: primaryColor, size: 30),
+
+                    // Consumer2(
+                    //   builder:
+                    //       <GetClientJobListProvider, SignUpProvider>(context,
+                    //           getClientJobProvider, signUpProvider, child) {
+                    //     return signUpProvider.userType == UserType.client &&
+                    //             state == JobStatus.published
+                    //         ? GestureDetector(
+                    //             behavior: HitTestBehavior.opaque,
+                    //             onTap: () {
+                    //               showJobApproveConfirmation(
+                    //                   context, widget.jobId);
+                    //             },
+                    //             child: Container(
+                    //               decoration: BoxDecoration(
+                    //                 borderRadius: BorderRadius.circular(8),
+                    //                 color: primaryColor,
+                    //               ),
+                    //               child: Padding(
+                    //                 padding: const EdgeInsets.symmetric(
+                    //                     horizontal: 10, vertical: 12),
+                    //                 child: Row(
+                    //                   mainAxisSize: MainAxisSize.min,
+                    //                   children: [
+                    //                     Text(
+                    //                       tr('client.chat.Accept')
+                    //                           .toUpperCase(),
+                    //                       style: const TextStyle(
+                    //                           color: white,
+                    //                           fontSize: 16,
+                    //                           fontWeight: FontWeight.w700,
+                    //                           fontFamily: "Satoshi"),
+                    //                     ),
+                    //                     const SizedBox(width: 8),
+                    //                     const Icon(Icons.check,
+                    //                         color: white, size: 30),
+                    //                   ],
+                    //                 ),
+                    //               ),
+                    //             ),
+                    //           )
+                    //         : const Icon(Icons.check,
+                    //             color: primaryColor, size: 30);
+                    //   },
+                    // ),
+
+                    // : GestureDetector(
+                    //     behavior: HitTestBehavior.opaque,
+                    //     onTap: () {
+                    //       Navigator.pushAndRemoveUntil(
+                    //           context,
+                    //           MaterialPageRoute(
+                    //               builder: (context) => EditOfferScreen(
+                    //                     budget: widget.budget,
+                    //                     description: widget.description,
+                    //                     jobId: widget.jobId,
+                    //                   )),
+                    //           (Route<dynamic> route) => true);
+                    //       log("ChatSJobId :: ${widget.jobId}");
+                    //     },
+                    //     child: Row(
+                    //       mainAxisSize: MainAxisSize.min,
+                    //       children: [
+                    //         Text(
+                    //           tr('client.chat.Edit').toUpperCase(),
+                    //           style: const TextStyle(
+                    //             color: splashColor1,
+                    //             fontSize: 16,
+                    //             fontWeight: FontWeight.w700,
+                    //           ),
+                    //         ),
+                    //         const SizedBox(width: 8),
+                    //         Image.asset('assets/icons/edit_profile.png',
+                    //             height: 24, width: 24),
+                    //       ],
+                    //     ),
+                    //   ),
                   ],
                 ),
               ),
@@ -496,6 +548,87 @@ class _ChatScreenState extends State<ChatScreen> {
     });
   }
 
+  // Widget clientChatApplyView() {
+  //   return Provider.of<SignUpProvider>(context).userType == UserType.client
+  //       ? widget.state == JobStatus.published
+  //           ? Consumer<GetClientJobListProvider>(
+  //               builder: (context, getClientJobProvider, child) {
+  //                 return GestureDetector(
+  //                   behavior: HitTestBehavior.opaque,
+  //                   onTap: () {
+  //                     showJobApproveConfirmation(context, widget.jobId);
+  //                   },
+  //                   child: Container(
+  //                     decoration: BoxDecoration(
+  //                       borderRadius: BorderRadius.circular(8),
+  //                       color: primaryColor,
+  //                     ),
+  //                     child: Padding(
+  //                       padding: const EdgeInsets.symmetric(
+  //                           horizontal: 10, vertical: 12),
+  //                       child: Row(
+  //                         mainAxisSize: MainAxisSize.min,
+  //                         children: [
+  //                           Text(
+  //                             tr('client.chat.Accept').toUpperCase(),
+  //                             style: const TextStyle(
+  //                                 color: white,
+  //                                 fontSize: 16,
+  //                                 fontWeight: FontWeight.w700,
+  //                                 fontFamily: "Satoshi"),
+  //                           ),
+  //                           const SizedBox(width: 8),
+  //                           const Icon(Icons.check, color: white, size: 30),
+  //                         ],
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 );
+  //               },
+  //             )
+  //           : const Icon(Icons.check, color: primaryColor, size: 30)
+  //       : const Icon(Icons.check, color: primaryColor, size: 30);
+  // }
+  //
+  // Widget profChatEditOfferView() {
+  //   return Provider.of<SignUpProvider>(context).userType ==
+  //           UserType.professional
+  //       ? widget.state == JobStatus.applied
+  //           ? GestureDetector(
+  //               behavior: HitTestBehavior.opaque,
+  //               onTap: () {
+  //                 Navigator.pushAndRemoveUntil(
+  //                     context,
+  //                     MaterialPageRoute(
+  //                         builder: (context) => EditOfferScreen(
+  //                               budget: widget.budget,
+  //                               description: widget.description,
+  //                               jobId: widget.jobId,
+  //                             )),
+  //                     (Route<dynamic> route) => true);
+  //                 log("ChatSJobId :: ${widget.jobId}");
+  //               },
+  //               child: Row(
+  //                 mainAxisSize: MainAxisSize.min,
+  //                 children: [
+  //                   Text(
+  //                     tr('client.chat.Edit').toUpperCase(),
+  //                     style: const TextStyle(
+  //                       color: splashColor1,
+  //                       fontSize: 16,
+  //                       fontWeight: FontWeight.w700,
+  //                     ),
+  //                   ),
+  //                   const SizedBox(width: 8),
+  //                   Image.asset('assets/icons/edit_profile.png',
+  //                       height: 24, width: 24),
+  //                 ],
+  //               ),
+  //             )
+  //           : const Icon(Icons.check, color: primaryColor, size: 30)
+  //       : const Icon(Icons.check, color: primaryColor, size: 30);
+  // }
+
   Widget noMessageView() {
     return Center(
       child: SingleChildScrollView(
@@ -631,6 +764,9 @@ class _ChatScreenState extends State<ChatScreen> {
                   onButton1Click: () {
                     var getClientJobProvider =
                         context.read<GetClientJobListProvider>();
+                    newState(() {
+                      isJobUpdateLoading = true;
+                    });
                     getClientJobProvider
                         .acceptJob(widget.jobId, widget.userId, context)
                         .then((acceptJobSuccess) {
@@ -645,6 +781,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         Navigator.of(context).pop();
                       }
                       newState(() {
+                        accept = false;
                         isJobUpdateLoading = false;
                       });
                     });

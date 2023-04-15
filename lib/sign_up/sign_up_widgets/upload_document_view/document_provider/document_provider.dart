@@ -42,6 +42,7 @@ class DocumentPicProvider extends ChangeNotifier {
 
   clearDocument() {
     _docList.clear();
+    _docList.add('add');
     notifyListeners();
   }
 }

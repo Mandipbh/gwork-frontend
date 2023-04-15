@@ -185,8 +185,6 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                                         .verifyPhoneNumberOtp(pin, context)
                                         .then((verifyOtpPhoneResponse) {
                                       if (verifyOtpPhoneResponse.success!) {
-                                        ProgressLoader(
-                                            context, "OTP Verify SuccessFully");
                                         timer.cancel();
                                         ApiClient()
                                             .updatePhoneNumber(
@@ -207,8 +205,6 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                                                     const MyProfileScreen(),
                                               ),
                                             );
-                                            ProgressLoader(context,
-                                                tr("success_message.otp_verify_success"));
                                             var provider =
                                                 Provider.of<MyProfileProvider>(
                                                     context,
@@ -220,7 +216,7 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                                               ..pop()
                                               ..pop();
                                             ProgressLoader(context,
-                                                "Mobile number updated SuccessFully");
+                                                tr("success_message.otp_verify_success"));
                                           }
                                         });
                                       }
@@ -233,7 +229,9 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                       ),
                       Padding(
                         padding: EdgeInsets.only(
-                            bottom: MediaQuery.of(context).viewInsets.bottom),
+                            bottom: MediaQuery.of(context).viewInsets.bottom,
+                            left: 14,
+                            right: 14),
                         child: submitButton(
                           onButtonTap: () {
                             if (enableResend) {
@@ -245,7 +243,9 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                           textColor: enableResend ? Colors.black : Colors.grey,
                           buttonName: enableResend
                               ? tr('admin.sign_in.Request_new_code')
-                              : 'Request a new code (00:${secondsRemaining.toString().padLeft(2, '0')})',
+                              : tr("admin.sign_in.Resend_new_code") +
+                                  secondsRemaining.toString().padLeft(2, '0') +
+                                  ")",
                           iconAsset: 'otp_send.png',
                           iconColor: enableResend ? Colors.black : Colors.grey,
                         ),

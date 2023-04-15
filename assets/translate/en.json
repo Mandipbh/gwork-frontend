@@ -15,7 +15,8 @@
       "recover_password_enter_phone_no": "Enter your phone number and we will send you an OTP code to reset your account password.",
       "Code_confirmation": "Code Confirmation",
       "enter_digit": "Enter below the 4-digit code we just sent to",
-      "Request_new_code": "Request a new code (00:00)"
+      "Request_new_code": "Request a new code (00:00)",
+      "Resend_new_code": "Request a new code (00:"
     },
     "exit_dialogue": {
       "are_you_sure": "Are you sure you want to go back",
@@ -121,7 +122,7 @@
       "Building_restructuring": "Building restructuring, or even bigger title about what to do",
       "Description": "Description",
       "Gallery": "Gallery",
-      "Applications": "Applications",
+      "Applicants": "Applicants",
       "Price": "Price",
       "Apply": "Apply",
       "Ristrutturazione": "Ristrutturazione edilizia, o titolo ancora più grande su cosa fare",
@@ -154,7 +155,9 @@
     "users": {
       "Registered": "Registered",
       "no_application": "There are no applications for now",
-      "check_letter": "Check it bit later please"
+      "check_letter": "Check it bit later please",
+      "no_image" : "There are no image for now",
+      "photo": "Photo"
     },
     "delete_user": {
       "First_name": "First name",
@@ -256,6 +259,12 @@
     "confirmation_panel":{
       "want_to_stop_registration": "Are you sure you want to stop registration?",
       "saved_data_will_be_deleted": "All the saved data will be deleted",
+      "sta_here": "stay here",
+      "Go_back": "Go back"
+    },
+    "stop_creating_job":{
+      "want_to_stop_creatingJob": "Are you sure you want to stop creating the job?",
+      "inserted_data_will_be_deleted": "All inserted data will be deleted",
       "sta_here": "stay here",
       "Go_back": "Go back"
     },
@@ -547,7 +556,8 @@
       "Edit_offer": "Edit offer",
       "Building_restructuring": "Building restructuring, or even bigger title about what to do",
       "Offer_price": "Offer price",
-      "Once_an_offer_is_accepted": "Once an offer is accepted and confirmed, it becomes a binding agreement."
+      "Once_an_offer_is_accepted": "Once an offer is accepted and confirmed, it becomes a binding agreement.",
+      "apply_for_job": "Apply for a job"
     }
   },
 
@@ -563,12 +573,14 @@
     "valid_last_name" : "Please Enter More Than 3 Character Last Name",
     "valid_email" : "Please Enter Valid Email",
     "valid_card_holder" : "Please Enter More Than 3 Character Card Holder Name",
+    "valid_card_number" : "Card Number Must Be 16 Digits..",
     "no_image_selected": "No Image selected",
     "select_profile_pic" : "Please select profile picture",
     "select_document" : "Please Select AtLeast 1 Document",
     "valid_phone" : "Please Enter Valid Phone Number",
     "expire_month" : "Expire date Month must be less than 12.",
-    "expire_year" : "Expire Date Year Must Be More Than Current Year."
+    "expire_year" : "Expire Date Year Must Be More Than Current Year.",
+    "log_out_message": "You have been disconnected. \nPlease sign in again."
   },
   "success_message": {
     "pass_recover_cancel": "Password recovery canceled.",

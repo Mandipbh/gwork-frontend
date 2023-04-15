@@ -27,6 +27,7 @@ class PersonalInfoView extends StatelessWidget {
               controller: Provider.of<SignUpProvider>(context, listen: false)
                   .nameController,
               maxLength: 20,
+              context: context,
               label: tr('client.log_in.sign_up.Name'),
               asset: 'user_first_name.png'),
           const SizedBox(height: 20),
@@ -34,15 +35,16 @@ class PersonalInfoView extends StatelessWidget {
               controller: Provider.of<SignUpProvider>(context, listen: false)
                   .lastNameController,
               maxLength: 20,
+              context: context,
               label: tr('client.log_in.sign_up.Last_name'),
               asset: 'user.png'),
           const SizedBox(height: 20),
           nameTextField(
               controller: Provider.of<SignUpProvider>(context, listen: false)
                   .emailController,
-              maxLength: 30,
               label: tr('client.log_in.sign_up.Email_id'),
               asset: 'mail.png',
+              context: context,
               keyboardType: TextInputType.emailAddress),
           const SizedBox(height: 20),
           Container(

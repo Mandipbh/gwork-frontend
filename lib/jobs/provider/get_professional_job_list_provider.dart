@@ -1,12 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:g_worker_app/jobs/model/get_client_job_list_response.dart';
 import 'package:g_worker_app/jobs/model/get_prof_job_details_model.dart';
 import 'package:g_worker_app/jobs/model/get_professional_job_response.dart';
 import 'package:g_worker_app/server_connection/api_client.dart';
 import 'package:g_worker_app/success_model/success_model_response.dart';
-
 import '../../Constants.dart';
 import '../model/job_status_update_response.dart';
 
@@ -22,6 +20,10 @@ class GetProfessionalJobListProvider extends ChangeNotifier {
   GetGalleryDetailsModel? _galleryDetailsModel;
 
   GetGalleryDetailsModel? get galleryDetailsModel => _galleryDetailsModel;
+
+  List<Gallery> _currentJobGallery = [];
+  List<Gallery> get currentJobGallery => _currentJobGallery;
+  List<Gallery> professionalGallery = [];
 
   List<String> oddList = [];
   List<String> evenList = [];
@@ -92,6 +94,16 @@ class GetProfessionalJobListProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  List<Gallery> getCurrentJobGallery() => _currentJobGallery;
+
+  setCurrentJobGallery(List<Gallery> data) {
+    _currentJobGallery = data;
+    for (int i = 0; i < _currentJobGallery.length; i++) {
+      professionalGallery.add(_currentJobGallery[i]);
+    }
+    notifyListeners();
+  }
+
   getProfessionalJobList(
       {required String category,
       required String province,
@@ -132,20 +144,25 @@ class GetProfessionalJobListProvider extends ChangeNotifier {
     if (!_isGalleryLoading) {
       setIsGalleryLoading(true);
     }
-    ApiClient().getGalleryDetailsService(context, jobId!).then((value) {
-      if (value.success!) {
-        _galleryDetailsModel = value;
+    ApiClient()
+        .getGalleryDetailsService(context, jobId!)
+        .then((getGallerySuccessResponse) {
+      if (getGallerySuccessResponse.success!) {
+        log("Images => ${getGallerySuccessResponse.gallery!.length}");
+        // _galleryDetailsModel = value;
+        //
+        // for (int i = 0; i < value.gallery!.length; i++) {
+        //   if (i % 2 == 0) {
+        //     oddList.add(value.gallery![i].mediaUrl!);
+        //   }
+        // }
+        // for (int i = 0; i < value.gallery!.length; i++) {
+        //   if (i % 2 == 1) {
+        //     evenList.add(value.gallery![i].mediaUrl!);
+        //   }
+        // }
+        setCurrentJobGallery(getGallerySuccessResponse.gallery!);
 
-        for (int i = 0; i < value.gallery!.length; i++) {
-          if (i % 2 == 0) {
-            oddList.add(value.gallery![i].mediaUrl!);
-          }
-        }
-        for (int i = 0; i < value.gallery!.length; i++) {
-          if (i % 2 == 1) {
-            evenList.add(value.gallery![i].mediaUrl!);
-          }
-        }
         setIsGalleryLoading(false);
       }
     });
@@ -158,6 +175,7 @@ class GetProfessionalJobListProvider extends ChangeNotifier {
     _isOverviewLoading = true;
     _isGalleryLoading = true;
     _isApplicationsLoading = true;
+    _currentJobGallery = [];
     oddList = [];
     evenList = [];
   }

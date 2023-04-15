@@ -46,13 +46,14 @@ class ApiEndPoints {
       '/worker/jobs/job-applications';
   static const String getClientJobDetails = "/worker/jobs/job-overview";
 
-  static const String deleteJob = '/worker/jobs/remove-job-applications';
+  static const String deleteJob = '/worker/jobs/remove-job';
   static const String acceptJob = '/worker/jobs/accpet-job-applications';
   static const String rejectJobProf = '/worker/jobs/remove-job-applications';
   static const String rejectApproveJob = '/worker/jobs/change-job-approval';
   static const String startJob = '/worker/jobs/start-job-professional';
   static const String completeJob = '/worker/jobs/complete-job-professional';
   static const String editOffer = '/worker/jobs/update-job-application';
+  static const String addOffer = '/worker/jobs/add-job-application';
 }
 
 class DashboardFilters {
@@ -73,6 +74,7 @@ class JobsFilters {
   static const String expired = 'Expired';
   static const String pending = 'Pending';
   static const String published = 'Published';
+  static const String reported = 'Reported';
 }
 
 class JobsType {
@@ -121,6 +123,7 @@ class JobStatus {
   static const String accepted = "Accepted";
   static const String doing = "Doing";
   static const String expired = "Expired";
+  static const String reported = 'Reported';
 }
 
 class ChatType {

@@ -48,9 +48,9 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                 MaterialPageRoute(builder: (context) => const HomeScreen()),
                 (Route<dynamic> route) => false);
           },
-          title:
-              tr('client.log_in.confirmation_panel.want_to_stop_registration'),
-          description: 'All inserted data will be deleted',
+          title: tr('client.stop_creating_job.want_to_stop_creatingJob'),
+          description:
+              tr('client.stop_creating_job.inserted_data_will_be_deleted'),
           backButtonName: tr('admin.exit_dialogue.go_back'),
         );
         return false;
@@ -106,10 +106,10 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                                                 const HomeScreen()),
                                         (Route<dynamic> route) => false);
                                   },
-                                  title:
-                                      'Are you sure you want to stop creating the job?',
-                                  description:
-                                      'All inserted data will be deleted',
+                                  title: tr(
+                                      'client.stop_creating_job.want_to_stop_creatingJob'),
+                                  description: tr(
+                                      'client.stop_creating_job.inserted_data_will_be_deleted'),
                                   backButtonName:
                                       tr('admin.exit_dialogue.go_back'),
                                 );

@@ -36,7 +36,6 @@ void main() async {
           enabled: !kReleaseMode,
           builder: (context) => EasyLocalization(
               supportedLocales: const [Locale('en'), Locale('it')],
-              fallbackLocale: const Locale('en'),
               path: 'assets/translate',
               child: const MyApp())) // Wrap your app
       );
@@ -51,7 +50,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   Widget build(BuildContext context) {
     var localization = context.localizationDelegates;
@@ -107,7 +105,7 @@ class _MyAppState extends State<MyApp> {
             scaffoldBackgroundColor: whiteF2F,
             primaryColor: primaryColor,
             bottomSheetTheme:
-            const BottomSheetThemeData(backgroundColor: Colors.transparent),
+                const BottomSheetThemeData(backgroundColor: Colors.transparent),
             inputDecorationTheme: const InputDecorationTheme(
               border: InputBorder.none,
               floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -207,10 +205,9 @@ class _MyAppState extends State<MyApp> {
                   color: Colors.white),
             ),
             dividerTheme:
-            const DividerThemeData(color: Color(0xffD3DCD7), thickness: 1)),
+                const DividerThemeData(color: Color(0xffD3DCD7), thickness: 1)),
         home: const SplashScreen(),
       ),
     );
   }
 }
-

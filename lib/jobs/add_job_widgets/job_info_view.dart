@@ -30,11 +30,13 @@ class JobInfoView extends StatelessWidget {
               nameTextField(
                   label: tr('client.Job_info.Title'),
                   asset: 'text_input.png',
+                  context: context,
                   controller: value.titleController),
               const SizedBox(height: 20),
               nameTextField(
                   label: tr('client.Job_info.Enter_street'),
                   asset: 'marker_location.png',
+                  context: context,
                   controller: value.streetController),
               const SizedBox(height: 20),
               Consumer<SignUpProvider>(
@@ -57,6 +59,7 @@ class JobInfoView extends StatelessWidget {
                 controller: value.comuneController,
                 asset: 'marker_location.png',
                 maxLength: 25,
+                context: context,
               ),
               const SizedBox(height: 20),
             ],

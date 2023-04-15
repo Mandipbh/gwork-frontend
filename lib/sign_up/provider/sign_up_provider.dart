@@ -9,6 +9,7 @@ import 'package:g_worker_app/province/province_model.dart';
 import 'package:g_worker_app/recover_password/recover_password_widgets/code_confirmation_screen.dart';
 import 'package:g_worker_app/sign_in/provider/sign_in_provider.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/profile_picture_view/image_provider/image_provider.dart';
+import 'package:g_worker_app/sign_up/sign_up_widgets/upload_document_view/document_provider/document_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../Constants.dart';
@@ -229,9 +230,6 @@ class SignUpProvider extends ChangeNotifier {
 
   setPaymentMethod(String cardHolder, String cardNumber, String expireDate,
       String cvv, BuildContext context) {
-    int? year;
-    int? month;
-
     if (cardHolder.isEmpty ||
         cardNumber.isEmpty ||
         expireDate.isEmpty ||
@@ -244,39 +242,10 @@ class SignUpProvider extends ChangeNotifier {
       ErrorLoader(context, tr("error_message.expire_month"));
       notifyListeners();
       return false;
-    }
-    log(DateTime.now().year.toString().substring(2, 4));
-    if (int.parse(expireDate.split("/")[1]) >
-        int.parse(DateTime.now().year.toString().substring(1, 2))) {
-      log(DateTime.now().year.toString().substring(1, 2));
-      ErrorLoader(context, tr("error_message.expire_year"));
+    } else if (cardHolder.length < 3) {
+      ErrorLoader(context, tr("error_message.valid_card_holder"));
       notifyListeners();
-      return false;
-    }
-    // else if (expireDate.contains(RegExp(r'(/)'))) {
-    //   var split = expireDate.split(RegExp(r'(/)'));
-    //
-    //   month = int.parse(split[0]);
-    //   year = int.parse(split[1]);
-    //   notifyListeners();
-    //   return false;
-    // } else if ((month! < 1) || (month > 12)) {
-    //   ErrorLoader(context, "Expiry month is invalid");
-    //   notifyListeners();
-    //   return false;
-    // } else if ((convertYearTo4Digits(year!) < 1) ||
-    //     (convertYearTo4Digits(year!) > 2099)) {
-    //   // We are assuming a valid should be between 1 and 2099.
-    //   // Note that, it's valid doesn't mean that it has not expired.
-    //   ErrorLoader(context, "Expiry year is invalid'");
-    //   notifyListeners();
-    //   return false;
-    // } else if (!hasDateExpired(month, year)) {
-    //   ErrorLoader(context, "Card has expired");
-    //   notifyListeners();
-    //   return false;
-    // }
-    else if (cardHolder.length < 3) {
+    } else if (cardNumber.length < 16) {
       ErrorLoader(context, tr("error_message.valid_card_holder"));
       notifyListeners();
     } else {
@@ -321,6 +290,7 @@ class SignUpProvider extends ChangeNotifier {
     cvvController.clear();
     bankAccountController.clear();
     Provider.of<ProfilePicProvider>(context, listen: false).clearImage();
+    Provider.of<DocumentPicProvider>(context, listen: false).clearDocument();
     notifyListeners();
   }
 }

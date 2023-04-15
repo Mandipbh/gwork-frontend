@@ -18,23 +18,31 @@ Widget submitButton(
     onTap: () => onButtonTap(),
     child: Container(
       height: 60,
+      width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16), color: backgroundColor),
       child: Center(
-          child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            buttonName.toUpperCase(),
-            style: Theme.of(context).textTheme.button!.apply(color: textColor),
-          ),
-          const SizedBox(
-            width: 8,
-          ),
-          Image.asset('assets/icons/$iconAsset',
-              height: 30, width: 30, color: iconColor)
-        ],
-      )),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              buttonName.toUpperCase(),
+              style: TextStyle(
+                fontSize: MediaQuery.of(context).size.width * 0.039,
+                fontFamily: 'Satoshi',
+                fontWeight: FontWeight.w700,
+                color: textColor,
+              ),
+              // Theme.of(context).textTheme.button!.apply(color: textColor),
+            ),
+            const SizedBox(
+              width: 8,
+            ),
+            Image.asset('assets/icons/$iconAsset',
+                height: 24, width: 24, color: iconColor)
+          ],
+        ),
+      ),
     ),
   );
 }

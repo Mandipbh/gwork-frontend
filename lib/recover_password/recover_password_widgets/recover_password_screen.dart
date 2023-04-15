@@ -59,7 +59,8 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                             const SizedBox(height: 40),
                             phoneNumberTextField(
                                 controller: recoverPasswordProvider
-                                    .recoverPasswordPhoneController),
+                                    .recoverPasswordPhoneController,
+                                context: context),
                             const SizedBox(height: 20),
                           ],
                         ),

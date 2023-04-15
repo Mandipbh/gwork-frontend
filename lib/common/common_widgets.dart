@@ -46,12 +46,13 @@ void askForExit({
       context: context,
       builder: (ctx) => AlertDialog(
           contentPadding: const EdgeInsets.all(12),
+          insetPadding: const EdgeInsets.symmetric(horizontal: 15),
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(8.0))),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
               CircleAvatar(
                 radius: 40,
                 backgroundColor: Colors.red[100],
@@ -192,7 +193,9 @@ Widget statusChip(String state, BuildContext context) {
                                   ? doingChipColor.withOpacity(0.1)
                                   : state == JobStatus.expired
                                       ? rejectedChipColor.withOpacity(0.1)
-                                      : Colors.white,
+                                      : state == JobStatus.reported
+                                          ? reportedChipColor.withOpacity(0.1)
+                                          : Colors.white,
       label: Text(state,
           style: Theme.of(context).textTheme.caption!.apply(
               color: state == JobStatus.published
@@ -205,7 +208,9 @@ Widget statusChip(String state, BuildContext context) {
                               ? primaryColor
                               : state == JobStatus.expired
                                   ? rejectedChipColor
-                                  : Colors.white)));
+                                  : state == JobStatus.reported
+                                      ? rejectedChipColor
+                                      : Colors.white)));
 }
 
 Widget confirmationDialogueView(

@@ -15,11 +15,16 @@ class SplashScreen extends StatelessWidget {
     Timer(const Duration(seconds: 3), () {
       context.read<HomePageProvider>().getToken().then((value) {
         if (value.isEmpty) {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (BuildContext context) => const SignInSignUpScreen()));
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                  builder: (BuildContext context) =>
+                      const SignInSignUpScreen()),
+              (Route<dynamic> route) => false);
         } else {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (BuildContext context) => const HomeScreen()));
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                  builder: (BuildContext context) => const HomeScreen()),
+              (Route<dynamic> route) => false);
         }
       });
     });

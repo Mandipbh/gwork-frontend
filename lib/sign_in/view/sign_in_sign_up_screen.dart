@@ -114,26 +114,26 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                                   provider.clearSignIn();
                                   FocusManager.instance.primaryFocus?.unfocus();
                                   if (event.isVerified == 1) {
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const HomeScreen()),
-                                    );
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const HomeScreen()),
+                                        (Route<dynamic> route) => false);
                                   } else if (event.isVerified == 3) {
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const RejectedApplicationScreen()),
-                                    );
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const RejectedApplicationScreen()),
+                                        (Route<dynamic> route) => false);
                                   } else {
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const PendingApplicationScreen()),
-                                    );
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const PendingApplicationScreen()),
+                                        (Route<dynamic> route) => false);
                                   }
                                 }
                               });
@@ -194,6 +194,7 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
         const SizedBox(height: 25),
         phoneNumberTextField(
           controller: signUpProvider.phoneController,
+          context: context,
         ),
         const SizedBox(height: 20),
         Padding(
@@ -209,7 +210,8 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
   Widget loginView(SignInProvider provider) {
     return Column(
       children: [
-        phoneNumberTextField(controller: provider.phoneController),
+        phoneNumberTextField(
+            controller: provider.phoneController, context: context),
         const SizedBox(height: 20),
         passwordTextField(
             label: tr('admin.sign_in.password'),

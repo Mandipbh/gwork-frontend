@@ -12,7 +12,7 @@ class EditOfferScreen extends StatefulWidget {
   const EditOfferScreen({Key? key, this.budget, this.description, this.jobId})
       : super(key: key);
 
-  final String? budget;
+  final int? budget;
   final String? description;
   final String? jobId;
 

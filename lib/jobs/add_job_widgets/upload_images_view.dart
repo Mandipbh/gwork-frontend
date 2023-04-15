@@ -121,6 +121,8 @@ class UploadImageProvider extends ChangeNotifier {
   }
 
   clearImage() {
+    _imageList.clear();
+    _imageList.add("add");
     notifyListeners();
   }
 }

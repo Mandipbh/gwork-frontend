@@ -33,9 +33,12 @@ class _SummaryViewState extends State<SummaryView> {
               style: Theme.of(context).textTheme.headline1,
             ),
           ),
-          Text(tr('client.summary.Building_restructuring'),
+          Text(
+              Provider.of<CreateClientJobProvider>(context, listen: false)
+                  .titleController
+                  .text,
               style: Theme.of(context).textTheme.headline3),
-          const SizedBox(height: 24),
+          const SizedBox(height: 20),
           Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16), color: Colors.white),
@@ -122,10 +125,13 @@ class _SummaryViewState extends State<SummaryView> {
                       const SizedBox(
                         width: 10,
                       ),
-                      Text(
-                        value.streetController.text,
-                        style: const TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.w700),
+                      Expanded(
+                        child: Text(
+                          value.streetController.text,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.w700),
+                        ),
                       )
                     ],
                   ),
@@ -182,13 +188,6 @@ class _SummaryViewState extends State<SummaryView> {
                       ),
                       Text(
                         value.category.toString(),
-                        // value.category == 1
-                        //     ? "Cleaning"
-                        //     : value.category == 2
-                        //         ? "Babysitting"
-                        //         : value.category == 3
-                        //             ? "Tutoring"
-                        //             : "HandyMan",
                         style: const TextStyle(
                             fontSize: 14, fontWeight: FontWeight.w700),
                       )
@@ -313,7 +312,7 @@ class _SummaryViewState extends State<SummaryView> {
                                                   .size
                                                   .height,
                                               child: Hero(
-                                                tag: "abc",
+                                                tag: abc[index],
                                                 child: Image.file(
                                                   File(
                                                     abc[index],
@@ -330,7 +329,7 @@ class _SummaryViewState extends State<SummaryView> {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(12),
                                 child: Hero(
-                                  tag: "abc",
+                                  tag: abc[index],
                                   child: Image.file(
                                     File(
                                       abc[index],

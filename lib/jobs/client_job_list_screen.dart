@@ -737,12 +737,15 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                                         const Icon(Icons.location_on_outlined,
                                             color: Colors.black, size: 22),
                                         const SizedBox(width: 3),
-                                        Text(
-                                          '${clientJobProvider.model!.jobs[index].street}, ${clientJobProvider.model!.jobs[index].province}',
-                                          style: const TextStyle(
-                                            color: splashColor1,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400,
+                                        Flexible(
+                                          child: Text(
+                                            '${clientJobProvider.model!.jobs[index].street}, ${clientJobProvider.model!.jobs[index].province}',
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(
+                                              color: splashColor1,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400,
+                                            ),
                                           ),
                                         ),
                                       ],

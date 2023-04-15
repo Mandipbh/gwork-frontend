@@ -34,6 +34,7 @@ class MoreInfoView extends StatelessWidget {
               budgetTextField(
                   label: tr('client.case_descrive.Budget'),
                   asset: 'coins_stacked.png',
+                  context: context,
                   controller: value.budgetController),
               const SizedBox(height: 20),
             ],

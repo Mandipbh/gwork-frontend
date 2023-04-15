@@ -30,3 +30,4 @@ const Color doingChipColor = Color(0xff4C7ECA);
 const Color pendingChipColor = Color(0xffF4D874);
 const Color completedChipColor = Color(0xff26AB53);
 const Color rejectedChipColor = Color(0xffE45E5E);
+const Color reportedChipColor = Color(0xffF8D0D0);

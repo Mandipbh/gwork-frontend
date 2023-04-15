@@ -5,9 +5,11 @@ import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
 import 'package:provider/provider.dart';
 
-Widget phoneNumberTextField({required TextEditingController controller}) {
+Widget phoneNumberTextField(
+    {required TextEditingController controller,
+    required BuildContext context}) {
   return Container(
-    height: 60,
+    height: 65,
     decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -15,6 +17,7 @@ Widget phoneNumberTextField({required TextEditingController controller}) {
     child: TextField(
         keyboardType: TextInputType.number,
         controller: controller,
+        style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.04),
         maxLength: 10,
         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         decoration: InputDecoration(
@@ -25,21 +28,24 @@ Widget phoneNumberTextField({required TextEditingController controller}) {
   );
 }
 
-Widget vatNumberTextField({required TextEditingController controller}) {
+Widget vatNumberTextField(
+    {required TextEditingController controller,
+    required BuildContext context}) {
   return Container(
-    height: 60,
+    height: 65,
     decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: Colors.white)),
     child: TextField(
       keyboardType: TextInputType.number,
+      style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.04),
       controller: controller,
       maxLength: 16,
       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
       decoration: InputDecoration(
         prefixIcon: Image.asset('assets/icons/hash.png', scale: 2),
-        labelText: tr('admin.VAT_Number').toUpperCase(),
+        labelText: tr('client.log_in.sign_up.Tax_Code').toUpperCase(),
         counterText: "",
       ),
     ),
@@ -71,14 +77,14 @@ Widget birthDateTextField(
       controller.text = '${date!.day}/${date.month}/${date.year}';
     },
     child: Container(
-      height: 60,
+      height: 65,
       padding: const EdgeInsets.symmetric(horizontal: 8),
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(16)),
       child: TextField(
           enabled: false,
           controller: controller,
-          style: const TextStyle(fontSize: 18),
+          style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.04),
           decoration: InputDecoration(
             hintStyle: const TextStyle(fontSize: 18, color: Colors.black12),
             icon: Image.asset('assets/icons/calendar_birthday.png',
@@ -111,7 +117,7 @@ Widget passwordTextField(
   bool isPasswordVisible = false;
   return StatefulBuilder(builder: (context, newState) {
     return Container(
-      height: 60,
+      height: 65,
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(16),
@@ -121,7 +127,7 @@ Widget passwordTextField(
         obscureText: !isPasswordVisible,
         obscuringCharacter: '*',
         keyboardType: TextInputType.visiblePassword,
-        style: const TextStyle(fontSize: 18),
+        style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.04),
         decoration: InputDecoration(
             suffixIcon: GestureDetector(
               behavior: HitTestBehavior.opaque,
@@ -145,21 +151,22 @@ Widget passwordTextField(
   });
 }
 
-Widget timeTextField(
-    {required String label,
-    required String asset,
-    TextEditingController? controller,
-    BuildContext? context}) {
+Widget timeTextField({
+  required String label,
+  required String asset,
+  required BuildContext context,
+  TextEditingController? controller,
+}) {
   controller ??= TextEditingController();
   return Container(
-    height: 60,
+    height: 65,
     padding: const EdgeInsets.symmetric(horizontal: 8),
     decoration: BoxDecoration(
         color: Colors.white, borderRadius: BorderRadius.circular(16)),
     child: TextField(
       controller: controller,
       readOnly: true,
-      style: const TextStyle(fontSize: 18),
+      style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.04),
       decoration: InputDecoration(
         icon: Image.asset('assets/icons/$asset', height: 24, width: 24),
         labelText: label.toUpperCase(),
@@ -211,18 +218,19 @@ Widget timeTextField(
 Widget budgetTextField(
     {required String label,
     required String asset,
+    required BuildContext context,
     TextEditingController? controller,
     keyboardType = TextInputType.number}) {
   controller ??= TextEditingController();
   return Container(
-    height: 60,
+    height: 65,
     padding: const EdgeInsets.symmetric(horizontal: 8),
     decoration: BoxDecoration(
         color: Colors.white, borderRadius: BorderRadius.circular(16)),
     child: TextField(
         maxLength: 25,
         controller: controller,
-        style: const TextStyle(fontSize: 18),
+        style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.04),
         keyboardType: keyboardType,
         decoration: InputDecoration(
             counterText: '',
@@ -234,20 +242,21 @@ Widget budgetTextField(
 Widget nameTextField(
     {required String label,
     required String asset,
+    required BuildContext context,
     int? maxLength,
     TextEditingController? controller,
     keyboardType = TextInputType.name}) {
   controller ??= TextEditingController();
   return Container(
-    height: 60,
+    height: 65,
     padding: const EdgeInsets.symmetric(horizontal: 8),
     decoration: BoxDecoration(
         color: Colors.white, borderRadius: BorderRadius.circular(16)),
     child: TextFormField(
         maxLength: maxLength,
         controller: controller,
-        style: const TextStyle(fontSize: 18),
-        keyboardType: TextInputType.name,
+        style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.04),
+        keyboardType: keyboardType,
         decoration: InputDecoration(
             counterText: '',
             icon: Image.asset('assets/icons/$asset', height: 24, width: 24),

@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:g_worker_app/Constants.dart';
 import 'package:g_worker_app/common/common_loader.dart';
+import 'package:g_worker_app/jobs/add_job_widgets/upload_images_view.dart';
 import 'package:g_worker_app/server_connection/api_client.dart';
 import 'package:provider/provider.dart';
 
@@ -107,8 +108,8 @@ class CreateClientJobProvider extends ChangeNotifier {
             .getClientJobList("All", "All", context);
         clearCreateJobProvider(context);
         Navigator.of(context).pop();
-        ProgressLoader(context, tr("success_message.job_create_success"));
         Navigator.of(context).pop();
+        ProgressLoader(context, tr("success_message.job_create_success"));
         notifyListeners();
         return true;
       }
@@ -123,6 +124,7 @@ class CreateClientJobProvider extends ChangeNotifier {
     timeController.clear();
     describeController.clear();
     budgetController.clear();
+    Provider.of<UploadImageProvider>(context, listen: false).clearImage();
     notifyListeners();
   }
 }

@@ -28,6 +28,7 @@ class BankInfoView extends StatelessWidget {
               controller:
                   Provider.of<SignUpProvider>(context).bankAccountController,
               maxLength: 25,
+              context: context,
               label: tr('client.log_in.sign_up.bank'),
               asset: 'credit_card_shield.png'),
           const SizedBox(height: 15),

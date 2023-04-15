@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ffi';
 
 import 'package:easy_localization/easy_localization.dart';
@@ -53,11 +54,11 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<GetClientJobListProvider>(
-        builder: (context, jobProvider, child) {
+    return Consumer2<GetClientJobListProvider, GetProfessionalJobListProvider>(
+        builder: (context, jobProvider, getProfessionalJobListProvider, child) {
       return WillPopScope(
         onWillPop: () async {
-          context.read<GetProfessionalJobListProvider>().clearDataModel();
+          getProfessionalJobListProvider.clearDataModel();
           jobProvider.clearDataModel(context);
           return true;
         },
@@ -77,7 +78,7 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                           statusView(
                               jobProvider.detailsModel!.jobDetails!.state!),
                           const SizedBox(height: 12),
-                          textView(),
+                          textView(jobProvider),
                           const SizedBox(height: 12),
                           tabViewClient(
                               jobProvider.detailsModel!.jobDetails!.state!,
@@ -92,7 +93,10 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                                   ),
                                 )
                               : selectedType == 2
-                                  ? Expanded(child: gallery())
+                                  ? Expanded(
+                                      child: galleryView(
+                                          getProfessionalJobListProvider),
+                                    )
                                   : Expanded(
                                       child: applicationWidgetView(),
                                     ),
@@ -375,8 +379,47 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
         jobDetailView("assets/images/briefcase.png",
             "${jobProvider.detailsModel!.jobDetails!.category}"),
         const SizedBox(height: 12),
-        jobDetailView("assets/icons/coins_stacked.png",
-            "€${format.format(jobProvider.detailsModel!.jobDetails!.budget)}"),
+        jobProvider.detailsModel!.jobDetails!.state! == JobStatus.published ||
+                jobProvider.detailsModel!.jobDetails!.state! ==
+                    JobStatus.accepted
+            ? jobDetailView("assets/icons/coins_stacked.png",
+                "€${format.format(jobProvider.detailsModel!.jobDetails!.budget)}")
+            : Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: Colors.white,
+                ),
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                  child: Row(
+                    children: [
+                      Image.asset("assets/icons/coins_stacked.png",
+                          height: 24, width: 24),
+                      const SizedBox(width: 20),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Accepted budget",
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                color: black343,
+                                fontFamily: 'Satoshi'),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            "€${format.format(jobProvider.detailsModel!.jobDetails!.budget)}",
+                            style: Theme.of(context).textTheme.headline4,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
         const SizedBox(height: 12),
         Container(
           width: double.infinity,
@@ -415,72 +458,254 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
     );
   }
 
-  Widget gallery() {
-    return Consumer<GetProfessionalJobListProvider>(
-      builder: (context, value, child) {
-        return value.galleryDetailsModel == null
-            ? const Center(child: CircularProgressIndicator())
-            : value.galleryDetailsModel!.gallery!.isEmpty
-                ? emptyGalleryView()
-                : SingleChildScrollView(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Flexible(
-                          flex: 1,
-                          child: ListView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            // itemCount: (imagelist.length / 2).toInt(),
-                            itemCount: value.oddList.length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: Container(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.2,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.4,
-                                    child: Image.network(
-                                      value.oddList[index],
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
+  Widget galleryView(
+      GetProfessionalJobListProvider getProfessionalJobListProvider) {
+    int dataLength = getProfessionalJobListProvider.currentJobGallery.length;
+    log("IMAGE Length ==> $dataLength");
+    List<Widget> rightImages = [];
+    List<Widget> leftImages = [];
+    for (int i = 0;
+        i < getProfessionalJobListProvider.currentJobGallery.length;
+        i++) {
+      if (i >
+          (dataLength == 5
+              ? 0
+              : dataLength == 3
+                  ? 0
+                  : dataLength == 2
+                      ? -1
+                      : 2)) {
+        if (i % 2 == 0) {
+          rightImages.add(Container(
+            margin: const EdgeInsets.all(8.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: GestureDetector(
+                onTap: () {
+                  openImage(
+                      image: getProfessionalJobListProvider
+                          .currentJobGallery[i].mediaUrl!);
+                },
+                child: Hero(
+                  tag: "photo",
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.2,
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    child: Image.network(
+                      getProfessionalJobListProvider
+                          .currentJobGallery[i].mediaUrl!,
+                      fit: BoxFit.cover,
+                      loadingBuilder: (BuildContext context, Widget child,
+                          ImageChunkEvent? loadingProgress) {
+                        if (loadingProgress == null) {
+                          return child;
+                        }
+                        return Center(
+                          child: CircularProgressIndicator(
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                    loadingProgress.expectedTotalBytes!
+                                : null,
+                          ),
+                        );
+                      },
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          decoration: BoxDecoration(
+                              color: Colors.grey.shade500,
+                              borderRadius: BorderRadius.circular(12)),
+                          child: Center(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: const [
+                                Icon(
+                                  Icons.error_outline,
+                                  color: Colors.white,
                                 ),
-                              );
-                            },
+                                Text(
+                                  "Error Loading",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ));
+        } else {
+          leftImages.add(Container(
+            margin: const EdgeInsets.all(8.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: GestureDetector(
+                onTap: () {
+                  openImage(
+                      image: getProfessionalJobListProvider
+                          .currentJobGallery[i].mediaUrl!);
+                },
+                child: Hero(
+                  tag: "photo",
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.34,
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    child: Image.network(
+                      getProfessionalJobListProvider
+                          .currentJobGallery[i].mediaUrl!,
+                      fit: BoxFit.cover,
+                      loadingBuilder: (BuildContext context, Widget child,
+                          ImageChunkEvent? loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Center(
+                          child: CircularProgressIndicator(
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                    loadingProgress.expectedTotalBytes!
+                                : null,
+                          ),
+                        );
+                      },
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          decoration: BoxDecoration(
+                              color: Colors.grey.shade500,
+                              borderRadius: BorderRadius.circular(12)),
+                          child: Center(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: const [
+                                Icon(
+                                  Icons.error_outline,
+                                  color: Colors.white,
+                                ),
+                                Text(
+                                  "Error Loading \n Image",
+                                  style: TextStyle(
+                                      fontSize: 18, color: Colors.white),
+                                  textAlign: TextAlign.center,
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ));
+        }
+      } else {
+        rightImages.add(Container(
+          margin: const EdgeInsets.all(8.0),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: GestureDetector(
+              onTap: () {
+                openImage(
+                    image: getProfessionalJobListProvider
+                        .currentJobGallery[i].mediaUrl!);
+              },
+              child: Hero(
+                tag: "photo",
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.2,
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  child: Image.network(
+                    getProfessionalJobListProvider
+                        .currentJobGallery[i].mediaUrl!,
+                    fit: BoxFit.cover,
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent? loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes!
+                              : null,
+                        ),
+                      );
+                    },
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        decoration: BoxDecoration(
+                            color: Colors.grey.shade500,
+                            borderRadius: BorderRadius.circular(12)),
+                        child: Center(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: const [
+                              Icon(
+                                Icons.error_outline,
+                                color: Colors.white,
+                              ),
+                              Text(
+                                "Error Loading",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                ),
+                              )
+                            ],
                           ),
                         ),
-                        Flexible(
-                          flex: 1,
-                          child: ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: value.evenList.length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.all(1.0),
-                                child: Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.35,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.4,
-                                  child: Image.network(
-                                    value.evenList[index],
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        )
-                      ],
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ));
+      }
+    }
+
+    return getProfessionalJobListProvider.getCurrentJobGallery().isEmpty
+        ? emptyGalleryView()
+        : Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Wrap(direction: Axis.vertical, children: rightImages),
+              Wrap(direction: Axis.vertical, children: leftImages),
+            ],
+          );
+  }
+
+  void openImage({
+    required String image,
+  }) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => Scaffold(
+                  appBar: AppBar(
+                    title: Text(
+                      tr('admin.users.no_image'),
                     ),
-                  );
-      },
-    );
+                  ),
+                  body: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    child: Hero(
+                      tag: "photo",
+                      child: Image.network(
+                        image,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+            fullscreenDialog: true));
   }
 
   Widget applicationWidgetView() {
@@ -650,7 +875,9 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                             ? completedChipColor
                             : state == JobStatus.rejected
                                 ? rejectedChipColor
-                                : Colors.white,
+                                : state == JobStatus.reported
+                                    ? reportedChipColor.withOpacity(0.1)
+                                    : Colors.white,
         label: Text(state,
             style: Theme.of(context).textTheme.caption!.apply(
                 color: state == JobStatus.published
@@ -659,12 +886,14 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                         ? acceptedTagTextColor
                         : state == JobStatus.pending
                             ? primaryColor
-                            : Colors.white)));
+                            : state == JobStatus.reported
+                                ? rejectedChipColor
+                                : Colors.white)));
   }
 
-  Widget textView() {
+  Widget textView(GetClientJobListProvider jobProvider) {
     return Text(
-      tr('admin.job_detail.Building_restructuring'),
+      jobProvider.detailsModel!.jobDetails!.title!,
       style: const TextStyle(
         color: splashColor1,
         fontSize: 18,
@@ -679,7 +908,7 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
       tr('admin.job_detail.Gallery')
     ];
     if (state == JobStatus.published) {
-      tabs.add('${tr('admin.job_detail.Applications')}($length)');
+      tabs.add('${tr('admin.job_detail.Applicants')}($length)');
     }
 
     return singleSelectionButtons(
@@ -732,7 +961,7 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
               color: Colors.white, borderRadius: BorderRadius.circular(16)),
           child: Column(
             children: [
-              Text(tr('admin.users.no_application'),
+              Text(tr('admin.users.no_image'),
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.w700)),
@@ -794,7 +1023,7 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
         context: context,
         builder: (ctx) => AlertDialog(
             contentPadding: const EdgeInsets.all(12),
-            insetPadding: EdgeInsets.symmetric(horizontal: 28),
+            insetPadding: const EdgeInsets.symmetric(horizontal: 15),
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8.0))),
             content: StatefulBuilder(builder: (context, newState) {
@@ -835,7 +1064,7 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
     showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-            insetPadding: EdgeInsets.symmetric(horizontal: 28),
+            insetPadding: const EdgeInsets.symmetric(horizontal: 15),
             contentPadding: const EdgeInsets.all(12),
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8.0))),
@@ -884,7 +1113,7 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
     showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-            insetPadding: EdgeInsets.symmetric(horizontal: 28),
+            insetPadding: const EdgeInsets.symmetric(horizontal: 15),
             contentPadding: const EdgeInsets.all(12),
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8.0))),

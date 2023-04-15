@@ -120,21 +120,25 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               ? nameTextField(
                                   controller: controller,
                                   label: tr('admin.First_Name'),
+                                  context: context,
                                   asset: 'user_first_name.png')
                               : widget.type == ProfileFieldType.lastName
                                   ? nameTextField(
                                       controller: controller,
                                       label: tr('admin.Last_name'),
+                                      context: context,
                                       asset: 'user.png')
                                   : widget.type == ProfileFieldType.email
                                       ? nameTextField(
                                           label: tr('admin.Email'),
+                                          context: context,
                                           controller: controller,
                                           asset: 'mail.png')
                                       : widget.type ==
                                               ProfileFieldType.phoneNumber
                                           ? phoneNumberTextField(
                                               controller: controller,
+                                              context: context,
                                             )
                                           : widget.type ==
                                                   ProfileFieldType.birthdate
@@ -143,7 +147,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                               : widget.type ==
                                                       ProfileFieldType.vatNumber
                                                   ? vatNumberTextField(
-                                                      controller: controller)
+                                                      controller: controller,
+                                                      context: context)
                                                   : widget.type ==
                                                           ProfileFieldType
                                                               .password
@@ -184,10 +189,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                                                       .start,
                                                               children: [
                                                                 nameTextField(
-                                                                    label: tr(
-                                                                        'client.log_in.sign_up.card_holder'),
-                                                                    asset:
-                                                                        'user_first_name.png'),
+                                                                  label: tr(
+                                                                      'client.log_in.sign_up.card_holder'),
+                                                                  asset:
+                                                                      'user_first_name.png',
+                                                                  context:
+                                                                      context,
+                                                                ),
                                                                 const SizedBox(
                                                                     height: 20),
                                                                 Container(

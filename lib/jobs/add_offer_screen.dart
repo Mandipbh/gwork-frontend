@@ -1,10 +1,21 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:g_worker_app/colors.dart';
+import 'package:g_worker_app/common/common_loader.dart';
+import 'package:g_worker_app/jobs/provider/get_professional_job_list_provider.dart';
+import 'package:g_worker_app/server_connection/api_client.dart';
+import 'package:provider/provider.dart';
 
 class AddOfferScreen extends StatefulWidget {
-  const AddOfferScreen({Key? key}) : super(key: key);
+  const AddOfferScreen({Key? key, this.budget, this.description, this.jobId})
+      : super(key: key);
+
+  final int? budget;
+  final String? description;
+  final String? jobId;
 
   @override
   State<AddOfferScreen> createState() => _AddOfferScreenState();
@@ -42,7 +53,7 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
         child: const Icon(Icons.arrow_back, color: splashColor1, size: 20),
       ),
       title: Text(
-        tr('Professional.edit_offer.Edit_offer'),
+        tr('Professional.edit_offer.apply_for_job'),
         style: const TextStyle(
           color: splashColor1,
           fontSize: 18,
@@ -86,10 +97,10 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                         width: 24,
                       ),
                       const SizedBox(width: 12),
-                      const Expanded(
+                      Expanded(
                         child: Text(
-                          "Babysitters perform general caregiving duties that ensure children’s needs are met while their parents or guardians are away. Their duties include providing transportation to and from a child’s extracurricular activities, preparing basic meals and keeping the child company with games and other entertainment.",
-                          style: TextStyle(
+                          widget.description.toString(),
+                          style: const TextStyle(
                             color: black343,
                             fontSize: 12,
                             fontWeight: FontWeight.w300,
@@ -111,9 +122,9 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                   horizontalTitleGap: 1,
                   leading: Image.asset("assets/icons/coins_stacked.png",
                       height: 24, width: 24),
-                  title: const Text(
-                    "€60,00",
-                    style: TextStyle(
+                  title: Text(
+                    '€ ${NumberFormat('#.00').format(widget.budget)}',
+                    style: const TextStyle(
                       color: black343,
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -137,8 +148,8 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                       scale: 2,
                     ),
                     labelText: tr('Professional.edit_offer.Offer_price'),
-                    hintText: "60",
-                    contentPadding: EdgeInsets.only(left: 16, top: 8),
+                    hintText: "00",
+                    contentPadding: const EdgeInsets.only(left: 16, top: 8),
                     hintStyle: const TextStyle(
                       color: grey9EA,
                       fontSize: 14,
@@ -159,7 +170,26 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
               ),
               const SizedBox(height: 16),
               MaterialButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (editOfferController.text.isEmpty) {
+                    ErrorLoader(context, tr("error_message.fill_all_data"));
+                  } else {
+                    var provider =
+                        context.read<GetProfessionalJobListProvider>();
+                    provider
+                        .applyJob(
+                            context: context,
+                            price: int.parse(editOfferController.text),
+                            jobId: widget.jobId!)
+                        .then((value) {
+                      if (value!.success!) {
+                        Navigator.pop(context);
+                        provider.getDetailsProfessional(context, widget.jobId!);
+                        editOfferController.clear();
+                      }
+                    });
+                  }
+                },
                 height: 48,
                 minWidth: double.infinity,
                 color: splashColor1,
@@ -171,7 +201,7 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      tr('Professional.edit_offer.Edit_offer').toUpperCase(),
+                      tr('Professional.apply_job_dialogue.Apply').toUpperCase(),
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,
@@ -179,8 +209,10 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                       ),
                     ),
                     const SizedBox(width: 10),
-                    Image.asset('assets/icons/edit_profile.png',
-                        height: 24, width: 24, color: white),
+                    const Icon(
+                      Icons.arrow_forward,
+                      color: white,
+                    ),
                   ],
                 ),
               ),

@@ -14,7 +14,8 @@
       "recover_password_enter_phone_no": "Inserisci il numero di telefono e ti invieremo un codice OTP per reimpostare la password del tuo account.",
       "Code_confirmation": "Conferma codice",
       "enter_digit": "Inserisci qui sotto il codice a 4 cifre che ti abbiamo appena inviato",
-      "Request_new_code": "RICHIEDI UN NUOVO CODICE (00:12)"
+      "Request_new_code": "Richiedi un nuovo codice (00:00)",
+      "Resend_new_code": "Richiedi un nuovo codice (00:"
     },
     "exit_dialogue": {
       "are_you_sure": "Sei sicuro di voler tornare indietro?",

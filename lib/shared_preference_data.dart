@@ -25,6 +25,8 @@ class SharedPreferenceData {
 
   clearPrefs() async {
     final SharedPreferences prefs = await _prefs;
-    await prefs.clear();
+    await prefs.remove("user_role");
+    await prefs.remove("user_token");
+    // await prefs.clear();
   }
 }
