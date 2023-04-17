@@ -21,8 +21,9 @@ class ChatProvider extends ChangeNotifier {
   List<Message> getChatData() => _allMessages;
 
   //STEP2: Add this function in main function in main.dart file and add incoming data to the stream
-  Future<void> connectAndListen(String jobId, String userId) async {
-    if (!_isLoading) {
+  Future<void> connectAndListen(
+      BuildContext context, String jobId, String userId) async {
+    if (context.mounted && !_isLoading) {
       setIsLoading(true);
     }
     print("opponent :: $userId");

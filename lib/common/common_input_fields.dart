@@ -175,38 +175,39 @@ Widget timeTextField({
         TimeOfDay? pickedTime = await showTimePicker(
           initialTime: TimeOfDay.now(),
           builder: (context, picker) {
-            return Theme(
-              //TODO: change colors
-              data: ThemeData.dark().copyWith(
-                splashColor: Colors.white,
-                colorScheme: const ColorScheme.dark(
-                  primary: Color(0xfff8f8f8),
+            return MediaQuery(
+              data:
+                  MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+              child: Theme(
+                data: ThemeData.dark().copyWith(
+                  splashColor: Colors.white,
+                  colorScheme: const ColorScheme.dark(
+                    primary: Color(0xfff8f8f8),
+                  ),
+                  dialogBackgroundColor: Colors.grey.shade900,
                 ),
-                dialogBackgroundColor: Colors.grey.shade900,
+                child: picker!,
               ),
-              child: picker!,
             );
           },
-          context: context!,
+          context: context,
         );
 
         if (pickedTime != null) {
-          print(pickedTime.format(context)); //output 10:51 PM
-
-          print(pickedTime
-              .toString()
-              .replaceAll("(", "")
-              .replaceAll(")", "")
-              .split("y")
-              .last);
-
-          // print(formattedTime); //output 14:59:00
-          controller!.text = pickedTime
-              .toString()
-              .replaceAll("(", "")
-              .replaceAll(")", "")
-              .split("y")
-              .last;
+          controller!.text =
+              // DateFormat('hh:mm').format(DateTime.parse(
+              // pickedTime
+              //     .toString()
+              //     .replaceAll("(", "")
+              //     .replaceAll(")", "")
+              //     .split("y")
+              //     .last));
+              pickedTime
+                  .toString()
+                  .replaceAll("(", "")
+                  .replaceAll(")", "")
+                  .split("y")
+                  .last;
         } else {
           print("Time is not selected");
         }

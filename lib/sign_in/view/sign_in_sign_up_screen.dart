@@ -26,7 +26,7 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Consumer2<SignInProvider, SignUpProvider>(builder:
-        (BuildContext context, provider, signUpProvider, Widget? child) {
+        (BuildContext buildContext, provider, signUpProvider, Widget? child) {
       return Stack(
         children: [
           Scaffold(
@@ -43,7 +43,7 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                       style: const TextStyle(
                           fontSize: 30, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 16),
                     MyApp.apkType == UserType.admin
                         ? Text(
                             tr('admin.sign_in.enter_your_phone_no_sign_in'),
@@ -67,7 +67,7 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                             })
                         : Container(),
                     const SizedBox(
-                      height: 30,
+                      height: 60,
                     ),
                     provider.getSelected() == SelectionType.signUp
                         ? signUpView(signUpProvider)

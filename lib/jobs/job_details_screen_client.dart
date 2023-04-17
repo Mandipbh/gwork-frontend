@@ -245,8 +245,8 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                             tr('admin.job_detail.accepted_at'),
                             style: Theme.of(context).textTheme.headline4,
                           ),
-                          subtitle: Text(
-                              jobProvider.detailsModel!.jobDetails!.jobDate!),
+                          subtitle: Text(jobProvider
+                              .detailsModel!.jobDetails!.applicationAccepted!),
                         ),
                       ),
                     )

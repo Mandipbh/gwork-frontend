@@ -27,7 +27,7 @@ class BankInfoView extends StatelessWidget {
           nameTextField(
               controller:
                   Provider.of<SignUpProvider>(context).bankAccountController,
-              maxLength: 25,
+              maxLength: 27,
               context: context,
               label: tr('client.log_in.sign_up.bank'),
               asset: 'credit_card_shield.png'),

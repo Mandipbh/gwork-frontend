@@ -50,7 +50,9 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void initState() {
     state = widget.state;
-    context.read<ChatProvider>().connectAndListen(widget.jobId, widget.userId);
+    context
+        .read<ChatProvider>()
+        .connectAndListen(context, widget.jobId, widget.userId);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if (scrollController.hasClients) {
         scrollController.jumpTo(scrollController.position.maxScrollExtent);

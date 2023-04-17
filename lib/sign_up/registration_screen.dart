@@ -134,8 +134,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       const SelectServiceView(),
       const SetPasswordView(),
       const PersonalInfoView(),
-      // const BankInfoView(),
-      PaymentInfoView(),
+      const BankInfoView(),
       const UploadDocumentView(),
       const ProfilePictureView(),
       const PrivacyPolicyView()
@@ -448,11 +447,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             }
                           }
                           if (currentPage == 4) {
-                            bool isValid = value.setPaymentMethod(
-                                value.cardHolderController.text.toString(),
-                                value.cardNumberController.text.toString(),
-                                value.expireDateController.text.toString(),
-                                value.cvvController.text.toString(),
+                            bool isValid = value.setBankDetail(
+                                value.bankAccountController.text.toString(),
                                 context);
                             if (isValid) {
                               FocusManager.instance.primaryFocus?.unfocus();
@@ -493,23 +489,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             } else {
                               value.setIsLoading(true);
                               ApiClient()
-                                  .userRegister(context,
-                                      firstName: value.name,
-                                      lastName: value.lastName,
-                                      email: value.email,
-                                      phoneNumber: value.phoneController.text,
-                                      password: value.password,
-                                      vatNumber: value.textCode,
-                                      birthDate: value.birthDate,
-                                      role: '1',
-                                      cardHolderName: value.cardHolder,
-                                      cardNumber: value.cardNumber,
-                                      cardExpiry: value.expireDate,
-                                      image: Provider.of<ProfilePicProvider>(
-                                              context,
-                                              listen: false)
-                                          .imagePath,
-                                      cardCvv: value.cvv)
+                                  .userRegister(
+                                context,
+                                firstName: value.name,
+                                lastName: value.lastName,
+                                email: value.email,
+                                phoneNumber: value.phoneController.text,
+                                password: value.password,
+                                vatNumber: value.textCode,
+                                birthDate: value.birthDate,
+                                role: '1',
+                                image: Provider.of<ProfilePicProvider>(context,
+                                        listen: false)
+                                    .imagePath,
+                                bankDetail: value.bankAccountNumber,
+                              )
                                   .then((v) {
                                 value.setIsLoading(false);
 

@@ -22,12 +22,11 @@ class MyProfileScreen extends StatefulWidget {
 }
 
 class _MyProfileScreenState extends State<MyProfileScreen> {
-  @override
-  void initState() {
-    super.initState();
-    Provider.of<MyProfileProvider>(context, listen: false)
-        .getUserProfile(context);
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   Provider.of<MyProfileProvider>(context, listen: false).getUserProfile(context);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +39,6 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
       ),
       body: Consumer<MyProfileProvider>(
         builder: (context, myProfileProvider, child) {
-          if (myProfileProvider.model == null) {
-            myProfileProvider.getUserProfile(context);
-          }
           return myProfileProvider.model == null
               ? const Center(
                   child: CircularProgressIndicator(),

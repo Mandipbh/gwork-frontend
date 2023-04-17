@@ -91,6 +91,7 @@ class ApiClient {
     String? cardExpiry,
     String? cardCvv,
     String? image,
+    String? bankDetail,
   }) async {
     print("firstName ==> $firstName");
     print("lastName ==> $lastName");
@@ -104,6 +105,7 @@ class ApiClient {
     print("cardExpiry ==> $cardExpiry");
     print("cardCvv ==> $cardCvv");
     print("image ==> $image");
+    print("bankDetail ==> $bankDetail");
 
     try {
       print("@@@");
@@ -149,10 +151,7 @@ class ApiClient {
               MapEntry("vat_number", vatNumber!),
               MapEntry("birth_date", birthDate!),
               const MapEntry("role", '${1}'),
-              MapEntry("card_holder_name", cardHolderName!),
-              MapEntry("card_number", cardNumber!),
-              MapEntry("card_expiry", cardExpiry!),
-              MapEntry("card_cvv", cardCvv!),
+              MapEntry("iban", bankDetail!),
             ]);
       formData.files.addAll([
         MapEntry("image", await MultipartFile.fromFile(image!)),

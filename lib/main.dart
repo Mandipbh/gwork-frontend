@@ -16,7 +16,7 @@ import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/profile_picture_view/image_provider/image_provider.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/upload_document_view/document_provider/document_provider.dart';
 import 'package:g_worker_app/splash_screen.dart';
-import 'package:month_year_picker/month_year_picker.dart';
+// import 'package:month_year_picker/month_year_picker.dart';
 
 import 'package:provider/provider.dart';
 
@@ -32,13 +32,19 @@ void main() async {
     statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
     statusBarBrightness: Brightness.light,
   ));
-  runApp(DevicePreview(
-          enabled: !kReleaseMode,
-          builder: (context) => EasyLocalization(
-              supportedLocales: const [Locale('en'), Locale('it')],
-              path: 'assets/translate',
-              child: const MyApp())) // Wrap your app
-      );
+  runApp(
+    EasyLocalization(
+        supportedLocales: const [Locale('en'), Locale('it')],
+        path: 'assets/translate',
+        child: const MyApp()),
+    // DevicePreview(
+    //   enabled: !kReleaseMode,
+    //   builder: (context) => EasyLocalization(
+    //       supportedLocales: const [Locale('en'), Locale('it')],
+    //       path: 'assets/translate',
+    //       child: const MyApp()),
+    // ), // Wrap your app
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -53,7 +59,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     var localization = context.localizationDelegates;
-    localization.add(MonthYearPickerLocalizations.delegate);
+    // localization.add(MonthYearPickerLocalizations.delegate);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(

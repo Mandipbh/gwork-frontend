@@ -74,7 +74,6 @@ class SignUpProvider extends ChangeNotifier {
           .checkMobileNumber(phoneController.text, context)
           .then((checkPhoneResponse) {
         if (checkPhoneResponse.success!) {
-          setIsLoading(false);
           ApiClient()
               .getOtp(phoneController.text, context)
               .then((checkGetOtpResponse) {
@@ -92,6 +91,7 @@ class SignUpProvider extends ChangeNotifier {
           });
           notifyListeners();
         }
+        setIsLoading(false);
       });
     }
   }
@@ -186,37 +186,6 @@ class SignUpProvider extends ChangeNotifier {
   var cardNumberController = TextEditingController();
   var expireDateController = TextEditingController();
   var cvvController = TextEditingController();
-  static bool hasDateExpired(int month, int year) {
-    return isNotExpired(year, month);
-  }
-
-  static bool isNotExpired(int year, int month) {
-    // It has not expired if both the year and date has not passed
-    return !hasYearPassed(year) && !hasMonthPassed(year, month);
-  }
-
-  static List<int> getExpiryDate(String value) {
-    var split = value.split(RegExp(r'(/)'));
-    return [int.parse(split[0]), int.parse(split[1])];
-  }
-
-  static bool hasMonthPassed(int year, int month) {
-    var now = DateTime.now();
-    // The month has passed if:
-    // 1. The year is in the past. In that case, we just assume that the month
-    // has passed
-    // 2. Card's month (plus another month) is more than current month.
-    return hasYearPassed(year) ||
-        convertYearTo4Digits(year) == now.year && (month < now.month + 1);
-  }
-
-  static bool hasYearPassed(int year) {
-    int fourDigitsYear = convertYearTo4Digits(year);
-    var now = DateTime.now();
-    // The year has passed if the year we are currently is more than card's
-    // year
-    return fourDigitsYear < now.year;
-  }
 
   static int convertYearTo4Digits(int year) {
     if (year < 100 && year >= 0) {
@@ -266,6 +235,11 @@ class SignUpProvider extends ChangeNotifier {
   setBankDetail(String bankAccountNumber, BuildContext context) {
     if (bankAccountNumber.isEmpty) {
       ErrorLoader(context, tr("error_message.fill_all_data"));
+      notifyListeners();
+      return false;
+    } else if (!RegExp(r'^[A-Za-z]{2}[0-9]{2}[A-Za-z][1-9]{22}$')
+        .hasMatch(bankAccountNumber)) {
+      ErrorLoader(context, tr("error_message.valid_bank_number"));
       notifyListeners();
       return false;
     } else {

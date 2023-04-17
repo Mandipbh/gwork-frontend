@@ -274,9 +274,9 @@
       "Update_payment_info": "Update payment info"
     },
     "VAT_number": {
-      "Edit_VAT_number": "Edit VAT number",
-      "enter_VAR_number": "Please enter your VAR number",
-      "VAT_Number": "VAT Number"
+      "Edit_VAT_number": "Edit Tax number",
+      "enter_VAR_number": "Please enter your Tax number",
+      "VAT_Number": "Tax Number"
     },
     "Birth_date":{
       "Edit_birth_date": "Edit birth date",
@@ -578,6 +578,7 @@
     "select_profile_pic" : "Please select profile picture",
     "select_document" : "Please Select AtLeast 1 Document",
     "valid_phone" : "Please Enter Valid Phone Number",
+    "valid_bank_number" : "Please Enter Valid Bank Number",
     "expire_month" : "Expire date Month must be less than 12.",
     "expire_year" : "Expire Date Year Must Be More Than Current Year.",
     "log_out_message": "You have been disconnected. \nPlease sign in again."

@@ -52,7 +52,7 @@ dependencies:
   shared_preferences: ^2.0.18
   flutter_flushbar: ^0.0.2
   draggable_home: ^1.0.4
-  month_year_picker: ^0.2.0+3
+#  month_year_picker: ^0.2.0+3
   socket_io_client: ^2.0.1
 
 dev_dependencies:

@@ -56,61 +56,33 @@ class PaymentInfoView extends StatelessWidget {
             children: [
               Expanded(
                 child: Consumer<SignUpProvider>(
-                  builder: (context, value, child) => GestureDetector(
-                    // onTap: () async {
-                    //   final selected = await showMonthYearPicker(
-                    //     context: context,
-                    //     builder: (context, picker) {
-                    //       return Theme(
-                    //         data: ThemeData.dark().copyWith(
-                    //           splashColor: Colors.white,
-                    //           colorScheme: const ColorScheme.dark(
-                    //             primary: Color(0xfff8f8f8),
-                    //           ),
-                    //           dialogBackgroundColor: Colors.grey.shade900,
-                    //         ),
-                    //         child: picker!,
-                    //       );
-                    //     },
-                    //     initialDate: DateTime.now(),
-                    //     firstDate: DateTime(2019),
-                    //     lastDate: DateTime(4000),
-                    //   );
-                    //
-                    //   log("${value.expireDateController.text}");
-                    //   value.expireDateController.text =
-                    //       '${selected!.month}/${selected.year}';
-                    //   var newDate =
-                    //       DateFormat("mm/yy").parse(selected.toString());
-                    // },
-                    child: Container(
-                      height: 60,
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(16)),
-                      child: TextFormField(
-                          inputFormatters: [ExpiryTextInputFormatter()],
-                          cursorColor: Colors.black,
-                          textInputAction: TextInputAction.next,
-                          textAlign: TextAlign.left,
-                          maxLength: 5,
-                          keyboardType: TextInputType.number,
-                          controller: value.expireDateController,
-                          style: const TextStyle(fontSize: 18),
-                          decoration: InputDecoration(
-                              counterText: "",
-                              border: InputBorder.none,
-                              hintText: 'mm/yy',
-                              hintStyle: const TextStyle(
-                                  fontSize: 18, color: Colors.black12),
-                              icon: Image.asset(
-                                  'assets/icons/calendar_expiry_date.png',
-                                  height: 24,
-                                  width: 24),
-                              labelText: tr('client.log_in.sign_up.Expire_date')
-                                  .toUpperCase())),
-                    ),
+                  builder: (context, value, child) => Container(
+                    height: 60,
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16)),
+                    child: TextFormField(
+                        inputFormatters: [ExpiryTextInputFormatter()],
+                        cursorColor: Colors.black,
+                        textInputAction: TextInputAction.next,
+                        textAlign: TextAlign.left,
+                        maxLength: 5,
+                        keyboardType: TextInputType.number,
+                        controller: value.expireDateController,
+                        style: const TextStyle(fontSize: 18),
+                        decoration: InputDecoration(
+                            counterText: "",
+                            border: InputBorder.none,
+                            hintText: 'mm/yy',
+                            hintStyle: const TextStyle(
+                                fontSize: 18, color: Colors.black12),
+                            icon: Image.asset(
+                                'assets/icons/calendar_expiry_date.png',
+                                height: 24,
+                                width: 24),
+                            labelText: tr('client.log_in.sign_up.Expire_date')
+                                .toUpperCase())),
                   ),
                 ),
               ),
@@ -272,7 +244,7 @@ class ExpiryTextInputFormatter extends TextInputFormatter {
       newString = newString.substring(0, 1);
     }
     if (newString.length > 4 &&
-        int.parse(newString.split('/').last) <= int.parse(year)) {
+        int.parse(newString.split('/').last) <= (int.parse(year)) - 1) {
       newString = newString.substring(0, 4);
     }
     return newString;

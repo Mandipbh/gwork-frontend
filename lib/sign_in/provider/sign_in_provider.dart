@@ -30,8 +30,10 @@ class SignInProvider extends ChangeNotifier {
   }
 
   setIsLogging(bool value) {
-    _isLogging = value;
-    notifyListeners();
+    if (!_isLogging) {
+      _isLogging = value;
+      notifyListeners();
+    }
   }
 
   bool isValidData() {
@@ -44,15 +46,17 @@ class SignInProvider extends ChangeNotifier {
     SignInRequest request = SignInRequest(
         phoneNumber: '+39${phoneController.text.trim()}',
         password: passwordController.text.trim());
-    setIsLogging(true);
+    if (context.mounted) {
+      setIsLogging(true);
+    }
     ApiClient().login(request, context).then((loginResponse) {
       if (loginResponse.success) {
-        setIsLogging(false);
         ProgressLoader(context, "LogIn Successfully");
         preferenceData.setToken(loginResponse.token!);
         preferenceData.setUserRole(loginResponse.role!);
       }
       _loginResponse.sink.add(loginResponse);
+      setIsLogging(false);
     });
   }
 
@@ -67,6 +71,7 @@ class SignInProvider extends ChangeNotifier {
         preferenceData.setUserRole(UserType.admin);
       }
       _loginResponse.sink.add(loginResponse);
+      setIsLogging(false);
     });
   }
 

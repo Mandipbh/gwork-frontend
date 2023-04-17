@@ -30,8 +30,7 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
   var isPinned = false;
 
   getProfessionalJobs() {
-    var provider =
-        Provider.of<GetProfessionalJobListProvider>(context, listen: false);
+    var provider = context.read<GetProfessionalJobListProvider>();
     provider.getProfessionalJobList(
         jobState: provider.getIsSelf() ? 'All' : 'Published',
         state: !provider.getIsSelf() ? "All" : provider.getSelectedState(),
@@ -578,6 +577,31 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
+                    FilterChip(
+                      label: const Text(
+                        "Reported",
+                      ),
+                      labelStyle: TextStyle(
+                        color:
+                            provider.getSelectedState() != JobsFilters.reported
+                                ? Colors.white
+                                : Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      selected:
+                          provider.getSelectedState() == JobsFilters.reported,
+                      backgroundColor: black343,
+                      selectedColor: Colors.white,
+                      showCheckmark: false,
+                      onSelected: (bool value) {
+                        provider.setSelectedState(JobsFilters.reported);
+                        getProfessionalJobs();
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
                   ],
                 ),
           const SizedBox(height: 8),
@@ -684,131 +708,142 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
   }
 
   Widget myJobsView(GetProfessionalJobListProvider provider) {
-    return provider.getIsListLoading()
-        ? noMyJobsView()
-        : provider.model!.jobs!.isEmpty
+    return RefreshIndicator(
+      onRefresh: () async {
+        getProfessionalJobs();
+      },
+      child: SingleChildScrollView(
+        child: provider.getIsListLoading()
             ? noMyJobsView()
-            : ListView.builder(
-                padding: const EdgeInsets.only(
-                    top: 16, left: 16, right: 16, bottom: 4),
-                itemCount: provider.model!.jobs!.length,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    JobDetailsScreenProfessional(
-                                      jobId: provider.model!.jobs![index].id!,
-                                    )),
-                          );
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 12),
-                          child: Container(
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                color: Colors.white),
+            : provider.model!.jobs!.isEmpty
+                ? noMyJobsView()
+                : ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: const EdgeInsets.only(
+                        top: 16, left: 16, right: 16, bottom: 4),
+                    itemCount: provider.model!.jobs!.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        JobDetailsScreenProfessional(
+                                          jobId:
+                                              provider.model!.jobs![index].id!,
+                                        )),
+                              );
+                            },
                             child: Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 12, top: 12, bottom: 12, right: 16),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
+                              padding: const EdgeInsets.only(bottom: 12),
+                              child: Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    color: Colors.white),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 12, top: 12, bottom: 12, right: 16),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
-                                            Text(
-                                              '${provider.model!.jobs![index].category}'
-                                                  .toUpperCase(),
-                                              style: const TextStyle(
-                                                color: black343,
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w700,
-                                              ),
-                                            ),
-                                            const SizedBox(width: 8),
-                                            const Icon(
-                                                Icons.location_on_outlined,
-                                                color: Colors.black,
-                                                size: 22),
-                                            const SizedBox(width: 3),
-                                            Flexible(
-                                              child: Text(
-                                                '${provider.model!.jobs![index].street},${provider.model!.jobs![index].province},',
-                                                overflow: TextOverflow.ellipsis,
-                                                style: const TextStyle(
-                                                  color: splashColor1,
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w400,
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  '${provider.model!.jobs![index].category}'
+                                                      .toUpperCase(),
+                                                  style: const TextStyle(
+                                                    color: black343,
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
                                                 ),
-                                              ),
+                                                const SizedBox(width: 8),
+                                                const Icon(
+                                                    Icons.location_on_outlined,
+                                                    color: Colors.black,
+                                                    size: 22),
+                                                const SizedBox(width: 3),
+                                                Flexible(
+                                                  child: Text(
+                                                    '${provider.model!.jobs![index].street},${provider.model!.jobs![index].province},',
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style: const TextStyle(
+                                                      color: splashColor1,
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                          ],
-                                        ),
-                                        const SizedBox(height: 4),
-                                        Text(
-                                          '${provider.model!.jobs![index].description}, max '
-                                          '€ ${NumberFormat('#.00').format(provider.model!.jobs![index].budget)}\$',
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                          style: const TextStyle(
-                                            color: black343,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ),
-                                        const SizedBox(height: 4),
-                                        Row(
-                                          children: [
-                                            statusChip(
-                                                provider.model!.jobs![index]
-                                                    .applicationState!,
-                                                context),
-                                            const SizedBox(width: 8),
+                                            const SizedBox(height: 4),
                                             Text(
-                                              '${provider.model!.jobs![index].creationDate}',
+                                              '${provider.model!.jobs![index].description}, max '
+                                              '€ ${NumberFormat('#.00').format(provider.model!.jobs![index].budget)}\$',
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
                                               style: const TextStyle(
                                                 color: black343,
-                                                fontSize: 12,
+                                                fontSize: 14,
                                                 fontWeight: FontWeight.w700,
                                               ),
                                             ),
+                                            const SizedBox(height: 4),
+                                            Row(
+                                              children: [
+                                                statusChip(
+                                                    provider.model!.jobs![index]
+                                                        .applicationState!,
+                                                    context),
+                                                const SizedBox(width: 8),
+                                                Text(
+                                                  '${provider.model!.jobs![index].creationDate}',
+                                                  style: const TextStyle(
+                                                    color: black343,
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ],
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                  Row(
-                                    children: const [
-                                      Icon(Icons.circle,
-                                          size: 12, color: yellowF4D),
-                                      SizedBox(width: 8),
-                                      Icon(Icons.arrow_forward_ios,
-                                          color: Colors.black, size: 20),
+                                      ),
+                                      Row(
+                                        children: const [
+                                          Icon(Icons.circle,
+                                              size: 12, color: yellowF4D),
+                                          SizedBox(width: 8),
+                                          Icon(Icons.arrow_forward_ios,
+                                              color: Colors.black, size: 20),
+                                        ],
+                                      ),
                                     ],
                                   ),
-                                ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ),
-                      // const SizedBox(height: 90)
-                    ],
-                  );
-                },
-              );
+                          // const SizedBox(height: 90)
+                        ],
+                      );
+                    },
+                  ),
+      ),
+    );
   }
 
   Widget noMyJobsView() {
@@ -849,46 +884,95 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
   }
 
   Widget searchJobsView(GetProfessionalJobListProvider provider) {
-    return provider.model == null
-        ? const Center(child: CircularProgressIndicator())
-        : provider.model!.jobs!.isEmpty
-            ? noSearchJobsView()
-            : ListView.builder(
-                padding: const EdgeInsets.only(
-                    top: 16, left: 16, right: 16, bottom: 4),
-                itemCount: provider.model!.jobs!.length,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => JobDetailsScreenProfessional(
-                                  jobId: provider.model!.jobs![index].id!,
-                                )),
-                      );
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      margin: EdgeInsets.only(bottom: 18.0),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: Colors.white),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 12, top: 12, bottom: 12, right: 16),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
+    return RefreshIndicator(
+      onRefresh: () async {
+        getProfessionalJobs();
+      },
+      child: SingleChildScrollView(
+        child: provider.model == null
+            ? const Center(child: CircularProgressIndicator())
+            : provider.model!.jobs!.isEmpty
+                ? noSearchJobsView()
+                : ListView.builder(
+                    padding: const EdgeInsets.only(
+                        top: 16, left: 16, right: 16, bottom: 4),
+                    itemCount: provider.model!.jobs!.length,
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    JobDetailsScreenProfessional(
+                                      jobId: provider.model!.jobs![index].id!,
+                                    )),
+                          );
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          margin: const EdgeInsets.only(bottom: 18.0),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              color: Colors.white),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 12, top: 12, bottom: 12, right: 16),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                                            provider
+                                                .model!.jobs![index].category
+                                                .toString(),
+                                            style: const TextStyle(
+                                              color: black343,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                          const SizedBox(width: 8),
+                                          const Icon(Icons.location_on_outlined,
+                                              color: Colors.black, size: 22),
+                                          const SizedBox(width: 3),
+                                          Flexible(
+                                            child: Text(
+                                              '${provider.model!.jobs![index].street.toString()},${provider.model!.jobs![index].province.toString()}',
+                                              overflow: TextOverflow.ellipsis,
+                                              style: const TextStyle(
+                                                color: splashColor1,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                       Text(
-                                        provider.model!.jobs![index].category
+                                        provider.model!.jobs![index].description
+                                            .toString(),
+                                        // 'max ''€ ${NumberFormat('#.00').format(provider.model!.jobs![index].budget)}\$',
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        style: const TextStyle(
+                                          color: black343,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        provider
+                                            .model!.jobs![index].creationDate
                                             .toString(),
                                         style: const TextStyle(
                                           color: black343,
@@ -896,54 +980,20 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
                                           fontWeight: FontWeight.w700,
                                         ),
                                       ),
-                                      const SizedBox(width: 8),
-                                      const Icon(Icons.location_on_outlined,
-                                          color: Colors.black, size: 22),
-                                      const SizedBox(width: 3),
-                                      Text(
-                                        '${provider.model!.jobs![index].street.toString()},${provider.model!.jobs![index].province.toString()}',
-                                        style: const TextStyle(
-                                          color: splashColor1,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
                                     ],
                                   ),
-                                  Text(
-                                    provider.model!.jobs![index].description
-                                        .toString(),
-                                    // 'max ''€ ${NumberFormat('#.00').format(provider.model!.jobs![index].budget)}\$',
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                    style: const TextStyle(
-                                      color: black343,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    provider.model!.jobs![index].creationDate
-                                        .toString(),
-                                    style: const TextStyle(
-                                      color: black343,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                                const Icon(Icons.arrow_forward_ios,
+                                    color: Colors.black, size: 20),
+                              ],
                             ),
-                            const Icon(Icons.arrow_forward_ios,
-                                color: Colors.black, size: 20),
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
-                  );
-                },
-              );
+                      );
+                    },
+                  ),
+      ),
+    );
   }
 
   Widget noSearchJobsView() {

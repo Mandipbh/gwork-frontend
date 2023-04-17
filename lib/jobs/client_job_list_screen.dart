@@ -592,123 +592,129 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
   }
 
   Widget myJobsView(GetClientJobListProvider clientJobProvider) {
-    return clientJobProvider.getIsListLoading()
-        ? const Center(child: CircularProgressIndicator())
-        : clientJobProvider.model!.jobs.isEmpty
-            ? noMyJobsView()
-            : ListView.builder(
-                padding: const EdgeInsets.only(
-                    top: 16, left: 16, right: 16, bottom: 100),
-                itemCount: clientJobProvider.model!.jobs.length,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => JobDetailsClientScreen(
-                                  jobId:
-                                      clientJobProvider.model!.jobs[index].id,
-                                )),
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 12),
-                      child: Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            color: Colors.white),
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 12, top: 12, bottom: 12, right: 16),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text(
-                                          clientJobProvider
-                                              .model!.jobs[index].category
-                                              .toUpperCase(),
-                                          style: const TextStyle(
-                                            color: black343,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ),
-                                        const SizedBox(width: 8),
-                                        const Icon(Icons.location_on_outlined,
-                                            color: Colors.black, size: 22),
-                                        const SizedBox(width: 3),
-                                        Flexible(
-                                          child: Text(
-                                            '${clientJobProvider.model!.jobs[index].street}, ${clientJobProvider.model!.jobs[index].province}',
-                                            overflow: TextOverflow.ellipsis,
+    return RefreshIndicator(
+      onRefresh: () async {
+        getClientJobs();
+      },
+      child: clientJobProvider.getIsListLoading()
+          ? const Center(child: CircularProgressIndicator())
+          : clientJobProvider.model!.jobs.isEmpty
+              ? noMyJobsView()
+              : ListView.builder(
+                  padding: const EdgeInsets.only(
+                      top: 16, left: 16, right: 16, bottom: 100),
+                  itemCount: clientJobProvider.model!.jobs.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => JobDetailsClientScreen(
+                                    jobId:
+                                        clientJobProvider.model!.jobs[index].id,
+                                  )),
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 12),
+                        child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              color: Colors.white),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 12, top: 12, bottom: 12, right: 16),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                                            clientJobProvider
+                                                .model!.jobs[index].category
+                                                .toUpperCase(),
                                             style: const TextStyle(
-                                              color: splashColor1,
+                                              color: black343,
                                               fontSize: 12,
-                                              fontWeight: FontWeight.w400,
+                                              fontWeight: FontWeight.w700,
                                             ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                    Text(
-                                      clientJobProvider
-                                          .model!.jobs[index].title,
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 1,
-                                      style: const TextStyle(
-                                        color: black343,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Row(
-                                      children: [
-                                        statusChip(
-                                            clientJobProvider
-                                                .model!.jobs[index].state,
-                                            context),
-                                        const SizedBox(width: 4),
-                                        Text(
-                                          clientJobProvider
-                                              .model!.jobs[index].jobDate,
-                                          style: const TextStyle(
-                                            color: black343,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w700,
+                                          const SizedBox(width: 8),
+                                          const Icon(Icons.location_on_outlined,
+                                              color: Colors.black, size: 22),
+                                          const SizedBox(width: 3),
+                                          Flexible(
+                                            child: Text(
+                                              '${clientJobProvider.model!.jobs[index].street}, ${clientJobProvider.model!.jobs[index].province}',
+                                              overflow: TextOverflow.ellipsis,
+                                              style: const TextStyle(
+                                                color: splashColor1,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
                                           ),
+                                        ],
+                                      ),
+                                      Text(
+                                        clientJobProvider
+                                            .model!.jobs[index].title,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        style: const TextStyle(
+                                          color: black343,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w700,
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Row(
+                                        children: [
+                                          statusChip(
+                                              clientJobProvider
+                                                  .model!.jobs[index].state,
+                                              context),
+                                          const SizedBox(width: 4),
+                                          Text(
+                                            clientJobProvider
+                                                .model!.jobs[index].jobDate,
+                                            style: const TextStyle(
+                                              color: black343,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Row(
+                                  children: const [
+                                    Icon(Icons.circle,
+                                        size: 20, color: yellowF4D),
+                                    SizedBox(width: 8),
+                                    Icon(Icons.arrow_forward_ios,
+                                        color: Colors.black, size: 20),
                                   ],
                                 ),
-                              ),
-                              Row(
-                                children: const [
-                                  Icon(Icons.circle,
-                                      size: 20, color: yellowF4D),
-                                  SizedBox(width: 8),
-                                  Icon(Icons.arrow_forward_ios,
-                                      color: Colors.black, size: 20),
-                                ],
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  );
-                },
-              );
+                    );
+                  },
+                ),
+    );
   }
 
   Widget noMyJobsView() {

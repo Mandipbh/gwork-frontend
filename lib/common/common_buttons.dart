@@ -185,7 +185,9 @@ Widget singleSelectionButtons(
                     : buttonName,
                 style: TextStyle(
                     fontSize: MediaQuery.of(context).size.width * 0.035,
-                    color: selected == index + 1 ? white : primaryColor),
+                    color: selected == index + 1 ? white : primaryColor,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Switzer Variable'),
               ))),
         ),
       ));
