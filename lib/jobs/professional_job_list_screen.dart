@@ -87,8 +87,8 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
                       Visibility(
                         visible: isPinned,
                         child: Chip(
-                          label: const Text(
-                            "Filters(2)",
+                          label: Text(
+                            tr('Professional.logIn.Jobs.filters'),
                           ),
                           labelStyle: const TextStyle(
                             color: Colors.black,
@@ -760,7 +760,7 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
                                             Row(
                                               children: [
                                                 Text(
-                                                  '${provider.model!.jobs![index].category}'
+                                                  tr('client.job_category.${provider.model!.jobs![index].category!.toLowerCase()}')
                                                       .toUpperCase(),
                                                   style: const TextStyle(
                                                     color: black343,
@@ -931,9 +931,8 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
                                       Row(
                                         children: [
                                           Text(
-                                            provider
-                                                .model!.jobs![index].category
-                                                .toString(),
+                                            tr('client.job_category.${provider.model!.jobs![index].category!.toLowerCase()}')
+                                                .toUpperCase(),
                                             style: const TextStyle(
                                               color: black343,
                                               fontSize: 12,

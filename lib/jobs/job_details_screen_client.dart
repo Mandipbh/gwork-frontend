@@ -321,10 +321,10 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                                     jobProvider.detailsModel!.jobDetails!.id!,
                                 userId: jobProvider
                                     .detailsModel!.jobDetails!.userId!,
-                                userName: jobProvider
-                                    .detailsModel!.jobDetails!.clientName!,
-                                userImage: jobProvider
-                                    .detailsModel!.jobDetails!.clientImage!,
+                                userName: jobProvider.detailsModel!.jobDetails!
+                                    .professionalName!,
+                                userImage: jobProvider.detailsModel!.jobDetails!
+                                    .professionalImage!,
                                 jobCategory: jobProvider
                                     .detailsModel!.jobDetails!.category!,
                                 state: jobProvider
@@ -336,6 +336,7 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                               ),
                             ),
                             (Route<dynamic> route) => true);
+                        getJobDetails();
                       },
                       child: Stack(
                         alignment: Alignment.topRight,
@@ -845,7 +846,7 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
       centerTitle: true,
       elevation: 0,
       title: Text(
-        jobDetails.category!,
+        tr('client.job_category.${jobDetails.category!.toLowerCase()}'),
       ),
       actions: [
         jobDetails.state == JobStatus.published
@@ -878,7 +879,10 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                                 : state == JobStatus.reported
                                     ? reportedChipColor.withOpacity(0.1)
                                     : Colors.white,
-        label: Text(state,
+        label: Text(
+            tr(
+              tr('client.job_status.${state.toLowerCase()}'),
+            ),
             style: Theme.of(context).textTheme.caption!.apply(
                 color: state == JobStatus.published
                     ? green26A

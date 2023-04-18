@@ -77,8 +77,8 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                       Visibility(
                         visible: isPinned,
                         child: Chip(
-                          label: const Text(
-                            "Filters(2)",
+                          label: Text(
+                            tr('client.filter'),
                           ),
                           labelStyle: const TextStyle(
                             color: Colors.black,
@@ -454,31 +454,6 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
               ),
               FilterChip(
                 label: Text(
-                  tr('client.job_status.expired'),
-                ),
-                labelStyle: TextStyle(
-                  color: clientJobProvider.getSelectedFilter() !=
-                          JobsFilters.expired
-                      ? Colors.white
-                      : Colors.black,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                ),
-                selected: clientJobProvider.getSelectedFilter() ==
-                    JobsFilters.expired,
-                backgroundColor: black343,
-                selectedColor: Colors.white,
-                showCheckmark: false,
-                onSelected: (bool value) {
-                  clientJobProvider.setSelectedFilter(JobsFilters.expired);
-                  getClientJobs();
-                },
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              FilterChip(
-                label: Text(
                   tr('client.job_status.reported'),
                 ),
                 labelStyle: TextStyle(
@@ -688,8 +663,7 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                                       Row(
                                         children: [
                                           Text(
-                                            clientJobProvider
-                                                .model!.jobs[index].category
+                                            tr('client.job_category.${clientJobProvider.model!.jobs[index].category.toLowerCase()}')
                                                 .toUpperCase(),
                                             style: const TextStyle(
                                               color: black343,

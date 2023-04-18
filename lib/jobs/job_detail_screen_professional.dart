@@ -403,25 +403,25 @@ class _JobDetailsScreenState extends State<JobDetailsScreenProfessional> {
                       Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ChatScreen(
-                                    jobId:
-                                        provider.detailsModel!.jobDetails!.id!,
-                                    userId: provider
-                                        .detailsModel!.jobDetails!.userId!,
-                                    userName: provider
-                                        .detailsModel!.jobDetails!.clientName!,
-                                    userImage: provider
-                                        .detailsModel!.jobDetails!.clientImage!,
-                                    jobCategory: provider
-                                        .detailsModel!.jobDetails!.category!,
-                                    state: provider
-                                        .detailsModel!.jobDetails!.state!,
-                                    budget: provider
-                                        .detailsModel!.jobDetails!.budget!,
-                                    description: provider
-                                        .detailsModel!.jobDetails!.description!,
-                                  )),
+                            builder: (context) => ChatScreen(
+                              jobId: provider.detailsModel!.jobDetails!.id!,
+                              userId:
+                                  provider.detailsModel!.jobDetails!.userId!,
+                              userName: provider
+                                  .detailsModel!.jobDetails!.clientName!,
+                              userImage: provider
+                                  .detailsModel!.jobDetails!.clientImage!,
+                              jobCategory:
+                                  provider.detailsModel!.jobDetails!.category!,
+                              state: provider.detailsModel!.jobDetails!.state!,
+                              budget:
+                                  provider.detailsModel!.jobDetails!.budget!,
+                              description: provider
+                                  .detailsModel!.jobDetails!.description!,
+                            ),
+                          ),
                           (Route<dynamic> route) => true);
+                      getJobDetails();
                     },
                     child: Stack(
                       alignment: Alignment.topRight,
@@ -810,8 +810,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreenProfessional> {
         child: const Icon(Icons.arrow_back, color: splashColor1, size: 20),
       ),
       title: Text(
-        // tr('admin.type_picker.${provider.detailsModel!.jobDetails!.category!}'),
-        provider.detailsModel!.jobDetails!.category!,
+        tr('client.job_category.${provider.detailsModel!.jobDetails!.category!.toLowerCase()}'),
         style: const TextStyle(
           color: splashColor1,
           fontSize: 18,

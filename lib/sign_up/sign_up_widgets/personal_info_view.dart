@@ -57,7 +57,7 @@ class PersonalInfoView extends StatelessWidget {
                 maxLength: 16,
                 controller: Provider.of<SignUpProvider>(context, listen: false)
                     .textCodeController,
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                     icon: Image.asset('assets/icons/hash.png',
                         height: 24, width: 24),

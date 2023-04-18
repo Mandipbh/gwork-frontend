@@ -134,7 +134,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             ),
                           ),
                           Text(
-                            widget.jobCategory,
+                            tr('client.job_category.${widget.jobCategory.toLowerCase()}'),
                             style: const TextStyle(
                               color: black343,
                               fontSize: 12,
@@ -717,6 +717,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         .sendMessage(messageController.text);
                     scrollToBottom(scrollController);
                     messageController.text = '';
+                    FocusManager.instance.primaryFocus?.unfocus();
                   }
                 },
                 child: Image.asset('assets/images/send.png',

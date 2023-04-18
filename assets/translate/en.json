@@ -365,7 +365,6 @@
       "Gallery": "Gallery",
       "Accepted_budget": "Accepted budget",
       "Publish": "Publish"
-
     },
     "delete_job_dialogue": {
       "are_you_sure_delete": "Are you sure you want to delete the job? ",
@@ -382,7 +381,8 @@
       "accepted": "Accepted",
       "completed": "Completed",
       "expired": "Expired",
-      "reported": "Reported"
+      "reported": "Reported",
+      "applied": "Applied"
     },
     "job_category": {
       "all": "All Types",
@@ -391,7 +391,8 @@
       "handyman": "HandyMan",
       "tutoring": "Tutoring"
     },
-    "jobs": "Jobs"
+    "jobs": "Jobs",
+    "filter" : "Filters(2)"
   },
 
   "Professional": {

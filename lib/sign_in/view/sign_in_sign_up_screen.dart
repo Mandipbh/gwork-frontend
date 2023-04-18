@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:g_worker_app/Constants.dart';
 
 import 'package:g_worker_app/colors.dart';
+import 'package:g_worker_app/common/common_loader.dart';
 import 'package:g_worker_app/main.dart';
 import 'package:g_worker_app/pending_reject_application_screen/pending_application_screen.dart';
 import 'package:g_worker_app/pending_reject_application_screen/rejected_application_screen.dart';
@@ -143,6 +144,9 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                                 FocusManager.instance.primaryFocus?.unfocus();
                                 provider.login(context);
                               }
+                            } else {
+                              ErrorLoader(
+                                  context, tr("error_message.fill_all_data"));
                             }
                           },
                           context: context,

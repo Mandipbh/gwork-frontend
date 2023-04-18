@@ -129,6 +129,9 @@ class GetProfessionalJobListProvider extends ChangeNotifier {
   }
 
   getDetailsProfessional(BuildContext context, String? jobId) {
+    if (!_isOverviewLoading) {
+      setIsOverviewLoading(true);
+    }
     ApiClient().getProfessionalJobDetailsService(context, jobId!).then((value) {
       if (value.success!) {
         _detailsModel = value;
@@ -138,6 +141,9 @@ class GetProfessionalJobListProvider extends ChangeNotifier {
   }
 
   getGallery(BuildContext context, String? jobId) {
+    if (!_isGalleryLoading) {
+      setIsGalleryLoading(true);
+    }
     ApiClient()
         .getGalleryDetailsService(context, jobId!)
         .then((getGallerySuccessResponse) {

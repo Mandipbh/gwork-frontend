@@ -27,6 +27,7 @@ class ChatProvider extends ChangeNotifier {
       setIsLoading(true);
     }
     print("opponent :: $userId");
+    print("jobId :: $jobId");
     socket = io(
         'https://gwork.macca.cloud/connection',
         OptionBuilder().setTransports(['websocket']) // for Flutter or Dart VM

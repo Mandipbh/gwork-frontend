@@ -38,11 +38,10 @@ Widget vatNumberTextField(
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: Colors.white)),
     child: TextField(
-      keyboardType: TextInputType.number,
+      keyboardType: TextInputType.text,
       style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.04),
       controller: controller,
       maxLength: 16,
-      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
       decoration: InputDecoration(
         prefixIcon: Image.asset('assets/icons/hash.png', scale: 2),
         labelText: tr('client.log_in.sign_up.Tax_Code').toUpperCase(),

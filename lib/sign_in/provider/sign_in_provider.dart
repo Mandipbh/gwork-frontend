@@ -47,7 +47,7 @@ class SignInProvider extends ChangeNotifier {
     setIsLogging(true);
     ApiClient().login(request, context).then((loginResponse) {
       if (loginResponse.success) {
-        ProgressLoader(context, "LogIn Successfully");
+        // ProgressLoader(context, "LogIn Successfully");
         preferenceData.setToken(loginResponse.token!);
         preferenceData.setUserRole(loginResponse.role!);
       }

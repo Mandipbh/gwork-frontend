@@ -196,7 +196,7 @@ Widget statusChip(String state, BuildContext context) {
                                       : state == JobStatus.reported
                                           ? reportedChipColor.withOpacity(0.1)
                                           : Colors.white,
-      label: Text(state,
+      label: Text(tr(tr('client.job_status.${state.toLowerCase()}')),
           style: Theme.of(context).textTheme.caption!.apply(
               color: state == JobStatus.published
                   ? green26A

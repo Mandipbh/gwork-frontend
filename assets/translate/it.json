@@ -7,7 +7,7 @@
       "enter_your_phone_no_sign_in": "Inserisci il numero di telefono e la password per accedere.",
       "enter_your_phone_no_sign_up": "Inserisci il tuo numero di telefono per registrarti.",
       "phone_number": "Numero di telefono",
-      "password": "Password",
+      "password": "Parola d'ordine",
       "Sign_In": "Accedi",
       "Sign_Up": "Iscrizione",
       "Recover_password": "Recupera password",
@@ -86,7 +86,7 @@
     "Current_Password": "Password attuale",
     "Confirm": "IMPOSTA PASSWORD",
     "dashboard": {
-      "Dashboard": "Dashboard",
+      "Dashboard": "Pannello di controllo",
       "All_time": "Tutto",
       "Today": "Oggi",
       "This_week": "Questa settimana",
@@ -106,7 +106,7 @@
       "client": "Cliente",
       "Professional": "Professionista",
       "Accepted": "Accettato",
-      "Home": "Home",
+      "Home": "Casa",
       "works": "Lavori",
       "created": "Creato",
       "Doing": "In corso",
@@ -116,11 +116,12 @@
       "no_jobs": "Non ci sono lavori per il momento"
     },
     "job_detail": {
-      "Babysitting": "Babysitting",
-      "Building_restructuring": "Ristrutturazione edilizia",
+      "Babysitting": "Babysitter",
+      "Completed": "Completato",
+      "Building_restructuring": "Ristrutturazione edilizia, o ancora più titolo su cosa fare",
       "Description": "Descrizione",
       "Gallery": "Galleria",
-      "Applications": "Candidature",
+      "Applicants": "Candidati",
       "Price": "Prezzo",
       "Apply": "Fare domanda a",
       "Ristrutturazione": "Ristrutturazione edilizia",
@@ -128,7 +129,9 @@
       "reject": "Riutato",
       "Accept": "Accettato",
       "no_applicant": "Non ci sono candidati per il momento",
-      "check_later": "Controlla un po' più tardi o imposta altri filtri"
+      "check_later": "Controlla un po' più tardi o imposta altri filtri",
+      "created_at": "Creato a",
+      "accepted_at": "Accettato a"
     },
     "accept_job_dialogue": {
       "are_you_sure_accept": "Sei sicuro di voler accettare il lavoro?",
@@ -151,7 +154,9 @@
     "users": {
       "Registered": "Registrato",
       "no_application": "Non ci sono applicazioni per il momento",
-      "check_letter": "Controlla un po' più tardi per favore"
+      "check_letter": "Controlla un po' più tardi per favore",
+      "no_image" : "Non ci sono immagini per ora",
+      "photo": "Foto"
     },
     "delete_user": {
       "First_name": "NOME",
@@ -196,8 +201,6 @@
   "client": {
     "log_in": {
       "Welcome!": "Benvenuto!",
-
-
       "sign_in": {
         "phone_number": "Numero di telefono",
         "password": "Password",
@@ -226,7 +229,7 @@
         "Name": "NOME",
         "Last_name": "COGNOME",
         "Email_id": "EMAIL",
-        "Text_Code": "Codice testo",
+        "Text_Code": "Codice Fiscale",
         "Birth_date": "DATA DI NASCITA",
         "03": "03",
         "Paymen_method":"METODO DI \nPAGAMENTO",
@@ -235,6 +238,10 @@
         "Card_number": "NUMERO CARTA",
         "Expire_date": "SCADENZA",
         "CVV": "CVV",
+        "bank_detail" : "coordinate bancarie",
+        "to_receive" : "Per ricevere i pagamenti, aggiungi dati bancari validi al tuo account.",
+        "bank": "Banca",
+        "alpha_numeric" : "27 caratteri alfanumerici. I primi due caratteri sono alfabetici, seguiti da due numeri e una lettera.",
         "04": "04",
         "Profile_picture": "Foto \nProfilo",
         "Upload_profile_picture": "Carica una foto",
@@ -255,6 +262,12 @@
       "sta_here": "RIMANI QUI",
       "Go_back": "TORNA INDIETRO"
     },
+    "stop_creating_job":{
+      "want_to_stop_creatingJob": "Sei sicuro di voler interrompere la creazione del lavoro?",
+      "inserted_data_will_be_deleted": "Tutti i dati inseriti verranno cancellati",
+      "sta_here": "rimani qui",
+      "Go_back": "Torna indietro"
+    },
     "Payment_method": {
       "Edit_payment_method": "Modifica Pagamento",
       "Edit_your_payment_method": "Modifica il tuo metodo di pagamento",
@@ -262,8 +275,8 @@
     },
     "VAT_number": {
       "Edit_VAT_number": "Modifica codice fiscale",
-      "enter_VAR_number": "Inserisci il codice fiscale",
-      "VAT_Number": "Codice fiscale"
+      "enter_VAR_number": "Inserisci il tuo codice fiscale",
+      "VAT_Number": "Codice Fiscale"
     },
     "Birth_date":{
       "Edit_birth_date": "Modifica data di nascita",
@@ -271,17 +284,26 @@
       "Birth_date": "Data di nascita"
     },
     "Accept_job": {
+      "are_you_sure_accept": "Sei sicuro di voler accettare il lavoro?",
       "status_cant_be_changed":"Una volta completato, lo stato non può essere modificato.",
-      "Cancel": "CANCELLA"
+      "Cancel": "CANCELLA",
+      "accept_job": "Accetta lavoro"
+    },
+    "accept_worker_chat": {
+      "are_you_sure_accept": "Sei sicuro di voler accettare il candidato?",
+      "status_cant_be_changed":"All the other candidates will be rejected and you’ll be able to proceed only with this one",
+      "cancel": "Annulla",
+      "accept_worker": "Accetta lavoratore"
     },
     "reject_job":{
+      "are_you_sure_reject": "Sei sicuro di voler rifiutare il lavoro?",
       "rejected_action_can_not_be_undone": "Una volta rifiutata, l'azione non può essere annullata",
       "Reject_job": "RIFIUTA LAVORO"
     },
     "chat":{
-      "Babysitting": "Babysitting",
+      "Babysitting": "Babysitter",
       "Offered_price": "Prezzo offerto",
-      "Edit": "",
+      "Edit": "Modificare",
       "Accept": "Accetta",
       "no_messages": "Per ora non ci sono messaggi",
       "start_conversattion": "Avanti, inizia la conversazione",
@@ -297,9 +319,11 @@
       "need": "Di cosa hai bisogno?",
       "select_options": "Seleziona una delle quattro opzioni.",
       "Cleaning": "Pulizia",
+      "baby_sitting": "Babysitter",
       "Tutoring": "Ripetizioni",
       "Handyman": "Tuttofare",
-      "Next": "Prossima"
+      "Next": "Prossima",
+      "All": "Tutto"
     },
     "Job_info": {
       "Job_info": "Lavori",
@@ -341,10 +365,35 @@
       "Gallery": "Galleria",
       "Accepted_budget": "Accetta budget",
       "Publish": "Pubblica"
-
-    }
+    },
+    "delete_job_dialogue": {
+      "are_you_sure_delete": "Sei sicuro di voler eliminare il lavoro?",
+      "once_delete": "Una volta eliminata, l'azione non può essere annullata",
+      "delete": "Elimina lavoro",
+      "cancel": "Annulla"
+    },
+    "job_status": {
+      "all": "Tutto",
+      "published": "Pubblicato",
+      "doing": "Facendo",
+      "pending": "In attesa di",
+      "rejected": "Respinto",
+      "accepted": "Accettato",
+      "completed": "Completato",
+      "expired": "Scaduto",
+      "reported": "Segnalato",
+      "applied": "Applicato"
+    },
+    "job_category": {
+      "all": "Tutti i tipi",
+      "cleaning": "Pulizia",
+      "babysitting": "Babysitter",
+      "handyman": "Tuttofare",
+      "tutoring": "Tutoraggio"
+    },
+    "jobs": "Lavori",
+    "filter" : "Filtri(2)"
   },
-
   "Professional": {
     "Splash": {
       "powerBy": "Realizzata da",
@@ -376,15 +425,65 @@
     },
     "logIn": {
       "welcome": "Benvenuto!",
-
-      "WhatAreYouSearchingFor?": "Che cosa stai cercando?",
-      "PleaseSelectOneOfTheTwoOtions": "Seleziona una delle due opzioni",
-      "provideServices": "Fornire servizi",
-      "requireServices": "Richiedere servizi",
-      "reason": "Motivo",
-      "Next": "AVANTI",
+      "onBoardingUserType": {
+        "onBoarding": "Inserimento",
+        "WhatAreYouSearchingFor?": "Che cosa stai cercando?",
+        "PleaseSelectOneOfTheTwoOtions": "Seleziona una delle due opzioni",
+        "provideServices": "Fornire servizi",
+        "requireServices": "Richiedere servizi",
+        "reason": "Motivo",
+        "Next": "AVANTI"
+      },
+      "onBoardingSetPassword": {
+        "Set_Password?": "Impostare la Password",
+        "Choose_a_secure_password_for_your_account.": "Scegli una password sicura per il tuo account.",
+        "New_Password": "Nuova Password",
+        "Confirm_new_Password": "Conferma Password",
+        "Password": "Password",
+        "Previous": "INDIETRO",
+        "Next": "AVANTI",
+        "Finish": "FINE"
+      },
+      "onBoardingPersonalInfo": {
+        "onBoarding": "Inserimento",
+        "Personal_info": "Informazioni personali",
+        "Please_fill_all_the_fields.": "Compila tutti i campi.",
+        "Name": "NOME",
+        "Last_name": "COGNOME",
+        "Email": "EMAIL",
+        "VAT_Number": "CODICE FISCALE",
+        "Birth_date": "DATA DI NASCITA",
+        "Previous_step": "INDIETRO",
+        "Next_Step": "AVANTI"
+      },
+      "onBoardingPayment": {
+        "Payment_method": "Metodo di pagamento",
+        "Add_a_payment_method_for_your_account.": "Aggiungi un metodo di pagamento per il tuo profilo.",
+        "Cardholder": "INTESTATARIO",
+        "Card_number": "NUMERO CARTA",
+        "Expire_date": "SCADENZA",
+        "CVV": "CVV",
+        "Previous_step": "INDIETRO",
+        "Next_Step": "AVANTI"
+      },
+      "onBoardingDocuments": {
+        "onBoarding": "Onboarding",
+        "Upload_documents": "Carica documenti",
+        "Upload_documents_that_can_prove_your_competences": "Carica i documenti che possono dimostrare le tue competenze.",
+        "Loading": "Caricamento",
+        "Upload_Document": "Carica Documento",
+        "Previous_step": "INDIETRO",
+        "Next_Step": "AVANTI"
+      },
+      "onBoardingDocuments1": {
+        "onBoarding": "Onboarding",
+        "Profile_picture": "Foto profilo",
+        "Upload_a_picture_for_your_profile": "Carica una foto",
+        "Previous_step": "INDIETRO",
+        "Finish": "AVANTI"
+      },
       "Jobs": {
-        "Jobs": "Jobs",
+        "Jobs": "Lavori",
         "All_types": "Tutti",
         "All_Jobs": "Tutti i lavori",
         "Applied": "Pubblicato",
@@ -399,125 +498,100 @@
         "There_are_no_jobs_for_now": "Non ci sono lavori per il momento",
         "Check_it_bit_later_or_set_another_filters": "Controlla un po' più tardi o imposta altri filtri",
         "You_didn’t_took_any_job": "Non hai accettato nessun lavoro",
-        "Search_for_a_job": "Cerca un lavoro"
+        "Search_for_a_job": "Cerca un lavoro",
+        "filters" : "Filtri(1)"
+      },
+      "PrivacyPolicy": {
+        "Privacy_Policy": "Informativa privacy",
+        "Accept": "Accetta"
+      },
+      "PendingApplication": {
+        "Pending_application": "Richiesta in attesa",
+        "Your_application_has_been_submitted": "La tua domanda è stata inoltrata",
+        "We_all_send_you_notification_when_it’s_approved": "Ti invieremo una notifica quando la tua richiesta sarà approvata"
+      },
+      "Application_rejected": {
+        "Application_rejected": "Richiesta rifiutata",
+        "Your_application_has_been_declined": "La tua richiesta è stata rifiutata",
+        "We_can_not_allow_you_to_enter_the_platform_based_on_your_data": "Non possiamo permetterti di entrare nella piattaforma in base ai tuoi dati.",
+        "reapply": "RIAPPLICA"
+      },
+      "RegistrationDialog": {
+        "Are_you_sure_you_want_to_stop_registration?": "Sei sicuro di voler interrompere la registrazione?",
+        "All_the_saved_data_wil_be_deleted": "Tutti i dati salvati verranno cancellati",
+        "stay_here": "RIMANI QUI",
+        "Go_back": "TORNA INDIETRO"
+      },
+      "UploadDocumentsDialog": {
+        "Upload_document": "Carica documenti",
+        "Browse": "Sfoglia",
+        "Upload_from_camera": "CARICA DA FOTOCAMERA",
+        "Upload_from_gallery": "CARICA DA GALLERIA",
+        "CLose": "CHIUDI"
+      },
+      "UploadPhotoDialog": {
+        "Upload_profile_picture": "Carica foto profilo",
+        "Upload_from_camera": "CARICA DA FOTOCAMERA",
+        "Upload_from_gallery": "CARICA DA GALLERIA",
+        "CLose": "CLOSE"
+      },
+      "EditProfileDialog": {
+        "Edit_profile_picture": "Edit profile picture",
+        "Upload_from_camera": "CARICA DA FOTOCAMERA",
+        "Upload_from_gallery": "CARICA DA GALLERIA",
+        "delete_photo": "ELIMINA",
+        "CLose": "CHIUDI"
+      },
+      "EditDocumentsDialog": {
+        "Edit_document": "Modifica documenti",
+        "Browse": "Sfoglia",
+        "Upload_profile_picture": "Carica foto profilo",
+        "Upload_from_camera": "CARICA DA FOTOCAMERA",
+        "Upload_from_gallery": "CARICA DA GALLERIA",
+        "delete_Document": "ELIMINA DOCUMENTO",
+        "CLose": "CHIUDI"
       }
     },
-    "onBoardingSetPassword": {
-      "Set_Password?": "Impostare la Password",
-      "Choose_a_secure_password_for_your_account.": "Scegli una password sicura per il tuo account.",
-      "New_Password": "Nuova Password",
-      "Confirm_new_Password": "Conferma Password",
-      "Password": "Password",
-      "Previous": "INDIETRO",
-      "Next": "AVANTI"
-    },
-    "onBoardingPersonalInfo": {
-      "onBoarding": "Onboarding",
-      "Personal_info": "Informazioni personali",
-      "Please_fill_all_the_fields.": "Compila tutti i campi.",
-      "Name": "NOME",
-      "Last_name": "COGNOME",
-      "Email": "EMAIL",
-      "VAT_Number": "CODICE FISCALE",
-      "Birth_date": "DATA DI NASCITA",
-      "Previous_step": "INDIETRO",
-      "Next_Step": "AVANTI"
-    },
-    "onBoardingPayment": {
-      "Payment_method": "Metodo di pagamento",
-      "Add_a_payment_method_for_your_account.": "Aggiungi un metodo di pagamento per il tuo profilo.",
-      "Cardholder": "INTESTATARIO",
-      "Card_number": "NUMERO CARTA",
-      "Expire_date": "SCADENZA",
-      "CVV": "CVV",
-      "Previous_step": "INDIETRO",
-      "Next_Step": "AVANTI"
-    },
-    "onBoardingDocuments": {
-      "onBoarding": "Onboarding",
-      "Upload_documents": "Carica documenti",
-      "Upload_documents_that_can_prove_your_competences": "Carica i documenti che possono dimostrare le tue competenze.",
-      "Loading": "Caricamento",
-      "Upload_Document": "Carica Documento",
-      "Previous_step": "INDIETRO",
-      "Next_Step": "AVANTI"
-    },
-    "onBoardingDocuments1": {
-      "onBoarding": "Onboarding",
-      "Profile_picture": "Foto profilo",
-      "Upload_a_picture_for_your_profile": "Carica una foto",
-      "Previous_step": "INDIETRO",
-      "Finish": "AVANTI"
-    },
-    "PrivacyPolicy":
-    {
-      "Privacy_Policy": "Informativa privacy",
-      "Accept": "Accetta"
-    },
-    "PendingApplication": {
-      "Pending_application": "Richiesta in attesa",
-      "Your_application_has_been_submitted": "La tua domanda è stata inoltrata",
-      "We_all_send_you_notification_when_it’s_approved": "Ti invieremo una notifica quando la tua richiesta sarà approvata"
-    },
-    "Application_rejected": {
-      "Application_rejected": "Richiesta rifiutata",
-      "Your_application_has_been_declined": "La tua richiesta è stata rifiutata",
-      "We_can_not_allow_you_to_enter_the_platform_based_on_your_data": "Non possiamo permetterti di entrare nella piattaforma in base ai tuoi dati.",
-      "reapply": "RIAPPLICA"
-    },
-    "RegistrationDialog": {
-      "Are_you_sure_you_want_to_stop_registration?": "Sei sicuro di voler interrompere la registrazione?",
-      "All_the_saved_data_wil_be_deleted": "Tutti i dati salvati verranno cancellati",
-      "stay_here": "RIMANI QUI",
-      "Go_back": "TORNA INDIETRO"
-    },
-    "UploadDocumentsDialog": {
-      "Upload_document": "Carica documenti",
-      "Browse": "Sfoglia",
-      "Upload_from_camera": "CARICA DA FOTOCAMERA",
-      "Upload_from_gallery": "CARICA DA GALLERIA",
-      "CLose": "CHIUDI"
-    },
-    "UploadPhotoDialog":
-    {
-      "Upload_profile_picture": "Carica foto profilo",
-      "Upload_from_camera": "CARICA DA FOTOCAMERA",
-      "Upload_from_gallery": "CARICA DA GALLERIA",
-      "CLose": "CLOSE"
-    },
-    "EditProfileDialog": {
-      "Edit_profile_picture": "Edit profile picture",
-      "Upload_from_camera": "CARICA DA FOTOCAMERA",
-      "Upload_from_gallery": "CARICA DA GALLERIA",
-      "delete_photo": "ELIMINA",
-      "CLose": "CHIUDI"
-    },
-    "EditDocumentsDialog": {
-      "Edit_document": "Modifica documenti",
-      "Browse": "Sfoglia",
-      "Upload_profile_picture": "Carica foto profilo",
-      "Upload_from_camera": "CARICA DA FOTOCAMERA",
-      "Upload_from_gallery": "CARICA DA GALLERIA",
-      "delete_Document": "ELIMINA DOCUMENTO",
-      "CLose": "CHIUDI"
-    },
-    "Jobs": {
-      "Jobs": "Jobs",
-      "All_types": "Tutti",
-      "All_Jobs": "Tutti i lavori",
-      "Applied": "Pubblicato",
-      "Accepted": "Accettato",
-      "Doing": "In corso",
-      "Rejected": "Rifiutato",
-      "Completed": "Completato",
-      "Search_Jobs": "Ricerca lavoro",
-      "My_Jobs": "I miei lavori",
-      "earning_limit": "limite di guadagno",
-      "PRovince": "Provincia",
-      "There_are_no_jobs_for_now": "Non ci sono lavori per il momento",
-      "Check_it_bit_later_or_set_another_filters": "Controlla un po' più tardi o imposta altri filtri",
-      "You_didn’t_took_any_job": "Non hai accettato nessun lavoro",
-      "Search_for_a_job": "Cerca un lavoro"
+    "edit_offer":{
+      "Edit_offer": "Modifica offerta",
+      "Building_restructuring": "Ristrutturazione edilizia, o ancora più titolo su cosa fare",
+      "Offer_price": "Prezzo di offerta",
+      "Once_an_offer_is_accepted": "Una volta accettata e confermata, l'offerta diventa un accordo vincolante.",
+      "apply_for_job": "Fai domanda per un lavoro"
     }
+  },
+  "error_message": {
+    "oops_wrong": "Spiacenti, c'è qualcosa che non va nei tuoi dati. Riprova.",
+    "fill_all_data" : "Si prega di compilare tutti i dati",
+    "pass_or_phone_not_match": "La password o il numero di telefono non sono corretti, riprova.",
+    "otp_not_correct": "Oops, il codice OTP che hai inserito non è corretto, riprova.",
+    "pass_doNot_coincide": "Spiacenti, le tue password non coincidono, riprova.",
+    "phone_already_taken": "Spiacenti, questo numero di telefono è già occupato. Provane uno nuovo.",
+    "try_with_new_pass": "La tua password non soddisfa i requisiti, prova con una nuova.",
+    "valid_name" : "Inserisci un nome composto da più di 3 caratteri",
+    "valid_last_name" : "Inserisci un cognome di più di 3 caratteri",
+    "valid_email" : "Inserire una email valida, grazie",
+    "valid_card_holder" : "Inserisci il nome del titolare della carta di più di 3 caratteri",
+    "valid_card_number" : "Il numero della carta deve essere di 16 cifre...",
+    "no_image_selected": "Nessuna immagine selezionata",
+    "select_profile_pic" : "Seleziona l'immagine del profilo",
+    "select_document" : "Seleziona almeno 1 documento",
+    "valid_phone" : "Si prega di inserire il numero di telefono valido",
+    "valid_bank_number" : "Inserisci un numero di banca valido",
+    "expire_month" : "Data di scadenza Il mese deve essere inferiore a 12.",
+    "expire_year" : "La data di scadenza dell'anno deve essere successiva all'anno corrente.",
+    "log_out_message": "Sei stato disconnesso.\nAccedi di nuovo."
+  },
+  "success_message": {
+    "pass_recover_cancel": "Recupero password annullato.",
+    "otp_send": "È stato inviato un codice OTP a",
+    "otp_resend": "È stato rispedito a un codice OTP",
+    "otp_send_success": "Un codice OTP è stato inviato con successo",
+    "otp_verify_success": "Un codice OTP è stato verificato con successo",
+    "pass_updated": "La tua password è stata aggiornata correttamente.",
+    "setting_update": "Le tue impostazioni sono state aggiornate correttamente.",
+    "resend_otp_success": "Otp Reinvia con successoCompletamente",
+    "job_create_success": "Lavoro creato con successoCompletamente",
+    "delete_profile_pic_success" : "la tua immagine del profilo elimina SuccessFully"
   }
 }

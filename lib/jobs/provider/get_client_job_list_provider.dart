@@ -83,6 +83,9 @@ class GetClientJobListProvider extends ChangeNotifier {
   }
 
   getDetailsClient(BuildContext context, String? jobId) {
+    if (!_isOverviewLoading) {
+      setIsOverviewLoading(true);
+    }
     ApiClient().getClientJobDetailsService(context, jobId!).then((value) {
       if (value.success!) {
         _detailsModel = value;
@@ -93,6 +96,9 @@ class GetClientJobListProvider extends ChangeNotifier {
   }
 
   getClientJobList(String state, String category, BuildContext context) {
+    if (!_isListLoading) {
+      setIsListLoading(true);
+    }
     ApiClient().getClientJobService(context, state, category).then((value) {
       _model = value;
       setIsListLoading(false);
