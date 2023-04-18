@@ -28,9 +28,7 @@ class RecoverPasswordProvider extends ChangeNotifier {
       ErrorLoader(context, tr("error_message.fill_all_data"));
       notifyListeners();
     } else {
-      if (context.mounted) {
-        setIsLoading(true);
-      }
+      setIsLoading(true);
       ApiClient()
           .requestOtp(recoverPasswordPhoneController.text, context)
           .then((requestOtpResponse) {
@@ -66,9 +64,7 @@ class RecoverPasswordProvider extends ChangeNotifier {
       ErrorLoader(context, tr("error_message.try_with_new_pass"));
       notifyListeners();
     } else {
-      if (context.mounted) {
-        setIsLoading(true);
-      }
+      setIsLoading(true);
       ApiClient()
           .changePassword(token, newPasswordController.text, context)
           .then((changePasswordResponse) {

@@ -111,7 +111,7 @@ class GetProfessionalJobListProvider extends ChangeNotifier {
       required BuildContext context,
       required String state,
       required String jobState}) {
-    if (context.mounted && !_isListLoading) {
+    if (!_isListLoading) {
       setIsListLoading(true);
     }
     ApiClient()

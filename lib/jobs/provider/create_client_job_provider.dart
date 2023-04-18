@@ -98,7 +98,7 @@ class CreateClientJobProvider extends ChangeNotifier {
   }
 
   createJobClient(BuildContext context) {
-    if (context.mounted && !_isLoading) {
+    if (!_isLoading) {
       setIsLoading(true);
     }
     ApiClient()

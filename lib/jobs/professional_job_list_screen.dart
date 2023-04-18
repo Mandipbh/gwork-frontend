@@ -528,8 +528,8 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
                       ),
                     ),
                     FilterChip(
-                      label: const Text(
-                        "Expired",
+                      label: Text(
+                        tr('client.job_status.expired'),
                       ),
                       labelStyle: TextStyle(
                         color:
@@ -553,8 +553,8 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
                       ),
                     ),
                     FilterChip(
-                      label: const Text(
-                        "Pending",
+                      label: Text(
+                        tr('client.job_status.pending'),
                       ),
                       labelStyle: TextStyle(
                         color:
@@ -578,8 +578,8 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
                       ),
                     ),
                     FilterChip(
-                      label: const Text(
-                        "Reported",
+                      label: Text(
+                        tr('client.job_status.reported'),
                       ),
                       labelStyle: TextStyle(
                         color:

@@ -30,10 +30,8 @@ class SignInProvider extends ChangeNotifier {
   }
 
   setIsLogging(bool value) {
-    if (!_isLogging) {
-      _isLogging = value;
-      notifyListeners();
-    }
+    _isLogging = value;
+    notifyListeners();
   }
 
   bool isValidData() {
@@ -46,9 +44,7 @@ class SignInProvider extends ChangeNotifier {
     SignInRequest request = SignInRequest(
         phoneNumber: '+39${phoneController.text.trim()}',
         password: passwordController.text.trim());
-    if (context.mounted) {
-      setIsLogging(true);
-    }
+    setIsLogging(true);
     ApiClient().login(request, context).then((loginResponse) {
       if (loginResponse.success) {
         ProgressLoader(context, "LogIn Successfully");

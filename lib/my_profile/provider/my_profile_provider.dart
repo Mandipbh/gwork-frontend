@@ -13,10 +13,8 @@ class MyProfileProvider extends ChangeNotifier {
   bool getIsLoading() => _isLoading;
 
   setIsLoading(bool value) {
-    if (!_isLoading) {
-      _isLoading = value;
-      notifyListeners();
-    }
+    _isLoading = value;
+    notifyListeners();
   }
 
   bool _isProfileDataLoading = true;
@@ -45,9 +43,7 @@ class MyProfileProvider extends ChangeNotifier {
       ErrorLoader(context, tr("error_message.valid_name"));
       notifyListeners();
     } else {
-      if (context.mounted) {
-        setIsLoading(true);
-      }
+      setIsLoading(true);
       ApiClient()
           .updateName(nameController.text, context)
           .then((updateNameSuccessResponse) {
@@ -72,9 +68,7 @@ class MyProfileProvider extends ChangeNotifier {
       ErrorLoader(context, tr("error_message.valid_last_name"));
       notifyListeners();
     } else {
-      if (context.mounted) {
-        setIsLoading(true);
-      }
+      setIsLoading(true);
       ApiClient()
           .updateLastName(lastNameController.text, context)
           .then((updateLastNameSuccessResponse) {
@@ -101,9 +95,8 @@ class MyProfileProvider extends ChangeNotifier {
       ErrorLoader(context, tr("error_message.valid_email"));
       notifyListeners();
     } else {
-      if (context.mounted) {
-        setIsLoading(true);
-      }
+      setIsLoading(true);
+
       ApiClient()
           .updateEmail(emailController.text, context)
           .then((updateEmailSuccessResponse) {
@@ -128,9 +121,7 @@ class MyProfileProvider extends ChangeNotifier {
       ErrorLoader(context, tr("error_message.valid_phone"));
       notifyListeners();
     } else {
-      if (context.mounted) {
-        setIsLoading(true);
-      }
+      setIsLoading(true);
       ApiClient()
           .requestChangePhoneNumber(phoneController.text, context)
           .then((requestChangePhoneSuccessResponse) {
@@ -159,9 +150,7 @@ class MyProfileProvider extends ChangeNotifier {
       ErrorLoader(context, tr("error_message.fill_all_data"));
       notifyListeners();
     } else {
-      if (context.mounted) {
-        setIsLoading(true);
-      }
+      setIsLoading(true);
       ApiClient()
           .updateBirthDate(birthDateController.text, context)
           .then((updateEmailSuccessResponse) {
@@ -183,9 +172,7 @@ class MyProfileProvider extends ChangeNotifier {
       ErrorLoader(context, tr("error_message.fill_all_data"));
       notifyListeners();
     } else {
-      if (context.mounted) {
-        setIsLoading(true);
-      }
+      setIsLoading(true);
       ApiClient()
           .updateVatNumber(vatNumberController.text, context)
           .then((updateVatNumberSuccessResponse) {
@@ -203,9 +190,7 @@ class MyProfileProvider extends ChangeNotifier {
   }
 
   updateProfileImage(profileImage, BuildContext context) {
-    if (context.mounted) {
-      setIsLoading(true);
-    }
+    setIsLoading(true);
     ApiClient()
         .updateProfileImage(profileImage, context)
         .then((updateProfileImageSuccessResponse) {
@@ -221,9 +206,7 @@ class MyProfileProvider extends ChangeNotifier {
   }
 
   deleteProfileImage(BuildContext context) {
-    if (context.mounted) {
-      setIsLoading(true);
-    }
+    setIsLoading(true);
     ApiClient()
         .removeProfileImage(context)
         .then((updateProfileImageSuccessResponse) {
@@ -258,9 +241,7 @@ class MyProfileProvider extends ChangeNotifier {
       ErrorLoader(context, tr("error_message.try_with_new_pass"));
       notifyListeners();
     } else {
-      if (context.mounted) {
-        setIsLoading(true);
-      }
+      setIsLoading(true);
       ApiClient()
           .updatePassword(currentPassword, newPassword, context)
           .then((updatePasswordSuccessResponse) {
@@ -284,6 +265,7 @@ class MyProfileProvider extends ChangeNotifier {
     currentPasswordController.clear();
     newPasswordController.clear();
     confirmNewPasswordController.clear();
+    _isLoading = false;
     //notifyListeners();
   }
 }

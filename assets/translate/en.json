@@ -380,7 +380,9 @@
       "pending": "Pending",
       "rejected": "Rejected",
       "accepted": "Accepted",
-      "completed": "Completed"
+      "completed": "Completed",
+      "expired": "Expired",
+      "reported": "Reported"
     },
     "job_category": {
       "all": "All Types",

@@ -452,6 +452,56 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
+              FilterChip(
+                label: Text(
+                  tr('client.job_status.expired'),
+                ),
+                labelStyle: TextStyle(
+                  color: clientJobProvider.getSelectedFilter() !=
+                          JobsFilters.expired
+                      ? Colors.white
+                      : Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                ),
+                selected: clientJobProvider.getSelectedFilter() ==
+                    JobsFilters.expired,
+                backgroundColor: black343,
+                selectedColor: Colors.white,
+                showCheckmark: false,
+                onSelected: (bool value) {
+                  clientJobProvider.setSelectedFilter(JobsFilters.expired);
+                  getClientJobs();
+                },
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              FilterChip(
+                label: Text(
+                  tr('client.job_status.reported'),
+                ),
+                labelStyle: TextStyle(
+                  color: clientJobProvider.getSelectedFilter() !=
+                          JobsFilters.reported
+                      ? Colors.white
+                      : Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                ),
+                selected: clientJobProvider.getSelectedFilter() ==
+                    JobsFilters.reported,
+                backgroundColor: black343,
+                selectedColor: Colors.white,
+                showCheckmark: false,
+                onSelected: (bool value) {
+                  clientJobProvider.setSelectedFilter(JobsFilters.reported);
+                  getClientJobs();
+                },
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 8),
