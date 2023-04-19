@@ -187,7 +187,7 @@ class _SummaryViewState extends State<SummaryView> {
                         width: 10,
                       ),
                       Text(
-                        value.category.toString(),
+                        tr('client.job_category.${value.category!.toLowerCase()}'),
                         style: const TextStyle(
                             fontSize: 14, fontWeight: FontWeight.w700),
                       )

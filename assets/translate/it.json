@@ -402,7 +402,7 @@
     "apply_job_dialogue": {
       "are_you_sure_apply": "Sei sicuro di volerti candidare per il lavoro?",
       "you_can_change": "Puoi modificare l'offerta in qualsiasi momento",
-      "Apply": "Fare domanda a",
+      "Apply": "candidati",
       "Cancel": "Annulla"
     },
     "reject_job_dialogue": {

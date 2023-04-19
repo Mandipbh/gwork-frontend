@@ -302,9 +302,9 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    subtitle: const Text(
-                      "Professional",
-                      style: TextStyle(
+                    subtitle: Text(
+                      tr('admin.dashboard.Professional'),
+                      style: const TextStyle(
                         color: grey807,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
@@ -377,8 +377,10 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
         jobDetailView("assets/icons/calendar.png",
             "${jobProvider.detailsModel!.jobDetails!.jobDate}"),
         const SizedBox(height: 12),
-        jobDetailView("assets/images/briefcase.png",
-            "${jobProvider.detailsModel!.jobDetails!.category}"),
+        jobDetailView(
+          "assets/images/briefcase.png",
+          tr('client.job_category.${jobProvider.detailsModel!.jobDetails!.category!.toLowerCase()}'),
+        ),
         const SizedBox(height: 12),
         jobProvider.detailsModel!.jobDetails!.state! == JobStatus.published ||
                 jobProvider.detailsModel!.jobDetails!.state! ==

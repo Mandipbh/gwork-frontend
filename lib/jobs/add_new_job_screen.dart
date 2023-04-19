@@ -260,25 +260,10 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                     openLoadingDialog(context);
                     createJobProvider.createJobClient(context);
                     break;
-                  case 7:
-                    // ApiClient().createClientJob(
-                    //     createJobProvider.category.toString(),
-                    //     createJobProvider.title.toString(),
-                    //     createJobProvider.street.toString(),
-                    //     Provider.of<SignUpProvider>(context, listen: false)
-                    //         .selectedProvince!,
-                    //     createJobProvider.comune.toString(),
-                    //     createJobProvider.date.toString(),
-                    //     createJobProvider.time.toString(),
-                    //     createJobProvider.description.toString(),
-                    //     createJobProvider.budget.toString(),
-                    //     context);
-                    // Navigator.of(context).pop();
-                    break;
                 }
               },
               nextButtonName: currentPage > 5
-                  ? 'Publish'
+                  ? tr('client.summary.Publish')
                   : tr('Professional.logIn.onBoardingUserType.Next'),
               nextButtonIcon: Icon(
                   currentPage > 5 ? Icons.done : Icons.arrow_forward,

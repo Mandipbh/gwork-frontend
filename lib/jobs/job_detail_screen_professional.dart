@@ -211,60 +211,59 @@ class _JobDetailsScreenState extends State<JobDetailsScreenProfessional> {
                                                                         16),
                                                             color:
                                                                 Colors.white),
-                                                        child: Center(
-                                                            child: Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          children: [
-                                                            Image.asset(
-                                                              'assets/icons/coins-stacked-01.png',
-                                                              width: 20,
-                                                            ),
-                                                            const SizedBox(
-                                                              width: 4,
-                                                            ),
-                                                            Column(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .min,
-                                                              children: [
-                                                                Text(
-                                                                  'Price'
-                                                                      .toUpperCase(),
-                                                                  style: Theme.of(
-                                                                          context)
-                                                                      .textTheme
-                                                                      .button!
-                                                                      .apply(
-                                                                          color:
-                                                                              primaryColor),
-                                                                ),
-                                                                Text(
-                                                                  '00.00',
-                                                                  style: Theme.of(
-                                                                          context)
-                                                                      .textTheme
-                                                                      .button!
-                                                                      .apply(
-                                                                          color:
-                                                                              primaryColor),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            const SizedBox(
-                                                              width: 4,
-                                                            ),
-                                                            const Icon(
-                                                                Icons
-                                                                    .arrow_forward,
-                                                                color: Colors
-                                                                    .white,
-                                                                size: 20),
-                                                            const SizedBox(
-                                                              width: 8,
-                                                            ),
-                                                          ],
-                                                        )),
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      15),
+                                                          child: Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .min,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: [
+                                                              Image.asset(
+                                                                'assets/icons/coins-stacked-01.png',
+                                                                width: 20,
+                                                              ),
+                                                              Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .min,
+                                                                children: [
+                                                                  Text(
+                                                                    tr('admin.job_detail.Price')
+                                                                        .toUpperCase(),
+                                                                    style: Theme.of(
+                                                                            context)
+                                                                        .textTheme
+                                                                        .button!
+                                                                        .apply(
+                                                                            color:
+                                                                                primaryColor),
+                                                                  ),
+                                                                  Text(
+                                                                    '00.00',
+                                                                    style: Theme.of(
+                                                                            context)
+                                                                        .textTheme
+                                                                        .button!
+                                                                        .apply(
+                                                                            color:
+                                                                                primaryColor),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              Image.asset(
+                                                                  'assets/icons/currency-euro.png',
+                                                                  height: 24,
+                                                                  width: 24),
+                                                            ],
+                                                          ),
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
@@ -301,7 +300,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreenProfessional> {
                                                                     .min,
                                                             children: [
                                                               Text(
-                                                                'Apply'
+                                                                tr('Professional.apply_job_dialogue.Apply')
                                                                     .toUpperCase(),
                                                                 style: Theme.of(
                                                                         context)
@@ -387,9 +386,9 @@ class _JobDetailsScreenState extends State<JobDetailsScreenProfessional> {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            subtitle: const Text(
-              "Client",
-              style: TextStyle(
+            subtitle: Text(
+              tr('admin.dashboard.client'),
+              style: const TextStyle(
                 color: grey807,
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
@@ -464,8 +463,10 @@ class _JobDetailsScreenState extends State<JobDetailsScreenProfessional> {
         jobDetailView("assets/icons/calendar.png",
             "${provider.detailsModel!.jobDetails!.jobDate}"),
         const SizedBox(height: 12),
-        jobDetailView("assets/images/briefcase.png",
-            "${provider.detailsModel!.jobDetails!.category}"),
+        jobDetailView(
+          "assets/images/briefcase.png",
+          tr('client.job_category.${provider.detailsModel!.jobDetails!.category!.toLowerCase()}'),
+        ),
         const SizedBox(height: 12),
         jobDetailView("assets/icons/coins_stacked.png",
             '€ ${NumberFormat('#.00').format(provider.detailsModel!.jobDetails!.budget)}'),
