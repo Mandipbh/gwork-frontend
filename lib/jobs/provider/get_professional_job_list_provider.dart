@@ -1,6 +1,8 @@
 import 'dart:developer';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:g_worker_app/common/common_loader.dart';
 import 'package:g_worker_app/jobs/model/get_prof_job_details_model.dart';
 import 'package:g_worker_app/jobs/model/get_professional_job_response.dart';
 import 'package:g_worker_app/server_connection/api_client.dart';
@@ -38,11 +40,15 @@ class GetProfessionalJobListProvider extends ChangeNotifier {
   String _selectedState = JobsFilters.all;
   String _selectedCategory = JobsType.all;
 
+  String? _addOffer;
+  String? get addOffer => _addOffer;
+  var addOfferController = TextEditingController();
+
   bool getIsListLoading() => _isListLoading;
 
   setIsListLoading(bool value) {
     _isListLoading = value;
-    notifyListeners();
+    //notifyListeners();
   }
 
   bool getIsOverviewLoading() => _isOverviewLoading;
@@ -149,18 +155,6 @@ class GetProfessionalJobListProvider extends ChangeNotifier {
         .then((getGallerySuccessResponse) {
       if (getGallerySuccessResponse.success!) {
         log("Images => ${getGallerySuccessResponse.gallery!.length}");
-        // _galleryDetailsModel = value;
-        //
-        // for (int i = 0; i < value.gallery!.length; i++) {
-        //   if (i % 2 == 0) {
-        //     oddList.add(value.gallery![i].mediaUrl!);
-        //   }
-        // }
-        // for (int i = 0; i < value.gallery!.length; i++) {
-        //   if (i % 2 == 1) {
-        //     evenList.add(value.gallery![i].mediaUrl!);
-        //   }
-        // }
         setCurrentJobGallery(getGallerySuccessResponse.gallery!);
 
         setIsGalleryLoading(false);
@@ -193,6 +187,17 @@ class GetProfessionalJobListProvider extends ChangeNotifier {
   Future<JobStatusUpdateResponse?> rejectJobs(
       {required BuildContext context, required String jobId}) {
     return ApiClient().rejectJobProf(jobId: jobId, context: context);
+  }
+
+  setAddOffer(addOffer, BuildContext context) {
+    if (addOffer.isEmpty) {
+      ErrorLoader(context, tr("error_message.fill_all_data"));
+      notifyListeners();
+    } else {
+      _addOffer = addOffer;
+      notifyListeners();
+      return true;
+    }
   }
 
   Future<SuccessDataModel?> applyJob(

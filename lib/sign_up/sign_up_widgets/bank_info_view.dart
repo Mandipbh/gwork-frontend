@@ -28,6 +28,7 @@ class BankInfoView extends StatelessWidget {
               controller:
                   Provider.of<SignUpProvider>(context).bankAccountController,
               maxLength: 27,
+              hint: "IT60 X054 2811 1010 0000 0123 456",
               context: context,
               label: tr('client.log_in.sign_up.bank'),
               asset: 'credit_card_shield.png'),

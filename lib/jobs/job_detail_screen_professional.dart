@@ -413,8 +413,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreenProfessional> {
                               jobCategory:
                                   provider.detailsModel!.jobDetails!.category!,
                               state: provider.detailsModel!.jobDetails!.state!,
-                              budget:
-                                  provider.detailsModel!.jobDetails!.budget!,
+                              acceptedBudget: provider
+                                  .detailsModel!.jobDetails!.acceptedBudget!,
                               description: provider
                                   .detailsModel!.jobDetails!.description!,
                             ),
@@ -468,8 +468,14 @@ class _JobDetailsScreenState extends State<JobDetailsScreenProfessional> {
           tr('client.job_category.${provider.detailsModel!.jobDetails!.category!.toLowerCase()}'),
         ),
         const SizedBox(height: 12),
-        jobDetailView("assets/icons/coins_stacked.png",
-            '€ ${NumberFormat('#.00').format(provider.detailsModel!.jobDetails!.budget)}'),
+        jobDetailView(
+            "assets/icons/coins_stacked.png",
+            '€ ${NumberFormat('#.00').format(
+              provider.detailsModel!.jobDetails!.applicationState ==
+                      JobStatus.published
+                  ? provider.detailsModel!.jobDetails!.budget
+                  : provider.detailsModel!.jobDetails!.acceptedBudget!,
+            )}'),
         const SizedBox(height: 12),
         Container(
           width: double.infinity,

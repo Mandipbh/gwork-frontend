@@ -8,6 +8,7 @@ import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/common/common_widgets.dart';
 import 'package:g_worker_app/jobs/model/get_client_job_applications_model.dart';
 import 'package:g_worker_app/jobs/provider/get_client_job_list_provider.dart';
+import 'package:g_worker_app/jobs/provider/get_professional_job_list_provider.dart';
 import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +23,7 @@ class ChatScreen extends StatefulWidget {
     required this.userImage,
     required this.jobCategory,
     this.state,
-    this.budget,
+    this.acceptedBudget,
     this.description,
   }) : super(key: key);
 
@@ -32,7 +33,7 @@ class ChatScreen extends StatefulWidget {
   final String userImage;
   final String jobCategory;
   final String? state;
-  final int? budget;
+  final int? acceptedBudget;
   final String? description;
 
   @override
@@ -88,21 +89,21 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget topView() {
-    return Consumer<GetClientJobListProvider>(
-      builder: (context, value, child) {
-        return Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.12),
-                blurRadius: 24,
-                offset: const Offset(0, 20),
-              ),
-            ],
-            color: Colors.white,
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.12),
+            blurRadius: 24,
+            offset: const Offset(0, 20),
           ),
-          child: Column(
+        ],
+        color: Colors.white,
+      ),
+      child: Consumer<GetProfessionalJobListProvider>(
+        builder: (context, getProfessionalJobListProvider, child) {
+          return Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               const SizedBox(height: 50),
@@ -220,7 +221,11 @@ class _ChatScreenState extends State<ChatScreen> {
                           ),
                         ),
                         Text(
-                          '€ ${NumberFormat('#.00').format(widget.budget)}',
+                          // '€ ${NumberFormat('#.00').format(
+                          //   double.parse(getProfessionalJobListProvider
+                          //       .detailsModel!.jobDetails!.acceptedBudget!),
+                          // )}',
+                          widget.acceptedBudget.toString(),
                           style: const TextStyle(
                             color: splashColor1,
                             fontSize: 14,
@@ -358,9 +363,9 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
               const SizedBox(height: 16),
             ],
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 

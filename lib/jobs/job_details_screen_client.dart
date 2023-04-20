@@ -329,8 +329,8 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                                     .detailsModel!.jobDetails!.category!,
                                 state: jobProvider
                                     .detailsModel!.jobDetails!.state!,
-                                budget: jobProvider
-                                    .detailsModel!.jobDetails!.budget!,
+                                acceptedBudget: jobProvider
+                                    .detailsModel!.jobDetails!.acceptedBudget!,
                                 description: jobProvider
                                     .detailsModel!.jobDetails!.description,
                               ),
@@ -385,8 +385,14 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
         jobProvider.detailsModel!.jobDetails!.state! == JobStatus.published ||
                 jobProvider.detailsModel!.jobDetails!.state! ==
                     JobStatus.accepted
-            ? jobDetailView("assets/icons/coins_stacked.png",
-                "€${format.format(jobProvider.detailsModel!.jobDetails!.budget)}")
+            ? jobDetailView(
+                "assets/icons/coins_stacked.png",
+                "€${format.format(
+                  jobProvider.detailsModel!.jobDetails!.state! ==
+                          JobStatus.published
+                      ? jobProvider.detailsModel!.jobDetails!.budget
+                      : jobProvider.detailsModel!.jobDetails!.acceptedBudget,
+                )}")
             : Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
@@ -414,7 +420,13 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            "€${format.format(jobProvider.detailsModel!.jobDetails!.budget)}",
+                            "€${format.format(
+                              jobProvider.detailsModel!.jobDetails!.state! ==
+                                      JobStatus.published
+                                  ? jobProvider.detailsModel!.jobDetails!.budget
+                                  : jobProvider
+                                      .detailsModel!.jobDetails!.acceptedBudget,
+                            )}",
                             style: Theme.of(context).textTheme.headline4,
                           ),
                         ],
@@ -750,7 +762,12 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                                 jobCategory:
                                     value.detailsModel!.jobDetails!.category!,
                                 state: value.detailsModel!.jobDetails!.state!,
-                                budget: value.detailsModel!.jobDetails!.budget!,
+                                acceptedBudget:
+                                    value.detailsModel!.jobDetails!.state! ==
+                                            JobStatus.published
+                                        ? value.detailsModel!.jobDetails!.budget
+                                        : value.detailsModel!.jobDetails!
+                                            .acceptedBudget,
                                 description: value
                                     .detailsModel!.jobDetails!.description!,
                               ),

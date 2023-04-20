@@ -133,6 +133,7 @@ class _EditOfferScreenState extends State<EditOfferScreen> {
               ),
               const SizedBox(height: 16),
               Container(
+                height: 62,
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(12),
@@ -142,13 +143,16 @@ class _EditOfferScreenState extends State<EditOfferScreen> {
                   controller: editOfferController,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   decoration: InputDecoration(
-                    suffixIcon: Image.asset(
-                      "assets/icons/currency-euro.png",
-                      scale: 2,
+                    suffixIcon: Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: Image.asset(
+                        "assets/icons/currency-euro.png",
+                        scale: 2,
+                      ),
                     ),
                     labelText: tr('Professional.edit_offer.Offer_price'),
-                    hintText: '€ ${NumberFormat('#.00').format(widget.budget)}',
-                    contentPadding: const EdgeInsets.only(left: 16, top: 8),
+                    hintText: '00,00',
+                    contentPadding: const EdgeInsets.only(left: 16, top: 12),
                     hintStyle: const TextStyle(
                       color: grey9EA,
                       fontSize: 14,

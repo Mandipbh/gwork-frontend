@@ -4,15 +4,14 @@ import 'package:g_worker_app/Constants.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/common/common_buttons.dart';
 import 'package:g_worker_app/common/common_loader.dart';
-import 'package:g_worker_app/home_page/view/home_screen.dart';
 import 'package:g_worker_app/language_screen/language.dart';
 import 'package:g_worker_app/my_profile/my_profile_widgets/edit_profile_screen.dart';
 import 'package:g_worker_app/my_profile/provider/my_profile_provider.dart';
 import 'package:g_worker_app/shared_preference_data.dart';
 import 'package:g_worker_app/sign_in/view/sign_in_sign_up_screen.dart';
+import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
 import 'package:provider/provider.dart';
 import '../../common/common_widgets.dart';
-import '../../sign_up/sign_up_widgets/profile_picture_view/image_provider/image_provider.dart';
 
 class MyProfileScreen extends StatefulWidget {
   const MyProfileScreen({super.key});
@@ -30,11 +29,13 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var role = Provider.of<SignUpProvider>(context, listen: false).userType!;
+
     return Scaffold(
       backgroundColor: whiteF2F,
       appBar: AppBar(
-        title: const Text(
-          'Profile',
+        title: Text(
+          tr('admin.Profile.Profile'),
         ),
       ),
       body: Consumer<MyProfileProvider>(
@@ -396,44 +397,103 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                           ],
                         ),
                         const Divider(height: 25),
-                        Row(
-                          children: [
-                            Image.asset('assets/icons/credit_card_upload.png',
-                                height: 24, width: 24),
-                            const SizedBox(width: 16),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(tr('admin.Profile.Payment_method'),
-                                    style:
-                                        Theme.of(context).textTheme.headline6),
-                                const SizedBox(height: 6),
-                                Text(myProfileProvider.model!.user!.cardNumber!,
-                                    style:
-                                        Theme.of(context).textTheme.bodyText2),
-                              ],
-                            ),
-                            const Spacer(),
-                            GestureDetector(
-                                behavior: HitTestBehavior.opaque,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Image.asset('assets/icons/edit.png',
-                                      height: 24, width: 24),
-                                ),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => EditProfileScreen(
-                                              type: ProfileFieldType
-                                                  .paymentMethod,
-                                              value: 'testt',
-                                            )),
-                                  );
-                                }),
-                          ],
-                        ),
+                        role == UserType.client
+                            ? Row(
+                                children: [
+                                  Image.asset(
+                                      'assets/icons/credit_card_upload.png',
+                                      height: 24,
+                                      width: 24),
+                                  const SizedBox(width: 16),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(tr('admin.Profile.Payment_method'),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline6),
+                                      const SizedBox(height: 6),
+                                      Text(
+                                          myProfileProvider
+                                              .model!.user!.cardNumber!,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2),
+                                    ],
+                                  ),
+                                  const Spacer(),
+                                  GestureDetector(
+                                      behavior: HitTestBehavior.opaque,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Image.asset(
+                                            'assets/icons/edit.png',
+                                            height: 24,
+                                            width: 24),
+                                      ),
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  EditProfileScreen(
+                                                    type: ProfileFieldType
+                                                        .paymentMethod,
+                                                    value: 'testt',
+                                                  )),
+                                        );
+                                      }),
+                                ],
+                              )
+                            : Row(
+                                children: [
+                                  Image.asset(
+                                      'assets/icons/credit_card_shield.png',
+                                      height: 24,
+                                      width: 24),
+                                  const SizedBox(width: 16),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(tr('client.log_in.sign_up.bank_detail'),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline6),
+                                      const SizedBox(height: 6),
+                                      Text(
+                                          myProfileProvider
+                                              .model!.user!.cardNumber!,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2),
+                                    ],
+                                  ),
+                                  const Spacer(),
+                                  GestureDetector(
+                                      behavior: HitTestBehavior.opaque,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Image.asset(
+                                            'assets/icons/edit.png',
+                                            height: 24,
+                                            width: 24),
+                                      ),
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  EditProfileScreen(
+                                                    type: ProfileFieldType
+                                                        .paymentMethod,
+                                                    value: 'testt',
+                                                  )),
+                                        );
+                                      }),
+                                ],
+                              ),
                         const Divider(height: 25),
                         Row(
                           children: [

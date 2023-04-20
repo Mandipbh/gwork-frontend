@@ -791,8 +791,7 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
                                             ),
                                             const SizedBox(height: 4),
                                             Text(
-                                              '${provider.model!.jobs![index].description}, max '
-                                              '€ ${NumberFormat('#.00').format(provider.model!.jobs![index].budget)}\$',
+                                              '${provider.model!.jobs![index].description}',
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                               style: const TextStyle(

@@ -43,7 +43,7 @@ class JobDetails {
   String? professionalImage;
   String? professionalId;
   String? role2;
-  String? acceptedBudget;
+  int? acceptedBudget;
   int? gallery;
   String? applicationState;
   int? chatCount;

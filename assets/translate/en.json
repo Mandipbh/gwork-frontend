@@ -15,7 +15,7 @@
       "recover_password_enter_phone_no": "Enter your phone number and we will send you an OTP code to reset your account password.",
       "Code_confirmation": "Code Confirmation",
       "enter_digit": "Enter below the 4-digit code we just sent to",
-      "Request_new_code": "Request a new code (00:00)",
+      "Request_new_code": "Request a new code",
       "Resend_new_code": "Request a new code (00:"
     },
     "exit_dialogue": {
@@ -552,7 +552,8 @@
         "There_are_no_jobs_for_now": "There are no jobs for now",
         "Check_it_bit_later_or_set_another_filters": "Check it bit later or set another filters",
         "You_didn’t_took_any_job": "You didn’t took any job",
-        "Search_for_a_job": "Search for a job"
+        "Search_for_a_job": "Search for a job",
+        "filters" : "Filter(1)"
       }
     },
     "edit_offer":{

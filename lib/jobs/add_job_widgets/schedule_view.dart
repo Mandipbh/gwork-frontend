@@ -49,6 +49,7 @@ class ScheduleView extends StatelessWidget {
                           DateTime.now().add(const Duration(days: 355000)));
                   value.dateController.text =
                       '${date!.day}/${date.month}/${date.year}';
+                  value.setDatePicked(date);
                 },
                 child: Container(
                   height: 60,
@@ -76,6 +77,7 @@ class ScheduleView extends StatelessWidget {
                   label: tr('client.date_time.Time'),
                   asset: 'clock.png',
                   context: context,
+                  selectedDate: value.dateController.text,
                   controller: value.timeController),
               const SizedBox(height: 20),
             ],

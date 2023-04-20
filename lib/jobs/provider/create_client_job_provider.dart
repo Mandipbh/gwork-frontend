@@ -6,6 +6,7 @@ import 'package:g_worker_app/jobs/add_job_widgets/upload_images_view.dart';
 import 'package:g_worker_app/server_connection/api_client.dart';
 import 'package:provider/provider.dart';
 
+import '../../sign_up/provider/sign_up_provider.dart';
 import 'get_client_job_list_provider.dart';
 
 class CreateClientJobProvider extends ChangeNotifier {
@@ -45,6 +46,8 @@ class CreateClientJobProvider extends ChangeNotifier {
   var titleController = TextEditingController();
   var streetController = TextEditingController();
   var comuneController = TextEditingController();
+  DateTime? _pickedDateUtc;
+  DateTime? get pickedDateUtc => _pickedDateUtc;
 
   setJobInfo(BuildContext context) {
     if (titleController.text.isEmpty ||
@@ -62,12 +65,22 @@ class CreateClientJobProvider extends ChangeNotifier {
     }
   }
 
+  setDatePicked(val) {
+    _pickedDateUtc = val;
+    notifyListeners();
+  }
+
   //Schedule
   var dateController = TextEditingController();
   var timeController = TextEditingController();
 
   setSchedule(BuildContext context) {
     if (dateController.text.isEmpty || timeController.text.isEmpty) {
+      ErrorLoader(context, tr("error_message.fill_all_data"));
+      notifyListeners();
+      return false;
+    } else if (_pickedDateUtc!.millisecondsSinceEpoch >
+        DateTime.now().millisecondsSinceEpoch) {
       ErrorLoader(context, tr("error_message.fill_all_data"));
       notifyListeners();
       return false;
@@ -127,6 +140,11 @@ class CreateClientJobProvider extends ChangeNotifier {
     describeController.clear();
     budgetController.clear();
     Provider.of<UploadImageProvider>(context, listen: false).clearImage();
+
+    Provider.of<SignUpProvider>(context, listen: false).updateProvinceValue(
+        Provider.of<SignUpProvider>(context, listen: false)
+            .proviceModel!
+            .provice[0]);
     notifyListeners();
   }
 }

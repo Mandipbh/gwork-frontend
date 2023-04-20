@@ -52,38 +52,41 @@ class JobDetails {
   String? applicationState;
   int? chatCount;
   String? applicationAccepted;
+  int? acceptedBudget;
 
-  JobDetails(
-      {this.id,
-      this.userId,
-      this.title,
-      this.description,
-      this.category,
-      this.street,
-      this.commune,
-      this.province,
-      this.date,
-      this.time,
-      this.dateTime,
-      this.budget,
-      this.state,
-      this.clientApprove,
-      this.adminApprove,
-      this.invoiceGenerated,
-      this.invoiceUrl,
-      this.createdAt,
-      this.jobDate,
-      this.creationDate,
-      this.clientName,
-      this.clientImage,
-      this.professionalName,
-      this.professionalImage,
-      this.role,
-      this.gallery,
-      this.applicationCount,
-      this.applicationState,
-      this.chatCount,
-      this.applicationAccepted});
+  JobDetails({
+    this.id,
+    this.userId,
+    this.title,
+    this.description,
+    this.category,
+    this.street,
+    this.commune,
+    this.province,
+    this.date,
+    this.time,
+    this.dateTime,
+    this.budget,
+    this.state,
+    this.clientApprove,
+    this.adminApprove,
+    this.invoiceGenerated,
+    this.invoiceUrl,
+    this.createdAt,
+    this.jobDate,
+    this.creationDate,
+    this.clientName,
+    this.clientImage,
+    this.professionalName,
+    this.professionalImage,
+    this.role,
+    this.gallery,
+    this.applicationCount,
+    this.applicationState,
+    this.chatCount,
+    this.applicationAccepted,
+    this.acceptedBudget,
+  });
 
   JobDetails.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -116,6 +119,7 @@ class JobDetails {
     applicationState = json['application_state'];
     chatCount = json['chat_count'];
     applicationAccepted = json['application_accepted'];
+    acceptedBudget = json['accepted_budget'];
   }
 
   Map<String, dynamic> toJson() {
@@ -150,6 +154,7 @@ class JobDetails {
     data['application_state'] = this.applicationState;
     data['chat_count'] = this.chatCount;
     data['application_accepted'] = this.applicationAccepted;
+    data['accepted_budget'] = this.acceptedBudget;
     return data;
   }
 }

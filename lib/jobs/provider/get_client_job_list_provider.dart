@@ -37,7 +37,7 @@ class GetClientJobListProvider extends ChangeNotifier {
 
   setIsListLoading(bool value) {
     _isListLoading = value;
-    notifyListeners();
+    //notifyListeners();
   }
 
   bool getIsOverviewLoading() => _isOverviewLoading;

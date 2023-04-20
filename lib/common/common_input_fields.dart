@@ -1,7 +1,11 @@
+import 'dart:math';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:g_worker_app/colors.dart';
+import 'package:g_worker_app/common/common_loader.dart';
+import 'package:g_worker_app/jobs/provider/create_client_job_provider.dart';
 import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -92,23 +96,6 @@ Widget birthDateTextField(
           )),
     ),
   );
-  Container(
-    height: 60,
-    decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white)),
-    child: TextField(
-      keyboardType: TextInputType.datetime,
-      controller: controller,
-      maxLength: 10,
-      decoration: InputDecoration(
-        prefixIcon: Image.asset('assets/icons/calendar_birthday.png', scale: 2),
-        labelText: tr('admin.Birth_Date').toUpperCase(),
-        counterText: "",
-      ),
-    ),
-  );
 }
 
 Widget passwordTextField(
@@ -153,6 +140,7 @@ Widget passwordTextField(
 Widget timeTextField({
   required String label,
   required String asset,
+  required String selectedDate,
   required BuildContext context,
   TextEditingController? controller,
 }) {
@@ -191,22 +179,24 @@ Widget timeTextField({
           },
           context: context,
         );
-
         if (pickedTime != null) {
-          controller!.text =
-              // DateFormat('hh:mm').format(DateTime.parse(
-              // pickedTime
-              //     .toString()
-              //     .replaceAll("(", "")
-              //     .replaceAll(")", "")
-              //     .split("y")
-              //     .last));
-              pickedTime
-                  .toString()
-                  .replaceAll("(", "")
-                  .replaceAll(")", "")
-                  .split("y")
-                  .last;
+          print("TIME TIME TIME${pickedTime.toString()}");
+          DateTime now = selectedDate.isEmpty
+              ? DateTime.now()
+              : DateFormat('dd/MM/yyyy').parse(selectedDate);
+          DateTime selectedTime = DateTime(
+              now.year, now.month, now.day, pickedTime.hour, pickedTime.minute);
+          print('ggg ${pickedTime.hour}:${pickedTime.minute}');
+          print('selectedTime ${selectedTime.millisecondsSinceEpoch}');
+          print('datetimenow ${DateTime.now().millisecondsSinceEpoch}');
+          print(
+              'selectedDate ${Provider.of<CreateClientJobProvider>(context, listen: false).dateController.text}');
+          if (selectedTime.millisecondsSinceEpoch >
+              DateTime.now().millisecondsSinceEpoch) {
+            controller!.text = '${pickedTime.hour}:${pickedTime.minute}';
+          } else {
+            // ErrorLoader(context, 'Please Select date');
+          }
         } else {
           print("Time is not selected");
         }
@@ -244,6 +234,7 @@ Widget nameTextField(
     required String asset,
     required BuildContext context,
     int? maxLength,
+    String? hint,
     TextEditingController? controller,
     keyboardType = TextInputType.name}) {
   controller ??= TextEditingController();
@@ -258,6 +249,13 @@ Widget nameTextField(
         style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.04),
         keyboardType: keyboardType,
         decoration: InputDecoration(
+            hintText: hint,
+            hintStyle: const TextStyle(
+              fontFamily: 'Manrope',
+              fontWeight: FontWeight.w500,
+              fontSize: 14,
+              color: Colors.black26,
+            ),
             counterText: '',
             icon: Image.asset('assets/icons/$asset', height: 24, width: 24),
             labelText: label.toUpperCase())),
