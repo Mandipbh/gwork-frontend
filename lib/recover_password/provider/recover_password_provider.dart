@@ -10,13 +10,11 @@ import 'package:provider/provider.dart';
 class RecoverPasswordProvider extends ChangeNotifier {
   bool _isLoading = false;
 
-  bool getIsLoading() => _isLoading;
+  bool getIsRecoverPhoneLoading() => _isLoading;
 
   setIsLoading(bool value) {
-    if (!_isLoading) {
-      _isLoading = value;
-      notifyListeners();
-    }
+    _isLoading = value;
+    notifyListeners();
   }
 
   var recoverPasswordPhoneController = TextEditingController();
@@ -45,6 +43,9 @@ class RecoverPasswordProvider extends ChangeNotifier {
           );
           ProgressLoader(context,
               "${tr("success_message.otp_send")} \n+39 ${recoverPasswordPhoneController.text}");
+          notifyListeners();
+        } else {
+          setIsLoading(false);
           notifyListeners();
         }
       });

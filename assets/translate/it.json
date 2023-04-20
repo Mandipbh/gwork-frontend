@@ -571,6 +571,7 @@
     "valid_name" : "Inserisci un nome composto da più di 3 caratteri",
     "valid_last_name" : "Inserisci un cognome di più di 3 caratteri",
     "valid_email" : "Inserire una email valida, grazie",
+    "valid_taxCode" : "Inserisci un codice fiscale valido",
     "valid_card_holder" : "Inserisci il nome del titolare della carta di più di 3 caratteri",
     "valid_card_number" : "Il numero della carta deve essere di 16 cifre...",
     "no_image_selected": "Nessuna immagine selezionata",
@@ -584,7 +585,7 @@
   },
   "success_message": {
     "pass_recover_cancel": "Recupero password annullato.",
-    "otp_send": "È stato inviato un codice OTP a",
+    "otp_send": "È stato inviato un codice OTP al numero",
     "otp_resend": "È stato rispedito a un codice OTP",
     "otp_send_success": "Un codice OTP è stato inviato con successo",
     "otp_verify_success": "Un codice OTP è stato verificato con successo",

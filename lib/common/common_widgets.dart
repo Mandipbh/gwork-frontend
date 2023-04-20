@@ -41,6 +41,7 @@ void askForExit({
   required String title,
   required String description,
   required String backButtonName,
+  String? buttonIcon,
 }) {
   showDialog(
       context: context,
@@ -99,7 +100,7 @@ void askForExit({
                   backgroundColor: Colors.transparent,
                   buttonName: backButtonName,
                   textColor: Colors.red,
-                  iconAsset: 'go_backward.png',
+                  iconAsset: buttonIcon ?? 'go_backward.png',
                   iconColor: Colors.red),
             ],
           )));
@@ -132,13 +133,18 @@ void uploadProfilePicture(BuildContext context) {
           content: UploadProfilePictureDialogue()));
 }
 
-void editProfilePicture(BuildContext context) {
+void editProfilePicture(BuildContext context, bool image) {
+  print("object ==>? $image");
+
   showDialog(
     context: context,
     builder: (ctx) => AlertDialog(
+      insetPadding: const EdgeInsets.symmetric(horizontal: 15),
+      contentPadding: const EdgeInsets.all(12),
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(8.0))),
       content: EditProfilePictureDialogueClientProf(
+        imageVisibility: image,
         cameraClick: () {
           var profilePicProvider = context.read<ProfilePicProvider>();
           var myProfileProvider = context.read<MyProfileProvider>();

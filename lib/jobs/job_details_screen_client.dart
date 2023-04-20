@@ -286,11 +286,42 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                                   jobProvider.detailsModel!.jobDetails!
                                       .professionalImage!,
                                   fit: BoxFit.fitWidth,
+                                  loadingBuilder: (BuildContext context,
+                                      Widget child,
+                                      ImageChunkEvent? loadingProgress) {
+                                    if (loadingProgress == null) {
+                                      return child;
+                                    }
+                                    return Center(
+                                      child: CircularProgressIndicator(
+                                        value: loadingProgress
+                                                    .expectedTotalBytes !=
+                                                null
+                                            ? loadingProgress
+                                                    .cumulativeBytesLoaded /
+                                                loadingProgress
+                                                    .expectedTotalBytes!
+                                            : null,
+                                      ),
+                                    );
+                                  },
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return const CircleAvatar(
+                                        radius: 75,
+                                        backgroundColor: Colors.white,
+                                        child: Center(
+                                          child: Icon(
+                                            Icons.person,
+                                            size: 22,
+                                            color: grey9EA,
+                                          ),
+                                        ));
+                                  },
                                 ),
                               ),
                             )
                           : Text(
-                              "${jobProvider.detailsModel!.jobDetails!.professionalName!.substring(0, 1)}${jobProvider.detailsModel!.jobDetails!.professionalName!.substring(0, 1)}",
+                              "${jobProvider.detailsModel!.jobDetails!.professionalName!.split(' ')[0][0]}${jobProvider.detailsModel!.jobDetails!.professionalName!.split(' ')[1][0]}",
                               style: const TextStyle(color: black343),
                             ),
                     ),
@@ -317,10 +348,16 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => ChatScreen(
-                                jobId: jobProvider.detailsModel!.jobDetails!.id!,
-                                userId: jobProvider.detailsModel!.jobDetails!.professionalId!,
-                                userName: jobProvider.detailsModel!.jobDetails!.professionalName ?? '',
-                                userImage: jobProvider.detailsModel!.jobDetails!.professionalImage ?? '',
+                                jobId:
+                                    jobProvider.detailsModel!.jobDetails!.id!,
+                                userId: jobProvider
+                                    .detailsModel!.jobDetails!.professionalId!,
+                                userName: jobProvider.detailsModel!.jobDetails!
+                                        .professionalName ??
+                                    '',
+                                userImage: jobProvider.detailsModel!.jobDetails!
+                                        .professionalImage ??
+                                    '',
                                 jobCategory: jobProvider
                                     .detailsModel!.jobDetails!.category!,
                                 state: jobProvider
@@ -742,7 +779,9 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                               builder: (context) => ChatScreen(
                                 jobId: value.detailsModel!.jobDetails!.id
                                     .toString(),
-                                userId: value.applicationsModel!.applications![index].professionalId.toString(),
+                                userId: value.applicationsModel!
+                                    .applications![index].professionalId
+                                    .toString(),
                                 userName: value
                                         .applicationsModel!
                                         .applications![index]

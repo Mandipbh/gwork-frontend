@@ -155,6 +155,9 @@ class SignUpProvider extends ChangeNotifier {
     } else if (lastName.length < 3) {
       ErrorLoader(context, tr("error_message.valid_last_name"));
       notifyListeners();
+    } else if (textCode.length < 16) {
+      ErrorLoader(context, tr("error_message.valid_taxCode"));
+      notifyListeners();
     } else if (!RegExp(
             r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
         .hasMatch(email)) {

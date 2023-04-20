@@ -3,16 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/my_profile/provider/my_profile_provider.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/profile_picture_view/image_provider/image_provider.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class EditProfilePictureDialogueClientProf extends StatelessWidget {
   Function cameraClick, galleryClick, deleteClick;
+  bool imageVisibility;
   EditProfilePictureDialogueClientProf(
       {Key? key,
       required this.cameraClick,
       required this.galleryClick,
-      required this.deleteClick})
+      required this.deleteClick,
+      required this.imageVisibility})
       : super(key: key);
 
   @override
@@ -92,32 +93,40 @@ class EditProfilePictureDialogueClientProf extends StatelessWidget {
         const SizedBox(height: 12),
         const Divider(thickness: 1, color: greyD3D),
         const SizedBox(height: 12),
-        Consumer<MyProfileProvider>(
-          builder: (context, myProfileProvider, child) {
-            return GestureDetector(
-              onTap: () => deleteClick(),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    tr('Professional.logIn.EditProfileDialog.delete_photo')
-                        .toUpperCase(),
-                    style: const TextStyle(
-                        color: redE45,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 16,
-                        fontFamily: 'Satoshi'),
-                  ),
-                  const SizedBox(width: 8),
-                  Image.asset('assets/icons/trash.png', height: 24, width: 24),
-                ],
+        Visibility(
+          visible: imageVisibility,
+          child: Column(
+            children: [
+              Consumer<MyProfileProvider>(
+                builder: (context, myProfileProvider, child) {
+                  return GestureDetector(
+                    onTap: () => deleteClick(),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          tr('Professional.logIn.EditProfileDialog.delete_photo')
+                              .toUpperCase(),
+                          style: const TextStyle(
+                              color: redE45,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 16,
+                              fontFamily: 'Satoshi'),
+                        ),
+                        const SizedBox(width: 8),
+                        Image.asset('assets/icons/trash.png',
+                            height: 24, width: 24),
+                      ],
+                    ),
+                  );
+                },
               ),
-            );
-          },
+              const SizedBox(height: 12),
+              const Divider(thickness: 1, color: greyD3D),
+            ],
+          ),
         ),
-        const SizedBox(height: 12),
-        const Divider(thickness: 1, color: greyD3D),
         const SizedBox(height: 12),
         GestureDetector(
           onTap: () {

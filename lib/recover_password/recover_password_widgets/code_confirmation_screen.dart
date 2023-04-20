@@ -56,6 +56,7 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
   @override
   void dispose() {
     timer.cancel();
+
     super.dispose();
   }
 
@@ -72,7 +73,12 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                     builder: (context) => const SignInSignUpScreen()),
                 (Route<dynamic> route) => false);
             FocusManager.instance.primaryFocus?.unfocus();
-            ProgressLoader(context, tr("success_message.pass_recover_cancel"));
+            if (widget.comingFrom == 2) {
+              ProgressLoader(
+                context,
+                tr("success_message.pass_recover_cancel"),
+              );
+            }
           } else {
             Navigator.of(context)
               ..pop()

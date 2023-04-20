@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:g_worker_app/Constants.dart';
 import 'package:g_worker_app/my_profile/provider/my_profile_provider.dart';
+import 'package:g_worker_app/sign_up/provider/sign_up_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../colors.dart';
@@ -63,6 +64,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         label = tr('client.Birth_date.Edit_birth_date');
         description = tr('client.Birth_date.enter_your_birth_date');
         break;
+      case ProfileFieldType.bankDetail:
+        label = tr('Edit Bank Detail');
+        description = tr('Enter Your Bank Detail');
+        break;
     }
     super.initState();
   }
@@ -74,6 +79,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var role = Provider.of<SignUpProvider>(context, listen: false).userType!;
+
     return WillPopScope(
       onWillPop: () async {
         context.read<MyProfileProvider>().clearEditProfileProvider();
@@ -280,7 +287,23 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                                                           20),
                                                                 ],
                                                               )
-                                                            : Container(),
+                                                            : widget.type ==
+                                                                    ProfileFieldType
+                                                                        .bankDetail
+                                                                ? nameTextField(
+                                                                    controller:
+                                                                        controller,
+                                                                    maxLength:
+                                                                        27,
+                                                                    hint:
+                                                                        "IT60 X054 2811 1010 0000 0123 456",
+                                                                    context:
+                                                                        context,
+                                                                    label: tr(
+                                                                        'client.log_in.sign_up.bank'),
+                                                                    asset:
+                                                                        'credit_card_shield.png')
+                                                                : Container(),
                           ],
                         ),
                         Padding(

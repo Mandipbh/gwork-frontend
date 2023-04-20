@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:g_worker_app/Constants.dart';
@@ -75,19 +77,30 @@ class CreateClientJobProvider extends ChangeNotifier {
   var timeController = TextEditingController();
 
   setSchedule(BuildContext context) {
+    String formattedTime = DateFormat.Hm().format(DateTime.now());
     if (dateController.text.isEmpty || timeController.text.isEmpty) {
       ErrorLoader(context, tr("error_message.fill_all_data"));
       notifyListeners();
       return false;
-    } else if (_pickedDateUtc!.millisecondsSinceEpoch >
-        DateTime.now().millisecondsSinceEpoch) {
+    } else if (int.parse(timeController.text.replaceAll(":", "")) <
+            int.parse(formattedTime.replaceAll(":", "")) &&
+        (_pickedDateUtc.toString().split(" ")[0] ==
+            DateTime.now().toString().split(" ")[0])) {
+      log('${int.parse(timeController.text.replaceAll(":", ""))}');
+      log('${int.parse(formattedTime.replaceAll(":", ""))}');
+
       ErrorLoader(context, tr("error_message.fill_all_data"));
       notifyListeners();
       return false;
     } else {
+      log('${_pickedDateUtc}');
+      log('${DateTime.now()}');
+
       _date = dateController.text;
       _time = timeController.text;
+
       notifyListeners();
+
       return true;
     }
   }

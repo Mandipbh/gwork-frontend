@@ -225,7 +225,9 @@ class _ChatScreenState extends State<ChatScreen> {
                           //   double.parse(getProfessionalJobListProvider
                           //       .detailsModel!.jobDetails!.acceptedBudget!),
                           // )}',
-                          widget.acceptedBudget.toString(),
+                          '€ ${NumberFormat('#.00').format(
+                            widget.acceptedBudget,
+                          )}',
                           style: const TextStyle(
                             color: splashColor1,
                             fontSize: 14,
@@ -754,7 +756,7 @@ class _ChatScreenState extends State<ChatScreen> {
     showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-            insetPadding: EdgeInsets.symmetric(horizontal: 28),
+            insetPadding: const EdgeInsets.symmetric(horizontal: 15),
             contentPadding: const EdgeInsets.all(12),
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8.0))),

@@ -370,11 +370,38 @@ class _JobDetailsScreenState extends State<JobDetailsScreenProfessional> {
                         child: Image.network(
                           provider.detailsModel!.jobDetails!.clientImage!,
                           fit: BoxFit.fitWidth,
+                          loadingBuilder: (BuildContext context, Widget child,
+                              ImageChunkEvent? loadingProgress) {
+                            if (loadingProgress == null) {
+                              return child;
+                            }
+                            return Center(
+                              child: CircularProgressIndicator(
+                                value: loadingProgress.expectedTotalBytes !=
+                                        null
+                                    ? loadingProgress.cumulativeBytesLoaded /
+                                        loadingProgress.expectedTotalBytes!
+                                    : null,
+                              ),
+                            );
+                          },
+                          errorBuilder: (context, error, stackTrace) {
+                            return const CircleAvatar(
+                                radius: 75,
+                                backgroundColor: Colors.white,
+                                child: Center(
+                                  child: Icon(
+                                    Icons.person,
+                                    size: 22,
+                                    color: grey9EA,
+                                  ),
+                                ));
+                          },
                         ),
                       ),
                     )
                   : Text(
-                      "${provider.detailsModel!.jobDetails!.clientName!.substring(0, 1)}${provider.detailsModel!.jobDetails!.clientName!.substring(0, 1)}",
+                      "${provider.detailsModel!.jobDetails!.clientName!.split(' ')[0][0]}${provider.detailsModel!.jobDetails!.clientName!.split(' ')[1][0]}",
                       style: const TextStyle(color: black343),
                     ),
             ),

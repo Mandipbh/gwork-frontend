@@ -67,8 +67,10 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
                               provider.setSelected(value);
                             })
                         : Container(),
-                    const SizedBox(
-                      height: 60,
+                    SizedBox(
+                      height: provider.getSelected() == SelectionType.signUp
+                          ? 30
+                          : 60,
                     ),
                     provider.getSelected() == SelectionType.signUp
                         ? signUpView(signUpProvider)

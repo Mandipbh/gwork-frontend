@@ -99,6 +99,7 @@ class ProfileFieldType {
   static const int birthdate = 5;
   static const int phoneNumber = 6;
   static const int paymentMethod = 7;
+  static const int bankDetail = 8;
 }
 
 class UserType {

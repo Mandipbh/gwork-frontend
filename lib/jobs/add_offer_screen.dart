@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/common/common_loader.dart';
+import 'package:g_worker_app/common/common_widgets.dart';
 import 'package:g_worker_app/jobs/provider/get_professional_job_list_provider.dart';
 import 'package:g_worker_app/server_connection/api_client.dart';
 import 'package:provider/provider.dart';
@@ -180,20 +181,27 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                           getProfessionalJobList.addOfferController.text,
                           context);
                       if (isValid) {
-                        getProfessionalJobList
-                            .applyJob(
-                                context: context,
-                                price: int.parse(getProfessionalJobList
-                                    .addOfferController.text),
-                                jobId: widget.jobId!)
-                            .then((value) {
-                          if (value!.success!) {
-                            Navigator.pop(context);
-                            getProfessionalJobList.getDetailsProfessional(
-                                context, widget.jobId!);
-                            getProfessionalJobList.addOfferController.clear();
-                          }
-                        });
+                        showJobApplyConfirmation(
+                          context,
+                          widget.jobId!,
+                          int.parse(
+                              getProfessionalJobList.addOfferController.text),
+                        );
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        // getProfessionalJobList
+                        //     .applyJob(
+                        //         context: context,
+                        //         price: int.parse(getProfessionalJobList
+                        //             .addOfferController.text),
+                        //         jobId: widget.jobId!)
+                        //     .then((value) {
+                        //   if (value!.success!) {
+                        //     Navigator.pop(context);
+                        //     getProfessionalJobList.getDetailsProfessional(
+                        //         context, widget.jobId!);
+                        //     getProfessionalJobList.addOfferController.clear();
+                        //   }
+                        // });
                       }
                     },
                     height: 48,
@@ -230,5 +238,68 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
         ),
       ),
     );
+  }
+
+  void showJobApplyConfirmation(BuildContext context, String jobId, int price) {
+    bool isJobUpdateLoading = false;
+    showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+            contentPadding: const EdgeInsets.all(12),
+            insetPadding: const EdgeInsets.symmetric(horizontal: 15),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8.0))),
+            content: StatefulBuilder(builder: (context, newState) {
+              return confirmationDialogueView(
+                  context: context,
+                  mainIcon: 'coins-stacked-01.png',
+                  title:
+                      tr('Professional.apply_job_dialogue.are_you_sure_apply'),
+                  description:
+                      tr('Professional.apply_job_dialogue.you_can_change'),
+                  button1Name: tr('Professional.apply_job_dialogue.Apply'),
+                  button2Name: tr('Professional.apply_job_dialogue.Cancel'),
+                  showLoader: isJobUpdateLoading,
+                  onButton1Click: () {
+                    newState(() {
+                      isJobUpdateLoading = true;
+                    });
+                    var provider =
+                        context.read<GetProfessionalJobListProvider>();
+                    provider
+                        .applyJob(context: context, price: price, jobId: jobId)
+                        .then((value) {
+                      if (value!.success!) {
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                        provider.getDetailsProfessional(context, jobId);
+                        provider.getProfessionalJobList(
+                            jobState:
+                                provider.getIsSelf() ? 'All' : 'Published',
+                            state: !provider.getIsSelf()
+                                ? "All"
+                                : provider.getSelectedState(),
+                            isSelf: provider.getIsSelf(),
+                            province: provider.getSelectedProvince(),
+                            category: provider.getIsSelf()
+                                ? "All"
+                                : provider.getSelectedCategory(),
+                            context: context);
+                        Provider.of<GetProfessionalJobListProvider>(context,
+                                listen: false)
+                            .addOfferController
+                            .clear();
+                      }
+                      newState(() {
+                        isJobUpdateLoading = false;
+                      });
+                    });
+                  },
+                  onButton2Click: () {
+                    Navigator.pop(context);
+                  },
+                  button2Icon: 'go_backward.png',
+                  button1Icon: 'check_circle.png');
+            })));
   }
 }

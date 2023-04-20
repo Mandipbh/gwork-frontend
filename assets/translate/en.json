@@ -576,6 +576,7 @@
     "valid_name" : "Please Enter More Than 3 Character Name",
     "valid_last_name" : "Please Enter More Than 3 Character Last Name",
     "valid_email" : "Please Enter Valid Email",
+    "valid_taxCode" : "Please Enter Valid Tax Code",
     "valid_card_holder" : "Please Enter More Than 3 Character Card Holder Name",
     "valid_card_number" : "Card Number Must Be 16 Digits..",
     "no_image_selected": "No Image selected",

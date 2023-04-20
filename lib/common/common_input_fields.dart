@@ -179,24 +179,34 @@ Widget timeTextField({
           },
           context: context,
         );
+        // if (pickedTime != null) {
+        //   print("TIME TIME TIME${pickedTime.toString()}");
+        //   DateTime now = selectedDate.isEmpty
+        //       ? DateTime.now()
+        //       : DateFormat('dd/MM/yyyy').parse(selectedDate);
+        //   DateTime selectedTime = DateTime(
+        //       now.year, now.month, now.day, pickedTime.hour, pickedTime.minute);
+        //   print('ggg ${pickedTime.hour}:${pickedTime.minute}');
+        //   print('selectedTime ${selectedTime.millisecondsSinceEpoch}');
+        //   print('datetimenow ${DateTime.now().millisecondsSinceEpoch}');
+        //   print(
+        //       'selectedDate ${Provider.of<CreateClientJobProvider>(context, listen: false).dateController.text}');
+        //   // if (selectedTime.millisecondsSinceEpoch >
+        //   //     DateTime.now().millisecondsSinceEpoch) {
+        //   controller!.text = '${pickedTime.hour}:${pickedTime.minute}';
+        //   // } else {
+        //   //   // ErrorLoader(context, 'Please Select date');
+        //   // }
+        // } else {
+        //   print("Time is not selected");
+        // }
         if (pickedTime != null) {
-          print("TIME TIME TIME${pickedTime.toString()}");
-          DateTime now = selectedDate.isEmpty
-              ? DateTime.now()
-              : DateFormat('dd/MM/yyyy').parse(selectedDate);
-          DateTime selectedTime = DateTime(
-              now.year, now.month, now.day, pickedTime.hour, pickedTime.minute);
-          print('ggg ${pickedTime.hour}:${pickedTime.minute}');
-          print('selectedTime ${selectedTime.millisecondsSinceEpoch}');
-          print('datetimenow ${DateTime.now().millisecondsSinceEpoch}');
-          print(
-              'selectedDate ${Provider.of<CreateClientJobProvider>(context, listen: false).dateController.text}');
-          if (selectedTime.millisecondsSinceEpoch >
-              DateTime.now().millisecondsSinceEpoch) {
-            controller!.text = '${pickedTime.hour}:${pickedTime.minute}';
-          } else {
-            // ErrorLoader(context, 'Please Select date');
-          }
+          controller!.text = pickedTime
+              .toString()
+              .replaceAll("(", "")
+              .replaceAll(")", "")
+              .split("y")
+              .last;
         } else {
           print("Time is not selected");
         }

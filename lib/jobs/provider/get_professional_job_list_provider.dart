@@ -131,6 +131,7 @@ class GetProfessionalJobListProvider extends ChangeNotifier {
         .then((value) {
       _model = value;
       setIsListLoading(false);
+      notifyListeners();
     });
   }
 

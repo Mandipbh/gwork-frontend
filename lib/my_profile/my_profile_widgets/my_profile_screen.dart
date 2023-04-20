@@ -121,7 +121,15 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                     right: -8,
                                     child: GestureDetector(
                                       onTap: () {
-                                        editProfilePicture(context);
+                                        print(
+                                            "dstkf jsdt ${myProfileProvider.model!.user!.image}");
+                                        editProfilePicture(
+                                            context,
+                                            myProfileProvider
+                                                        .model!.user!.image ==
+                                                    null
+                                                ? false
+                                                : true);
                                       },
                                       child: CircleAvatar(
                                         radius: 22,
@@ -487,7 +495,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                               builder: (context) =>
                                                   EditProfileScreen(
                                                     type: ProfileFieldType
-                                                        .paymentMethod,
+                                                        .bankDetail,
                                                     value: 'testt',
                                                   )),
                                         );
@@ -578,6 +586,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                             context: context,
                             onButtonTap: () {
                               askForExit(
+                                buttonIcon: 'logout.png',
                                 context: context,
                                 onBackPressed: () {
                                   Provider.of<MyProfileProvider>(context,
