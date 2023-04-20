@@ -237,7 +237,7 @@ class SignUpProvider extends ChangeNotifier {
       ErrorLoader(context, tr("error_message.fill_all_data"));
       notifyListeners();
       return false;
-    } else if (!RegExp(r'^[A-Za-z]{2}[0-9]{2}[A-Za-z][1-9]{22}$')
+    } else if (!RegExp(r'^[A-Za-z]{2}[0-9]{2}[A-Za-z][0-9]{22}$')
         .hasMatch(bankAccountNumber)) {
       ErrorLoader(context, tr("error_message.valid_bank_number"));
       notifyListeners();

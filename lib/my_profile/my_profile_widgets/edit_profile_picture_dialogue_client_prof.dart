@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:g_worker_app/colors.dart';
 import 'package:g_worker_app/my_profile/provider/my_profile_provider.dart';
 import 'package:g_worker_app/sign_up/sign_up_widgets/profile_picture_view/image_provider/image_provider.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class EditProfilePictureDialogueClientProf extends StatelessWidget {
@@ -28,7 +27,7 @@ class EditProfilePictureDialogueClientProf extends StatelessWidget {
         ),
         const SizedBox(height: 14),
         Text(
-          tr('Professional.logIn.EditProfileDialog.Edit_profile_picture'),
+          tr('admin.edit_upload_profile_dialogue.Edit_profile_picture'),
           style: const TextStyle(
               color: primaryColor,
               fontWeight: FontWeight.w700,

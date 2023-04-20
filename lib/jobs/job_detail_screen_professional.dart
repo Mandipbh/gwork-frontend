@@ -988,7 +988,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreenProfessional> {
                   title: tr('client.reject_job.are_you_sure_reject'),
                   description:
                       tr('client.reject_job.rejected_action_can_not_be_undone'),
-                  button1Name: tr('client.Accept_job.Cancel'),
+                  button1Name: tr('admin.delete_job_dialogue.Cancel'),
                   button2Name: tr('client.reject_job.Reject_job'),
                   showLoader: isJobUpdateLoading,
                   onButton1Click: () {

@@ -104,7 +104,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               padding: const EdgeInsets.only(bottom: 12),
                               child: Text(
                                   widget.type == ProfileFieldType.password
-                                      ? 'Change Password'
+                                      ? tr('admin.change_password')
                                       : '$label',
                                   style: Theme.of(context).textTheme.headline1),
                             ),
@@ -329,7 +329,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             context: context,
                             backgroundColor: primaryColor,
                             buttonName: widget.type == ProfileFieldType.password
-                                ? tr('admin.set_new_password')
+                                ? tr('admin.new_pass')
                                 : widget.type == ProfileFieldType.paymentMethod
                                     ? tr(
                                         'client.Payment_method.Update_payment_info')

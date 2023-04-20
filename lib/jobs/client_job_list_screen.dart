@@ -722,9 +722,10 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                                   ),
                                 ),
                                 Row(
-                                  children: const [
+                                  children:  [
                                     Icon(Icons.circle,
-                                        size: 20, color: yellowF4D),
+                                        size: 20, color:clientJobProvider
+                                            .model!.jobs[index].state==JobStatus.completed?Colors.transparent:yellowF4D),
                                     SizedBox(width: 8),
                                     Icon(Icons.arrow_forward_ios,
                                         color: Colors.black, size: 20),
