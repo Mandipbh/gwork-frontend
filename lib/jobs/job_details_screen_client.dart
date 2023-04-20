@@ -317,14 +317,10 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => ChatScreen(
-                                jobId:
-                                    jobProvider.detailsModel!.jobDetails!.id!,
-                                userId: jobProvider
-                                    .detailsModel!.jobDetails!.userId!,
-                                userName: jobProvider.detailsModel!.jobDetails!
-                                    .professionalName!,
-                                userImage: jobProvider.detailsModel!.jobDetails!
-                                    .professionalImage!,
+                                jobId: jobProvider.detailsModel!.jobDetails!.id!,
+                                userId: jobProvider.detailsModel!.jobDetails!.professionalId!,
+                                userName: jobProvider.detailsModel!.jobDetails!.professionalName ?? '',
+                                userImage: jobProvider.detailsModel!.jobDetails!.professionalImage ?? '',
                                 jobCategory: jobProvider
                                     .detailsModel!.jobDetails!.category!,
                                 state: jobProvider
@@ -746,9 +742,7 @@ class _JobDetailsClientScreenState extends State<JobDetailsClientScreen> {
                               builder: (context) => ChatScreen(
                                 jobId: value.detailsModel!.jobDetails!.id
                                     .toString(),
-                                userId: value.applicationsModel!
-                                    .applications![index].professionalId
-                                    .toString(),
+                                userId: value.applicationsModel!.applications![index].professionalId.toString(),
                                 userName: value
                                         .applicationsModel!
                                         .applications![index]

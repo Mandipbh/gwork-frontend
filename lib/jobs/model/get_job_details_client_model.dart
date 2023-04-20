@@ -45,6 +45,7 @@ class JobDetails {
   String? clientName;
   String? clientImage;
   String? professionalName;
+  String? professionalId;
   String? professionalImage;
   String? role;
   int? gallery;
@@ -120,6 +121,7 @@ class JobDetails {
     chatCount = json['chat_count'];
     applicationAccepted = json['application_accepted'];
     acceptedBudget = json['accepted_budget'];
+    professionalId = json['professional_id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -155,6 +157,7 @@ class JobDetails {
     data['chat_count'] = this.chatCount;
     data['application_accepted'] = this.applicationAccepted;
     data['accepted_budget'] = this.acceptedBudget;
+    data['professional_id'] = this.professionalId;
     return data;
   }
 }

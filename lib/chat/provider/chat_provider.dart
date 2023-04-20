@@ -57,7 +57,6 @@ class ChatProvider extends ChangeNotifier {
     socket!.on('chat message', (data) {
       print('chat data:: $data');
       ClassGetChat chat = ClassGetChat.fromJson(data);
-
       addMessages(chat.message ?? [], false);
     });
 
@@ -92,9 +91,9 @@ class ChatProvider extends ChangeNotifier {
   }
 
   addMessages(List<Message> list, bool reverse) {
-    if (_pageCount == 1) {
-      _allMessages = [];
-    }
+    // if (_pageCount == 1) {
+    //   _allMessages = [];
+    // }
     if (reverse) {
       _allMessages.insertAll(0, list);
     } else {
