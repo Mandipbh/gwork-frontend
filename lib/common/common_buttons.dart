@@ -28,7 +28,7 @@ Widget submitButton(
             Text(
               buttonName.toUpperCase(),
               style: TextStyle(
-                fontSize: MediaQuery.of(context).size.width * 0.039,
+                // fontSize: MediaQuery.of(context).size.width * 0.039,
                 fontFamily: 'Satoshi',
                 fontWeight: FontWeight.w700,
                 color: textColor,

@@ -29,7 +29,7 @@ class EditProfilePictureDialogueClientProf extends StatelessWidget {
         ),
         const SizedBox(height: 14),
         Text(
-          tr('Professional.logIn.EditProfileDialog.Edit_profile_picture'),
+          tr('admin.edit_upload_profile_dialogue.Edit_profile_picture'),
           style: const TextStyle(
               color: primaryColor,
               fontWeight: FontWeight.w700,

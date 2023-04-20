@@ -7,7 +7,7 @@
       "enter_your_phone_no_sign_in": "Inserisci il numero di telefono e la password per accedere.",
       "enter_your_phone_no_sign_up": "Inserisci il tuo numero di telefono per registrarti.",
       "phone_number": "Numero di telefono",
-      "password": "Parola d'ordine",
+      "password": "Password",
       "Sign_In": "Accedi",
       "Sign_Up": "Iscrizione",
       "Recover_password": "Recupera password",
@@ -28,6 +28,7 @@
     "new_password": "Nuova Password",
     "confirm_new_password": "Conferma Password",
     "set_new_password": "IMPOSTA PASSWORD",
+    "new_pass": "Imposta nuova password",
     "set_password_dialogue": {
       "set_password": "Imposta password",
       "set_new_password": "Scegli una password sicura per il tuo account.",
@@ -48,7 +49,7 @@
       "Text_Code": "Codice testo",
       "Birth_Date": "Data di nascita",
       "Payment_method": "Metodo di pagamento",
-      "Password": "parola d'ordine",
+      "Password": "Password",
       "Language": "Lingua",
       "Log_Out": "ESCI"
     },
@@ -72,19 +73,19 @@
     "enter_last_name": "Inserire il proprio cognome.",
     "Last_name": "COGNOME",
     "Edit_email": "Modifica email",
-    "enter_valid_email": "Inserire un indirizzo e-mail valido.",
+    "enter_valid_email": "Inserire il proprio indirizzo email",
     "Email": "EMAIL",
     "phone_number": "numero di telefono",
     "Birth_Date": "Data di nascita",
     "New_Password": "nuova password",
-    "Confirm_New_PAssword": "Conferma la nuova password",
+    "Confirm_New_PAssword": "Conferma password",
     "VAT_Number": "Partita IVA",
-    "Edit_phone_number": "Modifica telefono",
+    "Edit_phone_number": "Modifica numero di telefono",
     "enter_new_phone_no": "Inserisci il tuo nuovo numero di telefono e ti invieremo un codice OTP per confermarlo.",
-    "change_password": "Modifica password",
+    "change_password": "Cambio password",
     "change_current_password": "Cambia la password attuale con una nuova.",
     "Current_Password": "Password attuale",
-    "Confirm": "IMPOSTA PASSWORD",
+    "Confirm": "Conferma",
     "dashboard": {
       "Dashboard": "Pannello di controllo",
       "All_time": "Tutto",
@@ -95,8 +96,8 @@
       "Earnings": "Guadagni",
       "Jobs": "Lavori",
       "Users": "Utenti",
-      "Cleaning": "Pulizia",
-      "baby_sitting": "Baby Sitting",
+      "Cleaning": "Pulizie",
+      "baby_sitting": "Babysitting",
       "handy_man": "Tuttofare",
       "tutoring": "Ripetizioni",
       "Pending": "In attesa",
@@ -116,7 +117,7 @@
       "no_jobs": "Non ci sono lavori per il momento"
     },
     "job_detail": {
-      "Babysitting": "Babysitter",
+      "Babysitting": "Babysitting",
       "Completed": "Completato",
       "Building_restructuring": "Ristrutturazione edilizia, o ancora più titolo su cosa fare",
       "Description": "Descrizione",
@@ -126,7 +127,7 @@
       "Apply": "Fare domanda a",
       "Ristrutturazione": "Ristrutturazione edilizia",
       "View_invoice": "Visualizza fattura",
-      "reject": "Riutato",
+      "reject": "rifiuta",
       "Accept": "Accettato",
       "no_applicant": "Non ci sono candidati per il momento",
       "check_later": "Controlla un po' più tardi o imposta altri filtri",
@@ -149,7 +150,7 @@
       "Are_you_sure_delete": "Sei sicuro di voler cancellare questo lavoro?",
       "once_delete": "Una volta eliminati, i dati del lavoro non saranno più recuperabili.",
       "Keep_the_job": "MANTIENI LAVORO",
-      "Delete_job": "CANCELLA"
+      "Delete_job": "rifiuta"
     },
     "users": {
       "Registered": "Registrato",
@@ -238,7 +239,7 @@
         "Card_number": "NUMERO CARTA",
         "Expire_date": "SCADENZA",
         "CVV": "CVV",
-        "bank_detail" : "Dati bancari",
+        "bank_detail" : "Metodo di pagamento",
         "to_receive" : "Per ricevere i pagamenti, aggiungi dati bancari validi al tuo account.",
         "bank": "IBAN",
         "alpha_numeric" : "27 caratteri alfanumerici. I primi due caratteri sono alfabetici, seguiti da due numeri e una lettera.",
@@ -274,9 +275,9 @@
       "Update_payment_info": "Modifica il metodo di pagamento."
     },
     "VAT_number": {
-      "Edit_VAT_number": "Modifica codice fiscale",
-      "enter_VAR_number": "Inserisci il tuo codice fiscale",
-      "VAT_Number": "Codice Fiscale"
+      "Edit_VAT_number": "Edit Tax Code",
+      "enter_VAR_number": "Please enter your Tax Code",
+      "VAT_Number": "TAX CODE"
     },
     "Birth_date":{
       "Edit_birth_date": "Modifica data di nascita",
@@ -298,14 +299,14 @@
     "reject_job":{
       "are_you_sure_reject": "Sei sicuro di voler rifiutare il lavoro?",
       "rejected_action_can_not_be_undone": "Una volta rifiutata, l'azione non può essere annullata",
-      "Reject_job": "RIFIUTA LAVORO"
+      "Reject_job": "annulla"
     },
     "chat":{
-      "Babysitting": "Babysitter",
+      "Babysitting": "Babysitting",
       "Offered_price": "Prezzo offerto",
       "Edit": "Modificare",
       "Accept": "Accetta",
-      "no_messages": "Per ora non ci sono messaggi",
+      "no_messages": "Non ci sono messaggi per ora",
       "start_conversattion": "Avanti, inizia la conversazione",
       "Start_typing": "Inizia a digitare..."
     },
@@ -318,12 +319,12 @@
       "New_job": "Nuovo lavoro",
       "need": "Di cosa hai bisogno?",
       "select_options": "Seleziona una delle quattro opzioni.",
-      "Cleaning": "Pulizia",
-      "baby_sitting": "Babysitter",
+      "Cleaning": "Pulizie",
+      "baby_sitting": "Babysitting",
       "Tutoring": "Ripetizioni",
       "Handyman": "Tuttofare",
       "Next": "Prossima",
-      "All": "Tutto"
+      "All": "Tutti"
     },
     "Job_info": {
       "Job_info": "Lavori",
@@ -375,7 +376,7 @@
     "job_status": {
       "all": "Tutto",
       "published": "Pubblicato",
-      "doing": "Facendo",
+      "doing": "In corso",
       "pending": "In attesa di",
       "rejected": "Respinto",
       "accepted": "Accettato",
@@ -386,8 +387,8 @@
     },
     "job_category": {
       "all": "Tutti i tipi",
-      "cleaning": "Pulizia",
-      "babysitting": "Babysitter",
+      "cleaning": "Pulizie",
+      "babysitting": "Babysitting",
       "handyman": "Tuttofare",
       "tutoring": "Tutoraggio"
     },
@@ -400,7 +401,7 @@
       "mokkaStudios": "Mokka Studios"
     },
     "apply_job_dialogue": {
-      "are_you_sure_apply": "Sei sicuro di volerti candidare per il lavoro?",
+      "are_you_sure_apply": "Sei sicuro di volerti candidare?",
       "you_can_change": "Puoi modificare l'offerta in qualsiasi momento",
       "Apply": "candidati",
       "Cancel": "Annulla"
@@ -418,9 +419,9 @@
       "Cancel": "Annulla"
     },
     "complete_job_dialogue": {
-      "are_you_sure_complete": "Sei sicuro di voler completare il lavoro?",
+      "are_you_sure_complete": "Sei sicuro di voler portare a termine il lavoro?",
       "once_complete": "Una volta completato, lo stato non può essere modificato",
-      "Complete_job": "Lavoro completo",
+      "Complete_job": "completa Lavoro ",
       "Cancel": "Annulla"
     },
     "logIn": {
@@ -491,7 +492,7 @@
         "Doing": "In corso",
         "Rejected": "Rifiutato",
         "Completed": "Completato",
-        "Search_Jobs": "Ricerca lavoro",
+        "Search_Jobs": "Cerca lavoro",
         "My_Jobs": "I miei lavori",
         "earning_limit": "limite di guadagno",
         "PRovince": "Provincia",
@@ -557,7 +558,7 @@
       "Building_restructuring": "Ristrutturazione edilizia, o ancora più titolo su cosa fare",
       "Offer_price": "Prezzo di offerta",
       "Once_an_offer_is_accepted": "Una volta accettata e confermata, l'offerta diventa un accordo vincolante.",
-      "apply_for_job": "Fai domanda per un lavoro"
+      "apply_for_job": "Candidati per un lavoro"
     }
   },
   "error_message": {

@@ -29,6 +29,7 @@
     "new_password": "New Password",
     "confirm_new_password": "Confirm new Password",
     "set_new_password": "Set new password",
+    "new_pass": "Set new password",
     "set_password_dialogue": {
       "set_password": "Set password",
       "set_new_password": "Set a new password to use it for Loading in.",
@@ -274,9 +275,9 @@
       "Update_payment_info": "Update payment info"
     },
     "VAT_number": {
-      "Edit_VAT_number": "Edit Tax number",
-      "enter_VAR_number": "Please enter your Tax number",
-      "VAT_Number": "Tax Number"
+      "Edit_VAT_number": "Edit Tax Code",
+      "enter_VAR_number": "Please enter your Tax Code",
+      "VAT_Number": "TAX CODE"
     },
     "Birth_date":{
       "Edit_birth_date": "Edit birth date",

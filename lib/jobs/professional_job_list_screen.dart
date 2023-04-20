@@ -382,7 +382,7 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
                   children: [
                     FilterChip(
                       label: Text(
-                        tr('Professional.logIn.Jobs.All_Jobs'),
+                        tr('Professional.logIn.Jobs.All_types'),
                       ),
                       labelStyle: TextStyle(
                         color: provider.getSelectedState() != JobsFilters.all
@@ -822,9 +822,10 @@ class _ProfessionalJobListScreenState extends State<ProfessionalJobListScreen> {
                                         ),
                                       ),
                                       Row(
-                                        children: const [
+                                        children:  [
                                           Icon(Icons.circle,
-                                              size: 12, color: yellowF4D),
+                                              size: 12, color: provider.model!.jobs![index]
+                                                  .applicationState==JobStatus.completed?Colors.transparent:yellowF4D),
                                           SizedBox(width: 8),
                                           Icon(Icons.arrow_forward_ios,
                                               color: Colors.black, size: 20),

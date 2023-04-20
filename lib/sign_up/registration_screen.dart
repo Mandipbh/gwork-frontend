@@ -307,48 +307,46 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               ErrorLoader(context,
                                   tr("error_message.select_profile_pic"));
                             } else {
-                              value.setIsLoading(true);
-                              print(currentPage);
-                              ApiClient()
-                                  .userRegister(context,
-                                      firstName: value.name,
-                                      lastName: value.lastName,
-                                      email: value.email,
-                                      phoneNumber: value.phoneController.text,
-                                      password: value.password,
-                                      vatNumber: value.textCode,
-                                      birthDate: value.birthDate,
-                                      role: '0',
-                                      cardHolderName: value.cardHolder,
-                                      cardNumber: value.cardNumber,
-                                      cardExpiry: value.expireDate,
-                                      image: Provider.of<ProfilePicProvider>(
-                                              context,
-                                              listen: false)
-                                          .imagePath,
-                                      cardCvv: value.cvv)
-                                  .then((val) {
-                                value.setIsLoading(false);
-
-                                if (val!.success!) {
-                                  currentPage = currentPage + 1;
-                                  log("!!${val.success}");
-                                  controller.nextPage(
-                                      duration:
-                                          const Duration(milliseconds: 200),
-                                      curve: Curves.easeIn);
-                                }
-                              });
+                              //FocusManager.instance.primaryFocus?.unfocus();
+                              controller.nextPage(
+                                  duration: const Duration(milliseconds: 200),
+                                  curve: Curves.easeIn);
                             }
                           }
 
                           if (currentPage == 6) {
-                            value.clearSignUpProvider(context);
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const SignInSignUpScreen()));
+
+
+                            ApiClient()
+                                .userRegister(context,
+                                    firstName: value.name,
+                                    lastName: value.lastName,
+                                    email: value.email,
+                                    phoneNumber: value.phoneController.text,
+                                    password: value.password,
+                                    vatNumber: value.textCode,
+                                    birthDate: value.birthDate,
+                                    role: '0',
+                                    cardHolderName: value.cardHolder,
+                                    cardNumber: value.cardNumber,
+                                    cardExpiry: value.expireDate,
+                                    image: Provider.of<ProfilePicProvider>(
+                                            context,
+                                            listen: false)
+                                        .imagePath,
+                                    cardCvv: value.cvv)
+                                .then((val) {
+                              Navigator.of(context).pop();
+
+                              if (val!.success!) {
+                                value.clearSignUpProvider(context);
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const SignInSignUpScreen()));
+                              }
+                            });
                           }
                         },
                         nextButtonName: currentPage > 5
@@ -487,44 +485,63 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               ErrorLoader(context,
                                   tr("error_message.select_profile_pic"));
                             } else {
-                              value.setIsLoading(true);
-                              ApiClient()
-                                  .userRegister(
-                                context,
-                                firstName: value.name,
-                                lastName: value.lastName,
-                                email: value.email,
-                                phoneNumber: value.phoneController.text,
-                                password: value.password,
-                                vatNumber: value.textCode,
-                                birthDate: value.birthDate,
-                                role: '1',
-                                image: Provider.of<ProfilePicProvider>(context,
-                                        listen: false)
-                                    .imagePath,
-                                bankDetail: value.bankAccountNumber,
-                              )
-                                  .then((v) {
-                                value.setIsLoading(false);
-
-                                if (v!.success!) {
-                                  currentPage = currentPage + 1;
-                                  controller.nextPage(
-                                      duration:
-                                          const Duration(milliseconds: 200),
-                                      curve: Curves.easeIn);
-                                }
-                              });
+                              currentPage = currentPage + 1;
+                              controller.nextPage(
+                                  duration: const Duration(milliseconds: 200),
+                                  curve: Curves.easeIn);
                             }
                           }
 
                           if (currentPage == 7) {
-                            value.clearSignUpProvider(context);
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const PendingApplicationScreen()));
+                            openLoadingDialog(context);
+                            ApiClient()
+                                .userRegister(
+                              context,
+                              firstName: value.name,
+                              lastName: value.lastName,
+                              email: value.email,
+                              phoneNumber: value.phoneController.text,
+                              password: value.password,
+                              vatNumber: value.textCode,
+                              birthDate: value.birthDate,
+                              role: '1',
+                              image: Provider.of<ProfilePicProvider>(context,
+                                      listen: false)
+                                  .imagePath,
+                              bankDetail: value.bankAccountNumber,
+                            )
+                                .then((v) {
+                              print("value ${v!.success}");
+                              value.clearSignUpProvider(context);
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const PendingApplicationScreen()));
+                            });
+                            //     .then((v) {
+                            //
+                            //   if (v!.success!) {
+                            //     print("successssss");
+                            //     // WidgetsBinding.instance.addPostFrameCallback((_) {
+                            //     //   Navigator.of(context).pop();
+                            //     // });
+                            //
+                            //
+                            //
+                            //
+                            //
+                            //
+                            //
+                            //   }
+                            //   else{
+                            //     print("erdf re");
+                            //     WidgetsBinding.instance.addPostFrameCallback((_) {
+                            //       Navigator.of(context).pop();
+                            //     });
+                            //
+                            //   }
+                            // });
                           }
                         },
                         nextButtonName: currentPage > 6
