@@ -97,72 +97,72 @@ class MyApp extends StatelessWidget {
             ),
             textTheme: const TextTheme(
               // for all headings
-              headline1: TextStyle(
+              displayLarge: TextStyle(
                   fontSize: 32,
                   fontFamily: 'Satoshi',
                   fontWeight: FontWeight.w700,
                   color: primaryColor),
               // for dialog header
-              headline2: TextStyle(
+              displayMedium: TextStyle(
                   fontSize: 24,
                   fontFamily: 'Manrope',
                   fontWeight: FontWeight.w700,
                   color: primaryColor),
               // for appbar title
 
-              headline3: TextStyle(
+              displaySmall: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w700,
                   fontFamily: 'Satoshi',
                   color: primaryColor),
 
-              headline4: TextStyle(
+              headlineMedium: TextStyle(
                   fontSize: 14,
                   fontFamily: 'Satoshi',
                   fontWeight: FontWeight.w700,
                   color: primaryColor),
-              headline5: TextStyle(
+              headlineSmall: TextStyle(
                   fontSize: 14,
                   fontFamily: 'Satoshi',
                   fontWeight: FontWeight.w500,
                   color: primaryColor),
               // for labels
-              headline6: TextStyle(
+              titleLarge: TextStyle(
                   fontSize: 12,
                   fontFamily: 'Satoshi',
                   fontWeight: FontWeight.w500,
                   color: primaryColor),
 
               // for login page tags
-              subtitle1: TextStyle(
+              titleMedium: TextStyle(
                   fontSize: 16,
                   fontFamily: 'Manrope',
                   fontWeight: FontWeight.w500,
                   color: Color(0xff19201A)),
               // for notification
-              subtitle2: TextStyle(
+              titleSmall: TextStyle(
                   fontSize: 14.0,
                   fontFamily: 'Manrope',
                   fontWeight: FontWeight.w500,
                   color: Colors.white),
-              bodyText1: TextStyle(
+              bodyLarge: TextStyle(
                   fontSize: 14,
                   fontFamily: 'Satoshi',
                   fontWeight: FontWeight.w700),
               // for description and input field
-              bodyText2: TextStyle(
+              bodyMedium: TextStyle(
                   fontSize: 14,
                   fontFamily: 'Manrope',
                   fontWeight: FontWeight.w500,
                   color: primaryColor),
               // all fields label
-              caption: TextStyle(
+              bodySmall: TextStyle(
                   fontSize: 12,
                   fontFamily: 'Satoshi',
                   fontWeight: FontWeight.w700,
                   color: primaryColor),
               // button text
-              button: TextStyle(
+              labelLarge: TextStyle(
                   fontSize: 16,
                   fontFamily: 'Satoshi',
                   fontWeight: FontWeight.w700,

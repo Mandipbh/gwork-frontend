@@ -89,11 +89,11 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                       padding: const EdgeInsets.only(bottom: 10),
                       child: Text(
                         tr('admin.sign_in.Code_confirmation'),
-                        style: Theme.of(context).textTheme.headline1,
+                        style: Theme.of(context).textTheme.displayLarge,
                       ),
                     ),
                     Text(tr('admin.sign_in.enter_digit'),
-                        style: Theme.of(context).textTheme.bodyText2),
+                        style: Theme.of(context).textTheme.bodyMedium),
                     const SizedBox(height: 20),
                     OTPTextField(
                         // controller: otpController,
@@ -108,7 +108,7 @@ class _CodeConfirmationScreenState extends State<CodeConfirmationScreen> {
                             focusBorderColor: const Color(0xffD3DCD7)),
                         fieldStyle: FieldStyle.box,
                         outlineBorderRadius: 12,
-                        style: Theme.of(context).textTheme.headline2!,
+                        style: Theme.of(context).textTheme.displayMedium!,
                         onChanged: (pin) {},
                         onCompleted: (pin) {
                           if (pin == otp) {

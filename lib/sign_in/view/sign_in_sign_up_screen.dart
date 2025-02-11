@@ -179,7 +179,7 @@ class _SignInSignUpScreenState extends State<SignInSignUpScreen> {
         Padding(
           padding: const EdgeInsets.only(right: 40),
           child: Text(tr('admin.sign_in.enter_your_phone_no_sign_up'),
-              style: Theme.of(context).textTheme.bodyText2),
+              style: Theme.of(context).textTheme.bodyMedium),
         ),
         const SizedBox(height: 20),
       ],

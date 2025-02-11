@@ -37,7 +37,7 @@ class RejectedApplicationScreen extends StatelessWidget {
           padding: const EdgeInsets.only(left: 16, top: 16),
           child: Text(
             tr('Professional.logIn.Application_rejected.Application_rejected'),
-            style: Theme.of(context).textTheme.headline1,
+            style: Theme.of(context).textTheme.displayLarge,
           ),
         ),
         Column(
@@ -63,13 +63,13 @@ class RejectedApplicationScreen extends StatelessWidget {
                       Text(
                         tr('Professional.logIn.Application_rejected.Your_application_has_been_declined'),
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headline3,
+                        style: Theme.of(context).textTheme.displaySmall,
                       ),
                       const SizedBox(height: 8),
                       Text(
                         tr('Professional.logIn.Application_rejected.We_can_not_allow_you_to_enter_the_platform_based_on_your_data'),
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headline5,
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
                     ],
                   ),

@@ -19,11 +19,11 @@ class UploadImageView extends StatelessWidget {
             padding: const EdgeInsets.only(top: 8),
             child: Text(
               'Add some images for your work',
-              style: Theme.of(context).textTheme.headline1,
+              style: Theme.of(context).textTheme.displayLarge,
             ),
           ),
           Text('The following fields are optional',
-              style: Theme.of(context).textTheme.bodyText2),
+              style: Theme.of(context).textTheme.bodyMedium),
           const SizedBox(height: 24),
           Expanded(
             child: Consumer<UploadImageProvider>(
@@ -71,7 +71,7 @@ class UploadImageView extends StatelessWidget {
                                         'Upload Photo'.toUpperCase(),
                                         style: Theme.of(context)
                                             .textTheme
-                                            .caption!
+                                            .bodySmall!
                                             .apply(color: primaryColor),
                                       ),
                                     ),

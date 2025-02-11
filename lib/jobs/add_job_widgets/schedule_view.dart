@@ -15,11 +15,11 @@ class ScheduleView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: Text(
               'Schedule',
-              style: Theme.of(context).textTheme.headline1,
+              style: Theme.of(context).textTheme.displayLarge,
             ),
           ),
           Text('Choose when do you want your job to be done.',
-              style: Theme.of(context).textTheme.bodyText2),
+              style: Theme.of(context).textTheme.bodyMedium),
           const SizedBox(height: 24),
           Container(
             height: 60,

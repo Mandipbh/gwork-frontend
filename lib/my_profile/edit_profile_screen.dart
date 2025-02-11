@@ -88,10 +88,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         widget.type == ProfileFieldType.password
                             ? 'Change Password'
                             : '$label',
-                        style: Theme.of(context).textTheme.headline1),
+                        style: Theme.of(context).textTheme.displayLarge),
                   ),
                   Text(description,
-                      style: Theme.of(context).textTheme.bodyText2),
+                      style: Theme.of(context).textTheme.bodyMedium),
                   const SizedBox(height: 40),
                   widget.type == ProfileFieldType.firstName
                       ? nameTextField(

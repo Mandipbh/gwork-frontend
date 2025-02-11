@@ -15,11 +15,11 @@ class PersonalInfoView extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 12),
             child: Text(
               tr('client.log_in.sign_up.Personal_info'),
-              style: Theme.of(context).textTheme.headline1,
+              style: Theme.of(context).textTheme.displayLarge,
             ),
           ),
           Text(tr('client.log_in.sign_up.Please_fill_all_the_fields'),
-              style: Theme.of(context).textTheme.bodyText2),
+              style: Theme.of(context).textTheme.bodyMedium),
           const SizedBox(height: 24),
           nameTextField(
               label: tr('client.log_in.sign_up.Name'),

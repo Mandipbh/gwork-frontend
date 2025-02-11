@@ -25,12 +25,12 @@ class _SummaryViewState extends State<SummaryView> {
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: Text(
                 'Summary',
-                style: Theme.of(context).textTheme.headline1,
+                style: Theme.of(context).textTheme.displayLarge,
               ),
             ),
             Text(
                 'Building restructuring, or even bigger title about what to do',
-                style: Theme.of(context).textTheme.headline3),
+                style: Theme.of(context).textTheme.displaySmall),
             const SizedBox(height: 24),
             Container(
               decoration: BoxDecoration(
@@ -55,7 +55,7 @@ class _SummaryViewState extends State<SummaryView> {
                         child: Center(
                             child: Text(
                           'Description',
-                          style: Theme.of(context).textTheme.subtitle1!.apply(
+                          style: Theme.of(context).textTheme.titleMedium!.apply(
                               color: isDescriptionSelected
                                   ? whiteF2F
                                   : primaryColor),
@@ -82,7 +82,7 @@ class _SummaryViewState extends State<SummaryView> {
                           child: Text('Gallery',
                               style: Theme.of(context)
                                   .textTheme
-                                  .subtitle1!
+                                  .titleMedium!
                                   .apply(
                                       color: !isDescriptionSelected
                                           ? Colors.white
@@ -270,7 +270,7 @@ class _SummaryViewState extends State<SummaryView> {
                     'Upload Photo'.toUpperCase(),
                     style: Theme.of(context)
                         .textTheme
-                        .caption!
+                        .bodySmall!
                         .apply(color: primaryColor),
                   ),
                 ),

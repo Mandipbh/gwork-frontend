@@ -102,7 +102,7 @@ class _JobListScreenState extends State<JobListScreen> {
       title: Text(tr(innerBoxIsScrolled ? 'Professional.logIn.Jobs.Jobs' : ''),
           style: Theme.of(context)
               .textTheme
-              .headline2!
+              .displayMedium!
               .apply(color: Colors.white)),
       background: Container(
           color: const Color(0xff1B1F1C),
@@ -125,7 +125,7 @@ class _JobListScreenState extends State<JobListScreen> {
                     backgroundColor: Colors.white,
                     radius: 24,
                     child: Text("ST",
-                        style: Theme.of(context).textTheme.headline1),
+                        style: Theme.of(context).textTheme.displayLarge),
                   ),
                   onTap: () {
                     Navigator.push(

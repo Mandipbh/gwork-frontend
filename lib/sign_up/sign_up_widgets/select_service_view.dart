@@ -24,11 +24,11 @@ class _SelectServiceViewState extends State<SelectServiceView> {
           padding: const EdgeInsets.only(top: 15, bottom: 8),
           child: Text(
             tr('client.log_in.sign_up.searching_for'),
-            style: Theme.of(context).textTheme.headline1,
+            style: Theme.of(context).textTheme.displayLarge,
           ),
         ),
         Text(tr('client.log_in.sign_up.select_options'),
-            style: Theme.of(context).textTheme.bodyText2),
+            style: Theme.of(context).textTheme.bodyMedium),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 16),
           child: SizedBox(
@@ -54,7 +54,7 @@ class _SelectServiceViewState extends State<SelectServiceView> {
                             alignment: Alignment.bottomCenter,
                             child: Text(
                               tr('client.log_in.sign_up.Provide_services'),
-                              style: Theme.of(context).textTheme.caption!.apply(
+                              style: Theme.of(context).textTheme.bodySmall!.apply(
                                   color: provideSelected
                                       ? Colors.white
                                       : primaryColor),
@@ -104,7 +104,7 @@ class _SelectServiceViewState extends State<SelectServiceView> {
                                 tr('client.log_in.sign_up.Require_services'),
                                 style: Theme.of(context)
                                     .textTheme
-                                    .caption!
+                                    .bodySmall!
                                     .apply(
                                         color: !provideSelected
                                             ? Colors.white

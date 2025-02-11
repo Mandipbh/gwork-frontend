@@ -80,12 +80,12 @@ class SplashScreen extends StatelessWidget {
                 Text('Powered by',
                     style: Theme.of(context)
                         .textTheme
-                        .bodyText1!
+                        .bodyLarge!
                         .apply(color: const Color(0xff7B8794))),
                 Text('Mokka Studios',
                     style: Theme.of(context)
                         .textTheme
-                        .bodyText1!
+                        .bodyLarge!
                         .apply(color: const Color(0xff26AB53))),
               ],
             ),

@@ -25,11 +25,11 @@ class _ProfilePictureViewState extends State<ProfilePictureView> {
           padding: const EdgeInsets.only(bottom: 12),
           child: Text(
               tr('Professional.logIn.onBoardingDocuments1.Profile_picture'),
-              style: Theme.of(context).textTheme.headline1),
+              style: Theme.of(context).textTheme.displayLarge),
         ),
         Text(
             tr('Professional.logIn.onBoardingDocuments1.Upload_a_picture_for_your_profile'),
-            style: Theme.of(context).textTheme.bodyText2),
+            style: Theme.of(context).textTheme.bodyMedium),
         const SizedBox(height: 20),
         Center(
           child: SizedBox(

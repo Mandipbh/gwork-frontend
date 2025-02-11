@@ -24,7 +24,7 @@ Widget submitButton(
         children: [
           Text(
             buttonName.toUpperCase(),
-            style: Theme.of(context).textTheme.button!.apply(color: textColor),
+            style: Theme.of(context).textTheme.labelLarge!.apply(color: textColor),
           ),
           const SizedBox(
             width: 8,
@@ -68,7 +68,7 @@ Widget previousAndNextButtons(
                             .toUpperCase(),
                         style: Theme.of(context)
                             .textTheme
-                            .button!
+                            .labelLarge!
                             .apply(color: primaryColor),
                       ),
                     ],
@@ -96,7 +96,7 @@ Widget previousAndNextButtons(
                         nextButtonName.toUpperCase(),
                         style: Theme.of(context)
                             .textTheme
-                            .button!
+                            .labelLarge!
                             .apply(color: Colors.white),
                       ),
                       const SizedBox(
@@ -125,7 +125,7 @@ Widget previousAndNextButtons(
                   nextButtonName.toUpperCase(),
                   style: Theme.of(context)
                       .textTheme
-                      .button!
+                      .labelLarge!
                       .apply(color: Colors.white),
                 ),
                 const SizedBox(

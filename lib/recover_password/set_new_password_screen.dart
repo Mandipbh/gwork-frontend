@@ -56,11 +56,11 @@ class _SetNewPasswordScreenState extends State<SetNewPasswordScreen> {
                       padding: const EdgeInsets.only(bottom: 12),
                       child: Text(
                         tr('admin.set_password'),
-                        style: Theme.of(context).textTheme.headline1,
+                        style: Theme.of(context).textTheme.displayLarge,
                       ),
                     ),
                     Text(tr("admin.choose_password"),
-                        style: Theme.of(context).textTheme.bodyText2),
+                        style: Theme.of(context).textTheme.bodyMedium),
                     const SizedBox(height: 40),
                     passwordTextField(
                         label: tr('admin.new_password'),

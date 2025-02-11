@@ -159,7 +159,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   backgroundColor: Colors.white,
                   radius: 25,
                   child:
-                      Text("ST", style: Theme.of(context).textTheme.headline1),
+                      Text("ST", style: Theme.of(context).textTheme.displayLarge),
                 ),
               )
             ],

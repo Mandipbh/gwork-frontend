@@ -1,9 +1,7 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:g_worker_app/chat/chat_screen.dart';
 import 'package:g_worker_app/colors.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import '../common/common_buttons.dart';
 
 class JobDetailsScreen extends StatefulWidget {

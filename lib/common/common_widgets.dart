@@ -39,13 +39,13 @@ void askForExit({
               Text(
                 title,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline2,
+                style: Theme.of(context).textTheme.displayMedium,
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 8, bottom: 16),
                 child: Text(description,
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyText2),
+                    style: Theme.of(context).textTheme.bodyMedium),
               ),
               const SizedBox(
                 height: 20,

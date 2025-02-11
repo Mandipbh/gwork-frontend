@@ -19,7 +19,7 @@ class UploadDocumentView extends StatelessWidget {
         children: [
           // const SizedBox(height: 16),
           Text(tr('client.log_in.sign_up.Upload_document'),
-              style: Theme.of(context).textTheme.headline1),
+              style: Theme.of(context).textTheme.displayLarge),
           const SizedBox(height: 15),
           DottedBorder(
             borderType: BorderType.Rect,
@@ -73,7 +73,7 @@ class UploadDocumentView extends StatelessWidget {
                                     height: 100, width: 100),
                                 Text(
                                     tr('Professional.logIn.onBoardingDocuments.Upload_Document'),
-                                    style: Theme.of(context).textTheme.caption),
+                                    style: Theme.of(context).textTheme.bodySmall),
                                 const SizedBox(height: 13),
                               ],
                             )

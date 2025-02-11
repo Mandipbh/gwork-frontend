@@ -37,10 +37,10 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: Text(tr('admin.sign_in.phone_number'),
-                        style: Theme.of(context).textTheme.headline1),
+                        style: Theme.of(context).textTheme.displayLarge),
                   ),
                   Text(tr('admin.sign_in.recover_password_enter_phone_no'),
-                      style: Theme.of(context).textTheme.bodyText2),
+                      style: Theme.of(context).textTheme.bodyMedium),
                   const SizedBox(height: 40),
                   phoneNumberTextField(
                       controller: TextEditingController(text: ' ')),

@@ -26,11 +26,11 @@ class _JobReasonViewState extends State<JobReasonView> {
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: Text(
               'What do you Need?',
-              style: Theme.of(context).textTheme.headline1,
+              style: Theme.of(context).textTheme.displayLarge,
             ),
           ),
           Text('Please select one of four options.',
-              style: Theme.of(context).textTheme.bodyText2),
+              style: Theme.of(context).textTheme.bodyMedium),
           const SizedBox(height: 24),
           SizedBox(
             height: MediaQuery.of(context).size.width * 0.44,
@@ -56,7 +56,7 @@ class _JobReasonViewState extends State<JobReasonView> {
                             alignment: Alignment.bottomCenter,
                             child: Text(
                               'Cleaning',
-                              style: Theme.of(context).textTheme.caption!.apply(
+                              style: Theme.of(context).textTheme.bodySmall!.apply(
                                   color: jobType == JobsType.cleaning
                                       ? Colors.white
                                       : primaryColor),
@@ -105,7 +105,7 @@ class _JobReasonViewState extends State<JobReasonView> {
                             child: Text('Babysitting',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .caption!
+                                    .bodySmall!
                                     .apply(
                                         color: jobType == JobsType.babySitting
                                             ? Colors.white
@@ -161,7 +161,7 @@ class _JobReasonViewState extends State<JobReasonView> {
                             alignment: Alignment.bottomCenter,
                             child: Text(
                               'Tutoring',
-                              style: Theme.of(context).textTheme.caption!.apply(
+                              style: Theme.of(context).textTheme.bodySmall!.apply(
                                   color: jobType == JobsType.tutoring
                                       ? Colors.white
                                       : primaryColor),
@@ -210,7 +210,7 @@ class _JobReasonViewState extends State<JobReasonView> {
                             child: Text('Handyman',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .caption!
+                                    .bodySmall!
                                     .apply(
                                         color: jobType == JobsType.handyman
                                             ? Colors.white

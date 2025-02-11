@@ -36,7 +36,7 @@ class PendingApplicationScreen extends StatelessWidget {
           padding: const EdgeInsets.only(left: 16, top: 16, bottom: 60),
           child: Text(
             tr('Professional.logIn.PendingApplication.Pending_application'),
-            style: Theme.of(context).textTheme.headline1,
+            style: Theme.of(context).textTheme.displayLarge,
           ),
         ),
         Center(
@@ -69,13 +69,13 @@ class PendingApplicationScreen extends StatelessWidget {
                     Text(
                       tr('Professional.logIn.PendingApplication.Your_application_has_been_submitted'),
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headline3,
+                      style: Theme.of(context).textTheme.displaySmall,
                     ),
                     const SizedBox(height: 8),
                     Text(
                       tr('Professional.logIn.PendingApplication.We_all_send_you_notification_when_it’s_approved'),
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headline5,
+                      style: Theme.of(context).textTheme.headlineSmall,
                     ),
                   ],
                 ),

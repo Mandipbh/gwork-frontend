@@ -15,11 +15,11 @@ class MoreInfoView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: Text(
               'More info',
-              style: Theme.of(context).textTheme.headline1,
+              style: Theme.of(context).textTheme.displayLarge,
             ),
           ),
           Text('The following fields are optional.',
-              style: Theme.of(context).textTheme.bodyText2),
+              style: Theme.of(context).textTheme.bodyMedium),
           const SizedBox(height: 24),
           multilineTextField(
               label: 'Describe the job', asset: 'message_text.png'),

@@ -16,11 +16,11 @@ class PaymentInfoView extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 12),
             child: Text(
               tr('client.log_in.sign_up.Paymen_method'),
-              style: Theme.of(context).textTheme.headline1,
+              style: Theme.of(context).textTheme.displayLarge,
             ),
           ),
           Text(tr('client.log_in.sign_up.add_payment_method'),
-              style: Theme.of(context).textTheme.bodyText2),
+              style: Theme.of(context).textTheme.bodyMedium),
           const SizedBox(height: 40),
           nameTextField(
               label: tr('client.log_in.sign_up.card_holder'),

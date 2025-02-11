@@ -136,7 +136,7 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
         title: Text(innerBoxIsScrolled ? 'Jobs' : '',
             style: Theme.of(context)
                 .textTheme
-                .headline2!
+                .displayMedium!
                 .apply(color: Colors.white)),
         background: Container(
           color: const Color(0xff1B1F1C),
@@ -167,7 +167,7 @@ class _ClientJobListScreenState extends State<ClientJobListScreen> {
                       backgroundColor: Colors.white,
                       radius: 24,
                       child: Text("ST",
-                          style: Theme.of(context).textTheme.headline1),
+                          style: Theme.of(context).textTheme.displayLarge),
                     ),
                   )
                 ],
